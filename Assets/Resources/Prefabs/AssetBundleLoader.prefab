@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1172525403492208625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 643031423532959951}
+  - component: {fileID: 454127496525487218}
+  - component: {fileID: 4444654928225320849}
+  - component: {fileID: 3403441864223141326}
+  - component: {fileID: 5978222654888337812}
+  - component: {fileID: 1681500078624644539}
+  m_Layer: 0
+  m_Name: AssetBundleLoader
+  m_TagString: AssetBundleLoader
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &643031423532959951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172525403492208625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &454127496525487218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172525403492208625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6d7038b1d45400b8bfa8b0f4c09874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storageAccountName: 
+  containerName: 
+  prefabName: 
+  bundleName: 
+  modelName: 
+  mobileMaterial: {fileID: 0}
+  downloadIndicatorText: {fileID: 0}
+  newPrefab: {fileID: 0}
+  resetPosition: {x: 0, y: 0, z: 0}
+  resetEulerAngles: {x: 0, y: 0, z: 0}
+  resetScale: {x: 0, y: 0, z: 0}
+--- !u!114 &4444654928225320849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172525403492208625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 0
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 3403441864223141326}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3403441864223141326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172525403492208625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d2b25a89db94ac3862e804c8ef6a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  User: 0
+  startingLocalPosition: {x: 0, y: 0, z: 0}
+  startingLocalRotation: {x: 0, y: 0, z: 0, w: 0}
+  startingScale: {x: 0, y: 0, z: 0}
+--- !u!114 &5978222654888337812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172525403492208625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0fbadc07be5d4192960d369179ffbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outcropTooltip: {fileID: 5258417753654271025, guid: 29e615a72266d41cb93d0e7effb0842a,
+    type: 3}
+  outcropFlag: {fileID: 5355059373806441425, guid: 6375c7e22a31548ddaac07f7ff409f08,
+    type: 3}
+--- !u!114 &1681500078624644539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172525403492208625}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c00f34567d891d4880303128cd92601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionIndicator: {fileID: 7553418310114429860, guid: d918d2f2edf9ad84792fe46a5fd58db7,
+    type: 3}
+  flagObject: {fileID: 5355059373806441425, guid: 6375c7e22a31548ddaac07f7ff409f08,
+    type: 3}
+  selected: 0
+  flagSelected: 0
