@@ -4,9 +4,10 @@ This repo is being revived from an archived **Unity 2019.4.8f1** state to a ship
 
 ## Start here
 
-1. **Read the epic:** https://github.com/fossettlab/xr-geoxplorer/issues/1 — it has the goal, the Quest-first decision principle, the dep graph, and a tree of 33 sub-issues. ~5 minutes.
-2. **Work the Pre-flight tickets in order:** #2 → #3 → #4. Everything in Phase 1 is blocked on these. Ticket #4 is a 5-minute `git tag` task, tagged `good first issue` as a warm-up.
-3. **Each ticket is self-contained.** File:line references against the current codebase, acceptance-criteria checkboxes, suggested approach with code patterns, doc links, and explicit out-of-scope. If anything is unclear, comment on the ticket before starting work.
+1. **Read the epic:** https://github.com/fossettlab/xr-geoxplorer/issues/1 — it has the goal, the Quest-first decision principle, the dep graph, and a tree of 34 sub-issues. ~5 minutes.
+2. **Read the Azure storage inventory:** [`docs/azure-storage-inventory.md`](docs/azure-storage-inventory.md) — what's deployed on Azure today, which 5 of 23 containers the runtime uses, and the bundle-structure finding that reshaped #6. ~5 minutes.
+3. **Work the Pre-flight tickets in order:** #2 → #3 → #4. Most of #2's archaeology is already done (see its body); the dev decision left there is small. Ticket #4 is a 5-minute `git tag` task, tagged `good first issue` as a warm-up.
+4. **Each ticket is self-contained.** File:line references against the current codebase, acceptance-criteria checkboxes, suggested approach with code patterns, doc links, and explicit out-of-scope. Tickets with `## Update YYYY-MM-DD` sections at the top have been revised since first filing — read those first, they supersede older framings in the body. If anything is unclear, comment on the ticket before starting work.
 
 ## Workflow
 
@@ -43,8 +44,8 @@ These are deliberately not in tickets — request them from the project lead bef
 
 | Need | When | What |
 |---|---|---|
-| **Azure subscription access** (Fossett Lab) | Phase 1 onward | Read access for the asset-bundle blob container; write access for staging blob + the Azure Function (#24). |
-| **`xr-geoxplorer-assets` repo** | Phase 1 (#2) | The AssetBundle build pipeline source; README claims it exists but isn't pushed — locating it is literally ticket #2. |
+| **Azure subscription access** (Fossett Lab) | Phase 1 onward | Read access for the `haringerverdiag` storage account (asset bundles + thumbnails + restricted); write access for staging blob + the Azure Function (#24). Account inventory: `docs/azure-storage-inventory.md`. |
+| **NAS access** (Fossett Lab) | Phase 1 (#6) | The 48 GB `GeoXAssetBundles` Unity project at `/mnt/nas/dev/fossett_xr_apps/GeoXAssetBundles/` holds source content for the bundle re-bake. Likely accessed via lab VPN or a one-time rsync. |
 | **Firebase project access** | Phase 4 (#24) | Read access to inventory existing data before audit-or-delete. |
 | **Meta Quest Developer org invite** | Phase 6 (#33) | For App Lab submission. |
 | **One Quest 3 device, ideally two** | Phase 1 (#10) onward | Two are needed for the networking spike (#22) and the HW smoke suite (#32). |
@@ -58,18 +59,19 @@ These are deliberately not in tickets — request them from the project lead bef
 
 ## Top risks (also in the epic)
 
-1. The `xr-geoxplorer-assets` repo not being pushed (#2) blocks #6 and therefore the HW smoke tests.
-2. Two custom shaders in #13 (`Blend2Textures.shader` fixed-function, `Planet.shader` Surface Shader) are URP **rewrites**, not conversions.
-3. The networking rewrite (#23) is genuinely large — 40 PunRPCs + Photon Voice migration + anchor-ID bridge.
-4. URP perf gate (#13) could fail on first attempt — keep the PR reversible.
-5. The March 2026 Meta deadline is hard.
+1. **Bundle-structure mismatch** (#6): the NAS pipeline outputs one bundle per category; deployed bundles are one per model. Dev writes a fresh pipeline matching the deployed shape — small Editor script, ~1–2 days. Details in #6 and `docs/azure-storage-inventory.md`.
+2. **Custom shader rewrites** in #13 (`Blend2Textures.shader` fixed-function, `Planet.shader` Surface Shader) are URP **rewrites**, not conversions.
+3. **Networking rewrite** (#23) is genuinely large — 40 PunRPCs + Photon Voice migration + anchor-ID bridge.
+4. **URP perf gate** (#13) could fail on first attempt — keep the PR reversible.
+5. **March 2026 Meta deadline** is hard external (targetSdkVersion 34 for new uploads).
 
 ## Decisions already made (do not re-litigate without raising it on #1)
 
 - **Networking:** Unity Netcode for GameObjects + Relay + Vivox (default). Fusion 2 as fallback if NGO can't hit Quest perf. Normcore dropped.
 - **Anchors:** Meta XR Core SDK Spatial Anchors / Building Blocks (default). AR Foundation OpenXR as fallback. 1-2 day spike validates inside #17.
-- **Auth backend:** signed Azure Function. Firebase Unity SDK only if a feature actually needs it.
+- **Auth backend:** signed Azure Function. Firebase Unity SDK only if a feature actually needs it. Same Function also issues SAS tokens for the `restricted` container (#37).
 - **Scene architecture:** one `GeoXShared.unity` with per-platform prefab variants. Ends the manual scene-swap workflow described in the old `README.txt`.
+- **AssetBundle pipeline:** the NAS `GeoXAssetBundles` project (Unity 2017.4) is reference, not runnable; the dev writes a fresh small pipeline in #6 that produces the per-model layout the runtime expects. See `docs/azure-storage-inventory.md` and #6.
 
 ## Questions
 
