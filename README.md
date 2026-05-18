@@ -3,7 +3,7 @@
 Canonical unified Meta Quest/HoloLens-2 + iOS/Android geoscience explorer.
 
 ## Status
-**Archived; modernization in progress.** Real source activity through
+**Modernization in progress.** Real source activity through
 September 2020; project-file regeneration October 2023 (no code changes);
 modernization to Unity 2022.3 / Meta Quest 3 began April 2026. See the
 modernization epic at
