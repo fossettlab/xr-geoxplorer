@@ -1,19 +1,24 @@
 # Azure Blob Storage inventory — `haringerverdiag`
 
-**Snapshot date:** 2026-05-17
+**Snapshot date:** 2026-05-18
 **Scan method:** authenticated audit of the live storage account
 **Account:** `haringerverdiag.blob.core.windows.net`
 **Type:** General Purpose v1 (GPv1), Standard, RA-GRS
 **Region:** Central US (secondary: East US 2)
 **Created:** 2018-09-26
 
-This file is a snapshot, not a live mirror. Update it whenever container contents change materially. Source of truth is the Azure portal.
+This file is a human-readable snapshot. The machine-readable inventory is committed alongside it:
+
+- [`azure-haringerverdiag-inventory.json`](azure-haringerverdiag-inventory.json) — full per-blob inventory with name, size, content-type, created/lastModified timestamps, access tier, and custom metadata. **This is the canonical source.**
+- [`azure-haringerverdiag-inventory.csv`](azure-haringerverdiag-inventory.csv) — same data, CSV form.
+
+Update both whenever container contents change materially. Source of truth is the Azure portal.
 
 ## At a glance
 
 - **23 containers**
 - **8,053 blobs**
-- **49.13 GB total**
+- **45.76 GB total**
 - Most content uploaded 2020–2021; one container has a 2022 addition (`geobase-outcrop`, 2022-05-25)
 - **13 of 23 containers are publicly readable** (Container-level access)
 - Account-level public read was configured at some point; no anonymous-block has been enforced
@@ -47,15 +52,33 @@ Relevant tickets:
 | `geoviewer-dem` | **Container (public)** | 10 | 142.73 MB | 2020-05-19 | 2020-05-19 | Sibling app |
 | `geoviewer-handsample` | **Container (public)** | 30 | 494.39 MB | 2020-05-19 | 2020-05-19 | Sibling app |
 | `geoviewer-hirise` | Blob (public per-blob) | 50 | 257.22 MB | 2020-05-19 | 2020-05-19 | Sibling app — HiRISE DTMs |
-| `geoviewer-outcrop` | **Container (public)** | 93 | 1.70 GB | 2020-05-19 | 2020-05-19 | Sibling app |
-| `handsample-assetbundles` | **Container (public)** | 60 | 1.05 GB | 2020-05-19 | 2020-05-19 | Legacy / non-prefixed bundles |
-| `outcrop-dem-assetbundles` | **Container (public)** | 121 | 4.97 GB | 2020-05-19 | 2020-05-19 | Legacy / non-prefixed bundles |
+| `geoviewer-outcrop` | **Container (public)** | 27 | 626 MB | 2020-05-19 | 2020-05-19 | Sibling app |
+| `handsample-assetbundles` | **Container (public)** | 60 | 445 MB | 2020-05-19 | 2020-05-19 | Legacy / non-prefixed bundles |
+| `outcrop-dem-assetbundles` | **Container (public)** | 70 | 719 MB | 2020-05-19 | 2020-05-19 | Legacy / non-prefixed bundles |
 | `production-crystallattice` | **Container (public)** | 48 | 109.85 MB | 2020-05-19 | 2020-05-19 | Raw source `.dae` (duplicate of `geobase-crystallattice`, but public) |
 | `production-dem` | **Container (public)** | 285 | 383.34 MB | 2020-05-19 | 2020-09-08 | Raw `.obj/.mtl/.jpg` sources |
 | `production-handsample` | **Container (public)** | 117 | 1.45 GB | 2020-05-19 | 2020-09-08 | Raw `.obj/.mtl` + textures |
 | `production-outcrop` | **Container (public)** | 128 | 2.24 GB | 2020-05-19 | 2022-05-25 | Raw `.obj/.mtl` + textures |
 | `tiledmodel` | Private | 1,633 | 200.78 MB | 2020-03-06 | 2020-03-09 | Cesium 3D Tiles (`.b3dm`) — non-Unity, web streaming |
 | `tiledmodel2` | Private | 1,751 | 226.04 MB | 2020-03-09 | 2020-03-10 | Cesium 3D Tiles, second dataset |
+
+## Source content for the AssetBundle re-bake (#6)
+
+The `production-*` containers hold raw source assets (`.obj` / `.mtl` / `.dae` / textures) that the modernization re-bake can pull from. They cover **4 of the 9 source categories**:
+
+| Category | Azure `production-*` | NAS-only |
+|---|---|---|
+| `archeology` | — | **NAS only** |
+| `architecture` | — | **NAS only** |
+| `arthistory` | — | **NAS only** |
+| `bio` | — | **NAS only** |
+| `crystallattice` | `production-crystallattice` (48 `.dae`) | |
+| `dem` | `production-dem` (285 blobs) | |
+| `drama` | — | **NAS only** |
+| `handsample` | `production-handsample` (117 blobs) | |
+| `outcrop` | `production-outcrop` (128 blobs) | |
+
+**Source-content access path for the contractor dev:** the NAS at `/mnt/nas/dev/fossett_xr_apps/GeoXAssetBundles/Assets/<Category>~/` has all 9 source categories. The 4 categories with Azure mirrors are a redundant backup. Practical recommendation: do a one-time rsync of all 9 categories from NAS to a working location at the start of #6 — single source of truth, covers everything. Fall back to `production-*` containers only if NAS access is delayed.
 
 ## What's actually used by the xr-geoxplorer runtime
 
