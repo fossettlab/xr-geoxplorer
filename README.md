@@ -1,6 +1,6 @@
 # xr-geoxplorer
 
-Canonical unified HoloLens-2 + iOS/Android geoscience explorer.
+Canonical unified Meta Quest/HoloLens-2 + iOS/Android geoscience explorer.
 
 ## Status
 **Archived; modernization in progress.** Real source activity through
