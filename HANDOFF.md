@@ -4,7 +4,7 @@ This repo is being revived from an archived **Unity 2019.4.8f1** state to a ship
 
 ## Start here
 
-1. **Read the epic:** https://github.com/fossettlab/xr-geoxplorer/issues/1 — it has the goal, the Quest-first decision principle, the dep graph, and a tree of 34 sub-issues. ~5 minutes.
+1. **Read the epic:** https://github.com/fossettlab/xr-geoxplorer/issues/1 — it has the goal, the Quest-first decision principle, the dep graph, and a tree of 36 sub-issues. ~5 minutes.
 2. **Read the Azure storage inventory:** [`docs/azure-storage-inventory.md`](docs/azure-storage-inventory.md) — what's deployed on Azure today, which 5 of 23 containers the runtime uses, and the bundle-structure finding that reshaped #6. ~5 minutes.
 3. **Work the Pre-flight tickets in order:** #2 → #3 → #4. Most of #2's archaeology is already done (see its body); the dev decision left there is small. Ticket #4 is a 5-minute `git tag` task, tagged `good first issue` as a warm-up.
 4. **Each ticket is self-contained.** File:line references against the current codebase, acceptance-criteria checkboxes, suggested approach with code patterns, doc links, and explicit out-of-scope. Tickets with `## Update YYYY-MM-DD` sections at the top have been revised since first filing — read those first, they supersede older framings in the body. If anything is unclear, comment on the ticket before starting work.
