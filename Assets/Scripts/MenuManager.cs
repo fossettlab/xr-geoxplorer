@@ -46,8 +46,8 @@ public class MenuManager : MonoBehaviour
     string platformType = "wsa";
 #elif UNITY_IOS
     string platformType = "ios";
-#elif UNITY_ANDROID
-    string platformTupe = "android";
+#else
+    string platformType = "android";
 #endif
 
     double numberOfRows;

@@ -8,7 +8,7 @@ public class UIEnterAndLeave : MonoBehaviourPunCallbacks
 #if UNITY_WSA
     public TextMeshPro UIText;
     public GameObject statusPanel;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI UIText;
     public CanvasGroup statusPanel;
 #endif
@@ -63,7 +63,7 @@ public class UIEnterAndLeave : MonoBehaviourPunCallbacks
                 statusStarted = false;
             }
 
-#elif UNITY_IOS || UNITY_ANDROID
+#else
             statusPanel.alpha = Mathf.Lerp(1, 0, t);
             if (t >= 1)
             {

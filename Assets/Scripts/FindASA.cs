@@ -11,7 +11,7 @@ public class FindASA : MonoBehaviour
 
 #if UNITY_WSA
     public TextMeshPro feedback;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI feedback;
 #endif
 

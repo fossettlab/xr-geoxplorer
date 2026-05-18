@@ -12,7 +12,7 @@ public class RoomListEntry : MonoBehaviour
     public TextMeshPro RoomNameText;
     public TextMeshPro RoomPlayersText;
     public Interactable JoinRoomButton;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI RoomNameText;
     public TextMeshProUGUI RoomPlayersText;
     public Button JoinRoomButton;
@@ -24,7 +24,7 @@ public class RoomListEntry : MonoBehaviour
     {
 #if UNITY_WSA
         JoinRoomButton.OnClick.AddListener(() =>
-#elif UNITY_IOS || UNITY_ANDROID
+#else
         JoinRoomButton.onClick.AddListener(() =>
 #endif
         {
