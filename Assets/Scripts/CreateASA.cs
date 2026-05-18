@@ -12,7 +12,7 @@ public class CreateASA : MonoBehaviour
 
 #if UNITY_WSA
     public TextMeshPro feedback;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI feedback;
 #endif
     CloudSpatialAnchor currentCloudAnchor;

@@ -23,7 +23,7 @@ public class FirebaseExchanger : MonoBehaviour
     public string anchorName { get; set; } //this is set by the UI Input Field
 #if UNITY_WSA
     public TextMeshPro feedback;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI feedback;
 #endif
 

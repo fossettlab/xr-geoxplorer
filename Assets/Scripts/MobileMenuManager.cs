@@ -47,8 +47,8 @@ public class MobileMenuManager : MonoBehaviour
     string platformType = "x86";
 #elif UNITY_IOS
     string platformType = "ios";
-#elif UNITY_ANDROID
-    string platformTupe = "android";
+#else
+    string platformType = "android";
 #endif
 
     public void OnMetaButtonSelect(string metaTypeIndex)
