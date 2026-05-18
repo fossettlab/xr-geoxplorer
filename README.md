@@ -15,6 +15,8 @@ Requires Unity **2019.4.8f1**. Uses MRTK 2.x, Photon PUN, Azure Spatial
 Anchors SDK. For modern revival: Unity 2022.3 LTS or Unity 6 + MRTK 3
 or OpenXR migration.
 
+The `legacy-2019.4` tag preserves the last known-buildable Unity 2019.4.8f1 state.
+
 ## Platform
 Multi-platform: HoloLens 2 (UWP) + iOS + Android (via AR Foundation and
 Azure Spatial Anchors for cross-device shared experiences).
