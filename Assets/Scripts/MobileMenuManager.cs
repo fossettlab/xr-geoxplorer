@@ -114,9 +114,10 @@ public class MobileMenuManager : MonoBehaviour
 
         UnityWebRequest uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
-        if (uwr.isNetworkError)
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            print("Error while sending: " + uwr.error);
+            Debug.LogError($"{uwr.error} ({uwr.url})");
+            yield break;
         }
         else
         {
@@ -312,9 +313,10 @@ public class MobileMenuManager : MonoBehaviour
         print(url);
         UnityWebRequest uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
-        if (uwr.isNetworkError)
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            print("Error while sending: " + uwr.error);
+            Debug.LogError($"{uwr.error} ({uwr.url})");
+            yield break;
         }
         else
         {
@@ -826,8 +828,9 @@ public class MobileMenuManager : MonoBehaviour
     {
         UnityWebRequest uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/" + indexType + "/" + prefabName + ".png");
         yield return uwrt.SendWebRequest();
-        if (uwrt.isNetworkError || uwrt.isHttpError)
+        if (uwrt.result != UnityWebRequest.Result.Success)
         {
+            Debug.LogError($"{uwrt.error} ({uwrt.url})");
             //buttonObject.GetComponent<Image>().sprite = placeholderSprite;
         }
         else

@@ -73,9 +73,9 @@ public class BuildGlobe : MonoBehaviour {
         {
             yield return uwr.SendWebRequest();
 
-            if (uwr.isNetworkError || uwr.isHttpError)
+            if (uwr.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(uwr.error);
+                Debug.LogError($"{uwr.error} ({uwr.url})");
             }
             else
             {
