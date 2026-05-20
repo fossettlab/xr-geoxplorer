@@ -10,7 +10,9 @@ using UnityEngine;
 
 #if UNITY_WSA
 using UnityEngine.XR;
+#if !UNITY_2020_2_OR_NEWER
 using UnityEngine.XR.WSA;
+#endif
 #endif // UNITY_WSA
 
 #if WINDOWS_UWP
@@ -342,7 +344,12 @@ namespace Microsoft.MixedReality.Toolkit.WindowsMixedReality.SpatialAwareness
         /// </summary>
         private void UpdateObserver()
         {
-            if (SpatialAwarenessSystem == null || HolographicSettings.IsDisplayOpaque || !XRDevice.isPresent) { return; }
+#if UNITY_2020_2_OR_NEWER
+            // TODO(#PLACEHOLDER-mrtk3): legacy WSA spatial mesh observer needs MRTK3/OpenXR replacement.
+            return;
+#else
+            if (SpatialAwarenessSystem == null || HolographicSettings.IsDisplayOpaque || !XRSubsystemHelpers.IsDisplaySubsystemRunning()) { return; }
+#endif
 
             using (UpdateObserverPerfMarker.Auto())
             {
@@ -562,7 +569,12 @@ namespace Microsoft.MixedReality.Toolkit.WindowsMixedReality.SpatialAwareness
                 }
 
                 // If we aren't using a HoloLens or there isn't an XR device present, return.
-                if (observer == null || HolographicSettings.IsDisplayOpaque || !XRDevice.isPresent) { return; }
+#if UNITY_2020_2_OR_NEWER
+                // TODO(#PLACEHOLDER-mrtk3): legacy WSA spatial mesh observer needs MRTK3/OpenXR replacement.
+                return;
+#else
+                if (observer == null || HolographicSettings.IsDisplayOpaque || !XRSubsystemHelpers.IsDisplaySubsystemRunning()) { return; }
+#endif
 
                 // The observer's origin is in world space, we need it in the camera's parent's space
                 // to set the volume. The MixedRealityPlayspace provides that space that the camera/head moves around in.

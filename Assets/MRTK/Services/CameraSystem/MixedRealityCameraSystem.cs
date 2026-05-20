@@ -56,7 +56,7 @@ namespace Microsoft.MixedReality.Toolkit.CameraSystem
                         currentDisplayType = DisplayType.Transparent;
                     }
                 }
-#if UNITY_WSA
+#if UNITY_WSA && !UNITY_2020_2_OR_NEWER
                 else
                 {
                     Debug.LogWarning("Windows Mixed Reality specific camera code has been moved into Windows Mixed Reality Camera Settings. Please ensure you have this added under your Camera System's Settings Providers, as this deprecated code path may be removed in a future update.");

@@ -337,6 +337,10 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Editor
         /// </summary>
         public static void ApplyXRSettings()
         {
+#if UNITY_2020_2_OR_NEWER
+            // TODO(#PLACEHOLDER-mrtk3): MRTK 2.4 uses legacy VR SDK APIs removed in modern Unity.
+            return;
+#else
             // Ensure compatibility with the pre-2019.3 XR architecture for customers / platforms
             // with legacy requirements.
 #pragma warning disable 0618
@@ -357,6 +361,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Editor
                 PlayerSettings.SetVirtualRealitySupported(targetGroup, true);
             }
 #pragma warning restore 0618
+#endif
         }
 
         private static bool GetCapability(PlayerSettings.WSACapability capability)

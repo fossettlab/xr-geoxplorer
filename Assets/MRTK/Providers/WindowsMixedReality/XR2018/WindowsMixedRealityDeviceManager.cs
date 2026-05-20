@@ -90,6 +90,10 @@ namespace Microsoft.MixedReality.Toolkit.WindowsMixedReality.Input
             }
             else
             {
+#if UNITY_2020_2_OR_NEWER
+                // TODO(#PLACEHOLDER-mrtk3): HolographicSettings was removed from UnityEngine.XR.WSA in modern Unity.
+                return capability == MixedRealityCapability.GGVHand;
+#else
                 if (!UnityEngine.XR.WSA.HolographicSettings.IsDisplayOpaque)
                 {
                     // HoloLens supports GGV hands
@@ -100,6 +104,7 @@ namespace Microsoft.MixedReality.Toolkit.WindowsMixedReality.Input
                     // Windows Mixed Reality immersive devices support motion controllers
                     return (capability == MixedRealityCapability.MotionController);
                 }
+#endif
             }
 
             return false;

@@ -36,7 +36,7 @@ PluginImporter:
       settings:
         CPU: AnyCPU
     WP8:
-      enabled: 1
+      enabled: 0
       settings:
         CPU: AnyCPU
         DontProcess: False
@@ -52,7 +52,7 @@ PluginImporter:
       settings:
         CPU: AnyCPU
     WindowsStoreApps:
-      enabled: 1
+      enabled: 0
       settings:
         CPU: AnyCPU
         DontProcess: False
