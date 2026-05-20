@@ -5,7 +5,9 @@ using Microsoft.MixedReality.Toolkit.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+#if !UNITY_2020_2_OR_NEWER
 using UnityBoundary = UnityEngine.Experimental.XR.Boundary;
+#endif
 
 namespace Microsoft.MixedReality.Toolkit.Boundary
 {
@@ -32,7 +34,7 @@ namespace Microsoft.MixedReality.Toolkit.Boundary
         /// <inheritdoc/>
         public override void Initialize()
         {
-            if (!Application.isPlaying || !XRDevice.isPresent) { return; }
+            if (!Application.isPlaying || !XRSubsystemHelpers.IsDisplaySubsystemRunning()) { return; }
 
             base.Initialize();
         }
@@ -42,6 +44,10 @@ namespace Microsoft.MixedReality.Toolkit.Boundary
         /// <inheritdoc/>
         protected override List<Vector3> GetBoundaryGeometry()
         {
+#if UNITY_2020_2_OR_NEWER
+            // TODO(#PLACEHOLDER-mrtk3): UnityEngine.Experimental.XR.Boundary was removed in modern Unity.
+            return null;
+#else
             // Boundaries are supported for Room Scale experiences only.
             if (XRDevice.GetTrackingSpaceType() != TrackingSpaceType.RoomScale)
             {
@@ -57,6 +63,7 @@ namespace Microsoft.MixedReality.Toolkit.Boundary
             }
 
             return boundaryGeometry;
+#endif
         }
 
         /// <summary>

@@ -4,7 +4,7 @@
 using Microsoft.MixedReality.Toolkit.CameraSystem;
 using Microsoft.MixedReality.Toolkit.Utilities;
 
-#if UNITY_WSA
+#if UNITY_WSA && !UNITY_2020_2_OR_NEWER
 using UnityEngine.XR.WSA;
 #endif // UNITY_WSA
 
@@ -34,7 +34,12 @@ namespace Microsoft.MixedReality.Toolkit.WindowsMixedReality
         /// <inheritdoc/>
         public override bool IsOpaque =>
 #if UNITY_WSA
+#if UNITY_2020_2_OR_NEWER
+            // TODO(#PLACEHOLDER-mrtk3): HolographicSettings was removed from UnityEngine.XR.WSA in modern Unity.
+            false;
+#else
             HolographicSettings.IsDisplayOpaque;
+#endif
 #else
             false;
 #endif

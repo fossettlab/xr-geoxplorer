@@ -54672,7 +54672,7 @@ MonoBehaviour:
   audioClip: {fileID: 0}
   loopAudioClip: 1
   reactOnSystemChanges: 0
-  autoStart: 1
+  autoStart: 0
   recordOnlyWhenEnabled: 0
   skipDeviceChangeChecks: 0
   stopRecordingWhenPaused: 0
