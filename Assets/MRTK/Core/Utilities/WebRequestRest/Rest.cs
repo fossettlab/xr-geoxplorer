@@ -241,7 +241,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
 
             await webRequest.SendWebRequest();
 
-            if (webRequest.isNetworkError || webRequest.isHttpError)
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
                 if (webRequest.responseCode == 401) { return new Response(false, "Invalid Credentials", null, webRequest.responseCode); }
 

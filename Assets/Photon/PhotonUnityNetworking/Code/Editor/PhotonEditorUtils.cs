@@ -235,11 +235,7 @@ namespace Photon.Pun
                 while (w.isDone == false)
                     yield return null;
 
-                #if UNITY_2017_1_OR_NEWER
-                if (w.isNetworkError || w.isHttpError)
-                #else
-                if (w.isError)
-                #endif
+                if (w.result == UnityWebRequest.Result.ConnectionError || w.result == UnityWebRequest.Result.ProtocolError)
                 {
                     if (errorCallback != null)
                     {
