@@ -134,7 +134,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
             newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
 
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (GeoXInput.PrimaryTouchPressedThisFrame)
             {
                 ConfirmAnchorPlacement();
             }

@@ -55,38 +55,37 @@ public class MobileManipulation : MonoBehaviour
     {
         var deadZone = 0.01; // mousewheel deadZone
 
-        if (Input.GetMouseButton(0))
+        if (GeoXInput.PrimaryPointerPressed)
         {
-            mouseX += Input.GetAxis("Mouse X") * X_MouseSensitivity;
-            mouseY -= Input.GetAxis("Mouse Y") * Y_MouseSensitivity;
+            Vector2 pointerDelta = GeoXInput.PointerDelta;
+            mouseX += pointerDelta.x * X_MouseSensitivity * 0.1f;
+            mouseY -= pointerDelta.y * Y_MouseSensitivity * 0.1f;
         }
 
         // this is where the mouseY is limited - Helper script
         mouseY = ClampAngle(mouseY, Y_MinLimit, Y_MaxLimit);
 
-        if (Input.GetMouseButtonDown(0))
+        if (GeoXInput.PrimaryPointerPressedThisFrame)
         {
-            lastPosition = Input.mousePosition;
+            lastPosition = GeoXInput.PointerPosition;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (GeoXInput.PrimaryPointerPressedThisFrame)
         {
-            lastPosition = Input.mousePosition;
+            lastPosition = GeoXInput.PointerPosition;
         }
 
-        if (Input.GetMouseButton(1))
+        if (GeoXInput.SecondaryPointerPressed)
         {
-            //targetX = Input.GetAxis("Mouse X") * X_MouseSensitivity;
-            //targetY = Input.GetAxis("Mouse Y") * Y_MouseSensitivity;
-
-            delta = Input.mousePosition - lastPosition;
+            delta = (Vector3)GeoXInput.PointerPosition - lastPosition;
         }
 
         // get Mouse Wheel Input
-        if (Input.GetAxis("Mouse ScrollWheel") < -deadZone || Input.GetAxis("Mouse ScrollWheel") > deadZone)
+        float scrollWheel = GeoXInput.ScrollWheelY;
+        if (scrollWheel < -deadZone || scrollWheel > deadZone)
         {
-            desiredDistance = Mathf.Clamp(Distance - (Input.GetAxis("Mouse ScrollWheel") * MouseWheelSensitivity),
-                                                                                DistanceMin, DistanceMax);
+            desiredDistance = Mathf.Clamp(Distance - (scrollWheel * MouseWheelSensitivity),
+                DistanceMin, DistanceMax);
         }
     }
 
@@ -117,7 +116,7 @@ public class MobileManipulation : MonoBehaviour
 
         //TargetLookAt.transform.Translate(targetX * 0.01f, targetY * 0.01f, 0);
         TargetLookAt.transform.Translate(delta.x * 0.005f, delta.y * 0.005f, 0);
-        lastPosition = Input.mousePosition;
+        lastPosition = GeoXInput.PointerPosition;
 
         transform.LookAt(TargetLookAt);
         TargetLookAt.transform.localEulerAngles = this.transform.localEulerAngles;
