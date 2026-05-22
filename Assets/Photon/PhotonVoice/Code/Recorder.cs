@@ -14,6 +14,9 @@
 
 using System;
 using System.Linq;
+#if UNITY_EDITOR_OSX
+using System.Runtime.InteropServices;
+#endif
 using POpusCodec.Enums;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -1035,6 +1038,14 @@ namespace Photon.Voice.Unity
                 }
                 return;
             }
+            if (IsAppleSiliconEditorWithoutNativeOpus())
+            {
+                if (this.Logger.IsWarningEnabled)
+                {
+                    this.Logger.LogWarning("Skipping Photon Voice recording in the Apple Silicon editor because the bundled macOS Opus plugin is x86_64-only.");
+                }
+                return;
+            }
             if (this.Logger.IsDebugEnabled)
             {
                 this.Logger.LogDebug("Starting recording");
@@ -1192,6 +1203,15 @@ namespace Photon.Voice.Unity
             this.isRecording = true;
             this.SendPhotonVoiceCreatedMessage();
             this.voice.TransmitEnabled = this.TransmitEnabled;
+        }
+
+        private static bool IsAppleSiliconEditorWithoutNativeOpus()
+        {
+#if UNITY_EDITOR_OSX
+            return RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
+#else
+            return false;
+#endif
         }
 
         private LocalVoice CreateLocalVoiceAudioAndSource()
