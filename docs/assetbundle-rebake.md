@@ -65,6 +65,9 @@ GeoXplorer > AssetBundles > Build > Build WSA
 GeoXplorer > AssetBundles > Build > Build Standalone
 GeoXplorer > AssetBundles > Build > Build All Ticket #6 Targets
 GeoXplorer > AssetBundles > Assemble Featured Bundles
+GeoXplorer > AssetBundles > Validate > Source Layout
+GeoXplorer > AssetBundles > Validate > Staging Output Against Manifest
+GeoXplorer > AssetBundles > Write Azure Upload Plan
 ```
 
 The assignment step scans each category folder for model assets with these
@@ -115,6 +118,7 @@ Arguments:
 -geoXSourceRoot=<Unity-visible source root>
 -geoXOutputRoot=<bundle output root>
 -geoXFeaturedModels=<path to FeaturedModels.txt>
+-geoXMetadataManifest=<path to docs/assetbundle-metadata-manifest.json>
 ```
 
 Environment variable alternatives:
@@ -123,7 +127,45 @@ Environment variable alternatives:
 GEOX_BUNDLE_SOURCE_ROOT
 GEOX_BUNDLE_OUTPUT_ROOT
 GEOX_FEATURED_MODELS
+GEOX_METADATA_MANIFEST
 ```
+
+## Local Validation
+
+Before baking, run the source-layout validation after the NAS content has been
+copied or mounted into the Unity project:
+
+```bash
+'/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -quit \
+  -projectPath '/Users/seanqin/Documents/Fossettlab' \
+  -executeMethod GeoXAssetBundlePipeline.ValidateSourceLayout \
+  -geoXSourceRoot=Assets \
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-source-layout.log
+```
+
+This fails if any required category is missing, any category has no model
+assets, or two assets would produce the same per-model bundle name.
+
+After baking, compare the local staging output to the committed Azure metadata
+manifest before uploading:
+
+```bash
+'/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -quit \
+  -projectPath '/Users/seanqin/Documents/Fossettlab' \
+  -executeMethod GeoXAssetBundlePipeline.ValidateStagingOutputAgainstManifest \
+  -geoXOutputRoot=/path/to/staging/AssetBundles \
+  -geoXMetadataManifest=docs/assetbundle-metadata-manifest.json \
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-manifest-check.log
+```
+
+This check compares bundle names for `android`, `ios`, and `wsa`. It does not
+require Azure credentials and intentionally ignores Unity's local `.manifest`
+files because those are build artifacts, not runtime blobs in the committed
+Azure inventory.
 
 ## Featured Assembly
 
@@ -224,9 +266,13 @@ Recommended staging procedure:
 
 1. Build bundles to a local staging output root.
 2. Compare the staging blob paths against `docs/assetbundle-metadata-manifest.json`.
-3. Upload to a staging Azure container or staging storage account.
-4. Apply custom blob metadata from the manifest during upload.
-5. Smoke-test one representative bundle from each category on Quest 3 first,
+3. Generate an upload plan with `GeoXplorer > AssetBundles > Write Azure Upload Plan`.
+   The plan is written to `<outputRoot>/azure-upload-plan.json` and contains
+   each local bundle path, target blob name, content type, and custom metadata
+   from the committed manifest.
+4. Upload to a staging Azure container or staging storage account.
+5. Apply custom blob metadata from the upload plan during upload.
+6. Smoke-test one representative bundle from each category on Quest 3 first,
    then Android mobile and HoloLens 2 if available.
 
 Materials may render magenta at this stage because URP-compatible bundles are
@@ -237,4 +283,7 @@ without exceptions.
 
 This repo-side scaffold does not read NAS content, query Azure, upload to Azure,
 or run hardware smoke tests by itself. Those steps require explicit access to
-external storage, credentials, and devices.
+external storage, credentials, and devices. What it can do locally is validate
+that the source folders are complete, assign per-model bundle names, build local
+bundles, assemble `geoxplorer-featured`, compare staging output against the
+manifest, and generate an upload plan for a later Azure staging upload.

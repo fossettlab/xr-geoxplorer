@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +11,9 @@ public static class GeoXAssetBundlePipeline
     private const string SourceRootArgument = "-geoXSourceRoot=";
     private const string OutputRootArgument = "-geoXOutputRoot=";
     private const string FeaturedModelsArgument = "-geoXFeaturedModels=";
+    private const string MetadataManifestArgument = "-geoXMetadataManifest=";
     private const string DefaultOutputRoot = "AssetBundles";
+    private const string DefaultMetadataManifestPath = "docs/assetbundle-metadata-manifest.json";
     private const string FeaturedPrefix = "geoxplorer-featured";
 
     private static readonly string[] SourceCategories =
@@ -40,6 +43,26 @@ public static class GeoXAssetBundlePipeline
     {
         int assignedCount = AssignPerModelBundleNames(GetSourceRoot());
         Debug.Log($"GeoX AssetBundle pipeline assigned {assignedCount} per-model bundle names.");
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Validate/Source Layout")]
+    public static void ValidateSourceLayout()
+    {
+        int modelCount = ValidateSourceLayout(GetSourceRoot());
+        Debug.Log($"GeoX AssetBundle pipeline found {modelCount} source model assets across all required categories.");
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Validate/Staging Output Against Manifest")]
+    public static void ValidateStagingOutputAgainstManifest()
+    {
+        ValidateStagingOutputAgainstManifest(GetOutputRoot(), GetMetadataManifestPath());
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Write Azure Upload Plan")]
+    public static void WriteAzureUploadPlan()
+    {
+        string planPath = WriteAzureUploadPlan(GetOutputRoot(), GetMetadataManifestPath());
+        Debug.Log($"GeoX AssetBundle pipeline wrote Azure upload plan to '{planPath}'.");
     }
 
     [MenuItem("GeoXplorer/AssetBundles/Build/Build Active Target")]
@@ -133,8 +156,7 @@ public static class GeoXAssetBundlePipeline
                     continue;
                 }
 
-                string modelName = Path.GetFileNameWithoutExtension(modelPath).ToLowerInvariant();
-                importer.assetBundleName = $"geoxplorer-{category}/{modelName}-bundle";
+                importer.assetBundleName = GetBundleName(category, modelPath);
                 importer.assetBundleVariant = string.Empty;
                 assignedCount++;
             }
@@ -143,6 +165,150 @@ public static class GeoXAssetBundlePipeline
         AssetDatabase.RemoveUnusedAssetBundleNames();
         AssetDatabase.SaveAssets();
         return assignedCount;
+    }
+
+    public static int ValidateSourceLayout(string sourceRoot)
+    {
+        if (string.IsNullOrEmpty(sourceRoot))
+        {
+            throw new ArgumentException("Source root is empty.", nameof(sourceRoot));
+        }
+
+        List<string> missingCategories = new List<string>();
+        List<string> emptyCategories = new List<string>();
+        Dictionary<string, string> bundleNameOwners = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        List<string> duplicateBundleNames = new List<string>();
+        int modelCount = 0;
+
+        foreach (string category in SourceCategories)
+        {
+            string categoryPath = FindCategoryPath(sourceRoot, category);
+            if (categoryPath == null)
+            {
+                missingCategories.Add(category);
+                continue;
+            }
+
+            List<string> modelPaths = EnumerateModelAssetPaths(categoryPath).ToList();
+            if (modelPaths.Count == 0)
+            {
+                emptyCategories.Add(category);
+                continue;
+            }
+
+            modelCount += modelPaths.Count;
+            foreach (string modelPath in modelPaths)
+            {
+                string bundleName = GetBundleName(category, modelPath);
+                if (bundleNameOwners.TryGetValue(bundleName, out string existingPath))
+                {
+                    duplicateBundleNames.Add($"{bundleName}: {existingPath}, {modelPath}");
+                }
+                else
+                {
+                    bundleNameOwners.Add(bundleName, modelPath);
+                }
+            }
+        }
+
+        if (missingCategories.Count > 0 || emptyCategories.Count > 0 || duplicateBundleNames.Count > 0)
+        {
+            string message =
+                "GeoX AssetBundle source validation failed." +
+                FormatProblemList("Missing categories", missingCategories) +
+                FormatProblemList("Empty categories", emptyCategories) +
+                FormatProblemList("Duplicate bundle names", duplicateBundleNames);
+            throw new InvalidOperationException(message);
+        }
+
+        return modelCount;
+    }
+
+    public static void ValidateStagingOutputAgainstManifest(string outputRoot, string metadataManifestPath)
+    {
+        JObject manifest = LoadMetadataManifest(metadataManifestPath);
+        JObject containers = (JObject)manifest["containers"];
+        List<string> problems = new List<string>();
+        int expectedCount = 0;
+
+        foreach (JProperty container in containers.Properties())
+        {
+            string platform = container.Name;
+            string platformOutputRoot = Path.Combine(outputRoot, platform);
+            HashSet<string> expectedNames = new HashSet<string>(
+                container.Value
+                    .Select(blob => blob.Value<string>("name"))
+                    .Where(name => !string.IsNullOrEmpty(name)),
+                StringComparer.OrdinalIgnoreCase);
+            HashSet<string> actualNames = GetStagingBundleNames(platformOutputRoot);
+            expectedCount += expectedNames.Count;
+
+            foreach (string missingName in expectedNames.Except(actualNames).Take(20))
+            {
+                problems.Add($"{platform}: missing {missingName}");
+            }
+
+            foreach (string unexpectedName in actualNames.Except(expectedNames).Take(20))
+            {
+                problems.Add($"{platform}: unexpected {unexpectedName}");
+            }
+        }
+
+        if (problems.Count > 0)
+        {
+            throw new InvalidOperationException(
+                "GeoX AssetBundle staging output does not match the metadata manifest." +
+                FormatProblemList("Problems", problems));
+        }
+
+        Debug.Log($"GeoX AssetBundle staging output matches {expectedCount} manifest bundle names.");
+    }
+
+    public static string WriteAzureUploadPlan(string outputRoot, string metadataManifestPath)
+    {
+        JObject manifest = LoadMetadataManifest(metadataManifestPath);
+        JObject containers = (JObject)manifest["containers"];
+        JObject planContainers = new JObject();
+
+        foreach (JProperty container in containers.Properties())
+        {
+            string platform = container.Name;
+            string platformOutputRoot = Path.Combine(outputRoot, platform);
+            JArray blobs = new JArray();
+
+            foreach (JToken blob in container.Value)
+            {
+                string blobName = blob.Value<string>("name");
+                string localPath = Path.Combine(platformOutputRoot, blobName);
+                if (!File.Exists(localPath))
+                {
+                    continue;
+                }
+
+                blobs.Add(new JObject
+                {
+                    ["name"] = blobName,
+                    ["sourcePath"] = localPath,
+                    ["contentType"] = blob.Value<string>("contentType") ?? "application/octet-stream",
+                    ["metadata"] = blob["metadata"]?.DeepClone() ?? new JObject()
+                });
+            }
+
+            planContainers[platform] = blobs;
+        }
+
+        JObject plan = new JObject
+        {
+            ["schemaVersion"] = 1,
+            ["sourceManifest"] = metadataManifestPath,
+            ["generatedAtUtc"] = DateTime.UtcNow.ToString("o"),
+            ["containers"] = planContainers
+        };
+
+        Directory.CreateDirectory(outputRoot);
+        string planPath = Path.Combine(outputRoot, "azure-upload-plan.json");
+        File.WriteAllText(planPath, plan.ToString());
+        return planPath;
     }
 
     private static void BuildForTarget(BuildTarget buildTarget, string outputFolderName)
@@ -255,7 +421,8 @@ public static class GeoXAssetBundlePipeline
             }
         }
 
-        string[] matches = Directory.GetFiles(platformFolder, normalized, SearchOption.AllDirectories)
+        string searchPattern = Path.GetFileName(normalized);
+        string[] matches = Directory.GetFiles(platformFolder, searchPattern, SearchOption.AllDirectories)
             .Where(path => !path.Contains($"{Path.DirectorySeparatorChar}{FeaturedPrefix}{Path.DirectorySeparatorChar}"))
             .ToArray();
 
@@ -302,6 +469,61 @@ public static class GeoXAssetBundlePipeline
         }
 
         return Path.Combine(GetOutputRoot(), "FeaturedModels.txt");
+    }
+
+    private static string GetMetadataManifestPath()
+    {
+        return GetArgumentValue(MetadataManifestArgument)
+            ?? Environment.GetEnvironmentVariable("GEOX_METADATA_MANIFEST")
+            ?? DefaultMetadataManifestPath;
+    }
+
+    private static JObject LoadMetadataManifest(string metadataManifestPath)
+    {
+        if (string.IsNullOrEmpty(metadataManifestPath) || !File.Exists(metadataManifestPath))
+        {
+            throw new FileNotFoundException("GeoX AssetBundle metadata manifest was not found.", metadataManifestPath);
+        }
+
+        JObject manifest = JObject.Parse(File.ReadAllText(metadataManifestPath));
+        if (manifest["containers"] == null)
+        {
+            throw new InvalidDataException($"GeoX AssetBundle metadata manifest '{metadataManifestPath}' has no containers object.");
+        }
+
+        return manifest;
+    }
+
+    private static HashSet<string> GetStagingBundleNames(string platformOutputRoot)
+    {
+        if (!Directory.Exists(platformOutputRoot))
+        {
+            return new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        return new HashSet<string>(
+            Directory.GetFiles(platformOutputRoot, "*", SearchOption.AllDirectories)
+                .Where(path => !path.EndsWith(".manifest", StringComparison.OrdinalIgnoreCase))
+                .Select(path => NormalizeSeparators(path.Substring(platformOutputRoot.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)))
+                .Where(path => path.StartsWith("geoxplorer-", StringComparison.OrdinalIgnoreCase)),
+            StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static string GetBundleName(string category, string modelPath)
+    {
+        string modelName = Path.GetFileNameWithoutExtension(modelPath).ToLowerInvariant();
+        return $"geoxplorer-{category}/{modelName}-bundle";
+    }
+
+    private static string FormatProblemList(string title, IEnumerable<string> problems)
+    {
+        List<string> problemList = problems.ToList();
+        if (problemList.Count == 0)
+        {
+            return string.Empty;
+        }
+
+        return $"{Environment.NewLine}{title}:{Environment.NewLine}- " + string.Join($"{Environment.NewLine}- ", problemList);
     }
 
     private static string GetArgumentValue(string prefix)
