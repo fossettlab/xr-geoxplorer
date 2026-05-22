@@ -22,6 +22,23 @@ public class TableAnchor : MonoBehaviour
             }
         }
         Debug.Log("Table Created");
-        DontDestroyOnLoad(this.gameObject);
+        GameObject persistentRoot = FindPersistentRoot();
+        if (persistentRoot.transform.parent != null)
+        {
+            persistentRoot.transform.SetParent(null, true);
+        }
+
+        DontDestroyOnLoad(persistentRoot);
+    }
+
+    private GameObject FindPersistentRoot()
+    {
+        Transform current = transform;
+        while (current.parent != null && !current.parent.name.StartsWith("PlatformRoot."))
+        {
+            current = current.parent;
+        }
+
+        return current.gameObject;
     }
 }
