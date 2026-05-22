@@ -31,8 +31,18 @@ public class GenericNetworkManager : MonoBehaviour
             }
         }
         Debug.Log("GNM Created");
-        DontDestroyOnLoad(this.gameObject);
+        PromoteToPersistentRoot();
 
+    }
+
+    private void PromoteToPersistentRoot()
+    {
+        if (transform.parent != null)
+        {
+            transform.SetParent(null, true);
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update

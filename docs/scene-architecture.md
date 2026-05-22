@@ -69,7 +69,9 @@ Platform-specific objects move behind a prefab tree:
 - `Assets/Prefabs/PlatformRoot/PlatformRoot.HoloLens2.prefab`
 - `Assets/Prefabs/PlatformRoot/PlatformRoot.Mobile.prefab`
 
-The variant prefabs currently exist as the migration scaffold. The next Unity Editor pass should move the appropriate root subtrees from the reference scenes into those variants:
+The variant prefabs currently exist as the migration scaffold. They copy the authored scene roots from the reference scenes, but intentionally omit the generated MRTK service roots such as `MixedRealityInputSystem` and `DefaultRaycastProvider`. Those generated MRTK objects register services in edit mode when serialized inside prefab assets, which dirties `GeoXShared.unity` before Play. The HoloLens 2 variant stores a `HoloLensMrtkRuntimeInitializer` profile reference instead of serializing `MixedRealityToolkit` directly; the initializer creates the toolkit as a normal scene object during Play so legacy MRTK `Interactable` controls can resolve their input actions without mutating the prefab asset. The rebuild helper also disables nested Photon `ApplyDontDestroyOnLoad` flags so generated prefabs do not warn when instantiated under `PlatformBootstrapper`. Later OpenXR/MRTK3 tickets own the final runtime rig.
+
+The next Unity Editor pass should move the appropriate non-MRTK root subtrees from the reference scenes into those variants:
 
 - Quest 3: start from the mobile/shared AR path, then replace runtime/input/anchor pieces in later OpenXR/MRTK3 tickets.
 - HoloLens 2: keep the Windows/MRTK2 provider path as a best-effort secondary variant until MRTK3 validation proves otherwise.
