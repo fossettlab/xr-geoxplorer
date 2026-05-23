@@ -71,14 +71,14 @@ The `production-*` containers hold raw source assets (`.obj` / `.mtl` / `.dae` /
 | `archeology` | — | **NAS only** |
 | `architecture` | — | **NAS only** |
 | `arthistory` | — | **NAS only** |
-| `bio` | — | **NAS only** |
+| `bio` | — | **missing** — no raw source on NAS (only pre-baked bundles + screenshots) |
 | `crystallattice` | `production-crystallattice` (48 `.dae`) | |
 | `dem` | `production-dem` (285 blobs) | |
 | `drama` | — | **NAS only** |
 | `handsample` | `production-handsample` (117 blobs) | |
 | `outcrop` | `production-outcrop` (128 blobs) | |
 
-**Source-content access path for the contractor dev:** the NAS at `/mnt/nas/dev/fossett_xr_apps/GeoXAssetBundles/Assets/<Category>~/` has all 9 source categories. The 4 categories with Azure mirrors are a redundant backup. Practical recommendation: do a one-time rsync of all 9 categories from NAS to a working location at the start of #6 — single source of truth, covers everything. Fall back to `production-*` containers only if NAS access is delayed.
+**Source-content access path for the contractor dev:** the NAS at `/mnt/nas/dev/fossett_xr_apps/GeoXAssetBundles/Assets/<Category>~/` holds the Unity-project source (with `.meta` import settings) for **8 of the 9** categories — all except `bio`, which has no raw source directory on the NAS (only previously-baked bundles under `AssetBundles/{android,ios,wsa}/bio/` and screenshots; the raw `bio` source appears not to have been preserved). The `production-*` Azure containers are **not** a bake substitute: they hold only raw `.obj`/`.mtl`/`.dae`/textures with **zero** Unity `.meta` files, and Unity needs the `.meta` GUIDs + import settings to rebuild bundles. The 8 available source categories are therefore staged to the private `geoxplorer-source` Azure container (single source of truth, ~7.4 GB); `bio` must be resolved separately (reuse the existing baked bundles, or locate the lost source).
 
 ## What's actually used by the xr-geoxplorer runtime
 

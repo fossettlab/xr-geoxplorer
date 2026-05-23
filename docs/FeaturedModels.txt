@@ -1,0 +1,12 @@
+geoxplorer-outcrop	alpine-bundle
+geoxplorer-outcrop	marinheadlands-bundle
+geoxplorer-outcrop	stackpole-bundle
+geoxplorer-dem	apollo11-bundle
+geoxplorer-dem	comptonbelk-bundle
+geoxplorer-dem	dteec_002486_1860_001985_1860_u01-bundle
+geoxplorer-handsample	gypsum-bundle
+geoxplorer-handsample	kyanite-bundle
+geoxplorer-handsample	mammoth-bundle
+geoxplorer-crystallattice	muscovite-bundle
+geoxplorer-crystallattice	olivine-bundle
+geoxplorer-crystallattice	apatite-bundle
