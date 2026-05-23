@@ -149,9 +149,20 @@ If those scenes are meant to be access-controlled (the name implies they are), t
 
 ### 3. The runtime depends on `thumbnails/FeaturedModels.txt`
 
-A 476-byte plain-text config file at the root of the `thumbnails` container drives the "featured" section of the app. This was not visible in the codebase grep because it's loaded at runtime — there's no path constant for it in source.
+A 476-byte plain-text config file at the root of the `thumbnails` container drives the "featured" section of the app. This was not visible in the codebase grep because it's loaded at runtime — there's no path constant for it in source. It is captured verbatim in this repo at [`FeaturedModels.txt`](FeaturedModels.txt).
 
-**Action:** include `FeaturedModels.txt` in #25 (RemoteConfig) scope so any URL move covers it. Back it up before any container rewrites.
+**The config is stale relative to the deployed featured bundles.** `FeaturedModels.txt` was last modified 2020-03-30; the deployed `geoxplorer-featured/*` bundles are from 2021-03-23 (a later bake). 10 of its 12 entries match the deployed set; **2 do not**:
+
+| `FeaturedModels.txt` entry | Deployed `geoxplorer-featured/*` |
+|---|---|
+| `geoxplorer-outcrop` → `alpine-bundle` | `outcrop/alpinefault-bundle` |
+| `geoxplorer-dem` → `dteec_002486_1860_001985_1860_u01-bundle` | `dem/dteec_003756_1825_004178_1825_a01-bundle` |
+
+For the #6 re-bake, the **deployed manifest (`assetbundle-metadata-manifest.json`) is canonical** for which models are featured — not `FeaturedModels.txt`. The captured file is preserved as the historical config; do not assume it matches deployment. The two drifted entries need reconciliation with the project lead (the file may simply predate a rename, or the 2021 bake used a newer list that was never written back to the blob).
+
+**Line endings:** the captured file has CRLF terminators (it is the verbatim Azure blob). Any consumer must trim `\r` (split on `\n` then strip) or normalize to LF before exact-match lookups, or it will compare `"alpine-bundle\r"`.
+
+**Action:** include `FeaturedModels.txt` in #25 (RemoteConfig) scope so any URL move covers it. For #6 featured assembly, source the featured list from the deployed manifest and reconcile the two drifted entries first.
 
 ## Other notes (informational, no ticket changes)
 
