@@ -141,9 +141,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         string roomName = RoomNameInputField.text;
         roomName = (roomName.Equals(string.Empty)) ? "Room " + UnityEngine.Random.Range(1000, 10000) : roomName;
 
-        byte maxPlayers;
-        byte.TryParse("0", out maxPlayers);
-        maxPlayers = (byte)Mathf.Clamp(maxPlayers, 0, 8);
+        byte maxPlayers = 8;
 
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
         print(roomName + " " + maxPlayers);
