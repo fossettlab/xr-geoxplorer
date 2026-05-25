@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Newtonsoft.Json;
-using System.Net;
 using System.Text;
 using UnityEngine.Networking;
 using TMPro;
@@ -18,6 +17,7 @@ public class FirebaseExchanger : MonoBehaviour
     //Private variables
     List<AzureSpatialAnchorObject> anchorObjects = new List<AzureSpatialAnchorObject>();
     bool conflictFound;
+    bool anchorsLoaded;
 
     //Public variables
     public string anchorName { get; set; } //this is set by the UI Input Field
@@ -38,21 +38,35 @@ public class FirebaseExchanger : MonoBehaviour
     //Script to put (overwrite) the anchor selection on Firebase
     public void PutAnchors(string anchorIdentifier, DateTime expiration)
     {
+        StartCoroutine(PutAnchorsRoutine(anchorIdentifier, expiration));
+    }
+
+    IEnumerator PutAnchorsRoutine(string anchorIdentifier, DateTime expiration)
+    {
+        while (!anchorsLoaded)
+        {
+            yield return null;
+        }
+
         AzureSpatialAnchorObject anchorObject = new AzureSpatialAnchorObject();
         anchorObject.name = anchorName;
-        anchorObject.identifier = anchorIdentifier; //Guid.NewGuid().ToString(); //This will be the ASA identifier
+        anchorObject.identifier = anchorIdentifier;
         anchorObject.dateCreated = DateTime.Now;
-        anchorObject.dateExpired = expiration; //this is the time set by the ASA expiration
+        anchorObject.dateExpired = expiration;
 
         anchorObjects.Add(anchorObject);
         var json = JsonConvert.SerializeObject(anchorObjects);
+        byte[] buffer = Encoding.UTF8.GetBytes(json);
 
-        var request = WebRequest.CreateHttp("https://flasasharing.firebaseio.com/anchors.json");
-        request.Method = "PUT";
-        request.ContentType = "application/json";
-        var buffer = Encoding.UTF8.GetBytes(json);
-        request.ContentLength = buffer.Length;
-        request.GetRequestStream().Write(buffer, 0, buffer.Length);
+        using (UnityWebRequest uwr = UnityWebRequest.Put("https://flasasharing.firebaseio.com/anchors.json", buffer))
+        {
+            uwr.SetRequestHeader("Content-Type", "application/json");
+            yield return uwr.SendWebRequest();
+            if (uwr.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"Failed to upload anchors to Firebase: {uwr.error}");
+            }
+        }
     }
 
     //Finds anchor name in stored anchor list
@@ -98,6 +112,8 @@ public class FirebaseExchanger : MonoBehaviour
                 }
             }
         }
+
+        anchorsLoaded = true;
     }
 
     public bool CheckForNameConflict(string potentialName)
