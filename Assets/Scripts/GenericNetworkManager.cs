@@ -26,8 +26,8 @@ public class GenericNetworkManager : MonoBehaviour
         {
             if (GenericNetworkManager.instance != this)
             {
-                Destroy(GenericNetworkManager.instance.gameObject);
-                GenericNetworkManager.instance = this;
+                Destroy(this.gameObject);
+                return;
             }
         }
         Debug.Log("GNM Created");
