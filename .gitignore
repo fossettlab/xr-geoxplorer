@@ -77,6 +77,20 @@ mono_crash.*
 *.unitypackage.meta
 *.app
 
+# GeoXplorer AssetBundle re-bake inputs/outputs
+/[Aa]sset[Bb]undles/
+/[Aa]ssets/[Gg]eo[Xx][Ss]ource/
+/[Aa]ssets/[Gg]eo[Xx][Ss]ource.meta
+/[Aa]ssets/[Aa]rcheology~/
+/[Aa]ssets/[Aa]rchitecture~/
+/[Aa]ssets/[Aa]rthistory~/
+/[Aa]ssets/[Bb]io~/
+/[Aa]ssets/[Cc]rystallattice~/
+/[Aa]ssets/[Dd]em~/
+/[Aa]ssets/[Dd]rama~/
+/[Aa]ssets/[Hh]andsample~/
+/[Aa]ssets/[Oo]utcrop~/
+
 # Crashlytics generated file
 crashlytics-build.properties
 
