@@ -22,7 +22,7 @@ public class TableAnchor : MonoBehaviour
             }
         }
         Debug.Log("Table Created");
-        GameObject persistentRoot = FindPersistentRoot();
+        GameObject persistentRoot = FindSharedContentPersistenceRoot();
         if (persistentRoot.transform.parent != null)
         {
             persistentRoot.transform.SetParent(null, true);
@@ -31,14 +31,25 @@ public class TableAnchor : MonoBehaviour
         DontDestroyOnLoad(persistentRoot);
     }
 
-    private GameObject FindPersistentRoot()
+    private GameObject FindSharedContentPersistenceRoot()
     {
         Transform current = transform;
-        while (current.parent != null && !current.parent.name.StartsWith("PlatformRoot."))
+        while (current.parent != null)
         {
+            if (IsPlatformRootName(current.parent.name))
+            {
+                // Persist shared spawned content across Photon scene reloads, but let the active platform rig rebuild.
+                return current.gameObject;
+            }
+
             current = current.parent;
         }
 
         return current.gameObject;
+    }
+
+    private static bool IsPlatformRootName(string objectName)
+    {
+        return objectName == "PlatformRoot" || objectName.StartsWith("PlatformRoot.");
     }
 }

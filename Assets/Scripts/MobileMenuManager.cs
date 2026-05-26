@@ -830,7 +830,7 @@ public class MobileMenuManager : MonoBehaviour
         yield return uwrt.SendWebRequest();
         if (uwrt.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError($"{uwrt.error} ({uwrt.url})");
+            Debug.LogWarning($"{uwrt.error} ({uwrt.url})");
             //buttonObject.GetComponent<Image>().sprite = placeholderSprite;
         }
         else

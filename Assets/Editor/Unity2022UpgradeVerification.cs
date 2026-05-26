@@ -41,8 +41,6 @@ public static class Unity2022UpgradeVerification
             return;
         }
 
-        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-        EditorApplication.update += OnEditorUpdate;
         EditorApplication.isPlaying = true;
     }
 
