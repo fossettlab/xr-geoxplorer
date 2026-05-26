@@ -47,7 +47,8 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 
 #endif
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.tag == "AssetBundleLoader" && !GameObject.FindGameObjectWithTag("OutcropTooltip"))
+            FetchAssetBundle assetBundleLoader = Physics.Raycast(ray, out hit) ? hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>() : null;
+            if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == "AssetBundleLoader" && !GameObject.FindGameObjectWithTag("OutcropTooltip"))
             {
                 Vector3 hitPosition = hit.transform.InverseTransformPoint(hit.point);
                 //Vector3 hitPosition = hit.point;
@@ -379,13 +380,14 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
         }
 
 
-        if (hitObject.GetComponentInParent<FetchAssetBundle>().gameObject.tag == "AssetBundleLoader" && !GameObject.FindGameObjectWithTag("OutcropTooltip"))
+        FetchAssetBundle assetBundleLoader = hitObject.GetComponentInParent<FetchAssetBundle>();
+        if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == "AssetBundleLoader" && !GameObject.FindGameObjectWithTag("OutcropTooltip"))
         {
             Vector3 hitPosition = hitObject.transform.InverseTransformPoint(hitPos);
             Vector3 hitNormal = hitObject.transform.InverseTransformPoint(hitNorm);
 
             //PhotonView photonView = PhotonView.Get(this);
-            PhotonView photonView = hitObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
+            PhotonView photonView = assetBundleLoader.gameObject.GetComponent<PhotonView>();
             photonView.RPC("CreateABTooltipAtLoc", RpcTarget.All, hitPosition, hitNormal, hitObject.name, photonView.ViewID);
         }
         else if (hitObject.name == "TooltipHideButton")
@@ -459,6 +461,12 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
         else if (hitObject.name == "TooltipInspectButton")
         {
             InspectorModelObject[] modelInspector = Resources.FindObjectsOfTypeAll<InspectorModelObject>();
+            if (modelInspector.Length == 0)
+            {
+                Debug.LogError("InspectorModelObject not found in scene; cannot open model inspector.");
+                return;
+            }
+
             Transform modelInspectorTransform = modelInspector[0].transform;
             foreach (Transform child in modelInspectorTransform)
             {

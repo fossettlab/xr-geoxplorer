@@ -77,9 +77,23 @@ public class FetchAssetBundle : MonoBehaviour
         request = UnityWebRequestAssetBundle.GetAssetBundle(uri, 0);
         yield return request.SendWebRequest();
         requestStarted = false;
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError($"Asset bundle download failed: {request.error} ({uri})");
+            lobbyManager.HideDownloadState();
+            yield break;
+        }
+
         print(prefabName);
         loadingStarted = true;
         AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
+        if (bundle == null)
+        {
+            Debug.LogError($"Asset bundle content was null after download ({uri})");
+            loadingStarted = false;
+            lobbyManager.HideDownloadState();
+            yield break;
+        }
         var assetLoadRequest = bundle.LoadAssetAsync<GameObject>(prefabName);
         yield return assetLoadRequest;
         loadingStarted = false;
@@ -112,13 +126,14 @@ public class FetchAssetBundle : MonoBehaviour
 
 
             Bounds newBounds = GetChildRendererBounds(this.gameObject);
-            if (newBounds.size.x > newBounds.size.z)
+            float dominantExtent = Mathf.Max(newBounds.size.x, newBounds.size.z);
+            if (dominantExtent > Mathf.Epsilon)
             {
-                this.transform.localScale /= (newBounds.size.x / 2);
+                this.transform.localScale /= (dominantExtent / 2f);
             }
             else
             {
-                this.transform.localScale /= (newBounds.size.z / 2);
+                Debug.LogWarning($"Skipping scale normalization for {prefabName}: model has no measurable renderer bounds.");
             }
 
             resetPosition = this.transform.localPosition;

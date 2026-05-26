@@ -17,8 +17,8 @@ public class TableAnchor : MonoBehaviour
         {
             if (TableAnchor.instance != this)
             {
-                Destroy(TableAnchor.instance.gameObject);
-                TableAnchor.instance = this;
+                Destroy(this.gameObject);
+                return;
             }
         }
         Debug.Log("Table Created");

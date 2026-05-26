@@ -55,17 +55,18 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
         {
             if (PV.IsMine && User)
             {
-                //The user is the camera view point, so we need to Photon User to move with the Camera
-                //Moreso since the Camera's movement is what moves the user, getting the users localposition does nothing. 
-                //it is the cameras localposition we need.
-
-                //stream.SendNext(mainCamera.transform.localPosition - TableAnchor.instance.transform.position);
-                //stream.SendNext(mainCamera.transform.localRotation * Quaternion.Inverse(TableAnchor.instance.transform.localRotation));
-                //stream.SendNext(mainCamera.transform.localPosition);
-                //stream.SendNext(mainCamera.transform.localRotation);
-                stream.SendNext(TableAnchor.instance.transform.InverseTransformPoint(mainCamera.transform.localPosition));
-                stream.SendNext(Quaternion.Inverse(TableAnchor.instance.transform.rotation) * mainCamera.transform.rotation);
-                stream.SendNext(transform.localScale);
+                if (TableAnchor.instance == null || mainCamera == null)
+                {
+                    stream.SendNext(transform.localPosition);
+                    stream.SendNext(transform.localRotation);
+                    stream.SendNext(transform.localScale);
+                }
+                else
+                {
+                    stream.SendNext(TableAnchor.instance.transform.InverseTransformPoint(mainCamera.transform.localPosition));
+                    stream.SendNext(Quaternion.Inverse(TableAnchor.instance.transform.rotation) * mainCamera.transform.rotation);
+                    stream.SendNext(transform.localScale);
+                }
             }
             else
             {
