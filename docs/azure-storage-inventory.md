@@ -64,21 +64,37 @@ Relevant tickets:
 
 ## Source content for the AssetBundle re-bake (#6)
 
-The `production-*` containers hold raw source assets (`.obj` / `.mtl` / `.dae` / textures) that the modernization re-bake can pull from. They cover **4 of the 9 source categories**:
+Bradley's 2026-05-25 update supersedes the earlier NAS-only blocker: the
+Unity-importable source assets are now staged in a private Azure container named
+`geoxplorer-source`, with `.meta` import settings preserved. The staged source
+covers **8 of the 9 source categories**:
 
-| Category | Azure `production-*` | NAS-only |
-|---|---|---|
-| `archeology` | — | **NAS only** |
-| `architecture` | — | **NAS only** |
-| `arthistory` | — | **NAS only** |
-| `bio` | — | **missing** — no raw source on NAS (only pre-baked bundles + screenshots) |
-| `crystallattice` | `production-crystallattice` (48 `.dae`) | |
-| `dem` | `production-dem` (285 blobs) | |
-| `drama` | — | **NAS only** |
-| `handsample` | `production-handsample` (117 blobs) | |
-| `outcrop` | `production-outcrop` (128 blobs) | |
+| Category | Re-bake source status |
+|---|---|
+| `archeology` | staged in `geoxplorer-source` |
+| `architecture` | staged in `geoxplorer-source` |
+| `arthistory` | staged in `geoxplorer-source` |
+| `bio` | raw source missing; reuse pre-baked bundles or locate source separately |
+| `crystallattice` | staged in `geoxplorer-source` |
+| `dem` | staged in `geoxplorer-source` |
+| `drama` | staged in `geoxplorer-source` |
+| `handsample` | staged in `geoxplorer-source` |
+| `outcrop` | staged in `geoxplorer-source` |
 
-**Source-content access path for the contractor dev:** the NAS at `/mnt/nas/dev/fossett_xr_apps/GeoXAssetBundles/Assets/<Category>~/` holds the Unity-project source (with `.meta` import settings) for **8 of the 9** categories — all except `bio`, which has no raw source directory on the NAS (only previously-baked bundles under `AssetBundles/{android,ios,wsa}/bio/` and screenshots; the raw `bio` source appears not to have been preserved). The `production-*` Azure containers are **not** a bake substitute: they hold only raw `.obj`/`.mtl`/`.dae`/textures with **zero** Unity `.meta` files, and Unity needs the `.meta` GUIDs + import settings to rebuild bundles. The 8 available source categories are therefore staged to the private `geoxplorer-source` Azure container (single source of truth, ~7.4 GB); `bio` must be resolved separately (reuse the existing baked bundles, or locate the lost source).
+The `production-*` containers are not a substitute for this re-bake source drop:
+they contain raw `.obj` / `.mtl` / texture files without the Unity `.meta` import
+settings needed to reproduce the deployed bundles. The new Unity 2022.3 Editor
+pipeline should build the 8 available source categories first and keep the `bio`
+gap explicit instead of blocking the whole bake.
+
+Local validation against the downloaded private source drop found that the
+category folders exist, but manifest coverage is not yet production-equivalent.
+The preserved `.meta` files map the full deployed `architecture`, Android/iOS
+`arthistory`, Android/iOS `drama`, and `outcrop` bundles, but large portions of
+`dem`, `crystallattice`, `handsample`, and `archeology` still do not resolve to
+source entry assets. Treat this as a remaining #6 source-coverage question, not a
+runtime-code issue: the Unity 2022 pipeline now reports the exact missing
+manifest bundle names before baking.
 
 ## What's actually used by the xr-geoxplorer runtime
 
