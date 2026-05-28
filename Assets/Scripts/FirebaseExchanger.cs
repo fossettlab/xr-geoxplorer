@@ -18,6 +18,7 @@ public class FirebaseExchanger : MonoBehaviour
     List<AzureSpatialAnchorObject> anchorObjects = new List<AzureSpatialAnchorObject>();
     bool conflictFound;
     bool anchorsLoaded;
+    bool anchorsFetchSucceeded;
 
     //Public variables
     public string anchorName { get; set; } //this is set by the UI Input Field
@@ -46,6 +47,12 @@ public class FirebaseExchanger : MonoBehaviour
         while (!anchorsLoaded)
         {
             yield return null;
+        }
+
+        if (!anchorsFetchSucceeded)
+        {
+            Debug.LogError("Refusing to upload anchors: initial Firebase download did not succeed.");
+            yield break;
         }
 
         AzureSpatialAnchorObject anchorObject = new AzureSpatialAnchorObject();
@@ -88,32 +95,47 @@ public class FirebaseExchanger : MonoBehaviour
     public IEnumerator FetchCurrentAnchors()
     {
         conflictFound = false;
+        anchorsFetchSucceeded = false;
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
-        using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
+        try
         {
-            yield return uwr.SendWebRequest();
-
-            //feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloaded anchor data");
-            //feedback.text = string.Format("{0}\n{1}", feedback.text, uwr.downloadHandler.text);
-
-            //Continue if there are anchors stored, otherwise there's no point doing any more
-            if (uwr.downloadHandler.text != "null")
+            using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
             {
-                List<AzureSpatialAnchorObject> downloadedAnchors = JsonConvert.DeserializeObject<List<AzureSpatialAnchorObject>>(uwr.downloadHandler.text);
-                //feedback.text = string.Format("{0}\n{1}", feedback.text, downloadedAnchors.Count + " Anchors Stored on Firebase:");
-                foreach (var anchor in downloadedAnchors)
+                yield return uwr.SendWebRequest();
+
+                if (uwr.result != UnityWebRequest.Result.Success)
                 {
-                    //Check if anchor has expired - if it has it's not added to the anchorObjects list and so when a new list is uploaded it won't be included
-                    if (anchor.dateExpired > DateTime.Now)
+                    Debug.LogError($"Failed to download anchors from Firebase: {uwr.error}");
+                    yield break;
+                }
+
+                string responseText = uwr.downloadHandler.text;
+                if (!string.IsNullOrEmpty(responseText) && responseText != "null")
+                {
+                    List<AzureSpatialAnchorObject> downloadedAnchors = JsonConvert.DeserializeObject<List<AzureSpatialAnchorObject>>(responseText);
+                    if (downloadedAnchors != null)
                     {
-                        anchorObjects.Add(anchor);
-                        //feedback.text = string.Format("{0}\n{1}", feedback.text, anchor.name);
+                        foreach (var anchor in downloadedAnchors)
+                        {
+                            if (anchor.dateExpired > DateTime.Now)
+                            {
+                                anchorObjects.Add(anchor);
+                            }
+                        }
                     }
                 }
+
+                anchorsFetchSucceeded = true;
             }
         }
-
-        anchorsLoaded = true;
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to parse anchors from Firebase: {ex.Message}");
+        }
+        finally
+        {
+            anchorsLoaded = true;
+        }
     }
 
     public bool CheckForNameConflict(string potentialName)
