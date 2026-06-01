@@ -100,7 +100,13 @@ public class FetchAssetBundle : MonoBehaviour
         lobbyManager.HideDownloadState();
 
         GameObject prefab = assetLoadRequest.asset as GameObject;
-        Transform prefabTransform = prefab.transform;
+        if (prefab == null)
+        {
+            Debug.LogError($"Prefab '{prefabName}' was not found in asset bundle ({uri})");
+            lobbyManager.HideDownloadState();
+            yield break;
+        }
+
         newPrefab = Instantiate(prefab, objectStage);
         newPrefab.name = prefabName;
         newPrefab.tag = "AssetBundle";
