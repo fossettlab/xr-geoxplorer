@@ -1,0 +1,18 @@
+name: C# Lint
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  yield-in-try-catch:
+    name: yield-in-try-with-catch (CS1626)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Lint Assets/ for yield-in-try-with-catch
+        run: dotnet run --project tools/yield-lint -- Assets

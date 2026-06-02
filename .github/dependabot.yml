@@ -1,0 +1,18 @@
+# Dependabot version updates.
+# Note: Unity package dependencies (Packages/manifest.json, UPM) are NOT a
+# Dependabot-supported ecosystem, so they are not tracked here — those updates
+# are handled manually / via the modernization tickets. The ecosystems below
+# are the ones Dependabot can actually see in this repo.
+version: 2
+updates:
+  # GitHub Actions used in .github/workflows/* (security + version bumps).
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  # NuGet dependency of the yield-lint CI tool (Roslyn).
+  - package-ecosystem: nuget
+    directory: /tools/yield-lint
+    schedule:
+      interval: weekly
