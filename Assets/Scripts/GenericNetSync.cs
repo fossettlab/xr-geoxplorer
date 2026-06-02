@@ -63,7 +63,7 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
                 }
                 else
                 {
-                    stream.SendNext(TableAnchor.instance.transform.InverseTransformPoint(mainCamera.transform.localPosition));
+                    stream.SendNext(TableAnchor.instance.transform.InverseTransformPoint(mainCamera.transform.position));
                     stream.SendNext(Quaternion.Inverse(TableAnchor.instance.transform.rotation) * mainCamera.transform.rotation);
                     stream.SendNext(transform.localScale);
                 }
@@ -99,8 +99,22 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
 
         if (PV.IsMine && User)
         {
-            transform.position = Camera.main.transform.localPosition;
-            transform.rotation = Camera.main.transform.localRotation;
+            Camera activeCamera = mainCamera != null ? mainCamera : Camera.main;
+            if (activeCamera == null)
+            {
+                return;
+            }
+
+            if (TableAnchor.instance != null)
+            {
+                transform.localPosition = TableAnchor.instance.transform.InverseTransformPoint(activeCamera.transform.position);
+                transform.localRotation = Quaternion.Inverse(TableAnchor.instance.transform.rotation) * activeCamera.transform.rotation;
+            }
+            else
+            {
+                transform.position = activeCamera.transform.position;
+                transform.rotation = activeCamera.transform.rotation;
+            }
         }
     }
 
