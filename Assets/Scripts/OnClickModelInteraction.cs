@@ -37,7 +37,6 @@ public class OnClickModelInteraction : MonoBehaviour, IMixedRealityPointerHandle
         }
         else if (selected && flagSelected)
         {
-#if UNITY_WSA
             GazeProvider gazeProvider = Camera.main != null ? Camera.main.GetComponent<GazeProvider>() : null;
             if (gazeProvider == null || gazeProvider.HitInfo.transform == null)
             {
@@ -52,7 +51,6 @@ public class OnClickModelInteraction : MonoBehaviour, IMixedRealityPointerHandle
             Vector3 hitNormal = hitObject.transform.InverseTransformPoint(hitNorm);
             PhotonView photonView = hitObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
             OnFlagCreate(hitPosition, hitNormal, hitObject.name, photonView.ViewID);
-#endif
         }
     }
 
