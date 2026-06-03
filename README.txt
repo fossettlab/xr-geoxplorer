@@ -19,13 +19,7 @@ Visual Studio 19
 ****IMPORTANT****
 ****DO THIS BEFORE STARTING****
 
-There is only one scene to build for any platform - GeoXShared. This is because Photon requires the same scene name.
-
-When first using the project after downloading, replace the GeoXShared scene contents of GeoXShared with that of the build platform you want to build for. This would be either 'HoloLens' (For HoloLens 1 or 2) or 'MobileMRTK' (for iOS or Android). This should be the latest versions of the scene hierarchy.
-
-After working on development for a particular platform, save any GeoXShared changes in the respective platform scene.
-
-Push any scene changes for the platform scenes. DO NOT push scene changes to GeoXShared. The GeoXShared scene will always remain local to your machine(s).
+There is only one scene to build for any platform - GeoXShared. This is because Photon requires the same scene name. Platform-specific scene content is loaded through PlatformRoot prefab variants by the PlatformBootstrapper component in GeoXShared.
 
 Also do not share the ProjectSettings.asset and the EditorBuildSettings.asset or any ProjectVersion.txt file as this can lead to recompile issues across different platforms. Use the project settings that work for the platform of choice.
 

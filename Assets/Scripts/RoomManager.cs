@@ -18,7 +18,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
 #if UNITY_WSA
     public TextMeshPro directionText;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI directionText;
     public Image panelImage;
 #endif

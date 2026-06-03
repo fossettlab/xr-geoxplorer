@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+#if false
 // Making calls from the Unity editor is not currently supported.
 // These stubs are here to prevent the editor from reporting compilation errors.
 //

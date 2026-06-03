@@ -32,6 +32,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
         {
             if (IsBuildTargetOpenVR())
             {
+#if !UNITY_2020_2_OR_NEWER
                 // Ensure compatibility with the pre-2019.3 XR architecture for customers / platforms
                 // with legacy requirements.
 #pragma warning disable 0618
@@ -40,6 +41,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
                 {
                     return true;
                 }
+#endif
             }
             else if (IsBuildTargetUWP())
             {
@@ -69,11 +71,13 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
         {
             if (IsBuildTargetOpenVR())
             {
+#if !UNITY_2020_2_OR_NEWER
                 // Ensure compatibility with the pre-2019.3 XR architecture for customers / platforms
                 // with legacy requirements.
 #pragma warning disable 0618
                 PlayerSettings.VROculus.sharedDepthBuffer = enableDepthBuffer;
 #pragma warning restore 0618
+#endif
             }
             else if (IsBuildTargetUWP())
             {
@@ -111,12 +115,14 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
         {
             int depthFormat = set16BitDepthBuffer ? 0 : 1;
 
+#if !UNITY_2020_2_OR_NEWER
             // Ensure compatibility with the pre-2019.3 XR architecture for customers / platforms
             // with legacy requirements.
 #pragma warning disable 0618
             PlayerSettings.VRCardboard.depthFormat = depthFormat;
             PlayerSettings.VRDaydream.depthFormat = depthFormat;
 #pragma warning restore 0618
+#endif
 
             var playerSettings = GetSettingsObject("PlayerSettings");
 #if UNITY_2019_1_OR_NEWER

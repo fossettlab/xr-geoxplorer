@@ -22,6 +22,34 @@ public class TableAnchor : MonoBehaviour
             }
         }
         Debug.Log("Table Created");
-        DontDestroyOnLoad(this.gameObject);
+        GameObject persistentRoot = FindSharedContentPersistenceRoot();
+        if (persistentRoot.transform.parent != null)
+        {
+            persistentRoot.transform.SetParent(null, true);
+        }
+
+        DontDestroyOnLoad(persistentRoot);
+    }
+
+    private GameObject FindSharedContentPersistenceRoot()
+    {
+        Transform current = transform;
+        while (current.parent != null)
+        {
+            if (IsPlatformRootName(current.parent.name))
+            {
+                // Persist shared spawned content across Photon scene reloads, but let the active platform rig rebuild.
+                return current.gameObject;
+            }
+
+            current = current.parent;
+        }
+
+        return current.gameObject;
+    }
+
+    private static bool IsPlatformRootName(string objectName)
+    {
+        return objectName == "PlatformRoot" || objectName.StartsWith("PlatformRoot.");
     }
 }

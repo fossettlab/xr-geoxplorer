@@ -39,7 +39,7 @@ TextureImporter:
       213: 21300022
     second: AppBarDone
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -56,9 +56,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -67,12 +70,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -90,10 +93,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -105,6 +113,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
@@ -117,6 +126,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 3
@@ -129,6 +139,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
@@ -152,7 +163,7 @@ TextureImporter:
       spriteID: 3aaebbfe1b1ed894baaf290a0e28a920
       internalID: 21300000
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -173,7 +184,7 @@ TextureImporter:
       spriteID: 26addba9314810547bbb0e2a8c793613
       internalID: 21300002
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -194,7 +205,7 @@ TextureImporter:
       spriteID: 05167ba8d6e7bc5478c99e27bd913228
       internalID: 21300004
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -215,7 +226,7 @@ TextureImporter:
       spriteID: 787599179eca5234987aa3ca23deeadf
       internalID: 21300006
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -236,7 +247,7 @@ TextureImporter:
       spriteID: 6c6ea30ad1339374aa15ed5979bbcb2d
       internalID: 21300008
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -257,7 +268,7 @@ TextureImporter:
       spriteID: 1df6181f51868e84dbac4a8d270aae8b
       internalID: 21300010
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -278,7 +289,7 @@ TextureImporter:
       spriteID: 0026dfb271859fb4fa937c00e9aabf0b
       internalID: 21300012
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -299,7 +310,7 @@ TextureImporter:
       spriteID: 8c935c2eaa96ef648b08373883b5210f
       internalID: 21300014
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -320,7 +331,7 @@ TextureImporter:
       spriteID: fa969a38e138adf4faf57131d0ad13ab
       internalID: 21300016
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -341,7 +352,7 @@ TextureImporter:
       spriteID: 39f2fe2140f48a849985dbb9caaacb11
       internalID: 21300018
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -362,7 +373,7 @@ TextureImporter:
       spriteID: 96297f4cb07cf1e4e829ea22b4e70b42
       internalID: 21300020
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     - serializedVersion: 2
@@ -383,7 +394,7 @@ TextureImporter:
       spriteID: 9cdec5d612c7c1c4c909a78e71708a37
       internalID: 21300022
       vertices: []
-      indices: 
+      indices:
       edges: []
       weights: []
     outline: []
@@ -392,13 +403,25 @@ TextureImporter:
     spriteID: c743a046b6a02784cba9c1bb182ce1c9
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      AppBarAdjust: 21300000
+      AppBarClose: 21300002
+      AppBarDone: 21300022
+      AppBarHide: 21300004
+      AppBarShow: 21300006
+      ButtonFollowMe: 21300008
+      ButtonHandJoint: 21300010
+      ButtonHandMesh: 21300012
+      ButtonHandRay: 21300014
+      ButtonHome: 21300016
+      ButtonPin: 21300018
+      ButtonProfiler: 21300020
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 1
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

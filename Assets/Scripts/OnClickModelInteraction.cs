@@ -37,17 +37,16 @@ public class OnClickModelInteraction : MonoBehaviour, IMixedRealityPointerHandle
         }
         else if (selected && flagSelected)
         {
+            GazeProvider gazeProvider = Camera.main != null ? Camera.main.GetComponent<GazeProvider>() : null;
+            if (gazeProvider == null || gazeProvider.HitInfo.transform == null)
+            {
+                Debug.LogWarning("Cannot create model flag because no MRTK gaze hit is available.");
+                return;
+            }
 
-            //Vector3 hitPos = Camera.main.GetComponent<GazeProvider>().GazePointer.Position;
-            //Vector3 hitNorm = Camera.main.GetComponent<GazeProvider>().GazePointer.Rotation.eulerAngles;
-            //GameObject hitObject = Camera.main.GetComponent<GazeProvider>().GazePointer.FocusTarget;
-
-
-
-
-            Vector3 hitPos = Camera.main.GetComponent<GazeProvider>().HitPosition;
-            Vector3 hitNorm = Camera.main.GetComponent<GazeProvider>().HitNormal;
-            GameObject hitObject = Camera.main.GetComponent<GazeProvider>().HitInfo.transform.gameObject;
+            Vector3 hitPos = gazeProvider.HitPosition;
+            Vector3 hitNorm = gazeProvider.HitNormal;
+            GameObject hitObject = gazeProvider.HitInfo.transform.gameObject;
             Vector3 hitPosition = hitObject.transform.InverseTransformPoint(hitPos);
             Vector3 hitNormal = hitObject.transform.InverseTransformPoint(hitNorm);
             PhotonView photonView = hitObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();

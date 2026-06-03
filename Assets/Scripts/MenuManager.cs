@@ -46,8 +46,8 @@ public class MenuManager : MonoBehaviour
     string platformType = "wsa";
 #elif UNITY_IOS
     string platformType = "ios";
-#elif UNITY_ANDROID
-    string platformTupe = "android";
+#else
+    string platformType = "android";
 #endif
 
     double numberOfRows;
@@ -106,9 +106,10 @@ public class MenuManager : MonoBehaviour
         print(url);
         UnityWebRequest uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
-        if (uwr.isNetworkError)
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            print("Error while sending: " + uwr.error);
+            Debug.LogError($"{uwr.error} ({uwr.url})");
+            yield break;
         }
         else
         {
@@ -463,8 +464,9 @@ public class MenuManager : MonoBehaviour
         {
             uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/outcrop/" + buttonObject.GetComponent<ButtonObjectType>().outcropObject.prefabName + ".png");
             yield return uwrt.SendWebRequest();
-            if (uwrt.isNetworkError || uwrt.isHttpError)
+            if (uwrt.result != UnityWebRequest.Result.Success)
             {
+                Debug.LogWarning($"{uwrt.error} ({uwrt.url})");
                 //buttonObject.GetComponent<Image>().sprite = placeholderSprite;
             }
             else
@@ -478,8 +480,9 @@ public class MenuManager : MonoBehaviour
         {
             uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/dem/" + buttonObject.GetComponent<ButtonObjectType>().demObject.prefabName + ".png");
             yield return uwrt.SendWebRequest();
-            if (uwrt.isNetworkError || uwrt.isHttpError)
+            if (uwrt.result != UnityWebRequest.Result.Success)
             {
+                Debug.LogWarning($"{uwrt.error} ({uwrt.url})");
                 //buttonObject.GetComponent<Image>().sprite = placeholderSprite;
             }
             else
@@ -493,8 +496,9 @@ public class MenuManager : MonoBehaviour
         {
             uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/handsample/" + buttonObject.GetComponent<ButtonObjectType>().handSampleObject.prefabName + ".png");
             yield return uwrt.SendWebRequest();
-            if (uwrt.isNetworkError || uwrt.isHttpError)
+            if (uwrt.result != UnityWebRequest.Result.Success)
             {
+                Debug.LogWarning($"{uwrt.error} ({uwrt.url})");
                 //buttonObject.GetComponent<Image>().sprite = placeholderSprite;
             }
             else
@@ -508,8 +512,9 @@ public class MenuManager : MonoBehaviour
         {
             uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/crystallattice/" + buttonObject.GetComponent<ButtonObjectType>().crystalLatticeObject.prefabName + ".png");
             yield return uwrt.SendWebRequest();
-            if (uwrt.isNetworkError || uwrt.isHttpError)
+            if (uwrt.result != UnityWebRequest.Result.Success)
             {
+                Debug.LogWarning($"{uwrt.error} ({uwrt.url})");
                 //buttonObject.GetComponent<Image>().sprite = placeholderSprite;
             }
             else

@@ -4,7 +4,9 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
 using System;
 using UnityEngine;
+#if UNITY_WSA && !UNITY_2020_2_OR_NEWER
 using UnityEngine.XR.WSA;
+#endif
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.Utilities
 {
@@ -310,7 +312,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Utilities
             gazeToPlane.Normalize();
             planePosition = gazeOrigin + (gazeToPlane * currentPlaneDistance);
 
-#if UNITY_WSA
+#if UNITY_WSA && !UNITY_2020_2_OR_NEWER
             // Ensure compatibility with the pre-2019.3 XR architecture for customers / platforms
             // with legacy requirements.
 #pragma warning disable 0618
@@ -353,7 +355,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Utilities
 #if UNITY_EDITOR
             debugPlane.Center = planePosition;
             debugPlane.Normal = -gazeDirection;
-#elif UNITY_WSA
+#elif UNITY_WSA && !UNITY_2020_2_OR_NEWER
 #pragma warning disable 0618
             HolographicSettings.SetFocusPointForFrame(planePosition, -gazeDirection, Vector3.zero);
 #pragma warning restore 0618
@@ -378,7 +380,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.Utilities
 #if UNITY_EDITOR
             debugPlane.Center = planePosition;
             debugPlane.Normal = -gazeNormal;
-#elif UNITY_WSA
+#elif UNITY_WSA && !UNITY_2020_2_OR_NEWER
 #pragma warning disable 0618
             HolographicSettings.SetFocusPointForFrame(planePosition, -gazeNormal, Vector3.zero);
 #pragma warning restore 0618

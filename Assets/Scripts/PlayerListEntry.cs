@@ -16,7 +16,7 @@ public class PlayerListEntry : MonoBehaviour
 #if UNITY_WSA
     public TextMeshPro PlayerNameText;
     public Interactable PlayerReadyButton;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI PlayerNameText;
     public Button PlayerReadyButton;
 #endif
@@ -44,7 +44,7 @@ public class PlayerListEntry : MonoBehaviour
             PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
             PhotonNetwork.LocalPlayer.SetScore(0);
 
-#if UNITY_IOS || UNITY_ANDROID
+#if !UNITY_WSA
             PlayerReadyButton.onClick.AddListener(() =>
 #elif UNITY_WSA
             PlayerReadyButton.OnClick.AddListener(() =>
@@ -85,7 +85,7 @@ public class PlayerListEntry : MonoBehaviour
             {
 #if UNITY_WSA
                 PlayerColorImage.GetComponent<Renderer>().material.color = GeoXSession.GetColor(p.GetPlayerNumber());
-#elif UNITY_IOS || UNITY_ANDROID
+#else
                 PlayerColorImage.GetComponent<Image>().color = GeoXSession.GetColor(p.GetPlayerNumber());
 #endif
             }
@@ -96,7 +96,7 @@ public class PlayerListEntry : MonoBehaviour
     {
 #if UNITY_WSA
         PlayerReadyButton.GetComponentInChildren<TextMesh>().text = playerReady ? "Ready!" : "Ready?";
-#elif UNITY_IOS || UNITY_ANDROID
+#else
         PlayerReadyButton.GetComponentInChildren<TextMeshProUGUI>().text = playerReady ? "Ready!" : "Ready?";
 #endif
         //PlayerReadyImage.enabled = playerReady;

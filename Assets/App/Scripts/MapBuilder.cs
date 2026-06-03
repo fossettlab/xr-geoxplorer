@@ -20,7 +20,7 @@ public class MapBuilder : MonoBehaviour
 #if UNITY_WSA
     public TextMeshPro LatLabel;
     public TextMeshPro LonLabel;
-#elif UNITY_IOS || UNITY_ANDROID
+#else
     public TextMeshProUGUI LatLabel;
     public TextMeshProUGUI LonLabel;
 #endif
