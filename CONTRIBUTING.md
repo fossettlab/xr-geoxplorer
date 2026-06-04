@@ -54,6 +54,8 @@ The Android build requires repository secrets:
 
 Maintainers must configure those secrets in GitHub before the Android gate can pass. UWP/HoloLens CI is intentionally not included for v1 because HoloLens 2 is best-effort and hosted UWP build cost is not justified yet.
 
+Fork pull requests cannot access repository secrets. In that case, the Android build workflow reports a notice and skips the Unity build until a maintainer runs it from a trusted branch or merge context.
+
 ## Unity Analyzers
 
 This repo includes `Microsoft.Unity.Analyzers` under:
