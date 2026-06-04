@@ -1,0 +1,72 @@
+name: Android Unity Build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android-build:
+    name: Android compile gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      HAS_UNITY_CREDENTIALS: ${{ secrets.UNITY_LICENSE != '' && secrets.UNITY_EMAIL != '' && secrets.UNITY_PASSWORD != '' }}
+      IS_FORK_PULL_REQUEST: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+
+    # Repository maintainers must configure UNITY_LICENSE, UNITY_EMAIL, and
+    # UNITY_PASSWORD secrets before this gate can build. GitHub does not expose
+    # secrets to fork pull requests, so fork PRs emit a notice and skip the
+    # Unity build until a maintainer runs it from a trusted repo context.
+    # UWP/HoloLens CI is intentionally omitted for v1 because HL2 is best-effort
+    # and hosted UWP runner/licensing cost is not justified yet.
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Report skipped fork build
+        if: ${{ env.HAS_UNITY_CREDENTIALS != 'true' && env.IS_FORK_PULL_REQUEST == 'true' }}
+        run: |
+          echo "::notice::Unity license secrets are unavailable to fork pull requests, so the Android build is skipped for this run."
+          echo "A maintainer can run this workflow from a trusted branch after configuring UNITY_LICENSE, UNITY_EMAIL, and UNITY_PASSWORD."
+
+      - name: Require Unity credentials
+        if: ${{ env.HAS_UNITY_CREDENTIALS != 'true' && env.IS_FORK_PULL_REQUEST != 'true' }}
+        run: |
+          echo "::error::UNITY_LICENSE, UNITY_EMAIL, and UNITY_PASSWORD must be configured for the Android Unity build."
+          exit 1
+
+      - name: Cache Unity Library
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-Android-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            Library-Android-
+            Library-
+
+      - name: Build Android player
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2022.3.62f2
+          targetPlatform: Android
+          buildsPath: build
+          buildName: GeoXplorer
+          allowDirtyBuild: false
