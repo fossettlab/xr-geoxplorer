@@ -123,9 +123,13 @@ public class FirebaseExchanger : MonoBehaviour
                                     anchorObjects.Add(anchor);
                                 }
                             }
-                        }
 
-                        anchorsFetchSucceeded = true;
+                            anchorsFetchSucceeded = true;
+                        }
+                        else
+                        {
+                            Debug.LogError("Firebase anchors response was not a JSON array; refusing to upload.");
+                        }
                     }
                     catch (Exception ex)
                     {

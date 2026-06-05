@@ -27,16 +27,23 @@ if (!Directory.Exists(target))
 int total = 0;
 foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.AllDirectories))
 {
-    foreach ((int line, string snippet) in FindViolations(File.ReadAllText(path)))
+    string source = File.ReadAllText(path);
+    foreach ((int line, string snippet) in FindViolations(source))
     {
         Console.WriteLine($"{path}:{line}: CS1626 — `yield` inside a try block with a catch clause: {snippet}");
+        total++;
+    }
+
+    foreach ((int line, string snippet) in FindForbiddenSceneLoads(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: scene-load — {snippet}");
         total++;
     }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch violations found."
-    : $"yield-lint: {total} violation(s) found — these will not compile (CS1626).");
+    ? "yield-lint: no yield-in-try-with-catch or forbidden scene-load violations found."
+    : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
 static List<(int line, string snippet)> FindViolations(string code)
@@ -60,5 +67,27 @@ static List<(int line, string snippet)> FindViolations(string code)
             }
         }
     }
+    return findings;
+}
+
+static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!path.Replace('\\', '/').Contains("/Assets/Scripts/"))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        if (line.Contains("LoadLevel(\"SampleScene\")", StringComparison.Ordinal) ||
+            line.Contains("LoadLevel(\"SampleScene\");", StringComparison.Ordinal))
+        {
+            findings.Add((i + 1, line.Trim()));
+        }
+    }
+
     return findings;
 }

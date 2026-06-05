@@ -175,7 +175,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
         print("Lets go to " + PhotonNetwork.CurrentRoom.Name);
-        PhotonNetwork.LoadLevel("SampleScene");
     }
 
     private void ClearRoomListView()
