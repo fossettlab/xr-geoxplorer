@@ -433,6 +433,10 @@ public static class GeoXAssetBundlePipeline
                 blobs.Add(new JObject
                 {
                     ["name"] = blobName,
+                    ["platform"] = platform,
+                    ["targetContainer"] = platform,
+                    ["targetBlobName"] = blobName,
+                    ["stagingBlobName"] = $"{platform}/{blobName}",
                     ["sourcePath"] = localPath,
                     ["contentType"] = blob.Value<string>("contentType") ?? "application/octet-stream",
                     ["metadata"] = blob["metadata"]?.DeepClone() ?? new JObject()

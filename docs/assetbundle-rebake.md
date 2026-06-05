@@ -349,12 +349,18 @@ Recommended staging procedure:
 2. Compare the staging blob paths against `docs/assetbundle-metadata-manifest.json`.
 3. Generate an upload plan with `GeoXplorer > AssetBundles > Write Azure Upload Plan`.
    The plan is written to `<outputRoot>/azure-upload-plan.json` and contains
-   each local bundle path, target blob name, content type, and custom metadata
+   each local bundle path, platform, production-shaped target container/blob
+   name, single-container staging blob name, content type, and custom metadata
    from the committed manifest.
 4. Upload to a staging Azure container or staging storage account.
 5. Apply custom blob metadata from the upload plan during upload.
 6. Smoke-test one representative bundle from each category on Quest 3 first,
    then Android mobile and HoloLens 2 if available.
+
+If staging uses Bradley's single `staging-assetbundles` container, upload each
+bundle to the plan's `stagingBlobName` so platform folders stay distinct, for
+example `android/geoxplorer-outcrop/marinheadlands-bundle`. If staging mirrors
+production's three-container shape, use `targetContainer` plus `targetBlobName`.
 
 Materials may render magenta at this stage because URP-compatible bundles are
 tracked separately in #39. For #6, the load test is about download/load success
