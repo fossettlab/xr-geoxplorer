@@ -1,6 +1,6 @@
 # Handoff — xr-geoxplorer modernization
 
-This repo is being revived from an archived **Unity 2019.4.8f1** state to a shippable **Meta Quest 3** mixed-reality app on **Unity 2022.3 LTS / URP / OpenXR / MRTK3**, with HoloLens 2 supported best-effort.
+This repo is being revived from an archived **Unity 2019.4.8f1** state to a shippable **Meta Quest 3** mixed-reality app on **Unity 2022.3 LTS / URP / OpenXR / MRTK3**. **HoloLens 2 was dropped as a target on 2026-06-06** (EOL'd; lab units being sold) — Quest 3 is the only headset target, with iOS/Android secondary.
 
 ## Start here
 
@@ -19,13 +19,12 @@ This repo is being revived from an archived **Unity 2019.4.8f1** state to a ship
 
 ## Quest-first principle
 
-When Meta Quest 3 and HoloLens 2 pull in different directions, **Quest wins**. Explicitly:
+**HoloLens dropped 2026-06-06** — the HL2 references below are historical. Quest 3 is the only headset target, so the principle now governs Quest-vs-mobile trade-offs. Explicitly:
 
 - URP is mandatory (Quest perf parity).
 - Vulkan over D3D11 (Quest preferred).
 - MRTK3 over MRTK 2.8 (skipping the intermediate step).
-- Meta Spatial Anchors first; HL2 local-only anchors are best-effort.
-- HL2 work never blocks Quest critical path. If MRTK3-on-HL2 turns out to be too unstable in practice, escalate to a separate stability-branch epic — the call is in ticket #20.
+- Meta Spatial Anchors first. Cross-device (phone↔headset) co-location is marker-based (AprilTag/QR): Azure Spatial Anchors was retired 2024-11-20 with no replacement, and no platform-level cross-ecosystem shared anchors exist.
 
 ## Sizing convention
 
@@ -49,7 +48,6 @@ These are deliberately not in tickets — request them from the project lead bef
 | **Firebase project access** | Phase 4 (#24) | Read access to inventory existing data before audit-or-delete. |
 | **Meta Quest Developer org invite** | Phase 6 (#33) | For App Lab submission. |
 | **One Quest 3 device, ideally two** | Phase 1 (#10) onward | Two are needed for the networking spike (#22) and the HW smoke suite (#32). |
-| **HoloLens 2 device** | Phase 3 (#20), optional | For HL2 best-effort validation. Not blocking. |
 | **Unity Pro / Plus / Education license** | Phase 1 (#12) onward | Required for GitHub Actions builder; recommended for IL2CPP builds. |
 | **Production Android keystore** | Phase 6 (#33) | For signed App Lab uploads. Generate fresh; store in a secrets manager, not the repo. |
 
