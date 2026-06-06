@@ -48,12 +48,23 @@ public class FindASA : MonoBehaviour
             await GetComponent<SpatialAnchorManager>().StartSessionAsync();
             feedback.text = "Started Session";
 
-            string _anchorKeyToFind = FindObjectOfType<FirebaseExchanger>().FindAnchorByName();
+            FirebaseExchanger firebase = FindObjectOfType<FirebaseExchanger>();
+            while (!firebase.AnchorsLoaded)
+            {
+                await Task.Delay(100);
+            }
 
+            if (!firebase.AnchorsFetchSucceeded)
+            {
+                feedback.text = "Could not load anchor list; try again.";
+                return;
+            }
 
+            string _anchorKeyToFind = firebase.FindAnchorByName();
             if (_anchorKeyToFind == null)
             {
                 feedback.text = "Anchor Number Not Found!";
+                return;
             }
 
             List<string> anchorsToFind = new List<string>();

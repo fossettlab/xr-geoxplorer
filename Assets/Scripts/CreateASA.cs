@@ -37,19 +37,24 @@ public class CreateASA : MonoBehaviour
             await GetComponent<SpatialAnchorManager>().StartSessionAsync();
             //feedback.text = string.Format("{0}\n{1}", feedback.text, "Started Session");
 
-            await SaveCurrentObjectAnchorToCloudAsync();
-
-            GetComponentInChildren<TextMeshPro>().text = FindObjectOfType<FirebaseExchanger>().anchorName;
+            bool saveSucceeded = await SaveCurrentObjectAnchorToCloudAsync();
 
             GetComponent<SpatialAnchorManager>().StopSession();
             feedback.text = "Stopped Session";
+
+            if (!saveSucceeded)
+            {
+                return;
+            }
+
+            GetComponentInChildren<TextMeshPro>().text = FindObjectOfType<FirebaseExchanger>().anchorName;
 
             GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().OnAnchorSuccessful(this.gameObject);
         }
     }
 
 
-    protected virtual async Task SaveCurrentObjectAnchorToCloudAsync()
+    protected virtual async Task<bool> SaveCurrentObjectAnchorToCloudAsync()
     {
         CloudNativeAnchor nativeAnchor = this.GetComponent<CloudNativeAnchor>();
         nativeAnchor.SetPose(this.transform.position, this.transform.rotation);
@@ -87,11 +92,12 @@ public class CreateASA : MonoBehaviour
             currentCloudAnchor = cloudAnchor;
 
             FindObjectOfType<FirebaseExchanger>().PutAnchors(currentCloudAnchor.Identifier, DateTime.Now.AddHours(24));
-
+            return true;
         }
         catch (Exception ex)
         {
             feedback.text = ex.ToString();
+            return false;
         }
     }
 }

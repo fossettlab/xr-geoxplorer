@@ -13,6 +13,7 @@ public class HandMenuManager : MonoBehaviour
 
     private void Start()
     {
+        lobbyManager = FindObjectOfType<LobbyManager>();
         modelMoveToggleBool = false;
         modelFlagToggleBool = false;
     }
@@ -32,10 +33,14 @@ public class HandMenuManager : MonoBehaviour
 
     public void ModelMoveToggle()
     {
+        GameObject asset = GameObject.FindGameObjectWithTag("activeModel");
+        if (asset == null)
+        {
+            return;
+        }
+
         if (!modelMoveToggleBool)
         {
-            GameObject asset = GameObject.FindGameObjectWithTag("activeModel");
-
             asset.AddComponent<ObjectManipulator>();
             asset.GetComponent<ObjectManipulator>().OneHandRotationModeFar = ObjectManipulator.RotateInOneHandType.RotateAboutObjectCenter;
             asset.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.YAxis;
@@ -44,8 +49,6 @@ public class HandMenuManager : MonoBehaviour
         }
         else
         {
-            GameObject asset = GameObject.FindGameObjectWithTag("activeModel");
-
             Destroy(asset.GetComponent<ObjectManipulator>());
             Destroy(asset.GetComponent<RotationAxisConstraint>());
 
@@ -78,6 +81,10 @@ public class HandMenuManager : MonoBehaviour
     public void ModelDelete()
     {
         GameObject activeModel = GameObject.FindGameObjectWithTag("activeModel");
+        if (activeModel == null || lobbyManager == null)
+        {
+            return;
+        }
 
         PhotonView PV = activeModel.GetComponent<PhotonView>();
         if (PV.IsMine)

@@ -183,7 +183,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
         }
 
         GameObject[] flags = GameObject.FindGameObjectsWithTag("flag");
-        if (toolTips.Length > 0)
+        if (flags.Length > 0)
         {
             foreach (var flag in flags)
             {
@@ -192,7 +192,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
         }
 
         GameObject[] primeflags = GameObject.FindGameObjectsWithTag("flagPrime");
-        if (toolTips.Length > 0)
+        if (primeflags.Length > 0)
         {
             foreach (var flag in primeflags)
             {

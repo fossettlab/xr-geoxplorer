@@ -20,6 +20,9 @@ public class FirebaseExchanger : MonoBehaviour
     bool anchorsLoaded;
     bool anchorsFetchSucceeded;
 
+    public bool AnchorsLoaded => anchorsLoaded;
+    public bool AnchorsFetchSucceeded => anchorsFetchSucceeded;
+
     //Public variables
     public string anchorName { get; set; } //this is set by the UI Input Field
 #if UNITY_WSA
