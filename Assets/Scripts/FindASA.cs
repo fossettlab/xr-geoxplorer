@@ -57,6 +57,7 @@ public class FindASA : MonoBehaviour
             if (!firebase.AnchorsFetchSucceeded)
             {
                 feedback.text = "Could not load anchor list; try again.";
+                GetComponent<SpatialAnchorManager>().StopSession();
                 return;
             }
 
@@ -64,6 +65,7 @@ public class FindASA : MonoBehaviour
             if (_anchorKeyToFind == null)
             {
                 feedback.text = "Anchor Number Not Found!";
+                GetComponent<SpatialAnchorManager>().StopSession();
                 return;
             }
 
