@@ -1,6 +1,6 @@
 # xr-geoxplorer
 
-Canonical unified Meta Quest/HoloLens-2 + iOS/Android geoscience explorer.
+Canonical unified Meta Quest 3 + iOS/Android geoscience explorer.
 
 ## Status
 **Modernization in progress.** Real source activity through
@@ -18,8 +18,11 @@ or OpenXR migration.
 The `legacy-2019.4` tag preserves the last known-buildable Unity 2019.4.8f1 state.
 
 ## Platform
-Multi-platform: HoloLens 2 (UWP) + iOS + Android (via AR Foundation and
-Azure Spatial Anchors for cross-device shared experiences).
+Meta Quest 3 (primary) + iOS + Android. HoloLens 2 was dropped as a target on
+2026-06-06 (EOL'd; lab units being sold). Cross-device shared experiences
+originally used Azure Spatial Anchors, which Microsoft retired 2024-11-20; the
+modern path is Meta spatial anchors (Quest) plus marker-based alignment for
+phone↔headset co-location (see issue #17).
 
 ## Related repos
 - `xr-geoxplorer-mobile` — mobile-only head (App Store / Play Store source)
