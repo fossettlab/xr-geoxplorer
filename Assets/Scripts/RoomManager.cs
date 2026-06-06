@@ -155,7 +155,24 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnStartCreatingSelected()
     {
-        if (this.GetComponent<FirebaseExchanger>().CheckForNameConflict(this.GetComponent<FirebaseExchanger>().anchorName))
+        StartCoroutine(OnStartCreatingSelectedRoutine());
+    }
+
+    IEnumerator OnStartCreatingSelectedRoutine()
+    {
+        FirebaseExchanger firebase = GetComponent<FirebaseExchanger>();
+        while (!firebase.AnchorsLoaded)
+        {
+            yield return null;
+        }
+
+        if (!firebase.AnchorsFetchSucceeded)
+        {
+            directionText.text = "Could not load anchor list; try again.";
+            yield break;
+        }
+
+        if (firebase.CheckForNameConflict(firebase.anchorName))
         {
             directionText.text = "Anchor name is already used, please pick another";
         }
@@ -175,7 +192,6 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             creatingASA = true;
             newAnchorObject = Instantiate(anchorObject);
         }
-
     }
 
     public void OnFindSelected()
@@ -192,11 +208,25 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnStartFindingSelected()
     {
+        StartCoroutine(OnStartFindingSelectedRoutine());
+    }
 
-
-        if (this.GetComponent<FirebaseExchanger>().CheckIfNameExists(this.GetComponent<FirebaseExchanger>().anchorName))
+    IEnumerator OnStartFindingSelectedRoutine()
+    {
+        FirebaseExchanger firebase = GetComponent<FirebaseExchanger>();
+        while (!firebase.AnchorsLoaded)
         {
+            yield return null;
+        }
 
+        if (!firebase.AnchorsFetchSucceeded)
+        {
+            directionText.text = "Could not load anchor list; try again.";
+            yield break;
+        }
+
+        if (firebase.CheckIfNameExists(firebase.anchorName))
+        {
 #if UNITY_IOS || UNITY_ANDROID
             panelImage.enabled = false;
 #endif
@@ -205,19 +235,19 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             startFindingAnchorButton.SetActive(false);
             roomBackButton.SetActive(false);
 
-            print("finding anchor: " + this.GetComponent<FirebaseExchanger>().anchorName);
+            print("finding anchor: " + firebase.anchorName);
 
             newAnchorObject = Instantiate(anchorObject);
             newAnchorObject.AddComponent<CloudNativeAnchor>();
             newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
             newAnchorObject.GetComponent<SpatialAnchorManager>().enabled = true;
             newAnchorObject.AddComponent<FindASA>();
-            newAnchorObject.GetComponent<FindASA>().anchorName = this.GetComponent<FirebaseExchanger>().anchorName;
+            newAnchorObject.GetComponent<FindASA>().anchorName = firebase.anchorName;
             newAnchorObject.GetComponent<FindASA>().feedback = directionText;
         }
         else
         {
-            directionText.text = "Anchor Name " + this.GetComponent<FirebaseExchanger>().anchorName + " Not Found!";
+            directionText.text = "Anchor Name " + firebase.anchorName + " Not Found!";
         }
     }
 

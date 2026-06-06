@@ -29,14 +29,14 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
         PV = GetComponent<PhotonView>();
         mainCamera = Camera.main;
         
-        if (!PV.IsMine)
+        TableAnchor tableAnchor = FindObjectOfType<TableAnchor>();
+        if (PV.IsMine && User)
         {
-            transform.parent = FindObjectOfType<TableAnchor>().transform;
-        }
-        else if (PV.IsMine  && User)
-        {
-            transform.parent = FindObjectOfType<TableAnchor>().transform;
             GenericNetworkManager.instance.localUser = PV;
+        }
+        if (tableAnchor != null && (!PV.IsMine || User))
+        {
+            transform.parent = tableAnchor.transform;
         }
        
 
