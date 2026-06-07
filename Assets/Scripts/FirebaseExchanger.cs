@@ -45,7 +45,12 @@ public class FirebaseExchanger : MonoBehaviour
         StartCoroutine(PutAnchorsRoutine(anchorIdentifier, expiration));
     }
 
-    IEnumerator PutAnchorsRoutine(string anchorIdentifier, DateTime expiration)
+    public IEnumerator PutAnchorsAndWait(string anchorIdentifier, DateTime expiration, Action<bool> onComplete)
+    {
+        yield return PutAnchorsRoutine(anchorIdentifier, expiration, onComplete);
+    }
+
+    IEnumerator PutAnchorsRoutine(string anchorIdentifier, DateTime expiration, Action<bool> onComplete = null)
     {
         while (!anchorsLoaded)
         {
@@ -55,6 +60,22 @@ public class FirebaseExchanger : MonoBehaviour
         if (!anchorsFetchSucceeded)
         {
             Debug.LogError("Refusing to upload anchors: initial Firebase download did not succeed.");
+            onComplete?.Invoke(false);
+            yield break;
+        }
+
+        yield return RefreshAnchorsFromFirebase();
+        if (!anchorsFetchSucceeded)
+        {
+            Debug.LogError("Refusing to upload anchors: could not refresh anchor list from Firebase.");
+            onComplete?.Invoke(false);
+            yield break;
+        }
+
+        if (CheckForNameConflict(anchorName))
+        {
+            Debug.LogError($"Refusing to upload anchors: name '{anchorName}' is already registered.");
+            onComplete?.Invoke(false);
             yield break;
         }
 
@@ -68,6 +89,7 @@ public class FirebaseExchanger : MonoBehaviour
         var json = JsonConvert.SerializeObject(anchorObjects);
         byte[] buffer = Encoding.UTF8.GetBytes(json);
 
+        bool uploadSucceeded = false;
         using (UnityWebRequest uwr = UnityWebRequest.Put("https://flasasharing.firebaseio.com/anchors.json", buffer))
         {
             uwr.SetRequestHeader("Content-Type", "application/json");
@@ -76,7 +98,13 @@ public class FirebaseExchanger : MonoBehaviour
             {
                 Debug.LogError($"Failed to upload anchors to Firebase: {uwr.error}");
             }
+            else
+            {
+                uploadSucceeded = true;
+            }
         }
+
+        onComplete?.Invoke(uploadSucceeded);
     }
 
     //Finds anchor name in stored anchor list
@@ -98,8 +126,16 @@ public class FirebaseExchanger : MonoBehaviour
     public IEnumerator FetchCurrentAnchors()
     {
         conflictFound = false;
-        anchorsFetchSucceeded = false;
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
+        yield return RefreshAnchorsFromFirebase();
+        anchorsLoaded = true;
+    }
+
+    IEnumerator RefreshAnchorsFromFirebase()
+    {
+        anchorObjects.Clear();
+        anchorsFetchSucceeded = false;
+
         using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
         {
             yield return uwr.SendWebRequest();
@@ -145,8 +181,6 @@ public class FirebaseExchanger : MonoBehaviour
                 }
             }
         }
-
-        anchorsLoaded = true;
     }
 
     public bool CheckForNameConflict(string potentialName)
