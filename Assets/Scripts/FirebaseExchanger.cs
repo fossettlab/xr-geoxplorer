@@ -58,14 +58,27 @@ public class FirebaseExchanger : MonoBehaviour
             yield break;
         }
 
+        yield return FetchAnchorsFromServer();
+        if (!anchorsFetchSucceeded)
+        {
+            Debug.LogError("Refusing to upload anchors: pre-upload Firebase refresh failed.");
+            yield break;
+        }
+
+        if (CheckForNameConflict(anchorName))
+        {
+            Debug.LogError($"Refusing to upload anchor: name '{anchorName}' already exists in Firebase.");
+            yield break;
+        }
+
         AzureSpatialAnchorObject anchorObject = new AzureSpatialAnchorObject();
         anchorObject.name = anchorName;
         anchorObject.identifier = anchorIdentifier;
         anchorObject.dateCreated = DateTime.Now;
         anchorObject.dateExpired = expiration;
 
-        anchorObjects.Add(anchorObject);
-        var json = JsonConvert.SerializeObject(anchorObjects);
+        var uploadList = new List<AzureSpatialAnchorObject>(anchorObjects) { anchorObject };
+        var json = JsonConvert.SerializeObject(uploadList);
         byte[] buffer = Encoding.UTF8.GetBytes(json);
 
         using (UnityWebRequest uwr = UnityWebRequest.Put("https://flasasharing.firebaseio.com/anchors.json", buffer))
@@ -75,8 +88,11 @@ public class FirebaseExchanger : MonoBehaviour
             if (uwr.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError($"Failed to upload anchors to Firebase: {uwr.error}");
+                yield break;
             }
         }
+
+        anchorObjects.Add(anchorObject);
     }
 
     //Finds anchor name in stored anchor list
@@ -97,6 +113,13 @@ public class FirebaseExchanger : MonoBehaviour
     //Fetches the current list of anchor information on Firebase
     public IEnumerator FetchCurrentAnchors()
     {
+        yield return FetchAnchorsFromServer();
+        anchorsLoaded = true;
+    }
+
+    IEnumerator FetchAnchorsFromServer()
+    {
+        anchorObjects.Clear();
         conflictFound = false;
         anchorsFetchSucceeded = false;
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
@@ -145,8 +168,6 @@ public class FirebaseExchanger : MonoBehaviour
                 }
             }
         }
-
-        anchorsLoaded = true;
     }
 
     public bool CheckForNameConflict(string potentialName)

@@ -71,8 +71,13 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         if (isPlacing)
         {
 #if UNITY_IOS || UNITY_ANDROID
+            Camera arCamera = Camera.main;
+            if (arCamera == null)
+            {
+                return;
+            }
 
-            var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+            var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
             var hits = new List<ARRaycastHit>();
             raycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
 
@@ -83,7 +88,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
                 
                 newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
 
-                var cameraForward = Camera.current.transform.forward;
+                var cameraForward = arCamera.transform.forward;
                 var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
                 anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
 
