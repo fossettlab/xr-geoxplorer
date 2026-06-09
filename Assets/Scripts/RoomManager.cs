@@ -16,12 +16,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     /// 
     /// </summary>
 
-#if UNITY_WSA
-    public TextMeshPro directionText;
-#else
     public TextMeshProUGUI directionText;
     public Image panelImage;
-#endif
     public LobbyManager lobbyManager;
     public GameObject createAnchorButton;
     public GameObject findAnchorButton;
@@ -117,29 +113,6 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
                 newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
             }
 
-            
-
-#elif UNITY_WSA
-            if (Camera.main.GetComponent<GazeProvider>().HitPosition.magnitude > 0)
-            {
-                ListenForClicks();
-
-                anchorValid = true;
-                newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
-
-                var cameraForward = Camera.main.transform.forward;
-                var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
-                anchorPose.position = Camera.main.GetComponent<GazeProvider>().HitPosition;
-
-                newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
-            }
-            else
-            {
-                StopListenForClicks();
-                anchorValid = false;
-                newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
-            }
 #endif
 
         }
@@ -318,35 +291,6 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
-#if UNITY_WSA
-        if (anchorValid)
-        {
-            isPlacing = false;
-
-            newAnchorObject.GetComponentInChildren<Renderer>().material.color = Color.green;
-
-            if (creatingASA)
-            {
-                newAnchorObject.GetComponent<SpatialAnchorManager>().enabled = true;
-                newAnchorObject.AddComponent<CreateASA>();
-                newAnchorObject.GetComponent<CreateASA>().feedback = directionText;
-                creatingASA = false;
-                StopListenForClicks();
-            }
-            else
-            {
-                StopListenForClicks();
-                lobbyManager.OnAnchorSuccessful(newAnchorObject);
-            }
-
-
-            //set the table anchor instance to it's new position and rotation
-            //TableAnchor.instance.transform.SetPositionAndRotation(newAnchorObject.transform.position, newAnchorObject.transform.rotation);
-            
-            //lobbyManager.OnAnchorSuccessful(newAnchorObject);
-
-        }
-#endif
     }
 
 }

@@ -8,12 +8,7 @@ using UnityEngine;
 
 public class FindASA : MonoBehaviour
 {
-
-#if UNITY_WSA
-    public TextMeshPro feedback;
-#else
     public TextMeshProUGUI feedback;
-#endif
 
     CloudSpatialAnchor currentCloudAnchor;
     //AnchorExchanger anchorExchanger = new AnchorExchanger();

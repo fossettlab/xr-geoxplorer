@@ -37,14 +37,7 @@ public class MenuManager : MonoBehaviour
     public string azureContainerName;
 
 
-#if UNITY_WSA
-    public TextMeshPro pageIndicatorText;
-    public int WSAPageNumber;
-    public int numberOfWSAPages;
-    public GameObject nextPageButton;
-    public GameObject previousPageButton;
-    string platformType = "wsa";
-#elif UNITY_IOS
+#if UNITY_IOS
     string platformType = "ios";
 #else
     string platformType = "android";
@@ -63,7 +56,6 @@ public class MenuManager : MonoBehaviour
     List<GameObject> itemButtons = new List<GameObject>();
     List<GameObject> searchedButtons = new List<GameObject>();
     int oldInputStringLength;
-    int allWSApages;
 
     public void OnBackLevel1()
     {
@@ -160,17 +152,6 @@ public class MenuManager : MonoBehaviour
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         newButton.GetComponent<ButtonObjectType>().outcropObject = outcropObject;
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = outcropObject.modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMeshPro>().text = outcropObject.modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        newButton.SetActive(false);
-                        newButton.GetComponent<ButtonObjectType>().outcropObject = outcropObject;
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
                     else if (bloba.ElementAt(i).Element("Name").Value.Contains("dem"))
@@ -199,17 +180,6 @@ public class MenuManager : MonoBehaviour
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         newButton.GetComponent<ButtonObjectType>().demObject = demObject;
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = demObject.modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMeshPro>().text = demObject.modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        newButton.GetComponent<ButtonObjectType>().demObject = demObject;
-                        newButton.SetActive(false);
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
                     else if (bloba.ElementAt(i).Element("Name").Value.Contains("handsample"))
@@ -234,17 +204,6 @@ public class MenuManager : MonoBehaviour
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         newButton.GetComponent<ButtonObjectType>().handSampleObject = handSampleObject;
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = handSampleObject.modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMeshPro>().text = handSampleObject.modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        newButton.GetComponent<ButtonObjectType>().handSampleObject = handSampleObject;
-                        newButton.SetActive(false);
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
                     else if (bloba.ElementAt(i).Element("Name").Value.Contains("crystallattice"))
@@ -269,22 +228,8 @@ public class MenuManager : MonoBehaviour
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         newButton.GetComponent<ButtonObjectType>().crystalLatticeObject = crystalLatticeObject;
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = crystalLatticeObject.modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMeshPro>().text = crystalLatticeObject.modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        newButton.GetComponent<ButtonObjectType>().crystalLatticeObject = crystalLatticeObject;
-                        newButton.SetActive(false);
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
-#if UNITY_WSA
-                    pageIndicatorText.text = "Loading menu - " + (int)(((float)i / (float)bloba.Count())*100) + "%";
-#endif
                     yield return null;
 
                 }
@@ -292,77 +237,14 @@ public class MenuManager : MonoBehaviour
         }
 
 
-#if UNITY_WSA
-        searchedButtons = itemButtons;
-        numberOfWSAPages = Mathf.CeilToInt(itemButtons.Count / 15f);
-        allWSApages = numberOfWSAPages;
-        WSAPageNumber = 1;
-        DisplayWSAPage(WSAPageNumber);
-
-#elif UNITY_IOS || UNITY_ANDROID
         pageIncrement = 5 / (float)numberOfRows;
         lowerPageIncrement = 0;
         upperPageIncrement = pageIncrement;
         pageNumber = 1;
         FetchThumbnailWrapper(0, 20);
-#endif
     }
 
 
-#if UNITY_WSA
-    public void DisplayWSAPage(int WSAPageNo)
-    {
-        if (WSAPageNo == numberOfWSAPages)
-        {
-            nextPageButton.GetComponent<Interactable>().enabled = false;
-        }
-        else
-        {
-            nextPageButton.GetComponent<Interactable>().enabled = true;
-        }
-
-        if (WSAPageNo == 1)
-        {
-            previousPageButton.GetComponent<Interactable>().enabled = false;
-        }
-        else
-        {
-            previousPageButton.GetComponent<Interactable>().enabled = true;
-        }
-
-        int lowerButtonNumber = (15 * WSAPageNo) - 15;
-        int upperButtonNumber = (15 * WSAPageNo) - 1;
-
-        foreach (var item in itemButtons)
-        {
-            item.SetActive(false);
-        }
-
-        if (upperButtonNumber >= searchedButtons.Count)
-        {
-            upperButtonNumber = searchedButtons.Count - 1;
-        }
-
-        for (int i = lowerButtonNumber; i <= upperButtonNumber; i++)
-        {
-            searchedButtons[i].SetActive(true);
-        }
-
-        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
-        WSAPageNumber = WSAPageNo;
-        pageIndicatorText.text = "Page " + WSAPageNo + " of " + numberOfWSAPages;
-    }
-
-    public void nextWSAPage()
-    {
-        DisplayWSAPage(WSAPageNumber + 1);
-    }
-
-    public void previousWSAPage()
-    {
-        DisplayWSAPage(WSAPageNumber - 1);
-    }
-#endif
 
     public void OnItemButtonClicked(int buttonNumber)
     {
@@ -373,11 +255,7 @@ public class MenuManager : MonoBehaviour
         {
             OutcropObject selectedModel = itemButtons[buttonNumber].GetComponent<ButtonObjectType>().outcropObject;
             string infoString = string.Format("{0}\nBy\n{1}\n\nLat:{2}  Lon:{3}\n\n{4}", selectedModel.modelName, selectedModel.author, selectedModel.latitude, selectedModel.longitude, selectedModel.description);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -388,9 +266,6 @@ public class MenuManager : MonoBehaviour
         {
             DEMObject selectedModel = itemButtons[buttonNumber].GetComponent<ButtonObjectType>().demObject;
             string infoString = string.Format("{0}\nBy\n{1}\n\nLat:{2}  Lon:{3}\n\n{4}", selectedModel.modelName, selectedModel.author, selectedModel.latitude, selectedModel.longitude, selectedModel.description);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
             minElevText.GetComponent<TextMeshProUGUI>().text = selectedModel.elevMin;
             maxElevText.GetComponent<TextMeshProUGUI>().text = selectedModel.elevMax;
@@ -402,7 +277,6 @@ public class MenuManager : MonoBehaviour
             {
                 colorScale.SetActive(false);
             }
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -413,11 +287,7 @@ public class MenuManager : MonoBehaviour
         {
             HandSampleObject selectedModel = itemButtons[buttonNumber].GetComponent<ButtonObjectType>().handSampleObject;
             string infoString = string.Format("{0}\nBy\n{1}\n\n{2}\n\n{3}", selectedModel.modelName, selectedModel.author, selectedModel.mineralGroup, selectedModel.locationOfCollection);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -428,11 +298,7 @@ public class MenuManager : MonoBehaviour
         {
             CrystalLatticeObject selectedModel = itemButtons[buttonNumber].GetComponent<ButtonObjectType>().crystalLatticeObject;
             string infoString = string.Format("{0}\nBy\n{1}\n\n{2}\n\n{3}", selectedModel.modelName, selectedModel.author, selectedModel.mineralGroup, selectedModel.symmetry);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -615,21 +481,12 @@ public class MenuManager : MonoBehaviour
                 bool nameGood = itemUpper.Contains(inputStringUpper);
                 if (nameGood)
                 {
-#if UNITY_WSA
-                    searchedButtons.Add(itemButtons[i]);
-#elif UNITY_IOS || UNITY_ANDROID
                     itemButtons[i].SetActive(true);
                     FetchThumbnailWrapper(i);
-#endif
                     counter++;
                 }
             }
 
-#if UNITY_WSA
-            numberOfWSAPages = Mathf.CeilToInt(counter / 15f);
-            WSAPageNumber = 1;
-            DisplayWSAPage(WSAPageNumber);
-#elif UNITY_IOS || UNITY_ANDROID
             numberOfRows = Math.Round((double)counter / 2, MidpointRounding.AwayFromZero);
             numberOfPages = Mathf.CeilToInt((float)numberOfRows / 5);
             scrollContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (float)numberOfRows * 550f);
@@ -638,15 +495,11 @@ public class MenuManager : MonoBehaviour
             lowerPageIncrement = 0;
             upperPageIncrement = pageIncrement;
             pageNumber = 1;
-#endif
 
             oldInputStringLength = inputString.Length;
         }
         else
         {
-#if UNITY_WSA
-            searchedButtons = itemButtons;
-#endif
 
             if (oldInputStringLength == 3)
             {
@@ -659,13 +512,7 @@ public class MenuManager : MonoBehaviour
 
             foreach (var item in itemButtons)
             {
-#if UNITY_WSA
-                numberOfWSAPages = allWSApages;
-                WSAPageNumber = 1;
-                DisplayWSAPage(WSAPageNumber);
-#elif UNITY_IOS || UNITY_ANDROID
                 item.SetActive(true);
-#endif
             }
 
 

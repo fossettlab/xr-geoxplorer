@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR;
 
 public class PlatformBootstrapper : MonoBehaviour
@@ -7,7 +7,6 @@ public class PlatformBootstrapper : MonoBehaviour
     {
         Auto,
         Quest3,
-        HoloLens2,
         Mobile
     }
 
@@ -16,9 +15,6 @@ public class PlatformBootstrapper : MonoBehaviour
 
     [SerializeField]
     private GameObject quest3Prefab;
-
-    [SerializeField]
-    private GameObject holoLens2Prefab;
 
     [SerializeField]
     private GameObject mobilePrefab;
@@ -53,16 +49,7 @@ public class PlatformBootstrapper : MonoBehaviour
 
     private PlatformVariant ResolvePlatformVariant()
     {
-#if UNITY_WSA
-        return PlatformVariant.HoloLens2;
-#else
         RuntimePlatform platform = Application.platform;
-        if (platform == RuntimePlatform.WSAPlayerARM ||
-            platform == RuntimePlatform.WSAPlayerX64 ||
-            platform == RuntimePlatform.WSAPlayerX86)
-        {
-            return PlatformVariant.HoloLens2;
-        }
 
         if (platform == RuntimePlatform.Android)
         {
@@ -80,7 +67,6 @@ public class PlatformBootstrapper : MonoBehaviour
         }
 
         return PlatformVariant.Mobile;
-#endif
     }
 
     private bool IsQuestRuntime()
@@ -105,8 +91,6 @@ public class PlatformBootstrapper : MonoBehaviour
         {
             case PlatformVariant.Quest3:
                 return quest3Prefab;
-            case PlatformVariant.HoloLens2:
-                return holoLens2Prefab;
             case PlatformVariant.Mobile:
                 return mobilePrefab;
             default:

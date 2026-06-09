@@ -60,21 +60,6 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     void Update()
     {
 
-        
-
-#if UNITY_WSA
-        if (Camera.main.GetComponent<GazeProvider>().HitPosition.magnitude > 0)
-
-        {
-            ListenForCLicks();
-        }
-        else
-        {
-            StopListenForClicks();
-        }
-
-#endif
-
 #if UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID
 
 
@@ -268,22 +253,14 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
         {
             tileStage.SetActive(true);
 
-#if UNITY_WSA
-            hideTilesButton.GetComponentInChildren<TextMesh>().text = "Hide Map";
-#elif UNITY_IOS || UNITY_ANDROID
             hideTilesButton.GetComponentInChildren<TextMeshProUGUI>().text = "Hide Map";
-#endif
             tilesActive = true;
         }
         else
         {
             tileStage.SetActive(false);
 
-#if UNITY_WSA
-            hideTilesButton.GetComponentInChildren<TextMesh>().text = "Show Map";
-#elif UNITY_IOS || UNITY_ANDROID
             hideTilesButton.GetComponentInChildren<TextMeshProUGUI>().text = "Show Map";
-#endif
             tilesActive = false;
         }
         
@@ -379,64 +356,6 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
-#if UNITY_WSA
-        if (!tapped)
-        {
-            Vector3 hitPos;
-            Vector3 hitNorm;
-            GameObject hitObject;
-
-            if (Application.platform == RuntimePlatform.WSAPlayerARM)
-            {
-                hitPos = eventData.Pointer.Result.Details.Point;
-                hitNorm = eventData.Pointer.Result.Details.Normal;
-                hitObject = eventData.Pointer.Result.Details.Object;
-            }
-            else
-            {
-                hitPos = Camera.main.GetComponent<GazeProvider>().HitPosition;
-                hitNorm = Camera.main.GetComponent<GazeProvider>().HitNormal;
-                hitObject = Camera.main.GetComponent<GazeProvider>().HitInfo.transform.gameObject;
-            }
-
-            //print(hitObject.name);
-
-            if (hitObject.tag == "tappable")
-            {
-                Vector3 hitPosition = hitObject.transform.InverseTransformPoint(hitPos);
-                hitLon = -Mathf.Atan2(hitPosition.x, hitPosition.z) * Mathf.Rad2Deg;
-                hitLat = (Mathf.Acos(hitPosition.y) - (Mathf.PI / 2)) * -Mathf.Rad2Deg;
-                //CreateTooltipAtLoc(hitLat, hitLon);
-
-                PhotonView photonView = PhotonView.Get(this);
-                this.photonView.RPC("CreateTooltipAtLoc", RpcTarget.All, hitLat, hitLon, hitPosition, hitObject.transform.InverseTransformPoint(hitNorm));
-            }
-            else if (hitObject.tag == "TooltipInteraction")
-            {
-                //GoToTiles(hitLat, hitLon);
-                PhotonView photonView = PhotonView.Get(this);
-                this.photonView.RPC("GoToTiles", RpcTarget.All, hitLat, hitLon, 100);
-            }
-            else if (hitObject.name == "MainInteractable")
-            {
-                hitObject.GetComponentInParent<SpatialTooltipManager>().MenuSwitcher();
-            }
-            else if (hitObject.name == "RecenterInteractable")
-            {
-                PhotonView photonView = PhotonView.Get(this);
-                hitLat = hitObject.GetComponentInParent<SpatialTooltipManager>().lat;
-                hitLon = hitObject.GetComponentInParent<SpatialTooltipManager>().lon;
-                this.photonView.RPC("GoToTiles", RpcTarget.All, hitObject.GetComponentInParent<SpatialTooltipManager>().lat, hitObject.GetComponentInParent<SpatialTooltipManager>().lon, 100);  //100 means that no zooming takes place
-            }
-            else if (hitObject.name == "GoToInteractable")
-            {
-                DownloadButtonInteraction assetBundleDownloader = hitObject.GetComponentInParent<DownloadButtonInteraction>();
-                GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
-            }
-            tapped = true;
-            StartCoroutine(WaitForTapToFinish());
-        }
-#endif
     }
 
     //This is a lousy hack to stop the pointer firing twice on certain objects (not sure why)

@@ -25,11 +25,7 @@ public class FirebaseExchanger : MonoBehaviour
 
     //Public variables
     public string anchorName { get; set; } //this is set by the UI Input Field
-#if UNITY_WSA
-    public TextMeshPro feedback;
-#else
     public TextMeshProUGUI feedback;
-#endif
 
     // Initial settings
     void Start()

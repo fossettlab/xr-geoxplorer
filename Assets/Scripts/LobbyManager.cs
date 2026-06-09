@@ -57,11 +57,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         Debug.developerConsoleVisible = false;
 
-        if (Application.platform == RuntimePlatform.WSAPlayerARM)
-        {
-            this.transform.position = new Vector3(0, 0, 1);
-        }
-        
         PhotonNetwork.AutomaticallySyncScene = true;
 
         cachedRoomList = new Dictionary<string, RoomInfo>();
@@ -235,14 +230,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //GameObject entry = GameObject.CreatePrimitive(PrimitiveType.Cube);
             GameObject entry = Instantiate(RoomListEntryPrefab);
             entry.transform.SetParent(RoomListContent.transform);
-#if UNITY_WSA
-            entry.transform.localScale = Vector3.one;
-            entry.transform.localRotation = Quaternion.identity;
-            entry.transform.localPosition = new Vector3(-0.25f, -0.1f, 0);
-#elif UNITY_IOS || UNITY_ANDROID
             entry.transform.localScale = Vector3.one * 0.5f;
             entry.transform.localPosition = new Vector3(0, -50f, 0);
-#endif
+
             entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers);
 
             roomListEntries.Add(info.Name, entry);
@@ -363,28 +353,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             TableAnchor.instance.transform.parent = arReferencePoint.transform;
         }
 
-#endif
-
-
-#if UNITY_WSA
-        TableAnchor.instance.transform.position = anchorObject.transform.position;
-        TableAnchor.instance.transform.rotation = anchorObject.transform.rotation;
-
-        Camera.main.GetComponent<UnityEngine.XR.WSA.SpatialMappingCollider>().enabled = false;
-#elif UNITY_IOS || UNITY_ANDROID
         ARPlaneManager arPlaneManager = FindObjectOfType<ARPlaneManager>();
 
         foreach (var plane in arPlaneManager.trackables)
         {
             plane.gameObject.SetActive(false);
-            //plane.GetComponent<Renderer>().material = shadowMaterial;
-            //plane.GetComponent<LineRenderer>().enabled = false;
-            //plane.GetComponent<Collider>().enabled = false;
         }
         arPlaneManager.enabled = false;
-        //FindObjectOfType<ARReferencePointManager>().enabled = false;
 
 #endif
+
         RoomUI.SetActive(false);
         InAppUI.SetActive(true);
     }
