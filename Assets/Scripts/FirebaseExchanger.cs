@@ -58,12 +58,25 @@ public class FirebaseExchanger : MonoBehaviour
             yield break;
         }
 
+        // Re-fetch immediately before upload so a stale in-memory list cannot overwrite
+        // anchors another client saved after our startup download.
+        anchorsLoaded = false;
+        anchorsFetchSucceeded = false;
+        yield return FetchCurrentAnchors();
+
+        if (!anchorsFetchSucceeded)
+        {
+            Debug.LogError("Refusing to upload anchors: pre-upload Firebase refresh did not succeed.");
+            yield break;
+        }
+
         AzureSpatialAnchorObject anchorObject = new AzureSpatialAnchorObject();
         anchorObject.name = anchorName;
         anchorObject.identifier = anchorIdentifier;
         anchorObject.dateCreated = DateTime.Now;
         anchorObject.dateExpired = expiration;
 
+        anchorObjects.RemoveAll(anchor => anchor.name == anchorName);
         anchorObjects.Add(anchorObject);
         var json = JsonConvert.SerializeObject(anchorObjects);
         byte[] buffer = Encoding.UTF8.GetBytes(json);
@@ -99,6 +112,7 @@ public class FirebaseExchanger : MonoBehaviour
     {
         conflictFound = false;
         anchorsFetchSucceeded = false;
+        anchorObjects.Clear();
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
         using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
         {

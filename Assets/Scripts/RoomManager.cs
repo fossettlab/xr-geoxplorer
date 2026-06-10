@@ -269,6 +269,21 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnBack()
     {
+        isPlacing = false;
+        creatingASA = false;
+        anchorValid = false;
+        StopListenForClicks();
+
+        if (newAnchorObject != null)
+        {
+            Destroy(newAnchorObject);
+            newAnchorObject = null;
+        }
+
+#if UNITY_IOS || UNITY_ANDROID
+        panelImage.enabled = true;
+#endif
+
         createAnchorButton.SetActive(true);
         findAnchorButton.SetActive(true);
         continueButton.SetActive(true);
