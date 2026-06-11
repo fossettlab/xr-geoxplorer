@@ -11,7 +11,8 @@ public static class GeoXAssetBundlePipeline
     private const string SourceRootArgument = "-geoXSourceRoot=";
     private const string OutputRootArgument = "-geoXOutputRoot=";
     private const string MetadataManifestArgument = "-geoXMetadataManifest=";
-    private const string DefaultDownloadedSourceRoot = "Assets/GeoXSource/geoxplorer-source";
+    private const string AllowPartialSourceArgument = "-geoXAllowPartialSource=";
+    private const string DefaultSourceRoot = "Assets/GeoXSource/importable-source";
     private const string DefaultOutputRoot = "AssetBundles";
     private const string DefaultMetadataManifestPath = "docs/assetbundle-metadata-manifest.json";
     private const string BundlePrefix = "geoxplorer-";
@@ -44,6 +45,12 @@ public static class GeoXAssetBundlePipeline
         "android",
         "ios",
         "wsa"
+    };
+
+    private static readonly string[] TicketBuildPlatforms =
+    {
+        "android",
+        "ios"
     };
 
     private static readonly HashSet<string> OptionalRawSourceCategories = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -85,13 +92,13 @@ public static class GeoXAssetBundlePipeline
             return;
         }
 
-        foreach (string manifestPlatform in ManifestBuildPlatforms)
+        foreach (string manifestPlatform in TicketBuildPlatforms)
         {
             List<ManifestBundleEntry> manifestEntries = LoadManifestBundleEntries(GetMetadataManifestPath(), manifestPlatform);
             matchedCount += ValidateSourceCoverageAgainstManifest(GetSourceRoot(), manifestEntries);
         }
 
-        Debug.Log($"GeoX AssetBundle pipeline matched {matchedCount} required source entries across all manifest platforms.");
+        Debug.Log($"GeoX AssetBundle pipeline matched {matchedCount} required source entries across ticket build platforms.");
     }
 
     [MenuItem("GeoXplorer/AssetBundles/Validate/Staging Output Against Manifest")]
@@ -135,7 +142,7 @@ public static class GeoXAssetBundlePipeline
         BuildForTarget(BuildTarget.iOS, "ios");
     }
 
-    [MenuItem("GeoXplorer/AssetBundles/Build/Build WSA")]
+    [MenuItem("GeoXplorer/AssetBundles/Build/Build Historical WSA")]
     public static void BuildWsa()
     {
         AssignBundleNamesForTargetPlatform("wsa");
@@ -157,9 +164,6 @@ public static class GeoXAssetBundlePipeline
 
         AssignBundleNamesForTargetPlatform("ios");
         BuildForTarget(BuildTarget.iOS, "ios");
-
-        AssignBundleNamesForTargetPlatform("wsa");
-        BuildForTarget(BuildTarget.WSAPlayer, "wsa");
     }
 
     [MenuItem("GeoXplorer/AssetBundles/Assemble Featured Bundles")]
@@ -170,7 +174,7 @@ public static class GeoXAssetBundlePipeline
         JObject manifest = LoadMetadataManifest(GetMetadataManifestPath());
         JObject containers = (JObject)manifest["containers"];
 
-        foreach (JProperty container in containers.Properties())
+        foreach (JProperty container in containers.Properties().Where(container => TicketBuildPlatforms.Contains(container.Name, StringComparer.OrdinalIgnoreCase)))
         {
             string platformFolder = Path.Combine(outputRoot, container.Name);
             if (!Directory.Exists(platformFolder))
@@ -193,9 +197,14 @@ public static class GeoXAssetBundlePipeline
 
     public static int AssignPerModelBundleNames(string sourceRoot, string metadataManifestPath, string platform)
     {
+        return AssignPerModelBundleNames(sourceRoot, metadataManifestPath, platform, true);
+    }
+
+    public static int AssignPerModelBundleNames(string sourceRoot, string metadataManifestPath, string platform, bool failOnMissing)
+    {
         if (ManifestBuildPlatforms.Contains(platform) && File.Exists(metadataManifestPath))
         {
-            return AssignManifestBundleNames(sourceRoot, LoadManifestBundleEntries(metadataManifestPath, platform), true);
+            return AssignManifestBundleNames(sourceRoot, LoadManifestBundleEntries(metadataManifestPath, platform), failOnMissing);
         }
 
         return AssignLegacyPerModelBundleNames(sourceRoot);
@@ -292,7 +301,16 @@ public static class GeoXAssetBundlePipeline
                 string bundleName = ResolveExistingBundleName(category, modelPath) ?? GetBundleName(category, modelPath);
                 if (bundleNameOwners.TryGetValue(bundleName, out string existingPath))
                 {
-                    duplicateBundleNames.Add($"{bundleName}: {existingPath}, {modelPath}");
+                    int existingPreference = GetModelTypePreference(Path.GetExtension(existingPath).ToLowerInvariant());
+                    int currentPreference = GetModelTypePreference(Path.GetExtension(modelPath).ToLowerInvariant());
+                    if (existingPreference == currentPreference)
+                    {
+                        duplicateBundleNames.Add($"{bundleName}: {existingPath}, {modelPath}");
+                    }
+                    else if (currentPreference < existingPreference)
+                    {
+                        bundleNameOwners[bundleName] = modelPath;
+                    }
                 }
                 else
                 {
@@ -462,17 +480,23 @@ public static class GeoXAssetBundlePipeline
 
     private static void AssignBundleNamesForTargetPlatform(string platform)
     {
-        int assignedCount = AssignPerModelBundleNames(GetSourceRoot(), GetMetadataManifestPath(), platform);
+        bool allowPartialSource = GetAllowPartialSource();
+        int assignedCount = AssignPerModelBundleNames(GetSourceRoot(), GetMetadataManifestPath(), platform, !allowPartialSource);
         string assignmentMode = ManifestBuildPlatforms.Contains(platform) ? "manifest" : "legacy";
-        Debug.Log($"GeoX AssetBundle pipeline assigned {assignedCount} {assignmentMode} bundle names for '{platform}'.");
+        string coverageMode = allowPartialSource ? "partial source" : "strict";
+        Debug.Log($"GeoX AssetBundle pipeline assigned {assignedCount} {assignmentMode} bundle names for '{platform}' in {coverageMode} mode.");
     }
 
     private static int AssignManifestBundleNames(string sourceRoot, List<ManifestBundleEntry> manifestEntries, bool failOnMissing)
     {
         ManifestSourceResolution resolution = ResolveManifestSourceEntries(sourceRoot, manifestEntries);
-        if (failOnMissing)
+        ThrowIfBlockingSourceCoverageProblems(resolution, !failOnMissing);
+
+        if (!failOnMissing && resolution.MissingEntries.Count > 0)
         {
-            ThrowIfBlockingSourceCoverageProblems(resolution);
+            Debug.LogWarning(
+                $"GeoX AssetBundle pipeline skipped {resolution.MissingEntries.Count} missing required manifest bundles in partial source mode." +
+                FormatProblemList("Missing required bundles", resolution.MissingEntries.Take(20).Select(entry => entry.BlobName)));
         }
 
         if (resolution.OptionalMissingEntries.Count > 0)
@@ -506,12 +530,23 @@ public static class GeoXAssetBundlePipeline
         string outputPath = Path.Combine(GetOutputRoot(), outputFolderName);
         Directory.CreateDirectory(outputPath);
 
-        BuildPipeline.BuildAssetBundles(
+        AssetBundleManifest manifest = BuildPipeline.BuildAssetBundles(
             outputPath,
             BuildAssetBundleOptions.StrictMode,
             buildTarget);
 
-        Debug.Log($"GeoX AssetBundle pipeline built {buildTarget} bundles to '{outputPath}'.");
+        if (manifest == null)
+        {
+            throw new InvalidOperationException($"GeoX AssetBundle pipeline failed to build {buildTarget} bundles; Unity did not return an AssetBundle manifest.");
+        }
+
+        string[] builtBundles = manifest.GetAllAssetBundles();
+        if (builtBundles.Length == 0)
+        {
+            throw new InvalidOperationException($"GeoX AssetBundle pipeline failed to build {buildTarget} bundles; no bundles were written to '{outputPath}'.");
+        }
+
+        Debug.Log($"GeoX AssetBundle pipeline built {builtBundles.Length} {buildTarget} bundles to '{outputPath}'.");
     }
 
     private static int AssembleFeaturedBundlesForPlatform(string platformFolder, JToken platformManifest)
@@ -842,14 +877,20 @@ public static class GeoXAssetBundlePipeline
 
     private static void ThrowIfBlockingSourceCoverageProblems(ManifestSourceResolution resolution)
     {
-        if (resolution.MissingEntries.Count == 0 && resolution.DuplicateAssignments.Count == 0 && resolution.AmbiguousMatches.Count == 0)
+        ThrowIfBlockingSourceCoverageProblems(resolution, false);
+    }
+
+    private static void ThrowIfBlockingSourceCoverageProblems(ManifestSourceResolution resolution, bool allowMissingEntries)
+    {
+        bool hasBlockingMissingEntries = resolution.MissingEntries.Count > 0 && !allowMissingEntries;
+        if (!hasBlockingMissingEntries && resolution.DuplicateAssignments.Count == 0 && resolution.AmbiguousMatches.Count == 0)
         {
             return;
         }
 
         throw new InvalidOperationException(
             "GeoX AssetBundle source coverage does not match the metadata manifest." +
-            FormatProblemList("Missing required manifest bundles", resolution.MissingEntries.Take(30).Select(entry => entry.BlobName)) +
+            FormatProblemList("Missing required manifest bundles", hasBlockingMissingEntries ? resolution.MissingEntries.Take(30).Select(entry => entry.BlobName) : Enumerable.Empty<string>()) +
             FormatProblemList("Duplicate source assignments", resolution.DuplicateAssignments.Take(20)) +
             FormatProblemList("Ambiguous source matches", resolution.AmbiguousMatches.Take(20)));
     }
@@ -864,8 +905,8 @@ public static class GeoXAssetBundlePipeline
                 continue;
             }
 
-            importer.assetBundleName = string.Empty;
             importer.assetBundleVariant = string.Empty;
+            importer.assetBundleName = string.Empty;
         }
     }
 
@@ -941,7 +982,7 @@ public static class GeoXAssetBundlePipeline
             return explicitSourceRoot;
         }
 
-        return Directory.Exists(DefaultDownloadedSourceRoot) ? DefaultDownloadedSourceRoot : "Assets";
+        return Directory.Exists(DefaultSourceRoot) ? DefaultSourceRoot : "Assets";
     }
 
     private static string GetOutputRoot()
@@ -954,6 +995,14 @@ public static class GeoXAssetBundlePipeline
         return GetArgumentValue(MetadataManifestArgument)
             ?? Environment.GetEnvironmentVariable("GEOX_METADATA_MANIFEST")
             ?? DefaultMetadataManifestPath;
+    }
+
+    private static bool GetAllowPartialSource()
+    {
+        string value = GetArgumentValue(AllowPartialSourceArgument) ?? Environment.GetEnvironmentVariable("GEOX_ALLOW_PARTIAL_SOURCE");
+        return string.Equals(value, "true", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(value, "1", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(value, "yes", StringComparison.OrdinalIgnoreCase);
     }
 
     private static JObject LoadMetadataManifest(string metadataManifestPath)
