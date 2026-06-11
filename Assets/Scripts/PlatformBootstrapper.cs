@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.XR;
 
 public class PlatformBootstrapper : MonoBehaviour
 {
@@ -49,40 +48,17 @@ public class PlatformBootstrapper : MonoBehaviour
 
     private PlatformVariant ResolvePlatformVariant()
     {
-        RuntimePlatform platform = Application.platform;
-
-        if (platform == RuntimePlatform.Android)
+        switch (Platform.Current)
         {
-            if (IsQuestRuntime())
-            {
+            case PlatformId.Quest:
                 return PlatformVariant.Quest3;
-            }
-
-            return PlatformVariant.Mobile;
+            case PlatformId.Editor:
+            case PlatformId.LegacyHoloLens2:
+            case PlatformId.Mobile:
+            case PlatformId.Other:
+            default:
+                return PlatformVariant.Mobile;
         }
-
-        if (platform == RuntimePlatform.IPhonePlayer)
-        {
-            return PlatformVariant.Mobile;
-        }
-
-        return PlatformVariant.Mobile;
-    }
-
-    private bool IsQuestRuntime()
-    {
-        string deviceModel = SystemInfo.deviceModel.ToLowerInvariant();
-        if (deviceModel.Contains("quest") ||
-            deviceModel.Contains("oculus") ||
-            deviceModel.Contains("meta"))
-        {
-            return true;
-        }
-
-        string loadedDeviceName = XRSettings.loadedDeviceName;
-        return !string.IsNullOrEmpty(loadedDeviceName) &&
-               loadedDeviceName != "None" &&
-               loadedDeviceName.ToLowerInvariant().Contains("oculus");
     }
 
     private GameObject GetPrefabForVariant(PlatformVariant variant)
