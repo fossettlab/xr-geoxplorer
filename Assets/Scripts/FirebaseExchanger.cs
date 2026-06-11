@@ -58,6 +58,14 @@ public class FirebaseExchanger : MonoBehaviour
             yield break;
         }
 
+        anchorsLoaded = false;
+        yield return FetchCurrentAnchors();
+        if (!anchorsFetchSucceeded)
+        {
+            Debug.LogError("Refusing to upload anchors: could not refresh anchor list from Firebase.");
+            yield break;
+        }
+
         AzureSpatialAnchorObject anchorObject = new AzureSpatialAnchorObject();
         anchorObject.name = anchorName;
         anchorObject.identifier = anchorIdentifier;
@@ -99,6 +107,7 @@ public class FirebaseExchanger : MonoBehaviour
     {
         conflictFound = false;
         anchorsFetchSucceeded = false;
+        anchorObjects.Clear();
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
         using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
         {
