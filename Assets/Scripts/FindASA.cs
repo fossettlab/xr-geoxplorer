@@ -119,7 +119,11 @@ public class FindASA : MonoBehaviour
             }
             this.GetComponentInChildren<Renderer>().enabled = true;
             this.GetComponentInChildren<Renderer>().material.color = Color.green;
-            this.GetComponentInChildren<TextMeshPro>().text = anchorName;
+            TMP_Text anchorLabel = GetComponentInChildren<TMP_Text>();
+            if (anchorLabel != null)
+            {
+                anchorLabel.text = anchorName;
+            }
 
             anchorLocatedAndPlaced = true;
         });
