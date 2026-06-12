@@ -17,6 +17,15 @@ if (FindViolations(bad).Count != 1 || FindViolations(good).Count != 0)
     return 2;
 }
 
+const string cameraBad = "class C { void M() { var x = Camera.current; } }";
+const string cameraGood = "class C { void M() { var x = Camera.main; } }";
+if (FindCameraCurrentUsage("Assets/Scripts/Example.cs", cameraBad).Count != 1 ||
+    FindCameraCurrentUsage("Assets/Scripts/Example.cs", cameraGood).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint camera self-test FAILED — the Camera.current detector is broken.");
+    return 2;
+}
+
 string target = args.Length > 0 ? args[0] : ".";
 if (!Directory.Exists(target))
 {
@@ -39,10 +48,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: scene-load — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindCameraCurrentUsage(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: camera — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch or forbidden scene-load violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, or Camera.current violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -86,6 +101,27 @@ static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, str
             line.Contains("LoadLevel(\"SampleScene\");", StringComparison.Ordinal))
         {
             findings.Add((i + 1, line.Trim()));
+        }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindCameraCurrentUsage(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!path.Replace('\\', '/').Contains("/Assets/Scripts/"))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        if (line.Contains("Camera.current", StringComparison.Ordinal))
+        {
+            findings.Add((i + 1, "Camera.current is null outside render callbacks; use Camera.main instead — " + line.Trim()));
         }
     }
 
