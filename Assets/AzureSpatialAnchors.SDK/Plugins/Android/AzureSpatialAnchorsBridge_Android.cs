@@ -1,4 +1,4 @@
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 //
 // AzureSpatialAnchors
 // This file was auto-generated from SscApiModelDirect.cs.
