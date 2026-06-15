@@ -134,11 +134,20 @@ public class FirebaseExchanger : MonoBehaviour
         anchorsLoaded = true;
     }
 
+    bool fetchInProgress;
+
     IEnumerator FetchAnchorsFromServer()
     {
-        anchorObjects.Clear();
+        while (fetchInProgress)
+        {
+            yield return null;
+        }
+
+        fetchInProgress = true;
         conflictFound = false;
-        anchorsFetchSucceeded = false;
+        var fetchedAnchors = new List<AzureSpatialAnchorObject>();
+        bool fetchSucceeded = false;
+
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
         using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
         {
@@ -163,11 +172,11 @@ public class FirebaseExchanger : MonoBehaviour
                             {
                                 if (anchor.dateExpired > DateTime.Now)
                                 {
-                                    anchorObjects.Add(anchor);
+                                    fetchedAnchors.Add(anchor);
                                 }
                             }
 
-                            anchorsFetchSucceeded = true;
+                            fetchSucceeded = true;
                         }
                         else
                         {
@@ -181,10 +190,19 @@ public class FirebaseExchanger : MonoBehaviour
                 }
                 else
                 {
-                    anchorsFetchSucceeded = true;
+                    fetchSucceeded = true;
                 }
             }
         }
+
+        if (fetchSucceeded)
+        {
+            anchorObjects.Clear();
+            anchorObjects.AddRange(fetchedAnchors);
+            anchorsFetchSucceeded = true;
+        }
+
+        fetchInProgress = false;
     }
 
     public bool CheckForNameConflict(string potentialName)
