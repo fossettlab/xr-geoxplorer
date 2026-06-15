@@ -47,7 +47,11 @@ public class CreateASA : MonoBehaviour
                 return;
             }
 
-            GetComponentInChildren<TextMeshPro>().text = FindObjectOfType<FirebaseExchanger>().anchorName;
+            TMP_Text anchorLabel = GetComponentInChildren<TMP_Text>();
+            if (anchorLabel != null)
+            {
+                anchorLabel.text = FindObjectOfType<FirebaseExchanger>().anchorName;
+            }
 
             GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().OnAnchorSuccessful(this.gameObject);
         }
