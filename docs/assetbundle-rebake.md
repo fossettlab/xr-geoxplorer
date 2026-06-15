@@ -49,18 +49,19 @@ handsample
 outcrop
 ```
 
-Current #6 scope is to build the 8 available raw-source categories first:
-everything above except `bio`. The `bio` raw Unity source was not found in the
-staged source drop, so the pipeline treats `bio` as a known raw-source gap. For a
-strict production-equivalent staging set, reuse the existing pre-baked `bio`
-bundles or locate the missing raw source separately.
+Current #6 scope is to build what has raw Unity source, then keep the missing
+raw-source cases explicit. The `bio` raw Unity source was not found in the
+staged source drop, so this PR skips `bio` instead of blocking the first bake.
+Bradley's 2026-06-14 direction also says not to block on missing DEM source if
+the already-deployed DEM bundles still load in Unity 2022.3.
 
-After downloading the private `geoxplorer-source` drop locally, static coverage
-against the committed manifest still shows gaps beyond `bio`. The available
-source maps cleanly for `architecture`, `arthistory`, `drama`, and `outcrop`,
-but not for every deployed `archeology`, `crystallattice`, `dem`, or
-`handsample` bundle. Do not upload to staging until these gaps are resolved or
-explicitly accepted as a partial initial bake.
+The pipeline therefore has two validation modes:
+
+- **Strict manifest mode**: production-equivalent; every deployed manifest entry
+  must have source and matching output.
+- **Available-source mode**: #6 initial bake; only manifest entries that resolve
+  to staged source are expected, while deployed entries without source are
+  counted and reported.
 
 For privacy/access control, this repo never reads Azure or NAS content
 automatically. Copy or mount the source content into the Unity project, or pass a
@@ -91,12 +92,18 @@ GeoXplorer > AssetBundles > Build > Build Android
 GeoXplorer > AssetBundles > Build > Build iOS
 GeoXplorer > AssetBundles > Build > Build Historical WSA
 GeoXplorer > AssetBundles > Build > Build Standalone
+GeoXplorer > AssetBundles > Build > Build Available Android
+GeoXplorer > AssetBundles > Build > Build Available iOS
 GeoXplorer > AssetBundles > Build > Build All Ticket #6 Targets
+GeoXplorer > AssetBundles > Build > Build Available Ticket #6 Targets
 GeoXplorer > AssetBundles > Assemble Featured Bundles
 GeoXplorer > AssetBundles > Validate > Source Layout
 GeoXplorer > AssetBundles > Validate > Source Coverage Against Manifest
+GeoXplorer > AssetBundles > Validate > Available Source Against Manifest
 GeoXplorer > AssetBundles > Validate > Initial Bake Against Manifest
 GeoXplorer > AssetBundles > Validate > Staging Output Against Manifest
+GeoXplorer > AssetBundles > Validate > Available Source Output Against Manifest
+GeoXplorer > AssetBundles > Validate > Load Bundle From File
 GeoXplorer > AssetBundles > Write Azure Upload Plan
 ```
 
@@ -148,7 +155,7 @@ The script can also run from Unity batch mode. Example:
   -batchmode \
   -quit \
   -projectPath '/Users/seanqin/Documents/Fossettlab' \
-  -executeMethod GeoXAssetBundlePipeline.BuildAllTicketTargets \
+  -executeMethod GeoXAssetBundlePipeline.BuildAvailableTicketTargets \
   -geoXSourceRoot=Assets/GeoXSource/importable-source \
   -geoXOutputRoot=/path/to/staging/AssetBundles \
   -logFile /private/tmp/xr-geoxplorer-assetbundle-bake.log
@@ -161,6 +168,7 @@ Arguments:
 -geoXOutputRoot=<bundle output root>
 -geoXMetadataManifest=<path to docs/assetbundle-metadata-manifest.json>
 -geoXAllowPartialSource=true
+-geoXBundlePath=<local bundle file to load-smoke-test>
 ```
 
 Environment variable alternatives:
@@ -172,11 +180,13 @@ GEOX_METADATA_MANIFEST
 GEOX_ALLOW_PARTIAL_SOURCE
 ```
 
-By default, manifest-driven builds are strict: if the source root cannot satisfy
-every required bundle in the committed manifest, the build stops before writing
-partial output. Pass `-geoXAllowPartialSource=true` only for the current #6
-staged-source gap workflow. In that mode, missing manifest entries are logged as
-warnings, but duplicate or ambiguous source matches still fail the build.
+By default, `Build Android`, `Build iOS`, and `Build All Ticket #6 Targets` are
+strict: if the source root cannot satisfy every required bundle in the committed
+manifest, the build stops before writing partial output. Use the `Build
+Available ...` methods for the current #6 staged-source workflow. Those methods
+log missing deployed entries as warnings, but duplicate or ambiguous source
+matches still fail the build. The older `-geoXAllowPartialSource=true` argument
+is still supported for batch compatibility.
 
 ## Local Validation
 
@@ -200,22 +210,27 @@ files for duplicate detection. Missing or empty `bio` is reported as a warning
 because Bradley's 2026-05-25 update confirmed that only pre-baked `bio` bundles
 survive for now.
 
-Then run manifest source-coverage validation before any build. This catches
-missing source for deployed bundle names before spending time baking:
+Then run available-source coverage validation before the initial #6 bake. This
+checks that source-backed entries resolve cleanly to manifest blob names and
+reports, but does not fail on, deployed blobs with no staged source:
 
 ```bash
 '/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
   -batchmode \
   -quit \
   -projectPath '/Users/seanqin/Documents/Fossettlab' \
-  -executeMethod GeoXAssetBundlePipeline.ValidateSourceCoverageAgainstManifest \
+  -executeMethod GeoXAssetBundlePipeline.ValidateAvailableSourceAgainstManifest \
   -geoXSourceRoot=Assets/GeoXSource/importable-source \
   -geoXMetadataManifest=docs/assetbundle-metadata-manifest.json \
-  -logFile /private/tmp/xr-geoxplorer-assetbundle-source-coverage.log
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-available-source-coverage.log
 ```
 
+Use `ValidateSourceCoverageAgainstManifest` only when you intentionally want the
+strict production-equivalent gate.
+
 Static local coverage from the downloaded source drop. Android and iOS are the
-current ticket targets; WSA is shown only as historical deployed inventory:
+current ticket targets; WSA is shown only as historical deployed inventory.
+These are manifest matches, not raw file counts:
 
 | Category | Android | iOS | WSA | Notes |
 |---|---:|---:|---:|---|
@@ -229,44 +244,59 @@ current ticket targets; WSA is shown only as historical deployed inventory:
 | `handsample` | 30 / 53 | 30 / 53 | 30 / 53 | UND samples are still not represented as individual source prefabs |
 | `bio` | 0 / 17 | 0 / 17 | 0 / 17 | known raw-source gap |
 
-These numbers mean a full manifest-equivalent bake is not ready yet. The tool is
-still useful: it can bake matched source entries and fail fast with explicit
-missing bundle names until the remaining source is provided or the acceptance
-scope is narrowed.
+Per-category source counts from Bradley's private `geoxplorer-source` drop are:
 
-To bake only the source entries that are currently available, pass the explicit
-partial-source flag:
+| Source folder | Model-like files | Prefabs | Notes |
+|---|---:|---:|---|
+| `Archeology~` | 4 | 2 | imported as `archeology` |
+| `Architecture~` | 2 | 1 | imported as `architecture` |
+| `ArtHistory~` | 28 | 14 | imported as `arthistory` |
+| `CrystalLattice~` | 22 | 11 | imported as `crystallattice` |
+| `DEM~` | 10 | 5 | imported as `dem`; deployed DEM bundles should be reused if they load |
+| `Drama~` | 18 | 8 | imported as `drama` |
+| `HandSamples~` | 60 | 30 | imported as `handsamples` |
+| `Outcrops~` | 84 | 42 | imported as `outcrops` |
+
+The raw source folders do end in `~`, so Bradley's concern about Unity hiding
+those folders is real. The ignored importable mirror removes the trailing `~`
+and preserves the same counts, so the remaining missing deployed entries are not
+caused by mirror loss.
+
+To bake only the source entries that are currently available, run the explicit
+available-source build method:
 
 ```bash
 '/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
   -batchmode \
   -quit \
   -projectPath '/Users/seanqin/Documents/Fossettlab' \
-  -executeMethod GeoXAssetBundlePipeline.BuildAndroid \
+  -executeMethod GeoXAssetBundlePipeline.BuildAvailableAndroid \
   -geoXSourceRoot=Assets/GeoXSource/importable-source \
   -geoXOutputRoot=/path/to/staging/AssetBundles \
-  -geoXAllowPartialSource=true \
-  -logFile /private/tmp/xr-geoxplorer-assetbundle-android-partial-bake.log
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-android-available-bake.log
 ```
 
-Do not treat a partial-source bake as production-equivalent. It is useful for
-validating the fresh Unity 2022 pipeline and staging representative bundles, but
-the strict manifest comparison should remain the acceptance gate for a complete
+Do not treat an available-source bake as production-equivalent. It is useful for
+validating the fresh Unity 2022 pipeline and staging representative bundles. The
+strict manifest comparison should remain the acceptance gate for a later complete
 cutover.
 
 After baking and assembling featured aliases, compare the local staging output to
-the committed Azure metadata manifest before uploading. For the initial #6 bake
-that intentionally excludes raw-source-missing `bio`, use:
+the source-backed subset of the committed Azure metadata manifest before
+uploading. The validator checks the active build target when Unity is opened or
+started with `-buildTarget Android` / `-buildTarget iOS`; otherwise it checks
+the ticket's Android and iOS targets:
 
 ```bash
 '/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
   -batchmode \
   -quit \
   -projectPath '/Users/seanqin/Documents/Fossettlab' \
-  -executeMethod GeoXAssetBundlePipeline.ValidateInitialBakeOutputAgainstManifest \
+  -executeMethod GeoXAssetBundlePipeline.ValidateAvailableSourceOutputAgainstManifest \
+  -geoXSourceRoot=Assets/GeoXSource/importable-source \
   -geoXOutputRoot=/path/to/staging/AssetBundles \
   -geoXMetadataManifest=docs/assetbundle-metadata-manifest.json \
-  -logFile /private/tmp/xr-geoxplorer-assetbundle-initial-manifest-check.log
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-available-output-check.log
 ```
 
 For a strict production-equivalent staging output, including pre-baked `bio`
@@ -409,7 +439,34 @@ Materials may render magenta at this stage because URP-compatible bundles are
 tracked separately in #39. For #6, the load test is about download/load success
 without exceptions.
 
-## 2026-06-11 Validation Status
+## Existing DEM Bundle Smoke Test
+
+Bradley asked whether an already-deployed DEM bundle still loads in Unity
+2022.3. If it does, missing DEM raw source should not block #6 because the live
+DEM bundles can continue to serve runtime content.
+
+Download one public deployed DEM bundle to a temporary local path, then run:
+
+```bash
+'/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -quit \
+  -buildTarget Android \
+  -projectPath '/Users/seanqin/Documents/Fossettlab' \
+  -executeMethod GeoXAssetBundlePipeline.ValidateBundleLoadFromFile \
+  -geoXBundlePath=/private/tmp/xr-geoxplorer-dem-smoke/apollo11-bundle \
+  -logFile /private/tmp/xr-geoxplorer-dem-bundle-smoke.log
+```
+
+The verifier fails if the bundle cannot be loaded or if it contains no assets or
+scenes.
+
+2026-06-14 result: the public deployed Android bundle
+`android/geoxplorer-dem/apollo11-bundle` loaded successfully in Unity 2022.3
+with 281 assets and 0 scenes. That supports Bradley's plan to keep using
+existing deployed DEM bundles where raw DEM source is missing.
+
+## 2026-06-14 Validation Status
 
 The private Azure `geoxplorer-source` SAS was used locally to download the
 source drop, then mirrored under an ignored Unity-visible source root without
@@ -417,24 +474,50 @@ trailing `~` category folder names. The source-layout validation passed against
 that mirror and found 228 model assets across the available categories, with
 `bio` still treated as the known raw-source gap.
 
-Strict manifest coverage still fails against the downloaded source. The first
-missing required entries include deployed `archeology` and `crystallattice`
-bundles, and the static coverage table above shows additional `dem` and
-`handsample` gaps. Until the missing source is supplied or the accepted scope is
-narrowed, a full production-equivalent staging bake should not be uploaded.
+The branch is rebased on top of the ASA editor guard from PR #86. That guard
+keeps the Android ASA bridge out of Unity Editor compilation with:
 
-An Android partial bake currently reaches manifest assignment for the matched
-source entries, but the Unity build is blocked before bundle output by existing
-Android player compile errors in the Azure Spatial Anchors plugin set where
-Android and editor-runtime bridge definitions are compiled together. No bundles
-were uploaded to staging from this validation pass.
+```csharp
+#if UNITY_ANDROID && !UNITY_EDITOR
+```
+
+Strict manifest coverage still fails against the downloaded source, which is
+expected because the source drop does not contain every deployed `archeology`,
+`crystallattice`, `dem`, `handsample`, or `bio` entry. The available-source
+validation and build paths now make that a reported scope limit instead of a
+pipeline blocker.
+
+Android available-source validation and bake results on 2026-06-14:
+
+- Source-backed coverage: 110 Android bundles matched source, 783 deployed
+  Android bundles have no staged source, and 17 `bio` bundles are the known
+  optional raw-source gap.
+- Android bake: Unity built 111 Android bundle artifacts to local staging.
+- Featured assembly: 6 source-backed `geoxplorer-featured` aliases were created;
+  featured aliases whose backing bundles lack source were skipped with warnings.
+- Android output validation: 116 source-backed Android manifest bundle names
+  matched local staging output.
+- Upload plan: `Write Azure Upload Plan` generated a local
+  `azure-upload-plan.json` for the staged Android output. No Azure upload was
+  performed.
+
+iOS source assignment reached the same available-source count, but the local
+Unity install could not build iOS AssetBundles because the `iOSSupport` module is
+not installed. The installed playback engine list only includes `AndroidPlayer`.
+Run `Build Available iOS` on a Unity 2022.3 install with iOS Build Support to
+complete the iOS bake.
+
+No bundles should be uploaded to Azure staging until the available-source output
+validation passes locally and Sean/Bradley explicitly approve the staging
+upload.
 
 ## Current Limits
 
 This repo-side scaffold does not read NAS content, query Azure, upload to Azure,
 or run hardware smoke tests by itself. Those steps require explicit access to
 external storage, credentials, and devices. What it can do locally is validate
-the 8 available source categories, assign per-model bundle names, build local
+the available source categories, assign per-model bundle names, build local
 bundles, assemble `geoxplorer-featured` from the committed manifest, compare
-staging output against the manifest with either initial-bake or strict rules, and
-generate an upload plan for a later Azure staging upload.
+staging output against either the available-source subset or the strict full
+manifest, load-smoke-test an existing bundle file, and generate an upload plan
+for a later Azure staging upload.

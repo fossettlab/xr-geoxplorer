@@ -12,6 +12,7 @@ public static class GeoXAssetBundlePipeline
     private const string OutputRootArgument = "-geoXOutputRoot=";
     private const string MetadataManifestArgument = "-geoXMetadataManifest=";
     private const string AllowPartialSourceArgument = "-geoXAllowPartialSource=";
+    private const string BundlePathArgument = "-geoXBundlePath=";
     private const string DefaultSourceRoot = "Assets/GeoXSource/importable-source";
     private const string DefaultOutputRoot = "AssetBundles";
     private const string DefaultMetadataManifestPath = "docs/assetbundle-metadata-manifest.json";
@@ -101,6 +102,16 @@ public static class GeoXAssetBundlePipeline
         Debug.Log($"GeoX AssetBundle pipeline matched {matchedCount} required source entries across ticket build platforms.");
     }
 
+    [MenuItem("GeoXplorer/AssetBundles/Validate/Available Source Against Manifest")]
+    public static void ValidateAvailableSourceAgainstManifest()
+    {
+        SourceBackedCoverage coverage = ResolveSourceBackedManifestCoverage(
+            GetSourceRoot(),
+            GetMetadataManifestPath(),
+            GetValidationPlatformsForActiveTarget());
+        LogSourceBackedCoverageSummary(coverage);
+    }
+
     [MenuItem("GeoXplorer/AssetBundles/Validate/Staging Output Against Manifest")]
     public static void ValidateStagingOutputAgainstManifest()
     {
@@ -111,6 +122,24 @@ public static class GeoXAssetBundlePipeline
     public static void ValidateInitialBakeOutputAgainstManifest()
     {
         ValidateStagingOutputAgainstManifest(GetOutputRoot(), GetMetadataManifestPath(), true);
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Validate/Available Source Output Against Manifest")]
+    public static void ValidateAvailableSourceOutputAgainstManifest()
+    {
+        ValidateAvailableSourceOutputAgainstManifest(GetOutputRoot(), GetSourceRoot(), GetMetadataManifestPath());
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Validate/Load Bundle From File")]
+    public static void ValidateBundleLoadFromFile()
+    {
+        string bundlePath = GetArgumentValue(BundlePathArgument);
+        if (string.IsNullOrEmpty(bundlePath))
+        {
+            throw new ArgumentException($"Pass {BundlePathArgument}<path> when running GeoXAssetBundlePipeline.ValidateBundleLoadFromFile.");
+        }
+
+        ValidateBundleLoadFromFile(bundlePath);
     }
 
     [MenuItem("GeoXplorer/AssetBundles/Write Azure Upload Plan")]
@@ -156,6 +185,20 @@ public static class GeoXAssetBundlePipeline
         BuildForTarget(GetStandaloneBuildTarget(), "standalone");
     }
 
+    [MenuItem("GeoXplorer/AssetBundles/Build/Build Available Android")]
+    public static void BuildAvailableAndroid()
+    {
+        AssignBundleNamesForTargetPlatform("android", true);
+        BuildForTarget(BuildTarget.Android, "android");
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Build/Build Available iOS")]
+    public static void BuildAvailableIos()
+    {
+        AssignBundleNamesForTargetPlatform("ios", true);
+        BuildForTarget(BuildTarget.iOS, "ios");
+    }
+
     [MenuItem("GeoXplorer/AssetBundles/Build/Build All Ticket #6 Targets")]
     public static void BuildAllTicketTargets()
     {
@@ -163,6 +206,16 @@ public static class GeoXAssetBundlePipeline
         BuildForTarget(BuildTarget.Android, "android");
 
         AssignBundleNamesForTargetPlatform("ios");
+        BuildForTarget(BuildTarget.iOS, "ios");
+    }
+
+    [MenuItem("GeoXplorer/AssetBundles/Build/Build Available Ticket #6 Targets")]
+    public static void BuildAvailableTicketTargets()
+    {
+        AssignBundleNamesForTargetPlatform("android", true);
+        BuildForTarget(BuildTarget.Android, "android");
+
+        AssignBundleNamesForTargetPlatform("ios", true);
         BuildForTarget(BuildTarget.iOS, "ios");
     }
 
@@ -427,6 +480,94 @@ public static class GeoXAssetBundlePipeline
         Debug.Log($"GeoX AssetBundle staging output matches {requiredCount} required manifest bundle names.");
     }
 
+    public static void ValidateAvailableSourceOutputAgainstManifest(string outputRoot, string sourceRoot, string metadataManifestPath)
+    {
+        IEnumerable<string> platforms = GetValidationPlatformsForActiveTarget();
+        SourceBackedCoverage coverage = ResolveSourceBackedManifestCoverage(sourceRoot, metadataManifestPath, platforms);
+        JObject manifest = LoadMetadataManifest(metadataManifestPath);
+        JObject containers = (JObject)manifest["containers"];
+        List<string> problems = new List<string>();
+        int expectedCount = 0;
+
+        foreach (string platform in platforms)
+        {
+            string platformOutputRoot = Path.Combine(outputRoot, platform);
+            HashSet<string> expectedNames = new HashSet<string>(
+                coverage.MatchedEntriesByPlatform[platform].Select(entry => entry.BlobName),
+                StringComparer.OrdinalIgnoreCase);
+
+            JToken platformManifest = containers[platform];
+            foreach (string featuredBlobName in GetManifestBundleNames(platformManifest).Where(IsFeaturedBundleName))
+            {
+                string backingBundleName = GetFeaturedBackingBundleName(featuredBlobName);
+                if (!string.IsNullOrEmpty(backingBundleName) && expectedNames.Contains(backingBundleName))
+                {
+                    expectedNames.Add(featuredBlobName);
+                }
+            }
+
+            HashSet<string> actualNames = GetStagingBundleNames(platformOutputRoot);
+            expectedCount += expectedNames.Count;
+
+            foreach (string missingName in expectedNames.Except(actualNames))
+            {
+                if (problems.Count < 30)
+                {
+                    problems.Add($"{platform}: missing source-backed {missingName}");
+                }
+            }
+
+            foreach (string unexpectedName in actualNames.Except(expectedNames))
+            {
+                if (problems.Count < 30)
+                {
+                    problems.Add($"{platform}: unexpected {unexpectedName}");
+                }
+            }
+        }
+
+        if (problems.Count > 0)
+        {
+            throw new InvalidOperationException(
+                "GeoX AssetBundle available-source output does not match source-backed manifest entries." +
+                FormatProblemList("Problems", problems));
+        }
+
+        LogSourceBackedCoverageSummary(coverage);
+        Debug.Log($"GeoX AssetBundle available-source output matches {expectedCount} source-backed manifest bundle names.");
+    }
+
+    public static void ValidateBundleLoadFromFile(string bundlePath)
+    {
+        string normalizedPath = NormalizeSeparators(bundlePath);
+        if (!File.Exists(normalizedPath))
+        {
+            throw new FileNotFoundException("GeoX AssetBundle load smoke file was not found.", normalizedPath);
+        }
+
+        AssetBundle bundle = AssetBundle.LoadFromFile(normalizedPath);
+        if (bundle == null)
+        {
+            throw new InvalidOperationException($"GeoX AssetBundle load smoke could not load '{normalizedPath}'.");
+        }
+
+        try
+        {
+            string[] assetNames = bundle.GetAllAssetNames();
+            string[] scenePaths = bundle.GetAllScenePaths();
+            if (assetNames.Length == 0 && scenePaths.Length == 0)
+            {
+                throw new InvalidOperationException($"GeoX AssetBundle load smoke loaded '{normalizedPath}', but it contained no assets or scenes.");
+            }
+
+            Debug.Log($"GeoX AssetBundle load smoke loaded '{normalizedPath}' with {assetNames.Length} assets and {scenePaths.Length} scenes.");
+        }
+        finally
+        {
+            bundle.Unload(true);
+        }
+    }
+
     public static string WriteAzureUploadPlan(string outputRoot, string metadataManifestPath)
     {
         JObject manifest = LoadMetadataManifest(metadataManifestPath);
@@ -480,10 +621,14 @@ public static class GeoXAssetBundlePipeline
 
     private static void AssignBundleNamesForTargetPlatform(string platform)
     {
-        bool allowPartialSource = GetAllowPartialSource();
-        int assignedCount = AssignPerModelBundleNames(GetSourceRoot(), GetMetadataManifestPath(), platform, !allowPartialSource);
+        AssignBundleNamesForTargetPlatform(platform, GetAllowPartialSource());
+    }
+
+    private static void AssignBundleNamesForTargetPlatform(string platform, bool allowMissingSource)
+    {
+        int assignedCount = AssignPerModelBundleNames(GetSourceRoot(), GetMetadataManifestPath(), platform, !allowMissingSource);
         string assignmentMode = ManifestBuildPlatforms.Contains(platform) ? "manifest" : "legacy";
-        string coverageMode = allowPartialSource ? "partial source" : "strict";
+        string coverageMode = allowMissingSource ? "available source" : "strict";
         Debug.Log($"GeoX AssetBundle pipeline assigned {assignedCount} {assignmentMode} bundle names for '{platform}' in {coverageMode} mode.");
     }
 
@@ -495,8 +640,8 @@ public static class GeoXAssetBundlePipeline
         if (!failOnMissing && resolution.MissingEntries.Count > 0)
         {
             Debug.LogWarning(
-                $"GeoX AssetBundle pipeline skipped {resolution.MissingEntries.Count} missing required manifest bundles in partial source mode." +
-                FormatProblemList("Missing required bundles", resolution.MissingEntries.Take(20).Select(entry => entry.BlobName)));
+                $"GeoX AssetBundle pipeline skipped {resolution.MissingEntries.Count} deployed bundles without source in available-source mode." +
+                FormatProblemList("Source-missing deployed bundles", resolution.MissingEntries.Take(20).Select(entry => entry.BlobName)));
         }
 
         if (resolution.OptionalMissingEntries.Count > 0)
@@ -655,6 +800,17 @@ public static class GeoXAssetBundlePipeline
         return blobName.StartsWith(FeaturedPrefix + "/", StringComparison.OrdinalIgnoreCase);
     }
 
+    private static string GetFeaturedBackingBundleName(string featuredBlobName)
+    {
+        string[] parts = featuredBlobName.Replace("\\", "/").Split('/');
+        if (parts.Length != 3)
+        {
+            return null;
+        }
+
+        return $"{BundlePrefix}{parts[1]}/{parts[2]}";
+    }
+
     private static string ResolveFeaturedSourceBundle(string platformFolder, string featuredBlobName)
     {
         string[] parts = featuredBlobName.Replace("\\", "/").Split('/');
@@ -727,6 +883,52 @@ public static class GeoXAssetBundlePipeline
         }
 
         return entries.OrderBy(entry => entry.BlobName, StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
+    private static IEnumerable<string> GetValidationPlatformsForActiveTarget()
+    {
+        string platform = GetBuildTargetFolderName(EditorUserBuildSettings.activeBuildTarget);
+        if (ManifestBuildPlatforms.Contains(platform))
+        {
+            return new[] { platform };
+        }
+
+        return TicketBuildPlatforms;
+    }
+
+    private static SourceBackedCoverage ResolveSourceBackedManifestCoverage(string sourceRoot, string metadataManifestPath, IEnumerable<string> platforms)
+    {
+        SourceBackedCoverage coverage = new SourceBackedCoverage();
+        foreach (string platform in platforms.Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            List<ManifestBundleEntry> manifestEntries = LoadManifestBundleEntries(metadataManifestPath, platform);
+            ManifestSourceResolution resolution = ResolveManifestSourceEntries(sourceRoot, manifestEntries);
+            ThrowIfBlockingSourceCoverageProblems(resolution, true);
+
+            coverage.MatchedEntriesByPlatform[platform] = resolution.Matches.Keys
+                .OrderBy(entry => entry.BlobName, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            coverage.MissingRequiredCountsByPlatform[platform] = resolution.MissingEntries.Count;
+            coverage.OptionalMissingCountsByPlatform[platform] = resolution.OptionalMissingEntries.Count;
+        }
+
+        return coverage;
+    }
+
+    private static void LogSourceBackedCoverageSummary(SourceBackedCoverage coverage)
+    {
+        int matchedCount = coverage.MatchedEntriesByPlatform.Values.Sum(entries => entries.Count);
+        int missingRequiredCount = coverage.MissingRequiredCountsByPlatform.Values.Sum();
+        int optionalMissingCount = coverage.OptionalMissingCountsByPlatform.Values.Sum();
+        string perPlatform = string.Join(
+            ", ",
+            coverage.MatchedEntriesByPlatform.Select(pair =>
+                $"{pair.Key}: {pair.Value.Count} matched, {coverage.MissingRequiredCountsByPlatform[pair.Key]} source-missing, {coverage.OptionalMissingCountsByPlatform[pair.Key]} optional-missing"));
+
+        Debug.Log(
+            "GeoX AssetBundle pipeline validated available source against the manifest. " +
+            $"{matchedCount} source-backed bundles matched; {missingRequiredCount} deployed bundles have no staged source; " +
+            $"{optionalMissingCount} optional raw-source-gap bundles were skipped. {perPlatform}");
     }
 
     private static ManifestSourceResolution ResolveManifestSourceEntries(string sourceRoot, List<ManifestBundleEntry> manifestEntries)
@@ -1299,5 +1501,12 @@ public static class GeoXAssetBundlePipeline
         public readonly List<ManifestBundleEntry> OptionalMissingEntries = new List<ManifestBundleEntry>();
         public readonly List<string> DuplicateAssignments = new List<string>();
         public readonly List<string> AmbiguousMatches = new List<string>();
+    }
+
+    private sealed class SourceBackedCoverage
+    {
+        public readonly Dictionary<string, List<ManifestBundleEntry>> MatchedEntriesByPlatform = new Dictionary<string, List<ManifestBundleEntry>>(StringComparer.OrdinalIgnoreCase);
+        public readonly Dictionary<string, int> MissingRequiredCountsByPlatform = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        public readonly Dictionary<string, int> OptionalMissingCountsByPlatform = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
     }
 }

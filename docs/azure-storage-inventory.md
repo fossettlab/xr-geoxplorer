@@ -83,18 +83,19 @@ covers **8 of the 9 source categories**:
 
 The `production-*` containers are not a substitute for this re-bake source drop:
 they contain raw `.obj` / `.mtl` / texture files without the Unity `.meta` import
-settings needed to reproduce the deployed bundles. The new Unity 2022.3 Editor
-pipeline should build the 8 available source categories first and keep the `bio`
-gap explicit instead of blocking the whole bake.
+settings needed to reproduce the deployed bundles. The Unity 2022.3 Editor
+pipeline should build the source-backed subset first, skip `bio` for this PR,
+and keep missing raw-source cases explicit instead of blocking the whole bake.
 
 Local validation against the downloaded private source drop found that the
 category folders exist, but manifest coverage is not yet production-equivalent.
 The preserved `.meta` files map the full deployed `architecture`, Android/iOS
 `arthistory`, Android/iOS `drama`, and `outcrop` bundles, but large portions of
 `dem`, `crystallattice`, `handsample`, and `archeology` still do not resolve to
-source entry assets. Treat this as a remaining #6 source-coverage question, not a
-runtime-code issue: the Unity 2022 pipeline now reports the exact missing
-manifest bundle names before baking.
+source entry assets. Bradley's 2026-06-14 direction is to bake what source exists
+and test whether one existing deployed DEM bundle still loads in Unity 2022.3.
+If it loads, the live DEM bundles can stay in use and missing DEM raw source does
+not block the first #6 pipeline PR.
 
 ## What's actually used by the xr-geoxplorer runtime
 
