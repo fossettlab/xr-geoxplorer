@@ -47,7 +47,11 @@ public class CreateASA : MonoBehaviour
                 return;
             }
 
-            GetComponentInChildren<TextMeshPro>().text = FindObjectOfType<FirebaseExchanger>().anchorName;
+            TMP_Text anchorLabel = GetComponentInChildren<TMP_Text>();
+            if (anchorLabel != null)
+            {
+                anchorLabel.text = FindObjectOfType<FirebaseExchanger>().anchorName;
+            }
 
             GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().OnAnchorSuccessful(this.gameObject);
         }
@@ -91,7 +95,24 @@ public class CreateASA : MonoBehaviour
             // Store
             currentCloudAnchor = cloudAnchor;
 
-            FindObjectOfType<FirebaseExchanger>().PutAnchors(currentCloudAnchor.Identifier, DateTime.Now.AddHours(24));
+            FirebaseExchanger firebase = FindObjectOfType<FirebaseExchanger>();
+            bool? uploadResult = null;
+            firebase.StartCoroutine(
+                firebase.PutAnchorsAndWait(
+                    currentCloudAnchor.Identifier,
+                    DateTime.Now.AddHours(24),
+                    succeeded => uploadResult = succeeded));
+            while (uploadResult == null)
+            {
+                await Task.Delay(50);
+            }
+
+            if (uploadResult != true)
+            {
+                feedback.text = "Cloud anchor saved but Firebase registration failed. Try again.";
+                return false;
+            }
+
             return true;
         }
         catch (Exception ex)
