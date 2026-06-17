@@ -805,8 +805,8 @@ geoxplorer-dem/dtepd_040311_0940_040193_0940_a01-bundle,dem,DTEPD_040311_0940_04
 geoxplorer-dem/dtepd_049945_0930_049972_0930_a01-bundle,dem,DTEPD_049945_0930_049972_0930_A01.IMG.blend,LOST (no source found),none,
 geoxplorer-dem/etnageology-bundle,dem,EtnaGeology,geoxplorer-source (GeoXAssetBundles),exact,firm
 geoxplorer-dem/meteorcrater-bundle,dem,meteorCrater1,geoxplorer-source (GeoXAssetBundles),exact,firm
-geoxplorer-dem/monolake2000-bundle,dem,modelName,geoxplorer-source: production-source/dem (Mono Lake ASTER 2000),verified,firm
-geoxplorer-dem/monolake2015-bundle,dem,modelName,geoxplorer-source: production-source/dem (Mono Lake ASTER 2015),verified,firm
+geoxplorer-dem/monolake2000-bundle,dem,modelName,geoxplorer-source: importable-source/dem (LROAssetBundles/2000MonoLake),verified,firm
+geoxplorer-dem/monolake2015-bundle,dem,modelName,geoxplorer-source: importable-source/dem (LROAssetBundles/2015MonoLake),verified,firm
 geoxplorer-dem/nepal-bundle,dem,nepal-sikkim,geoxplorer-source (GeoXAssetBundles),exact,firm
 geoxplorer-drama/abbygmdesignfinal-bundle,drama,AbbyGMDesignFinal,geoxplorer-source (GeoXAssetBundles),exact,firm
 geoxplorer-drama/elephantgraveyard-bundle,drama,ElephantsGraveyard,geoxplorer-source (GeoXAssetBundles),exact,firm

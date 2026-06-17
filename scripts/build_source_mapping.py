@@ -46,8 +46,8 @@ GENERIC_PREFABS = {"modelname", ""}
 # vs. spacing). Keys are normalized identities; verified 2026-06-16 by direct
 # presence in the staged source noted in the value.
 ALIASES = {
-    "monolake2000": "geoxplorer-source: production-source/dem (Mono Lake ASTER 2000)",
-    "monolake2015": "geoxplorer-source: production-source/dem (Mono Lake ASTER 2015)",
+    "monolake2000": "geoxplorer-source: importable-source/dem (LROAssetBundles/2000MonoLake)",
+    "monolake2015": "geoxplorer-source: importable-source/dem (LROAssetBundles/2015MonoLake)",
 }
 
 
