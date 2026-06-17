@@ -26,6 +26,27 @@ if (FindCameraCurrentUsage("Assets/Scripts/Example.cs", cameraBad).Count != 1 ||
     return 2;
 }
 
+const string firebaseCacheBad = @"
+class FirebaseExchanger {
+    System.Collections.IEnumerator FetchAnchorsFromServer() {
+        anchorObjects.Clear();
+        yield return null;
+    }
+}";
+const string firebaseCacheGood = @"
+class FirebaseExchanger {
+    System.Collections.IEnumerator FetchAnchorsFromServer() {
+        if (fetchSucceeded) { anchorObjects.Clear(); }
+        yield return null;
+    }
+}";
+if (FindFirebaseCacheWipeBeforeFetch("Assets/Scripts/FirebaseExchanger.cs", firebaseCacheBad).Count != 1 ||
+    FindFirebaseCacheWipeBeforeFetch("Assets/Scripts/FirebaseExchanger.cs", firebaseCacheGood).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint firebase-cache self-test FAILED — the cache-wipe detector is broken.");
+    return 2;
+}
+
 string target = args.Length > 0 ? args[0] : ".";
 if (!Directory.Exists(target))
 {
@@ -54,12 +75,26 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: camera — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindFirebaseCacheWipeBeforeFetch(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: firebase-cache — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, or Camera.current violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, or Firebase cache-wipe violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
+
+static string NormalizeScriptPath(string path) => path.Replace('\\', '/');
+
+static bool IsUnderAssetsScripts(string path) =>
+    NormalizeScriptPath(path).Contains("Assets/Scripts/", StringComparison.Ordinal);
+
+static bool IsFirebaseExchanger(string path) =>
+    NormalizeScriptPath(path).EndsWith("Assets/Scripts/FirebaseExchanger.cs", StringComparison.Ordinal);
 
 static List<(int line, string snippet)> FindViolations(string code)
 {
@@ -88,7 +123,7 @@ static List<(int line, string snippet)> FindViolations(string code)
 static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, string code)
 {
     var findings = new List<(int, string)>();
-    if (!path.Replace('\\', '/').Contains("/Assets/Scripts/"))
+    if (!IsUnderAssetsScripts(path))
     {
         return findings;
     }
@@ -110,7 +145,7 @@ static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, str
 static List<(int line, string snippet)> FindCameraCurrentUsage(string path, string code)
 {
     var findings = new List<(int, string)>();
-    if (!path.Replace('\\', '/').Contains("/Assets/Scripts/"))
+    if (!IsUnderAssetsScripts(path))
     {
         return findings;
     }
@@ -122,6 +157,57 @@ static List<(int line, string snippet)> FindCameraCurrentUsage(string path, stri
         if (line.Contains("Camera.current", StringComparison.Ordinal))
         {
             findings.Add((i + 1, "Camera.current is null outside render callbacks; use Camera.main instead — " + line.Trim()));
+        }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindFirebaseCacheWipeBeforeFetch(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!IsFirebaseExchanger(path))
+    {
+        return findings;
+    }
+
+    SyntaxNode root = CSharpSyntaxTree.ParseText(code).GetRoot();
+    foreach (MethodDeclarationSyntax method in root.DescendantNodes().OfType<MethodDeclarationSyntax>())
+    {
+        if (method.Identifier.Text != "FetchAnchorsFromServer")
+        {
+            continue;
+        }
+
+        foreach (InvocationExpressionSyntax invocation in method.DescendantNodes().OfType<InvocationExpressionSyntax>())
+        {
+            if (invocation.Expression.ToString() != "anchorObjects.Clear")
+            {
+                continue;
+            }
+
+            bool insideFetchSucceededGuard = false;
+            foreach (SyntaxNode anc in invocation.Ancestors())
+            {
+                if (anc == method)
+                {
+                    break;
+                }
+
+                if (anc is IfStatementSyntax ifStmt &&
+                    ifStmt.Condition.ToString().Contains("fetchSucceeded", StringComparison.Ordinal))
+                {
+                    insideFetchSucceededGuard = true;
+                    break;
+                }
+            }
+
+            if (!insideFetchSucceededGuard)
+            {
+                int line = invocation.GetLocation().GetLineSpan().StartLinePosition.Line + 1;
+                findings.Add((line,
+                    "anchorObjects.Clear() before fetch succeeds wipes the cache on network failure; stage in a temp list and commit only on success"));
+            }
         }
     }
 
