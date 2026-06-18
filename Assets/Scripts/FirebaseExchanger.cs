@@ -19,6 +19,7 @@ public class FirebaseExchanger : MonoBehaviour
     bool conflictFound;
     bool anchorsLoaded;
     bool anchorsFetchSucceeded;
+    bool lastFetchSucceeded;
 
     public bool AnchorsLoaded => anchorsLoaded;
     public bool AnchorsFetchSucceeded => anchorsFetchSucceeded;
@@ -65,7 +66,7 @@ public class FirebaseExchanger : MonoBehaviour
         }
 
         yield return FetchAnchorsFromServer();
-        if (!anchorsFetchSucceeded)
+        if (!lastFetchSucceeded)
         {
             Debug.LogError("Refusing to upload anchors: pre-upload Firebase refresh failed.");
             onComplete?.Invoke(false);
@@ -136,9 +137,9 @@ public class FirebaseExchanger : MonoBehaviour
 
     IEnumerator FetchAnchorsFromServer()
     {
-        anchorObjects.Clear();
+        var stagedAnchors = new List<AzureSpatialAnchorObject>();
         conflictFound = false;
-        anchorsFetchSucceeded = false;
+        lastFetchSucceeded = false;
         feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
         using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
         {
@@ -163,11 +164,11 @@ public class FirebaseExchanger : MonoBehaviour
                             {
                                 if (anchor.dateExpired > DateTime.Now)
                                 {
-                                    anchorObjects.Add(anchor);
+                                    stagedAnchors.Add(anchor);
                                 }
                             }
 
-                            anchorsFetchSucceeded = true;
+                            lastFetchSucceeded = true;
                         }
                         else
                         {
@@ -181,9 +182,16 @@ public class FirebaseExchanger : MonoBehaviour
                 }
                 else
                 {
-                    anchorsFetchSucceeded = true;
+                    lastFetchSucceeded = true;
                 }
             }
+        }
+
+        if (lastFetchSucceeded)
+        {
+            anchorObjects.Clear();
+            anchorObjects.AddRange(stagedAnchors);
+            anchorsFetchSucceeded = true;
         }
     }
 

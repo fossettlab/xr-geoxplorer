@@ -17,6 +17,31 @@ if (FindViolations(bad).Count != 1 || FindViolations(good).Count != 0)
     return 2;
 }
 
+const string firebaseFetchBad = """
+    IEnumerator FetchAnchorsFromServer()
+    {
+        anchorObjects.Clear();
+        lastFetchSucceeded = false;
+    }
+    """;
+const string firebaseFetchGood = """
+    IEnumerator FetchAnchorsFromServer()
+    {
+        var stagedAnchors = new List<AzureSpatialAnchorObject>();
+        lastFetchSucceeded = false;
+        if (lastFetchSucceeded)
+        {
+            anchorObjects.Clear();
+        }
+    }
+    """;
+if (FindFirebasePrematureCacheClear(firebaseFetchBad).Count != 1 ||
+    FindFirebasePrematureCacheClear(firebaseFetchGood).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint firebase-fetch self-test FAILED — the premature cache-clear detector is broken.");
+    return 2;
+}
+
 const string cameraBad = "class C { void M() { var x = Camera.current; } }";
 const string cameraGood = "class C { void M() { var x = Camera.main; } }";
 if (FindCameraCurrentUsage("Assets/Scripts/Example.cs", cameraBad).Count != 1 ||
@@ -34,6 +59,16 @@ if (!Directory.Exists(target))
 }
 
 int total = 0;
+string firebasePath = Path.Combine(target, "Scripts", "FirebaseExchanger.cs");
+if (File.Exists(firebasePath))
+{
+    foreach ((int line, string snippet) in FindFirebasePrematureCacheClear(File.ReadAllText(firebasePath)))
+    {
+        Console.WriteLine($"{firebasePath}:{line}: firebase-fetch — {snippet}");
+        total++;
+    }
+}
+
 foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.AllDirectories))
 {
     string source = File.ReadAllText(path);
@@ -57,9 +92,66 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, or Camera.current violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, or firebase-fetch violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
+
+static List<(int line, string snippet)> FindFirebasePrematureCacheClear(string code)
+{
+    var findings = new List<(int, string)>();
+    const string marker = "IEnumerator FetchAnchorsFromServer()";
+    int methodIdx = code.IndexOf(marker, StringComparison.Ordinal);
+    if (methodIdx < 0)
+    {
+        return findings;
+    }
+
+    int bodyStart = code.IndexOf('{', methodIdx);
+    if (bodyStart < 0)
+    {
+        return findings;
+    }
+
+    int depth = 0;
+    int bodyEnd = -1;
+    for (int i = bodyStart; i < code.Length; i++)
+    {
+        if (code[i] == '{')
+        {
+            depth++;
+        }
+        else if (code[i] == '}')
+        {
+            depth--;
+            if (depth == 0)
+            {
+                bodyEnd = i;
+                break;
+            }
+        }
+    }
+
+    if (bodyEnd < 0)
+    {
+        return findings;
+    }
+
+    string body = code.Substring(bodyStart, bodyEnd - bodyStart + 1);
+    int clearIdx = body.IndexOf("anchorObjects.Clear()", StringComparison.Ordinal);
+    if (clearIdx < 0)
+    {
+        return findings;
+    }
+
+    int guardIdx = body.IndexOf("if (lastFetchSucceeded)", StringComparison.Ordinal);
+    if (guardIdx < 0 || clearIdx < guardIdx)
+    {
+        int line = code.Substring(0, bodyStart + clearIdx).Count(c => c == '\n') + 1;
+        findings.Add((line, "anchorObjects.Clear() runs before a successful fetch; preserve the cache on refresh failure."));
+    }
+
+    return findings;
+}
 
 static List<(int line, string snippet)> FindViolations(string code)
 {
