@@ -101,7 +101,15 @@ dem -> GeoXAssetBundles DEM~ (5) + LROAssetBundles (6), zero name collision.
 - [x] Verify — all 11 mapping pairs pass exact path+size parity (0 missing/extra/sizediff);
       no stale blobs
 - [x] Upload `_README.md` to container root
-- [ ] **Delete old prefixes — GATED on Unity `ValidateSourceCoverageAgainstManifest` pass**
-      (contractor; count parity insufficient per codex). Old prefixes remain until then:
-      `Archeology~ Architecture~ ArtHistory~ CrystalLattice~ DEM~ Drama~ HandSamples~
-      Outcrops~ recovered-source/ production-source/`
+- [x] Gate cleared — Sean confirmed on #82 (2026-06-18): rebased on `main` incl. #86;
+      `ValidateSourceLayout` passed; `ValidateSourceCoverageAgainstManifest
+      -geoXAllowPartialSource=true` passed (android 174 matched / 719 source-missing /
+      17 bio skipped); available-source bake + output-against-manifest validation passed
+- [x] Re-verified current-state parity for all 14 copied prefixes (0 miss/extra/sizediff);
+      `HandSamples~` is the sole intentional drop (subset of MineralHandSamples, retained on NAS)
+- [x] **Deleted old prefixes (2026-06-18) — 38,938 blobs removed, 0 failures.**
+      Final container: `_README.md` + `importable-source/` (38,023) + `crystal-structures/`
+      (116) + `raw-source-no-meta/` (450). Migration COMPLETE.
+
+> Post-deletion unwind requires re-uploading from the NAS source projects (the in-container
+> originals are gone); `geoxplorer-source-before.txt.gz` is the authoritative target listing.
