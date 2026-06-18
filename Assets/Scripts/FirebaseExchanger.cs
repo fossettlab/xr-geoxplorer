@@ -134,56 +134,80 @@ public class FirebaseExchanger : MonoBehaviour
         anchorsLoaded = true;
     }
 
+    bool fetchInProgress;
+
     IEnumerator FetchAnchorsFromServer()
     {
-        anchorObjects.Clear();
-        conflictFound = false;
-        anchorsFetchSucceeded = false;
-        feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
-        using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
+        while (fetchInProgress)
         {
-            yield return uwr.SendWebRequest();
+            yield return null;
+        }
 
-            if (uwr.result != UnityWebRequest.Result.Success)
+        fetchInProgress = true;
+        try
+        {
+            conflictFound = false;
+            anchorsFetchSucceeded = false;
+            var fetchedAnchors = new List<AzureSpatialAnchorObject>();
+            bool fetchSucceeded = false;
+
+            feedback.text = string.Format("{0}\n{1}", feedback.text, "Downloading from https://flasasharing.firebaseio.com/anchors.json");
+            using (UnityWebRequest uwr = UnityWebRequest.Get("https://flasasharing.firebaseio.com/anchors.json"))
             {
-                Debug.LogError($"Failed to download anchors from Firebase: {uwr.error}");
-            }
-            else
-            {
-                string responseText = uwr.downloadHandler.text;
-                if (!string.IsNullOrEmpty(responseText) && responseText != "null")
+                yield return uwr.SendWebRequest();
+
+                if (uwr.result != UnityWebRequest.Result.Success)
                 {
-                    try
-                    {
-                        List<AzureSpatialAnchorObject> downloadedAnchors =
-                            JsonConvert.DeserializeObject<List<AzureSpatialAnchorObject>>(responseText);
-                        if (downloadedAnchors != null)
-                        {
-                            foreach (var anchor in downloadedAnchors)
-                            {
-                                if (anchor.dateExpired > DateTime.Now)
-                                {
-                                    anchorObjects.Add(anchor);
-                                }
-                            }
-
-                            anchorsFetchSucceeded = true;
-                        }
-                        else
-                        {
-                            Debug.LogError("Firebase anchors response was not a JSON array; refusing to upload.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError($"Failed to parse anchors from Firebase: {ex.Message}");
-                    }
+                    Debug.LogError($"Failed to download anchors from Firebase: {uwr.error}");
                 }
                 else
                 {
-                    anchorsFetchSucceeded = true;
+                    string responseText = uwr.downloadHandler.text;
+                    if (!string.IsNullOrEmpty(responseText) && responseText != "null")
+                    {
+                        try
+                        {
+                            List<AzureSpatialAnchorObject> downloadedAnchors =
+                                JsonConvert.DeserializeObject<List<AzureSpatialAnchorObject>>(responseText);
+                            if (downloadedAnchors != null)
+                            {
+                                foreach (var anchor in downloadedAnchors)
+                                {
+                                    if (anchor.dateExpired > DateTime.Now)
+                                    {
+                                        fetchedAnchors.Add(anchor);
+                                    }
+                                }
+
+                                fetchSucceeded = true;
+                            }
+                            else
+                            {
+                                Debug.LogError("Firebase anchors response was not a JSON array; refusing to upload.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError($"Failed to parse anchors from Firebase: {ex.Message}");
+                        }
+                    }
+                    else
+                    {
+                        fetchSucceeded = true;
+                    }
                 }
             }
+
+            if (fetchSucceeded)
+            {
+                anchorObjects.Clear();
+                anchorObjects.AddRange(fetchedAnchors);
+                anchorsFetchSucceeded = true;
+            }
+        }
+        finally
+        {
+            fetchInProgress = false;
         }
     }
 
