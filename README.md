@@ -35,5 +35,4 @@ phone↔headset co-location (see issue #17).
   for the Azure side of the asset story).
 
 ## Origin
-Fossett Laboratory, Washington University in St. Louis. Imported from the
-lab NAS on 2026-04-21.
+Fossett Laboratory, Washington University in St. Louis.
