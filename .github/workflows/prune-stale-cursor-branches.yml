@@ -1,0 +1,48 @@
+name: Prune stale cursor branches
+
+# delete_branch_on_merge handles MERGED PRs automatically, but the cursor bot's
+# branches are the problem case: it re-emits the same fix daily and those PRs are
+# almost always CLOSED unmerged, which no built-in setting cleans up. This job
+# deletes the in-repo head branch of any cursor/* PR that was closed (not merged)
+# more than GRACE_DAYS ago. Open PRs and merged branches are never touched.
+
+on:
+  schedule:
+    # 08:00 UTC daily — after the ~06:00 cursor run and any same-morning triage.
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+env:
+  GRACE_DAYS: 7
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete branches of stale, closed, unmerged cursor PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          cutoff=$(date -u -d "${GRACE_DAYS} days ago" +%s)
+
+          gh pr list --repo "$REPO" --state closed --limit 200 \
+            --json number,headRefName,headRepositoryOwner,closedAt,mergedAt \
+            --jq '.[]
+              | select(.mergedAt == null)
+              | select(.headRepositoryOwner.login == "fossettlab")
+              | select(.headRefName | startswith("cursor/"))
+              | "\(.closedAt)\t\(.headRefName)"' \
+          | while IFS=$'\t' read -r closed_at branch; do
+              closed_ts=$(date -u -d "$closed_at" +%s)
+              if [ "$closed_ts" -lt "$cutoff" ]; then
+                echo "Deleting $branch (closed $closed_at)"
+                gh api -X DELETE "repos/$REPO/git/refs/heads/$branch" \
+                  && echo "  deleted" \
+                  || echo "  already gone or protected — skipping"
+              fi
+            done
