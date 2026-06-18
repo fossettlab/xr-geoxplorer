@@ -1,0 +1,72 @@
+name: Unity Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unity-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  play-mode-tests:
+    name: PlayMode test runner
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      HAS_UNITY_CREDENTIALS: ${{ secrets.UNITY_LICENSE != '' && secrets.UNITY_EMAIL != '' && secrets.UNITY_PASSWORD != '' }}
+
+    # Runs the networking characterization harness (Assets/Tests/Network, issue #21)
+    # and any other PlayMode tests. Like the Android build, this runs only when the
+    # Unity license secrets are configured. When they are absent — including fork
+    # pull requests, which GitHub never exposes secrets to — the job emits a notice
+    # and skips instead of failing, so main and contributor PRs stay green until a
+    # maintainer wires up Unity CI. The harness itself needs no Photon credentials
+    # (it uses PhotonNetwork.OfflineMode); the license is only for the editor.
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v6
+        with:
+          lfs: true
+
+      - name: Skip tests without Unity credentials
+        if: ${{ env.HAS_UNITY_CREDENTIALS != 'true' }}
+        run: |
+          echo "::notice::Unity license secrets are not configured, so PlayMode tests are skipped. Set UNITY_LICENSE, UNITY_EMAIL, and UNITY_PASSWORD to enable the test gate."
+
+      - name: Cache Unity Library
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: actions/cache@v5
+        with:
+          path: Library
+          key: Library-Tests-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            Library-Tests-
+            Library-
+
+      - name: Run PlayMode tests
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2022.3.62f2
+          testMode: playmode
+          artifactsPath: test-results
+          checkName: PlayMode test results
+
+      - name: Upload test results
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' && always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playmode-test-results
+          path: test-results
+          if-no-files-found: ignore
