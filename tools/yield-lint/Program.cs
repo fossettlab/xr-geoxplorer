@@ -88,7 +88,10 @@ static List<(int line, string snippet)> FindViolations(string code)
 static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, string code)
 {
     var findings = new List<(int, string)>();
-    if (!path.Replace('\\', '/').Contains("/Assets/Scripts/"))
+    // Normalize to a leading-slash form so the check matches both a bare
+    // "Assets/Scripts/..." (as produced by `dotnet run -- Assets`) and an
+    // absolute ".../Assets/Scripts/...", while still rejecting "MyAssets/Scripts/".
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).Contains("/Assets/Scripts/"))
     {
         return findings;
     }
@@ -110,7 +113,10 @@ static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, str
 static List<(int line, string snippet)> FindCameraCurrentUsage(string path, string code)
 {
     var findings = new List<(int, string)>();
-    if (!path.Replace('\\', '/').Contains("/Assets/Scripts/"))
+    // Normalize to a leading-slash form so the check matches both a bare
+    // "Assets/Scripts/..." (as produced by `dotnet run -- Assets`) and an
+    // absolute ".../Assets/Scripts/...", while still rejecting "MyAssets/Scripts/".
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).Contains("/Assets/Scripts/"))
     {
         return findings;
     }
