@@ -64,17 +64,18 @@ Relevant tickets:
 
 ## Source content for the AssetBundle re-bake (#6)
 
-Bradley's 2026-05-25 update supersedes the earlier NAS-only blocker: the
-Unity-importable source assets are now staged in a private Azure container named
-`geoxplorer-source`, with `.meta` import settings preserved. The staged source
-covers **8 of the 9 source categories**:
+Bradley's 2026-06-16 source consolidation supersedes the earlier NAS-only
+blocker: the Unity-importable source assets are now staged in a private Azure
+container named `geoxplorer-source`, with `.meta` import settings preserved. The
+current bake target is the category-first `importable-source/` prefix, whose
+immediate children match the pipeline categories:
 
 | Category | Re-bake source status |
 |---|---|
 | `archeology` | staged in `geoxplorer-source` |
 | `architecture` | staged in `geoxplorer-source` |
 | `arthistory` | staged in `geoxplorer-source` |
-| `bio` | raw source missing; reuse pre-baked bundles or locate source separately |
+| `bio` | staged in `geoxplorer-source`; only `1aus` has recoverable source |
 | `crystallattice` | staged in `geoxplorer-source` |
 | `dem` | staged in `geoxplorer-source` |
 | `drama` | staged in `geoxplorer-source` |
@@ -84,18 +85,24 @@ covers **8 of the 9 source categories**:
 The `production-*` containers are not a substitute for this re-bake source drop:
 they contain raw `.obj` / `.mtl` / texture files without the Unity `.meta` import
 settings needed to reproduce the deployed bundles. The Unity 2022.3 Editor
-pipeline should build the source-backed subset first, skip `bio` for this PR,
-and keep missing raw-source cases explicit instead of blocking the whole bake.
+pipeline should build the source-backed subset first and keep missing raw-source
+cases explicit instead of blocking the whole bake.
 
-Local validation against the downloaded private source drop found that the
-category folders exist, but manifest coverage is not yet production-equivalent.
-The preserved `.meta` files map the full deployed `architecture`, Android/iOS
-`arthistory`, Android/iOS `drama`, and `outcrop` bundles, but large portions of
-`dem`, `crystallattice`, `handsample`, and `archeology` still do not resolve to
-source entry assets. Bradley's 2026-06-14 direction is to bake what source exists
-and test whether one existing deployed DEM bundle still loads in Unity 2022.3.
-If it loads, the live DEM bundles can stay in use and missing DEM raw source does
-not block the first #6 pipeline PR.
+The source mapping in `docs/assetbundle-source-mapping.csv` shows the current
+coverage reality: of 922 deployed Android bundles, 186 are directly backed by
+recoverable source, 11 are featured aliases of source-backed bundles, and 725 do
+not have recoverable source. The missing entries are almost entirely the DEM
+library and most of `bio`. Bradley's current direction is to run the #6 pipeline
+in partial-source mode, bake the recoverable source, and continue using deployed
+bundles for source-missing content when those bundles still load in Unity
+2022.3.
+
+Fresh Unity validation against the consolidated `importable-source/` mirror on
+2026-06-17 produced the current bakeable subset: 174 Android source-backed
+category bundles, 11 Android featured aliases, and 17 `bio` bundles skipped as
+optional raw-source gaps. iOS validation resolved 172 source-backed category
+bundles, but the local Unity install did not include iOS Build Support, so only
+the Android bake was produced locally.
 
 ## What's actually used by the xr-geoxplorer runtime
 

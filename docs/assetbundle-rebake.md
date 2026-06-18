@@ -49,11 +49,26 @@ handsample
 outcrop
 ```
 
-Current #6 scope is to build what has raw Unity source, then keep the missing
-raw-source cases explicit. The `bio` raw Unity source was not found in the
-staged source drop, so this PR skips `bio` instead of blocking the first bake.
-Bradley's 2026-06-14 direction also says not to block on missing DEM source if
-the already-deployed DEM bundles still load in Unity 2022.3.
+Current #6 scope is to build what has recoverable Unity source, then keep the
+missing raw-source cases explicit. Bradley's consolidated Azure layout places
+the bakeable source under `geoxplorer-source/importable-source/`, whose immediate
+children are the nine categories searched by the pipeline:
+
+```text
+archeology
+architecture
+arthistory
+bio
+crystallattice
+dem
+drama
+handsample
+outcrop
+```
+
+Use a local mirror of that `importable-source/` folder as `-geoXSourceRoot`.
+Side prefixes such as `crystal-structures/` and `raw-source-no-meta/` sit
+outside `importable-source/` and are intentionally ignored by the pipeline.
 
 The pipeline therefore has two validation modes:
 
@@ -67,13 +82,10 @@ For privacy/access control, this repo never reads Azure or NAS content
 automatically. Copy or mount the source content into the Unity project, or pass a
 Unity-visible root explicitly when running the pipeline.
 
-The Azure source drop preserves the historical category folder names ending in
-`~` (`Archeology~`, `Outcrops~`, and so on). That layout is useful for keeping
-raw source out of normal project imports, but Unity does not import assets under
-`~` folders as regular `AssetImporter` targets. For an actual bake, make a local
-ignored importable mirror under `Assets/GeoXSource/` with category folders that
-do not end in `~` (for example `archeology`, `arthistory`, `handsamples`, and
-`outcrops`) and pass that mirror as `-geoXSourceRoot`.
+The old `*~`, `recovered-source/`, and `production-source/` prefixes remain in
+Azure only as a safety net while the new layout is validated. Do not point
+`-geoXSourceRoot` at those old prefixes. Full provenance and unwind notes are in
+`docs/migrations/geoxplorer-source-restructure.md`.
 
 ## Editor Tool
 
@@ -146,6 +158,12 @@ BuildPipeline.BuildAssetBundles(
     buildTarget);
 ```
 
+The build step switches Unity's active build target before calling
+`BuildPipeline.BuildAssetBundles`. This is required for packages with
+platform-specific serialized fields, such as Photon Voice, whose Android player
+layout differs from the Standalone editor layout unless Unity recompiles for the
+target platform first.
+
 ## Batch Mode
 
 The script can also run from Unity batch mode. Example:
@@ -206,61 +224,87 @@ content has been copied or mounted into the Unity project:
 This fails if any required available-source category is missing, any required
 category has no model assets, or two equal-preference source assets would
 produce the same per-model bundle name. Prefabs are preferred over backing mesh
-files for duplicate detection. Missing or empty `bio` is reported as a warning
-because Bradley's 2026-05-25 update confirmed that only pre-baked `bio` bundles
-survive for now.
+files for duplicate detection. When the source drop contains both a flat model
+file and an organized subfolder copy of the same model, the pipeline prefers the
+more specific subfolder path instead of failing the layout check.
 
-Then run available-source coverage validation before the initial #6 bake. This
-checks that source-backed entries resolve cleanly to manifest blob names and
-reports, but does not fail on, deployed blobs with no staged source:
+For this PR, `bio` is treated as an optional raw-source-gap category and is
+reported but not baked. The source drop contains one recoverable `bio` model,
+but Bradley's direction is to skip `bio` for this pass and continue using the
+existing deployed bundles until the full source story is resolved.
+
+Then run source coverage validation in partial-source mode before the initial #6
+bake. This checks that source-backed entries resolve cleanly to manifest blob
+names and reports, but does not fail on, deployed blobs with no staged source:
 
 ```bash
 '/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
   -batchmode \
   -quit \
   -projectPath '/Users/seanqin/Documents/Fossettlab' \
-  -executeMethod GeoXAssetBundlePipeline.ValidateAvailableSourceAgainstManifest \
+  -executeMethod GeoXAssetBundlePipeline.ValidateSourceCoverageAgainstManifest \
   -geoXSourceRoot=Assets/GeoXSource/importable-source \
+  -geoXAllowPartialSource=true \
   -geoXMetadataManifest=docs/assetbundle-metadata-manifest.json \
-  -logFile /private/tmp/xr-geoxplorer-assetbundle-available-source-coverage.log
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-source-coverage.log
 ```
 
-Use `ValidateSourceCoverageAgainstManifest` only when you intentionally want the
-strict production-equivalent gate.
+Omit `-geoXAllowPartialSource=true` only when you intentionally want the strict
+production-equivalent gate. The separate `ValidateAvailableSourceAgainstManifest`
+menu command remains a convenience wrapper around the same source-backed
+coverage idea.
 
-Static local coverage from the downloaded source drop. Android and iOS are the
-current ticket targets; WSA is shown only as historical deployed inventory.
-These are manifest matches, not raw file counts:
+Static coverage from `docs/assetbundle-source-mapping.csv`. Android is used as
+the canonical deployed catalog for this mapping:
 
-| Category | Android | iOS | WSA | Notes |
-|---|---:|---:|---:|---|
-| `architecture` | 1 / 1 | 1 / 1 | 1 / 1 | source maps cleanly |
-| `arthistory` | 14 / 14 | 14 / 14 | 14 / 16 | WSA has two extra deployed entries not mapped from source |
-| `drama` | 8 / 8 | 8 / 8 | 7 / 11 | WSA includes four extra deployed entries not mapped from `Drama~` |
-| `outcrop` | 40 / 40 | 40 / 40 | 40 / 40 | source maps cleanly, including spelling drift such as `Harland` / `Hartland` |
-| `archeology` | 2 / 6 | 2 / 6 | 2 / 6 | only `Cromeleque` and `SkaraBrae` map locally |
-| `crystallattice` | 10 / 69 | 10 / 68 | 10 / 68 | source drop has 11 prefab roots, not the deployed mineral catalog |
-| `dem` | 5 / 702 | 5 / 700 | 5 / 700 | source drop has a small set of DEM prefabs, not the deployed DTEEC catalog |
-| `handsample` | 30 / 53 | 30 / 53 | 30 / 53 | UND samples are still not represented as individual source prefabs |
-| `bio` | 0 / 17 | 0 / 17 | 0 / 17 | known raw-source gap |
-
-Per-category source counts from Bradley's private `geoxplorer-source` drop are:
-
-| Source folder | Model-like files | Prefabs | Notes |
+| Category | Source-backed | Deployed | Notes |
 |---|---:|---:|---|
-| `Archeology~` | 4 | 2 | imported as `archeology` |
-| `Architecture~` | 2 | 1 | imported as `architecture` |
-| `ArtHistory~` | 28 | 14 | imported as `arthistory` |
-| `CrystalLattice~` | 22 | 11 | imported as `crystallattice` |
-| `DEM~` | 10 | 5 | imported as `dem`; deployed DEM bundles should be reused if they load |
-| `Drama~` | 18 | 8 | imported as `drama` |
-| `HandSamples~` | 60 | 30 | imported as `handsamples` |
-| `Outcrops~` | 84 | 42 | imported as `outcrops` |
+| `archeology` | 2 | 6 | only `Cromeleque` and `SkaraBrae` map |
+| `architecture` | 1 | 1 | complete |
+| `arthistory` | 14 | 14 | complete |
+| `bio` | 1 | 17 | only `1aus` has recoverable source |
+| `crystallattice` | 54 | 69 | minerals from `CrystalViewer`; do not use `crystal-structures/` |
+| `dem` | 13 | 702 | most of the DEM library remains source-missing |
+| `drama` | 8 | 8 | complete |
+| `featured` | 11 | 12 | aliases depend on backing bundles |
+| `handsample` | 53 | 53 | complete from `MineralHandSamples` |
+| `outcrop` | 40 | 40 | complete |
+| **Total** | **197** | **922** | **725 deployed bundles have no recoverable source** |
 
-The raw source folders do end in `~`, so Bradley's concern about Unity hiding
-those folders is real. The ignored importable mirror removes the trailing `~`
-and preserves the same counts, so the remaining missing deployed entries are not
-caused by mirror loss.
+The total includes 11 `geoxplorer-featured` aliases. The source coverage step
+matches the 186 real source-backed bundle entries first; `Assemble Featured
+Bundles` then creates the featured aliases from their backing bundles.
+
+The old root folders ending in `~` are no longer the bake target. Bradley
+consolidated the recoverable source into category-first `importable-source/`
+folders, with provenance folders nested inside each category. The remaining
+missing deployed entries are therefore documented source gaps, not a mirror-loss
+or folder-name problem.
+
+### Verified local run — 2026-06-17
+
+The new Azure `geoxplorer-source/importable-source/` mirror was copied locally to
+`Assets/GeoXSource/importable-source` and validated in Unity 2022.3.62f2:
+
+| Check | Result |
+|---|---|
+| Source layout | Passed |
+| Partial source coverage | Passed |
+| Available source summary | `android`: 174 matched, 719 source-missing, 17 optional `bio` skipped; `ios`: 172 matched, 718 source-missing, 17 optional `bio` skipped |
+| Android available-source bake | Passed after active build-target switching |
+| Featured assembly | 11 aliases copied; 1 source-missing DEM alias skipped |
+| Android available-source output validation | Passed; 185 source-backed manifest bundle names matched |
+| iOS available-source bake | Not run locally; this Unity install has Android support but no iOS Build Support module |
+
+The Android staging folder contained 187 non-manifest files, about 1.7 GB, after
+featured alias assembly. The 185 manifest names are 174 source-backed category
+bundles plus 11 featured aliases. The extra non-manifest files are Unity's
+platform-level AssetBundle artifacts and are not uploaded as runtime
+`geoxplorer-*` blobs.
+
+This local validation is intentionally scoped to `importable-source/`. It does
+not bake `crystal-structures/`, `raw-source-no-meta/`, old `*~` prefixes, or
+pre-baked source-missing DEM/bio bundles.
 
 To bake only the source entries that are currently available, run the explicit
 available-source build method:
@@ -466,13 +510,12 @@ scenes.
 with 281 assets and 0 scenes. That supports Bradley's plan to keep using
 existing deployed DEM bundles where raw DEM source is missing.
 
-## 2026-06-14 Validation Status
+## 2026-06-17 Source Restructure Status
 
-The private Azure `geoxplorer-source` SAS was used locally to download the
-source drop, then mirrored under an ignored Unity-visible source root without
-trailing `~` category folder names. The source-layout validation passed against
-that mirror and found 228 model assets across the available categories, with
-`bio` still treated as the known raw-source gap.
+Bradley consolidated the private Azure `geoxplorer-source` container into a
+category-first layout that matches `GeoXAssetBundlePipeline.FindCategoryPath`.
+The previous 2026-06-14 local validation used the older source arrangement and
+is no longer the current acceptance result.
 
 The branch is rebased on top of the ASA editor guard from PR #86. That guard
 keeps the Android ASA bridge out of Unity Editor compilation with:
@@ -481,31 +524,30 @@ keeps the Android ASA bridge out of Unity Editor compilation with:
 #if UNITY_ANDROID && !UNITY_EDITOR
 ```
 
-Strict manifest coverage still fails against the downloaded source, which is
-expected because the source drop does not contain every deployed `archeology`,
-`crystallattice`, `dem`, `handsample`, or `bio` entry. The available-source
-validation and build paths now make that a reported scope limit instead of a
-pipeline blocker.
+Strict manifest coverage is still expected to fail because 725 of 922 deployed
+Android bundles have no recoverable source. The partial-source coverage command
+is the current #6 gate for the new Azure layout:
 
-Android available-source validation and bake results on 2026-06-14:
+```bash
+'/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -quit \
+  -projectPath '/Users/seanqin/Documents/Fossettlab' \
+  -executeMethod GeoXAssetBundlePipeline.ValidateSourceCoverageAgainstManifest \
+  -geoXSourceRoot=Assets/GeoXSource/importable-source \
+  -geoXAllowPartialSource=true \
+  -geoXMetadataManifest=docs/assetbundle-metadata-manifest.json \
+  -logFile /private/tmp/xr-geoxplorer-assetbundle-source-coverage.log
+```
 
-- Source-backed coverage: 110 Android bundles matched source, 783 deployed
-  Android bundles have no staged source, and 17 `bio` bundles are the known
-  optional raw-source gap.
-- Android bake: Unity built 111 Android bundle artifacts to local staging.
-- Featured assembly: 6 source-backed `geoxplorer-featured` aliases were created;
-  featured aliases whose backing bundles lack source were skipped with warnings.
-- Android output validation: 116 source-backed Android manifest bundle names
-  matched local staging output.
-- Upload plan: `Write Azure Upload Plan` generated a local
-  `azure-upload-plan.json` for the staged Android output. No Azure upload was
-  performed.
+The 2026-06-17 Android available-source bake is the current local validation
+against the consolidated `importable-source/` layout. Source layout validation,
+partial-source coverage, Android bake, featured alias assembly, and
+available-source output validation all passed locally. The generated Android
+staging output remains local until a separate staging upload is approved.
 
-iOS source assignment reached the same available-source count, but the local
-Unity install could not build iOS AssetBundles because the `iOSSupport` module is
-not installed. The installed playback engine list only includes `AndroidPlayer`.
-Run `Build Available iOS` on a Unity 2022.3 install with iOS Build Support to
-complete the iOS bake.
+iOS still requires a Unity 2022.3 install with iOS Build Support. The local
+install used for this pass only included `AndroidPlayer`.
 
 No bundles should be uploaded to Azure staging until the available-source output
 validation passes locally and Sean/Bradley explicitly approve the staging
