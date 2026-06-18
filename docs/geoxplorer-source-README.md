@@ -4,53 +4,52 @@ This Azure container (`haringerverdiag` / `geoxplorer-source`) holds the **sourc
 models** used to bake the xr-geoxplorer AssetBundles. It is the input to the Unity
 2022 re-bake (#6). A copy of this file lives at the container root as `_README.md`.
 
-> **Transitional note (2026-06-16):** the authoritative layout is below
-> (`importable-source/`, `crystal-structures/`, `raw-source-no-meta/`). Pre-migration
-> prefixes (`Archeology~`, `DEM~`, … `recovered-source/`, `production-source/`) are
-> still present and will be removed only after a Unity
-> `ValidateSourceCoverageAgainstManifest` run confirms the new layout bakes correctly.
-> Until then, **use only the prefixes documented here.** See
-> `docs/migrations/geoxplorer-source-restructure.md`.
+Layout finalized 2026-06-18 (migration complete; the pre-migration `~` /
+`recovered-source/` / `production-source/` prefixes have been removed). Assembly,
+exact prefix mapping, and unwind procedure:
+`docs/migrations/geoxplorer-source-restructure.md`.
 
 ## Layout
 
 ```
-importable-source/      Unity source WITH .meta — import and bake directly from here
-  GeoXAssetBundles/      original project: archeology, architecture, arthistory,
-                         crystal-structures, dem, drama, handsamples, outcrops
-  CrystalViewer/         crystallattice minerals
-  MineralHandSamples/    hand-sample minerals
-  LROAssetBundles/       lunar / Apollo DEMs
-  FossettLabDemo/        bio (protein models)
-raw-source-no-meta/     raw .obj/.dae only, NO .meta — must be re-imported in Unity
+importable-source/      Unity source WITH .meta — point the bake pipeline's source root here.
+                        Immediate children are the 9 deployed categories the pipeline expects:
+  archeology/  architecture/  arthistory/  bio/  crystallattice/
+  dem/  drama/  handsample/  outcrop/
+                        Provenance is kept in subfolders INSIDE each category, e.g.
+                        dem/GeoXAssetBundles/ + dem/LROAssetBundles/,
+                        handsample/MineralHandSamples/, crystallattice/CrystalViewer/.
+crystal-structures/     Old CrystalLattice~ (bcc/diamond/nanotubes). NOT a deployed category;
+                        parked outside importable-source/ so the pipeline ignores it.
+raw-source-no-meta/     Raw .obj/.dae only, NO .meta — must be re-imported in Unity.
   crystallattice/  handsample/  dem/
 ```
 
-## Which source is authoritative per deployed category
+## Source per deployed category
 
-The runtime fetches bundles named `geoxplorer-<category>/<model>-bundle`. Bake each
-deployed category from the source below.
+The runtime fetches bundles named `geoxplorer-<category>/<model>-bundle`. The pipeline
+finds each category as an immediate child of `importable-source/` and recurses into it.
 
-| deployed category | bake from | notes |
-|---|---|---|
-| archeology | `importable-source/GeoXAssetBundles/archeology/` | 2 of 6 models survive |
-| architecture | `importable-source/GeoXAssetBundles/architecture/` | complete |
-| arthistory | `importable-source/GeoXAssetBundles/arthistory/` | complete |
-| crystallattice | `importable-source/CrystalViewer/` | **minerals** — NOT `crystal-structures/` |
-| dem | `importable-source/LROAssetBundles/` (+ `GeoXAssetBundles/dem/`) | only ~13 of ~700 survive |
-| drama | `importable-source/GeoXAssetBundles/drama/` | complete |
-| handsample | `importable-source/MineralHandSamples/` | complete |
-| outcrop | `importable-source/GeoXAssetBundles/outcrops/` | complete |
-| bio | `importable-source/FossettLabDemo/` | only `1aus` of 17 survives |
+| deployed category | bake from | provenance (inside the folder) | notes |
+|---|---|---|---|
+| archeology | `importable-source/archeology/` | GeoXAssetBundles | 2 of 6 models survive |
+| architecture | `importable-source/architecture/` | GeoXAssetBundles | complete |
+| arthistory | `importable-source/arthistory/` | GeoXAssetBundles | complete |
+| crystallattice | `importable-source/crystallattice/` | CrystalViewer (**minerals**) | NOT `crystal-structures/` |
+| dem | `importable-source/dem/` | GeoXAssetBundles + LROAssetBundles | only ~13 of ~700 survive |
+| drama | `importable-source/drama/` | GeoXAssetBundles | complete |
+| handsample | `importable-source/handsample/` | MineralHandSamples | complete (authoritative) |
+| outcrop | `importable-source/outcrop/` | GeoXAssetBundles | complete |
+| bio | `importable-source/bio/` | FossettLabDemo | only `1aus` of 17 survives |
 
 `raw-source-no-meta/` is a last-resort fallback when no `.meta`-bearing source exists;
 importing it produces fresh GUIDs (fine for a new bake, not for GUID-preserving rebuild).
 
 ## Naming gotcha
 
-`crystal-structures/` (bcc, diamond, nanotubes — under `GeoXAssetBundles/`) is a
+`crystal-structures/` (bcc, diamond, nanotubes — the old `CrystalLattice~`) is a
 DIFFERENT dataset from the deployed `crystallattice` category, which is **minerals**
-baked from `CrystalViewer/`. Don't confuse them.
+baked from `importable-source/crystallattice/` (CrystalViewer). Don't confuse them.
 
 ## Coverage reality
 
