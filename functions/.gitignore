@@ -1,0 +1,8 @@
+# Never commit real local settings — they hold SAS_API_KEY.
+local.settings.json
+.venv/
+__pycache__/
+*.pyc
+.python_packages/
+bin/
+obj/

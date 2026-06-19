@@ -1,0 +1,5 @@
+# Azure Functions Python worker + the SDKs used by function_app.py.
+# Major-version bounded; the Functions build installs these at deploy time.
+azure-functions>=1.21,<2
+azure-identity>=1.19,<2
+azure-storage-blob>=12.24,<13

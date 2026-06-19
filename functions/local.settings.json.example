@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "STORAGE_ACCOUNT_NAME": "haringerverdiag",
+    "RESTRICTED_CONTAINER": "restricted",
+    "SAS_TTL_MINUTES": "15",
+    "SAS_API_KEY": "<set-a-strong-random-key-here; do NOT commit the real value>"
+  }
+}
