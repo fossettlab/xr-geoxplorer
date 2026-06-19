@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.SpatialTracking;
 using UnityEngine.XR;
 using UnityEngine.XR.ARFoundation;
+using Unity.XR.CoreUtils;
 #endif // ARFOUNDATION_PRESENT
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.UnityAR
@@ -80,7 +81,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UnityAR
 
         private GameObject arSessionOriginObject = null;
         private bool preExistingArSessionOriginObject = false;
-        private ARSessionOrigin arSessionOrigin = null;
+        private XROrigin xrOrigin = null;
 
         private ARCameraManager arCameraManager = null;
         private ARCameraBackground arCameraBackground = null;
@@ -162,10 +163,10 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UnityAR
             }
             CameraCache.Main.transform.parent = arSessionOriginObject.transform;
 
-            arSessionOrigin = arSessionOriginObject.EnsureComponent<ARSessionOrigin>();
-            arSessionOrigin.camera = CameraCache.Main;
+            xrOrigin = arSessionOriginObject.EnsureComponent<XROrigin>();
+            xrOrigin.Camera = CameraCache.Main;
 
-            GameObject cameraObject = arSessionOrigin.camera.gameObject;
+            GameObject cameraObject = xrOrigin.Camera.gameObject;
 
             arCameraManager = cameraObject.EnsureComponent<ARCameraManager>();
             arCameraBackground = cameraObject.EnsureComponent<ARCameraBackground>();
@@ -197,8 +198,8 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UnityAR
                 arCameraBackground = null;
                 UnityObjectExtensions.DestroyObject(arCameraManager);
                 arCameraManager = null;
-                UnityObjectExtensions.DestroyObject(arSessionOrigin);
-                arSessionOrigin = null;
+                UnityObjectExtensions.DestroyObject(xrOrigin);
+                xrOrigin = null;
             }
 
             if (!preExistingArSessionObject &&
