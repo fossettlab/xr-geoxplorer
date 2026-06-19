@@ -54,10 +54,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: camera — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindFirebasePrematureFetchFlagReset(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: firebase-anchor — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, or Camera.current violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, or Firebase fetch-flag violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -128,6 +134,28 @@ static List<(int line, string snippet)> FindCameraCurrentUsage(string path, stri
         if (line.Contains("Camera.current", StringComparison.Ordinal))
         {
             findings.Add((i + 1, "Camera.current is null outside render callbacks; use Camera.main instead — " + line.Trim()));
+        }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindFirebasePrematureFetchFlagReset(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).EndsWith("/FirebaseExchanger.cs", StringComparison.OrdinalIgnoreCase))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        if (line.Contains("anchorsFetchSucceeded = false", StringComparison.Ordinal))
+        {
+            findings.Add((i + 1,
+                "Do not reset anchorsFetchSucceeded before a fetch completes; use lastFetchSucceeded for per-fetch upload gating — " + line.Trim()));
         }
     }
 
