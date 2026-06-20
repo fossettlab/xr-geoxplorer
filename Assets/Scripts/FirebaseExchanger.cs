@@ -19,6 +19,7 @@ public class FirebaseExchanger : MonoBehaviour
     bool conflictFound;
     bool anchorsLoaded;
     bool anchorsFetchSucceeded;
+    bool lastFetchSucceeded;
 
     public bool AnchorsLoaded => anchorsLoaded;
     public bool AnchorsFetchSucceeded => anchorsFetchSucceeded;
@@ -65,7 +66,7 @@ public class FirebaseExchanger : MonoBehaviour
         }
 
         yield return FetchAnchorsFromServer();
-        if (!anchorsFetchSucceeded)
+        if (!lastFetchSucceeded)
         {
             Debug.LogError("Refusing to upload anchors: pre-upload Firebase refresh failed.");
             onComplete?.Invoke(false);
@@ -147,7 +148,7 @@ public class FirebaseExchanger : MonoBehaviour
         try
         {
             conflictFound = false;
-            anchorsFetchSucceeded = false;
+            lastFetchSucceeded = false;
             var fetchedAnchors = new List<AzureSpatialAnchorObject>();
             bool fetchSucceeded = false;
 
@@ -198,6 +199,7 @@ public class FirebaseExchanger : MonoBehaviour
                 }
             }
 
+            lastFetchSucceeded = fetchSucceeded;
             if (fetchSucceeded)
             {
                 anchorObjects.Clear();
