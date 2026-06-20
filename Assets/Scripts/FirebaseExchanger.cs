@@ -23,6 +23,7 @@ public class FirebaseExchanger : MonoBehaviour
 
     public bool AnchorsLoaded => anchorsLoaded;
     public bool AnchorsFetchSucceeded => anchorsFetchSucceeded;
+    public bool LastFetchSucceeded => lastFetchSucceeded;
 
     //Public variables
     public string anchorName { get; set; } //this is set by the UI Input Field
@@ -133,6 +134,11 @@ public class FirebaseExchanger : MonoBehaviour
     {
         yield return FetchAnchorsFromServer();
         anchorsLoaded = true;
+    }
+
+    public IEnumerator RefreshAnchorsFromServer()
+    {
+        yield return FetchAnchorsFromServer();
     }
 
     bool fetchInProgress;

@@ -177,6 +177,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             yield break;
         }
 
+        yield return firebase.RefreshAnchorsFromServer();
+
         if (firebase.CheckForNameConflict(firebase.anchorName))
         {
             directionText.text = "Anchor name is already used, please pick another";
@@ -229,6 +231,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             directionText.text = "Could not load anchor list; try again.";
             yield break;
         }
+
+        yield return firebase.RefreshAnchorsFromServer();
 
         if (firebase.CheckIfNameExists(firebase.anchorName))
         {
