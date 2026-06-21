@@ -144,7 +144,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             yield return null;
         }
 
-        if (!firebase.AnchorsFetchSucceeded)
+        yield return firebase.RefreshAnchorsFromServer();
+        if (!firebase.LastFetchSucceeded)
         {
             directionText.text = "Could not load anchor list; try again.";
             yield break;
@@ -197,7 +198,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             yield return null;
         }
 
-        if (!firebase.AnchorsFetchSucceeded)
+        yield return firebase.RefreshAnchorsFromServer();
+        if (!firebase.LastFetchSucceeded)
         {
             directionText.text = "Could not load anchor list; try again.";
             yield break;

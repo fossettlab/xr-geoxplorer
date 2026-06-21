@@ -49,7 +49,14 @@ public class FindASA : MonoBehaviour
                 await Task.Delay(100);
             }
 
-            if (!firebase.AnchorsFetchSucceeded)
+            bool? refreshResult = null;
+            firebase.StartCoroutine(firebase.RefreshAnchorsAndWait(succeeded => refreshResult = succeeded));
+            while (refreshResult == null)
+            {
+                await Task.Delay(50);
+            }
+
+            if (refreshResult != true)
             {
                 feedback.text = "Could not load anchor list; try again.";
                 GetComponent<SpatialAnchorManager>().StopSession();

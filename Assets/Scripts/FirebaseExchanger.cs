@@ -23,6 +23,7 @@ public class FirebaseExchanger : MonoBehaviour
 
     public bool AnchorsLoaded => anchorsLoaded;
     public bool AnchorsFetchSucceeded => anchorsFetchSucceeded;
+    public bool LastFetchSucceeded => lastFetchSucceeded;
 
     //Public variables
     public string anchorName { get; set; } //this is set by the UI Input Field
@@ -52,13 +53,6 @@ public class FirebaseExchanger : MonoBehaviour
         while (!anchorsLoaded)
         {
             yield return null;
-        }
-
-        if (!anchorsFetchSucceeded)
-        {
-            Debug.LogError("Refusing to upload anchors: initial Firebase download did not succeed.");
-            onComplete?.Invoke(false);
-            yield break;
         }
 
         yield return FetchAnchorsFromServer();
@@ -129,6 +123,17 @@ public class FirebaseExchanger : MonoBehaviour
     {
         yield return FetchAnchorsFromServer();
         anchorsLoaded = true;
+    }
+
+    public IEnumerator RefreshAnchorsFromServer()
+    {
+        yield return FetchAnchorsFromServer();
+    }
+
+    public IEnumerator RefreshAnchorsAndWait(Action<bool> onComplete)
+    {
+        yield return FetchAnchorsFromServer();
+        onComplete?.Invoke(lastFetchSucceeded);
     }
 
     bool fetchInProgress;
