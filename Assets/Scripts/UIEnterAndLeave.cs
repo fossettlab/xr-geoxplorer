@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class UIEnterAndLeave : MonoBehaviourPunCallbacks
 {
-#if UNITY_WSA
-    public TextMeshPro UIText;
-    public GameObject statusPanel;
-#else
     public TextMeshProUGUI UIText;
     public CanvasGroup statusPanel;
-#endif
+
 
     float duration = 5.0f;
     bool statusStarted;
@@ -56,20 +52,12 @@ public class UIEnterAndLeave : MonoBehaviourPunCallbacks
             t += Time.deltaTime / duration ;
 
 
-#if UNITY_WSA
-            UIText.color = new Color(1, 1, 1, Mathf.Lerp(1, 0, t));
-            if (t >= 1)
-            {
-                statusStarted = false;
-            }
-
-#else
             statusPanel.alpha = Mathf.Lerp(1, 0, t);
             if (t >= 1)
             {
                 statusStarted = false;
             }
-#endif
+
         }
     }
 

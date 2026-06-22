@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GeoXShared.unity
     guid: a52d968cd30ad45f58d3e6ba77b2bcf9
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a4d2fb8a4a6f74e87b62a26764d82924,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 49b9711eba03543beacd3f7233bea831,
+      type: 2}

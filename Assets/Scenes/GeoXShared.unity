@@ -153,8 +153,6 @@ MonoBehaviour:
   platformOverride: 0
   quest3Prefab: {fileID: 3302939214342789414, guid: 09f75527e9044a04b353614dd7d3bd18,
     type: 3}
-  holoLens2Prefab: {fileID: 2603672422375820339, guid: f8c8f73c85544f9f931d36ff5c4941a0,
-    type: 3}
   mobilePrefab: {fileID: 6627060857467274244, guid: 4ea8f2b5dc4442a8989a0c9ae60d318d,
     type: 3}
   platformRootParent: {fileID: 626277975}

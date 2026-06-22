@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using Microsoft.MixedReality.Toolkit;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -11,12 +10,9 @@ public static class SceneArchitectureMigration
     private const string PrefabFolder = "Assets/Prefabs/PlatformRoot";
     private const string BasePrefabPath = PrefabFolder + "/PlatformRoot.prefab";
     private const string QuestPrefabPath = PrefabFolder + "/PlatformRoot.Quest3.prefab";
-    private const string HoloLensPrefabPath = PrefabFolder + "/PlatformRoot.HoloLens2.prefab";
     private const string MobilePrefabPath = PrefabFolder + "/PlatformRoot.Mobile.prefab";
     private const string GeoXSharedScenePath = "Assets/Scenes/GeoXShared.unity";
-    private const string HoloLensScenePath = "Assets/Scenes/_legacy/HoloLens.unity";
     private const string MobileScenePath = "Assets/Scenes/_legacy/MobileMRTK.unity";
-    private const string HoloLensProfilePath = "Assets/MixedRealityToolkit.Generated/CustomProfiles/GeoX Holo2 Profile.asset";
 
     private static readonly HashSet<string> GeneratedMrtkServiceRootNames = new HashSet<string>
     {
@@ -51,11 +47,10 @@ public static class SceneArchitectureMigration
 
         EnsureBasePrefab();
 
-        RebuildVariantFromScene(MobilePrefabPath, MobileScenePath, "PlatformRoot.Mobile", false);
-        RebuildVariantFromScene(HoloLensPrefabPath, HoloLensScenePath, "PlatformRoot.HoloLens2", true);
+        RebuildVariantFromScene(MobilePrefabPath, MobileScenePath, "PlatformRoot.Mobile");
 
         // Quest starts from the mobile AR hierarchy until later Quest/OpenXR tickets replace the runtime rig.
-        RebuildVariantFromScene(QuestPrefabPath, MobileScenePath, "PlatformRoot.Quest3", false);
+        RebuildVariantFromScene(QuestPrefabPath, MobileScenePath, "PlatformRoot.Quest3");
 
         RebuildCanonicalScene();
         ConfigureBuildSettings();
@@ -72,16 +67,12 @@ public static class SceneArchitectureMigration
     {
         GameObject basePrefab = LoadRequiredPrefab(BasePrefabPath);
         GameObject questPrefab = LoadRequiredPrefab(QuestPrefabPath);
-        GameObject holoLensPrefab = LoadRequiredPrefab(HoloLensPrefabPath);
         GameObject mobilePrefab = LoadRequiredPrefab(MobilePrefabPath);
 
         ValidatePrefabVariant(questPrefab, basePrefab, QuestPrefabPath);
-        ValidatePrefabVariant(holoLensPrefab, basePrefab, HoloLensPrefabPath);
         ValidatePrefabVariant(mobilePrefab, basePrefab, MobilePrefabPath);
         ValidateNoGeneratedMrtkServices(questPrefab, QuestPrefabPath);
-        ValidateNoGeneratedMrtkServices(holoLensPrefab, HoloLensPrefabPath);
         ValidateNoGeneratedMrtkServices(mobilePrefab, MobilePrefabPath);
-        ValidateHoloLensRuntimeInitializer(holoLensPrefab);
 
         Scene scene = EditorSceneManager.OpenScene(GeoXSharedScenePath, OpenSceneMode.Single);
         GameObject[] sceneRoots = scene.GetRootGameObjects();
@@ -99,7 +90,6 @@ public static class SceneArchitectureMigration
 
         SerializedObject serializedBootstrapper = new SerializedObject(bootstrapper);
         ValidateObjectReference(serializedBootstrapper, "quest3Prefab", QuestPrefabPath);
-        ValidateObjectReference(serializedBootstrapper, "holoLens2Prefab", HoloLensPrefabPath);
         ValidateObjectReference(serializedBootstrapper, "mobilePrefab", MobilePrefabPath);
 
         if (EditorBuildSettings.scenes.Length != 1 ||
@@ -129,7 +119,7 @@ public static class SceneArchitectureMigration
         Object.DestroyImmediate(root);
     }
 
-    private static void RebuildVariantFromScene(string prefabPath, string scenePath, string rootName, bool addHoloLensRuntimeInitializer)
+    private static void RebuildVariantFromScene(string prefabPath, string scenePath, string rootName)
     {
         GameObject basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BasePrefabPath);
         if (basePrefab == null)
@@ -162,11 +152,6 @@ public static class SceneArchitectureMigration
 
             GameObject copy = Object.Instantiate(sourceRoot, variantRoot.transform);
             copy.name = sourceRoot.name;
-        }
-
-        if (addHoloLensRuntimeInitializer)
-        {
-            AddHoloLensRuntimeInitializer(variantRoot);
         }
 
         DisableNestedDontDestroyOnLoadFlags(variantRoot);
@@ -211,26 +196,6 @@ public static class SceneArchitectureMigration
         }
     }
 
-    private static void AddHoloLensRuntimeInitializer(GameObject variantRoot)
-    {
-        MixedRealityToolkitConfigurationProfile profile =
-            AssetDatabase.LoadAssetAtPath<MixedRealityToolkitConfigurationProfile>(HoloLensProfilePath);
-        if (profile == null)
-        {
-            throw new System.InvalidOperationException("Missing HoloLens MRTK profile at " + HoloLensProfilePath);
-        }
-
-        HoloLensMrtkRuntimeInitializer initializer = variantRoot.GetComponent<HoloLensMrtkRuntimeInitializer>();
-        if (initializer == null)
-        {
-            initializer = variantRoot.AddComponent<HoloLensMrtkRuntimeInitializer>();
-        }
-
-        SerializedObject serializedInitializer = new SerializedObject(initializer);
-        serializedInitializer.FindProperty("activeProfile").objectReferenceValue = profile;
-        serializedInitializer.ApplyModifiedPropertiesWithoutUndo();
-    }
-
     private static void RebuildCanonicalScene()
     {
         Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -240,7 +205,6 @@ public static class SceneArchitectureMigration
         SerializedObject serializedBootstrapper = new SerializedObject(bootstrapper);
         serializedBootstrapper.FindProperty("platformOverride").enumValueIndex = 0;
         serializedBootstrapper.FindProperty("quest3Prefab").objectReferenceValue = LoadRequiredPrefab(QuestPrefabPath);
-        serializedBootstrapper.FindProperty("holoLens2Prefab").objectReferenceValue = LoadRequiredPrefab(HoloLensPrefabPath);
         serializedBootstrapper.FindProperty("mobilePrefab").objectReferenceValue = LoadRequiredPrefab(MobilePrefabPath);
         serializedBootstrapper.FindProperty("platformRootParent").objectReferenceValue = bootstrapperObject.transform;
         serializedBootstrapper.ApplyModifiedPropertiesWithoutUndo();
@@ -292,31 +256,6 @@ public static class SceneArchitectureMigration
                     prefabPath + " must not serialize legacy MRTK service root " + child.name +
                     ". Those services register in edit mode and dirty GeoXShared before Play.");
             }
-        }
-    }
-
-    private static void ValidateHoloLensRuntimeInitializer(GameObject holoLensPrefab)
-    {
-        Transform toolkitTransform = holoLensPrefab.transform.Find("MixedRealityToolkit");
-        if (toolkitTransform != null)
-        {
-            throw new System.InvalidOperationException(
-                HoloLensPrefabPath + " must not serialize MixedRealityToolkit. It is created at runtime to avoid prefab asset mutation.");
-        }
-
-        HoloLensMrtkRuntimeInitializer initializer = holoLensPrefab.GetComponent<HoloLensMrtkRuntimeInitializer>();
-        if (initializer == null)
-        {
-            throw new System.InvalidOperationException(
-                HoloLensPrefabPath + " must include HoloLensMrtkRuntimeInitializer for MRTK Interactable input.");
-        }
-
-        SerializedObject serializedInitializer = new SerializedObject(initializer);
-        Object activeProfile = serializedInitializer.FindProperty("activeProfile").objectReferenceValue;
-        if (activeProfile == null || AssetDatabase.GetAssetPath(activeProfile) != HoloLensProfilePath)
-        {
-            throw new System.InvalidOperationException(
-                HoloLensPrefabPath + " HoloLensMrtkRuntimeInitializer must reference " + HoloLensProfilePath);
         }
     }
 

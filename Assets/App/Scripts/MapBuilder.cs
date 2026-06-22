@@ -17,13 +17,9 @@ public class MapBuilder : MonoBehaviour
     public GameObject MapTilePrefab;
     public GameObject targetLocation;
     public GameObject spotTarget;
-#if UNITY_WSA
-    public TextMeshPro LatLabel;
-    public TextMeshPro LonLabel;
-#else
     public TextMeshProUGUI LatLabel;
     public TextMeshProUGUI LonLabel;
-#endif
+
 
 
     public float MapSize = 12;

@@ -8,25 +8,17 @@ using Microsoft.MixedReality.Toolkit.UI;
 
 public class RoomListEntry : MonoBehaviour
 {
-#if UNITY_WSA
-    public TextMeshPro RoomNameText;
-    public TextMeshPro RoomPlayersText;
-    public Interactable JoinRoomButton;
-#else
     public TextMeshProUGUI RoomNameText;
     public TextMeshProUGUI RoomPlayersText;
     public Button JoinRoomButton;
-#endif
+
 
     private string roomName;
 
     public void Start()
     {
-#if UNITY_WSA
-        JoinRoomButton.OnClick.AddListener(() =>
-#else
         JoinRoomButton.onClick.AddListener(() =>
-#endif
+
         {
             if (PhotonNetwork.InLobby)
             {

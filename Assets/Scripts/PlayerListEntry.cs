@@ -13,13 +13,9 @@ public class PlayerListEntry : MonoBehaviour
     [Header("UI References")]
 
     public GameObject PlayerColorImage;
-#if UNITY_WSA
-    public TextMeshPro PlayerNameText;
-    public Interactable PlayerReadyButton;
-#else
     public TextMeshProUGUI PlayerNameText;
     public Button PlayerReadyButton;
-#endif
+
     //public Image PlayerReadyImage;
 
     private int ownerId;
@@ -44,11 +40,8 @@ public class PlayerListEntry : MonoBehaviour
             PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
             PhotonNetwork.LocalPlayer.SetScore(0);
 
-#if !UNITY_WSA
             PlayerReadyButton.onClick.AddListener(() =>
-#elif UNITY_WSA
-            PlayerReadyButton.OnClick.AddListener(() =>
-#endif
+
             {
                 isPlayerReady = !isPlayerReady;
                 SetPlayerReady(isPlayerReady);
@@ -83,22 +76,16 @@ public class PlayerListEntry : MonoBehaviour
         {
             if (p.ActorNumber == ownerId)
             {
-#if UNITY_WSA
-                PlayerColorImage.GetComponent<Renderer>().material.color = GeoXSession.GetColor(p.GetPlayerNumber());
-#else
                 PlayerColorImage.GetComponent<Image>().color = GeoXSession.GetColor(p.GetPlayerNumber());
-#endif
+
             }
         }
     }
 
     public void SetPlayerReady(bool playerReady)
     {
-#if UNITY_WSA
-        PlayerReadyButton.GetComponentInChildren<TextMesh>().text = playerReady ? "Ready!" : "Ready?";
-#else
         PlayerReadyButton.GetComponentInChildren<TextMeshProUGUI>().text = playerReady ? "Ready!" : "Ready?";
-#endif
+
         //PlayerReadyImage.enabled = playerReady;
     }
 }
