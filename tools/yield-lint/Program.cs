@@ -94,10 +94,7 @@ static List<(int line, string snippet)> FindViolations(string code)
 static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, string code)
 {
     var findings = new List<(int, string)>();
-    // Normalize to a leading-slash form so the check matches both a bare
-    // "Assets/Scripts/..." (as produced by `dotnet run -- Assets`) and an
-    // absolute ".../Assets/Scripts/...", while still rejecting "MyAssets/Scripts/".
-    if (!("/" + path.Replace('\\', '/').TrimStart('/')).Contains("/Assets/Scripts/"))
+    if (!IsAssetsScriptsPath(path))
     {
         return findings;
     }
@@ -119,10 +116,7 @@ static List<(int line, string snippet)> FindForbiddenSceneLoads(string path, str
 static List<(int line, string snippet)> FindCameraCurrentUsage(string path, string code)
 {
     var findings = new List<(int, string)>();
-    // Normalize to a leading-slash form so the check matches both a bare
-    // "Assets/Scripts/..." (as produced by `dotnet run -- Assets`) and an
-    // absolute ".../Assets/Scripts/...", while still rejecting "MyAssets/Scripts/".
-    if (!("/" + path.Replace('\\', '/').TrimStart('/')).Contains("/Assets/Scripts/"))
+    if (!IsAssetsScriptsPath(path))
     {
         return findings;
     }
@@ -160,4 +154,13 @@ static List<(int line, string snippet)> FindFirebasePrematureFetchFlagReset(stri
     }
 
     return findings;
+}
+
+static bool IsAssetsScriptsPath(string path)
+{
+    // Normalize to a leading-slash form so the check matches both a bare
+    // "Assets/Scripts/..." and an absolute ".../Assets/Scripts/...", while
+    // still rejecting sibling names such as "MyAssets/Scripts/".
+    string normalizedPath = "/" + path.Replace('\\', '/').TrimStart('/');
+    return normalizedPath.Contains("/Assets/Scripts/", StringComparison.Ordinal);
 }

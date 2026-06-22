@@ -43,9 +43,7 @@ public class MobileMenuManager : MonoBehaviour
     string newAzureContainerName;
     List<GameObject> itemButtons = new List<GameObject>();
     
-#if UNITY_WSA
-    string platformType = "x86";
-#elif UNITY_IOS
+#if UNITY_IOS
     string platformType = "ios";
 #else
     string platformType = "android";
@@ -216,15 +214,6 @@ public class MobileMenuManager : MonoBehaviour
             int temp_i = i; //needs a dummy int to overwrite
             newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
             itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxoutcropModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxoutcropModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
         }
 
@@ -238,15 +227,6 @@ public class MobileMenuManager : MonoBehaviour
             int temp_i = i; //needs a dummy int to overwrite
             newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
             itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxdemModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxdemModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
         }
 
@@ -261,15 +241,6 @@ public class MobileMenuManager : MonoBehaviour
             int temp_i = i; //needs a dummy int to overwrite
             newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
             itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxclModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxclModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
         }
 
@@ -284,15 +255,6 @@ public class MobileMenuManager : MonoBehaviour
             int temp_i = i; //needs a dummy int to overwrite
             newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
             itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxhsModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxhsModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
         }
 
@@ -373,15 +335,6 @@ public class MobileMenuManager : MonoBehaviour
                         int temp_i = i; //needs a dummy int to overwrite
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxoutcropModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxoutcropModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
 #if UNITY_IOS || UNITY_ANDROID
@@ -435,15 +388,6 @@ public class MobileMenuManager : MonoBehaviour
                         int temp_i = i; //needs a dummy int to overwrite
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxdemModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxdemModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
 
@@ -495,15 +439,6 @@ public class MobileMenuManager : MonoBehaviour
                         int temp_i = i; //needs a dummy int to overwrite
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxclModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxclModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
 #if UNITY_IOS || UNITY_ANDROID
@@ -554,15 +489,6 @@ public class MobileMenuManager : MonoBehaviour
                         int temp_i = i; //needs a dummy int to overwrite
                         newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(temp_i));
                         itemButtons.Add(newButton);
-#elif UNITY_WSA
-                        GameObject newButton;
-                        newButton = Instantiate(menuButton, scrollContainer.transform);
-                        newButton.name = geoxhsModel[i].modelName + "-Button";
-                        newButton.GetComponentInChildren<TextMesh>().text = geoxhsModel[i].modelName;
-                        int temp_i = i; //needs a dummy int to overwrite
-                        newButton.GetComponent<Interactable>().OnClick.AddListener(() => OnItemButtonClicked(temp_i));
-                        itemButtons.Add(newButton);
-                        scrollContainer.GetComponent<GridObjectCollection>().UpdateCollection();
 #endif
                     }
 #if UNITY_IOS || UNITY_ANDROID
@@ -588,11 +514,7 @@ public class MobileMenuManager : MonoBehaviour
         {
             OutcropObject selectedModel = geoxoutcropModel[buttonNumber];
             string infoString = string.Format("{0}\nBy\n{1}\n\nLat:{2}  Lon:{3}\n\n{4}", selectedModel.modelName,selectedModel.author,selectedModel.latitude,selectedModel.longitude, selectedModel.description);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -602,19 +524,6 @@ public class MobileMenuManager : MonoBehaviour
         {
             DEMObject selectedModel = geoxdemModel[buttonNumber];
             string infoString = string.Format("{0}\nBy\n{1}\n\nLat:{2}  Lon:{3}\n\n{4}", selectedModel.modelName, selectedModel.author, selectedModel.latitude, selectedModel.longitude, selectedModel.description);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-            minElevText.GetComponent<TextMeshPro>().text = selectedModel.elevMin;
-            maxElevText.GetComponent<TextMeshPro>().text = selectedModel.elevMax;
-            if (selectedModel.prefabName.Contains("IMG.blend"))
-            {
-                colorScale.SetActive(true);
-            }
-            else
-            {
-                colorScale.SetActive(false);
-            }
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
             minElevText.GetComponent<TextMeshProUGUI>().text = selectedModel.elevMin;
             maxElevText.GetComponent<TextMeshProUGUI>().text = selectedModel.elevMax;
@@ -626,7 +535,6 @@ public class MobileMenuManager : MonoBehaviour
             {
                 colorScale.SetActive(false);
             }
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -636,11 +544,7 @@ public class MobileMenuManager : MonoBehaviour
         {
             CrystalLatticeObject selectedModel = geoxclModel[buttonNumber];
             string infoString = string.Format("{0}\nBy\n{1}\n\n{2}\n\n{3}", selectedModel.modelName, selectedModel.author, selectedModel.mineralGroup, selectedModel.symmetry);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;
@@ -649,11 +553,7 @@ public class MobileMenuManager : MonoBehaviour
         {
             HandSampleObject selectedModel = geoxhsModel[buttonNumber];
             string infoString = string.Format("{0}\nBy\n{1}\n\n{2}\n\n{3}", selectedModel.modelName, selectedModel.author, selectedModel.mineralGroup, selectedModel.locationOfCollection);
-#if UNITY_WSA
-            infoText.GetComponent<TextMeshPro>().text = infoString;
-#elif UNITY_IOS || UNITY_ANDROID
             infoText.GetComponent<TextMeshProUGUI>().text = infoString;
-#endif
             fetchButton.GetComponent<DownloadButtonInteraction>().storageAccountName = storageAccountName;
             fetchButton.GetComponent<DownloadButtonInteraction>().containerName = newAzureContainerName;
             fetchButton.GetComponent<DownloadButtonInteraction>().prefabName = selectedModel.prefabName;

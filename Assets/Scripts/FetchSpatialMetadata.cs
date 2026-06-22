@@ -24,11 +24,11 @@ public class FetchSpatialMetadata : MonoBehaviour
     {
         planetManager = TableAnchor.instance.GetComponent<PlanetManager>();
         planetManager.objectCoordinates.Clear();
-#if UNITY_WSA
-        platformType = "x86";
-#elif UNITY_IOS
+#if UNITY_IOS
         platformType = "ios";
 #elif UNITY_ANDROID
+        platformType = "android";
+#else
         platformType = "android";
 #endif
         for (int i = 0; i < indexType.Length; i++)

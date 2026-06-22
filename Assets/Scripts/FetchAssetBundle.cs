@@ -59,14 +59,12 @@ public class FetchAssetBundle : MonoBehaviour
             this.gameObject.name = "AssetBundleLoader_" + prefabName;
         }
 
-        string extensionName = "wsa";
-
-#if UNITY_WSA
-        extensionName = "wsa";
-#elif UNITY_IOS
-        extensionName = "ios";
+#if UNITY_IOS
+        string extensionName = "ios";
 #elif UNITY_ANDROID
-        extensionName = "android";
+        string extensionName = "android";
+#else
+        string extensionName = "android";
 #endif
 
 
@@ -159,20 +157,12 @@ public class FetchAssetBundle : MonoBehaviour
     {
         if (requestStarted)
         {
-#if UNITY_WSA
-            lobbyManager.downloadIndicatorText.GetComponent<TextMeshPro>().text = (request.downloadProgress * 100).ToString("F0") + "%";
-#elif UNITY_IOS || UNITY_ANDROID
             lobbyManager.downloadIndicatorText.GetComponent<TextMeshProUGUI>().text = (request.downloadProgress * 100).ToString("F0") + "%";
-#endif
         }
 
         if (loadingStarted)
         {
-#if UNITY_WSA
-            lobbyManager.downloadIndicatorText.GetComponent<TextMeshPro>().text = "Loading Model";
-#elif UNITY_IOS || UNITY_ANDROID
             lobbyManager.downloadIndicatorText.GetComponent<TextMeshProUGUI>().text = "Loading Model";
-#endif
         }
     }
 

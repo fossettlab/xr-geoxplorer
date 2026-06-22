@@ -61,18 +61,20 @@ public class HandMenuManager : MonoBehaviour
         if (!modelFlagToggleBool)
         {
             GameObject activeModel = GameObject.FindGameObjectWithTag("activeModel");
-            if (activeModel != null)
+            OnClickModelInteraction modelInteraction = activeModel != null ? activeModel.GetComponent<OnClickModelInteraction>() : null;
+            if (modelInteraction != null)
             {
-                activeModel.GetComponent<OnClickModelInteraction>().flagSelected = true;
+                modelInteraction.flagSelected = true;
             }
             modelFlagToggleBool = true;
         }
         else
         {
             GameObject activeModel = GameObject.FindGameObjectWithTag("activeModel");
-            if (activeModel != null)
+            OnClickModelInteraction modelInteraction = activeModel != null ? activeModel.GetComponent<OnClickModelInteraction>() : null;
+            if (modelInteraction != null)
             {
-                activeModel.GetComponent<OnClickModelInteraction>().flagSelected = false;
+                modelInteraction.flagSelected = false;
             }
             modelFlagToggleBool = false;
         }

@@ -17,11 +17,8 @@ public class ControlTextureAlpha : MonoBehaviour {
         }
         
         Renderer[] rends = new Renderer[tiles.Length];
-#if UNITY_WSA
-        eventData = GetComponent<PinchSlider>().SliderValue;
-#elif UNITY_IOS || UNITY_ANDROID
         eventData = GetComponent<Slider>().value;
-#endif
+
 
         //print(eventData);
         for (int i = 0; i < tiles.Length; i++)

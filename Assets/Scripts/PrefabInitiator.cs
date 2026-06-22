@@ -14,11 +14,9 @@ public class PrefabInitiator : MonoBehaviour
         transform.localEulerAngles = new Vector3(0, 180, 0);
         FindObjectOfType<PlanetManager>().activePlanet = this.gameObject;
 
-//#if UNITY_WSA
         gameObject.AddComponent<ManipulationHandler>();
         gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeNear = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;
         gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeFar = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;
-//#endif
 
     }
 }

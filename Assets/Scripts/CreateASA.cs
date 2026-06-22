@@ -9,12 +9,8 @@ using TMPro;
 
 public class CreateASA : MonoBehaviour
 {
-
-#if UNITY_WSA
-    public TextMeshPro feedback;
-#else
     public TextMeshProUGUI feedback;
-#endif
+
     CloudSpatialAnchor currentCloudAnchor;
     CloudSpatialAnchorSession cloudSpatialAnchorSession;
 
