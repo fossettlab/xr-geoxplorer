@@ -60,10 +60,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: firebase-anchor — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindUnguardedRaycastManagerUsage(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: raycast — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, or Firebase fetch-flag violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, or unguarded raycast violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -150,6 +156,56 @@ static List<(int line, string snippet)> FindFirebasePrematureFetchFlagReset(stri
         {
             findings.Add((i + 1,
                 "Do not reset anchorsFetchSucceeded before a fetch completes; use lastFetchSucceeded for per-fetch upload gating — " + line.Trim()));
+        }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).EndsWith("/RoomManager.cs", StringComparison.OrdinalIgnoreCase))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    bool inIsPlacingBlock = false;
+    int braceDepth = 0;
+    bool hasArPlacementGuard = false;
+
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        string trimmed = line.Trim();
+
+        if (trimmed.Contains("if (isPlacing)", StringComparison.Ordinal))
+        {
+            inIsPlacingBlock = true;
+            braceDepth = 0;
+            hasArPlacementGuard = false;
+        }
+
+        if (inIsPlacingBlock)
+        {
+            if (trimmed.Contains("arPlacementAvailable", StringComparison.Ordinal) ||
+                trimmed.Contains("raycastManager == null", StringComparison.Ordinal))
+            {
+                hasArPlacementGuard = true;
+            }
+
+            if (trimmed.Contains("raycastManager.Raycast", StringComparison.Ordinal) && !hasArPlacementGuard)
+            {
+                findings.Add((i + 1,
+                    "Guard raycastManager.Raycast with arPlacementAvailable / null check — Quest OpenXR has no ARRaycastManager — " + trimmed));
+            }
+
+            braceDepth += trimmed.Count(c => c == '{') - trimmed.Count(c => c == '}');
+            if (braceDepth < 0 || (braceDepth == 0 && trimmed.StartsWith("}", StringComparison.Ordinal) && i > 0))
+            {
+                inIsPlacingBlock = false;
+            }
         }
     }
 
