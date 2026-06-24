@@ -36,6 +36,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     ARRaycastManager raycastManager;
     GameObject newAnchorObject;
 
+    bool arPlacementAvailable;
     bool isPlacing;
     bool anchorValid;
     bool creatingASA;
@@ -58,6 +59,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         creatingASA = false;
 #if UNITY_IOS || UNITY_ANDROID
         raycastManager = FindObjectOfType<ARRaycastManager>();
+        arPlacementAvailable = raycastManager != null;
 #endif
     }
 
@@ -67,6 +69,11 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         if (isPlacing)
         {
 #if UNITY_IOS || UNITY_ANDROID
+            if (raycastManager == null)
+            {
+                return;
+            }
+
             Camera arCamera = Camera.main;
             if (arCamera == null)
             {
@@ -158,6 +165,12 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         else
         {
 #if UNITY_IOS || UNITY_ANDROID
+            if (!arPlacementAvailable)
+            {
+                directionText.text = "AR plane detection is not available on this device.";
+                yield break;
+            }
+
             panelImage.enabled = false;
 #endif
 
@@ -234,6 +247,12 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     public void OnContinueSelected()
     {
 #if UNITY_IOS || UNITY_ANDROID
+        if (!arPlacementAvailable)
+        {
+            directionText.text = "AR plane detection is not available on this device.";
+            return;
+        }
+
         panelImage.enabled = false;
 #endif
         createAnchorButton.SetActive(false);
