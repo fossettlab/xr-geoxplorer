@@ -82,10 +82,10 @@ For privacy/access control, this repo never reads Azure or NAS content
 automatically. Copy or mount the source content into the Unity project, or pass a
 Unity-visible root explicitly when running the pipeline.
 
-The old `*~`, `recovered-source/`, and `production-source/` prefixes remain in
-Azure only as a safety net while the new layout is validated. Do not point
-`-geoXSourceRoot` at those old prefixes. Full provenance and unwind notes are in
-`docs/migrations/geoxplorer-source-restructure.md`.
+The old `*~`, `recovered-source/`, and `production-source/` prefixes were
+removed after the consolidated layout was validated. Do not point
+`-geoXSourceRoot` at local mirrors of those old prefixes. Full provenance and
+unwind notes are in `docs/migrations/geoxplorer-source-restructure.md`.
 
 ## Editor Tool
 
