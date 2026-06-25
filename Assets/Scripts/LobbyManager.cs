@@ -342,9 +342,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ARAnchorManager aRReferencePointManager = FindObjectOfType<ARAnchorManager>();
         if (aRReferencePointManager == null)
         {
-            // No AR Foundation session in the scene (e.g. Quest OpenXR); skip AR
-            // anchor/plane setup. The headset anchor path is tracked in #17.
-            Debug.LogWarning("OnAnchorSuccessful: no ARAnchorManager present; skipping AR anchor/plane setup.");
+            // No AR Foundation session (e.g. Quest OpenXR). Position the shared table
+            // anchor directly so spawned content has a world-locked origin.
+            TableAnchor.instance.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+            Debug.LogWarning("OnAnchorSuccessful: no ARAnchorManager present; positioned TableAnchor without AR anchor.");
         }
         else
         {
