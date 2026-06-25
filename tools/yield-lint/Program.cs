@@ -26,6 +26,15 @@ if (FindCameraCurrentUsage("Assets/Scripts/Example.cs", cameraBad).Count != 1 ||
     return 2;
 }
 
+const string raycastBad = "class C { void M() { raycastManager.Raycast(p, h, t); } }";
+const string raycastGood = "class C { void M() { if (raycastManager == null) return; raycastManager.Raycast(p, h, t); } }";
+if (FindUnguardedRaycastManagerUsage("Assets/Scripts/RoomManager.cs", raycastBad).Count != 1 ||
+    FindUnguardedRaycastManagerUsage("Assets/Scripts/RoomManager.cs", raycastGood).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint raycast self-test FAILED — the AR raycast detector is broken.");
+    return 2;
+}
+
 string target = args.Length > 0 ? args[0] : ".";
 if (!Directory.Exists(target))
 {
@@ -60,10 +69,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: firebase-anchor — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindUnguardedRaycastManagerUsage(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: ar-placement — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, or Firebase fetch-flag violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, or unguarded AR raycast violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -150,6 +165,50 @@ static List<(int line, string snippet)> FindFirebasePrematureFetchFlagReset(stri
         {
             findings.Add((i + 1,
                 "Do not reset anchorsFetchSucceeded before a fetch completes; use lastFetchSucceeded for per-fetch upload gating — " + line.Trim()));
+        }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).EndsWith("/RoomManager.cs", StringComparison.OrdinalIgnoreCase))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        if (!line.Contains("raycastManager.Raycast", StringComparison.Ordinal))
+        {
+            continue;
+        }
+
+        if (line.Contains("raycastManager == null", StringComparison.Ordinal) ||
+            line.Contains("!arPlacementAvailable", StringComparison.Ordinal))
+        {
+            continue;
+        }
+
+        bool guarded = false;
+        for (int j = Math.Max(0, i - 20); j < i; j++)
+        {
+            if (lines[j].Contains("raycastManager == null", StringComparison.Ordinal) ||
+                lines[j].Contains("!arPlacementAvailable", StringComparison.Ordinal))
+            {
+                guarded = true;
+                break;
+            }
+        }
+
+        if (!guarded)
+        {
+            findings.Add((i + 1,
+                "Guard raycastManager before Raycast — it is null on Quest OpenXR and other non-AR scenes — " + line.Trim()));
         }
     }
 
