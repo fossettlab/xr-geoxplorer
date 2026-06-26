@@ -5,13 +5,22 @@ state. The **only** thing the app needs Azure for is asset/content delivery for
 the eventual xr-geoxplorer app, which is served from the `haringerverdiag`
 storage account. Everything else is housekeeping.
 
+## Status
+
+**Batch A executed 2026-06-25** — Phases 1, 2, and 4 are done. Resulting state:
+`kind: StorageV2`, `sku: Standard_LRS`, `accessTier: Hot`; only `SharingServer`
+remains (the four empty RGs were deleted). Phase 0 snapshot/inventory and
+Phase 3 (stale-data pass) remain outstanding; Phase 3 stays parked until after
+the #6/#82 re-bake. The "current state" below is the pre-Batch-A baseline, kept
+for the record.
+
 ## Scope / constants
 
 - Subscription: `3638bb5a-7ca5-45f2-a4a8-46cf562bd53e` (EPS – Fossett Lab for Virtual Planetary Exploration)
 - Resource group (keep): `SharingServer`
 - Storage account: `haringerverdiag`
 
-## Current state (verified 2026-06-25)
+## Current state (pre-Batch-A baseline, verified 2026-06-25)
 
 - `kind: Storage` — General Purpose **v1** (created 2018-09-26)
 - `sku: Standard_RAGRS` — Read-Access Geo-Redundant (the most redundant tier)
@@ -41,7 +50,7 @@ Homebrew-python pyexpat bug in the az-bundled CLI, so they run via
   (`haringerverdiag-secondary.blob.core.windows.net`); the app's `FetchAssetBundle`
   and the #24 SAS function both use the primary endpoint.
 
-## Phase 1 — RA-GRS to LRS (reversible)
+## Phase 1 — RA-GRS to LRS (reversible) — DONE 2026-06-25
 
 ```
 az storage account update -n haringerverdiag -g SharingServer \
@@ -51,7 +60,7 @@ az storage account update -n haringerverdiag -g SharingServer \
 - Online, no data movement. Reversible (back to `Standard_RAGRS`).
 - Verify: `sku == Standard_LRS`.
 
-## Phase 2 — GPv1 to GPv2 (one-way)
+## Phase 2 — GPv1 to GPv2 (one-way) — DONE 2026-06-25
 
 ```
 az storage account update -n haringerverdiag -g SharingServer \
@@ -77,7 +86,7 @@ az storage account update -n haringerverdiag -g SharingServer \
 - Timing: defer the bulk until the re-bake settles, since much current blob data
   is about to be replaced.
 
-## Phase 4 — Empty resource-group cleanup ($0, tidiness)
+## Phase 4 — Empty resource-group cleanup ($0, tidiness) — DONE 2026-06-25
 
 Decision (2026-06-25): the app's only Azure dependency is `haringerverdiag` in
 `SharingServer`, so all four empty RGs are removed; a future backend (#40)
