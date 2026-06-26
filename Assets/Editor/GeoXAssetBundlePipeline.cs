@@ -633,7 +633,12 @@ public static class GeoXAssetBundlePipeline
             foreach (JToken blob in container.Value)
             {
                 string blobName = blob.Value<string>("name");
-                string localPath = Path.Combine(platformOutputRoot, blobName);
+                string localPath = ResolveWithinRoot(platformOutputRoot, blobName);
+                if (localPath == null)
+                {
+                    Debug.LogWarning($"GeoX AssetBundle pipeline skipped upload-plan entry with unsafe blob name '{blobName}'.");
+                    continue;
+                }
                 if (!File.Exists(localPath))
                 {
                     continue;
@@ -667,6 +672,26 @@ public static class GeoXAssetBundlePipeline
         string planPath = Path.Combine(outputRoot, "azure-upload-plan.json");
         File.WriteAllText(planPath, plan.ToString());
         return planPath;
+    }
+
+    // Combines root with a manifest-supplied relative name, rejecting names that
+    // escape root via "../" segments or an absolute/rooted path. Returns the
+    // resolved full path when it stays within root, otherwise null so callers
+    // skip the entry instead of reading or writing outside the output tree.
+    private static string ResolveWithinRoot(string root, string relativeName)
+    {
+        if (string.IsNullOrEmpty(relativeName))
+        {
+            return null;
+        }
+
+        string rootFull = Path.GetFullPath(root);
+        string combined = Path.GetFullPath(Path.Combine(rootFull, relativeName));
+        string rootWithSeparator = rootFull.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)
+            ? rootFull
+            : rootFull + Path.DirectorySeparatorChar;
+
+        return combined.StartsWith(rootWithSeparator, StringComparison.Ordinal) ? combined : null;
     }
 
     private static void AssignBundleNamesForTargetPlatform(string platform)
@@ -779,7 +804,12 @@ public static class GeoXAssetBundlePipeline
                 continue;
             }
 
-            string destinationBundle = Path.Combine(platformFolder, featuredBlobName);
+            string destinationBundle = ResolveWithinRoot(platformFolder, featuredBlobName);
+            if (destinationBundle == null)
+            {
+                Debug.LogWarning($"GeoX AssetBundle pipeline skipped featured bundle with unsafe name '{featuredBlobName}' in '{platformFolder}'.");
+                continue;
+            }
             Directory.CreateDirectory(Path.GetDirectoryName(destinationBundle));
             File.Copy(sourceBundle, destinationBundle, true);
             copiedCount++;
