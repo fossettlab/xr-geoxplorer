@@ -1053,12 +1053,6 @@ public static class GeoXAssetBundlePipeline
 
         foreach (ManifestBundleEntry entry in manifestEntries)
         {
-            if (IsOptionalRawSourceCategory(entry.Category))
-            {
-                resolution.OptionalMissingEntries.Add(entry);
-                continue;
-            }
-
             candidatesByCategory.TryGetValue(entry.Category, out List<SourceAssetCandidate> candidates);
             SourceAssetCandidate candidate = ResolveBestSourceCandidate(entry, candidates ?? new List<SourceAssetCandidate>(), resolution);
             if (candidate == null)
