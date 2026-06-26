@@ -42,7 +42,7 @@ jobs:
 
       - name: Cache Unity Library
         if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: Library
           key: Library-Android-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
