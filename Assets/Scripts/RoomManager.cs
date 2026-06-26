@@ -13,7 +13,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     /// <summary>
     /// Controls the Room set up system. After the user enters a room, they are presented with an option to create an Azure Spatial Anchor or manually place an anchor at a particular location. UI interactions for both MobileAR and HoloLens included.
-    /// 
+    ///
     /// </summary>
 
     public TextMeshProUGUI directionText;
@@ -36,7 +36,6 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     ARRaycastManager raycastManager;
     GameObject newAnchorObject;
 
-    bool arPlacementAvailable;
     bool isPlacing;
     bool anchorValid;
     bool creatingASA;
@@ -57,10 +56,6 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     void Start()
     {
         creatingASA = false;
-#if UNITY_IOS || UNITY_ANDROID
-        raycastManager = FindObjectOfType<ARRaycastManager>();
-        arPlacementAvailable = raycastManager != null;
-#endif
     }
 
     // Update is called once per frame
@@ -69,7 +64,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         if (isPlacing)
         {
 #if UNITY_IOS || UNITY_ANDROID
-            if (raycastManager == null)
+            ARRaycastManager activeRaycastManager = EnsureRaycastManager();
+            if (activeRaycastManager == null || !activeRaycastManager.isActiveAndEnabled)
             {
                 return;
             }
@@ -82,13 +78,13 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
             var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
             var hits = new List<ARRaycastHit>();
-            raycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
+            activeRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
 
             anchorValid = hits.Count > 0;
             if (anchorValid)
             {
                 anchorPose = hits[0].pose;
-                
+
                 newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
 
                 var cameraForward = arCamera.transform.forward;
@@ -125,7 +121,25 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         }
     }
 
-    
+#if UNITY_IOS || UNITY_ANDROID
+    ARRaycastManager EnsureRaycastManager()
+    {
+        if (raycastManager == null)
+        {
+            raycastManager = FindObjectOfType<ARRaycastManager>();
+        }
+
+        return raycastManager;
+    }
+
+    bool IsArPlacementAvailable()
+    {
+        ARRaycastManager activeRaycastManager = EnsureRaycastManager();
+        return activeRaycastManager != null && activeRaycastManager.isActiveAndEnabled;
+    }
+#endif
+
+
     public void OnCreateSelected()
     {
         createAnchorButton.SetActive(false);
@@ -165,7 +179,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         else
         {
 #if UNITY_IOS || UNITY_ANDROID
-            if (!arPlacementAvailable)
+            if (!IsArPlacementAvailable())
             {
                 directionText.text = "AR plane detection is not available on this device.";
                 yield break;
@@ -247,7 +261,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     public void OnContinueSelected()
     {
 #if UNITY_IOS || UNITY_ANDROID
-        if (!arPlacementAvailable)
+        if (!IsArPlacementAvailable())
         {
             directionText.text = "AR plane detection is not available on this device.";
             return;

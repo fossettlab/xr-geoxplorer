@@ -10,7 +10,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     /// <summary>
     /// Root manager class covers interactions to log in to Photon, as well as instantiate anchors and assetbundles. This class should always be active in the scene. Covers both MobileAR and HoloLens interactions.
-    /// 
+    ///
     /// TODO: could be made a Singleton.
     /// </summary>
 
@@ -308,7 +308,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
     void CreatePlayer()
-    {   
+    {
         GameObject player = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "PhotonUser"), Vector3.zero, Quaternion.identity,0,userInitData);
         player.transform.parent = Camera.main.transform;
         player.GetComponentInChildren<Renderer>().enabled = false; //Sets own head to be invisible
@@ -343,9 +343,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (aRReferencePointManager == null)
         {
             // No AR Foundation session (e.g. Quest OpenXR). Position the shared table
-            // anchor directly so spawned content has a world-locked origin.
+            // anchor directly in Unity world space so spawned content has a fallback origin.
             TableAnchor.instance.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
-            Debug.LogWarning("OnAnchorSuccessful: no ARAnchorManager present; positioned TableAnchor without AR anchor.");
+            Debug.LogWarning("OnAnchorSuccessful: no ARAnchorManager present; positioned TableAnchor in fallback world space.");
         }
         else
         {
@@ -412,7 +412,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //}
 
         GameObject gObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", modelToInstantiate), Vector3.zero, Quaternion.identity, 0);
-        gObject.transform.parent = TableAnchor.instance.transform;        
+        gObject.transform.parent = TableAnchor.instance.transform;
     }
 
     public void ClearInteractablePlanet()
