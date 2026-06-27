@@ -228,10 +228,11 @@ files for duplicate detection. When the source drop contains both a flat model
 file and an organized subfolder copy of the same model, the pipeline prefers the
 more specific subfolder path instead of failing the layout check.
 
-For this PR, `bio` is treated as an optional raw-source-gap category and is
-reported but not baked. The source drop contains one recoverable `bio` model,
-but Bradley's direction is to skip `bio` for this pass and continue using the
-existing deployed bundles until the full source story is resolved.
+For this PR, `bio` is an optional raw-source-gap category: source-less entries
+are reported but not baked. The source drop contains one recoverable `bio` model
+(`1aus`), which is now baked from source (see #111); the remaining 16 source-less
+`bio` bundles stay deferred, continuing to use the existing deployed bundles
+until the full source story is resolved.
 
 Then run source coverage validation in partial-source mode before the initial #6
 bake. This checks that source-backed entries resolve cleanly to manifest blob
@@ -305,6 +306,10 @@ platform-level AssetBundle artifacts and are not uploaded as runtime
 This local validation is intentionally scoped to `importable-source/`. It does
 not bake `crystal-structures/`, `raw-source-no-meta/`, old `*~` prefixes, or
 pre-baked source-missing DEM/bio bundles.
+
+> Note: the 2026-06-17 counts above predate #111. Since then `bio/1aus` is baked
+> from source, so it is no longer among the skipped optional `bio` entries; the
+> 16 source-less `bio` bundles remain skipped.
 
 To bake only the source entries that are currently available, run the explicit
 available-source build method:
