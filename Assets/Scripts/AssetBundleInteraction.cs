@@ -29,7 +29,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
     // Update is called once per frame
     void Update()
     {
-#if UNITY_EDITOR || UNITY_IOS
+#if UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID
 
 
 #if UNITY_EDITOR
@@ -360,8 +360,180 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
+        if (eventData?.Pointer?.Result == null)
+        {
+            return;
+        }
+
+        GameObject hitObject = eventData.Pointer.Result.Details.Object;
+        if (hitObject == null)
+        {
+            return;
+        }
+
+        Vector3 hitPosition = eventData.Pointer.Result.Details.PointLocalSpace;
+        Vector3 hitNormal = eventData.Pointer.Result.Details.NormalLocalSpace;
+        if (hitPosition == Vector3.zero && eventData.Pointer.Result.Details.Point != Vector3.zero)
+        {
+            hitPosition = hitObject.transform.InverseTransformPoint(eventData.Pointer.Result.Details.Point);
+        }
+        if (hitNormal == Vector3.zero && eventData.Pointer.Result.Details.Normal != Vector3.zero)
+        {
+            hitNormal = hitObject.transform.InverseTransformDirection(eventData.Pointer.Result.Details.Normal);
+        }
+
+        FetchAssetBundle assetBundleLoader = hitObject.GetComponentInParent<FetchAssetBundle>();
+        if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == "AssetBundleLoader" && !GameObject.FindGameObjectWithTag("OutcropTooltip"))
+        {
+            PhotonView photonView = assetBundleLoader.gameObject.GetComponent<PhotonView>();
+            if (photonView != null)
+            {
+                photonView.RPC("CreateABTooltipAtLoc", RpcTarget.All, hitPosition, hitNormal, hitObject.name, photonView.ViewID);
+            }
+        }
+        else if (hitObject.name == "TooltipHideButton")
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("OnHideTooltip", RpcTarget.All);
+        }
+        else if (hitObject.name == "TooltipScaleButton")
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("OnMakeFullScale", RpcTarget.All);
+        }
+        else if (hitObject.name == "TooltipDeleteButton")
+        {
+            FetchAssetBundle parentLoader = hitObject.GetComponentInParent<FetchAssetBundle>();
+            if (parentLoader != null && parentLoader.gameObject.GetComponent<PhotonView>() == PhotonView.Get(this))
+            {
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("OnDelete", RpcTarget.All);
+            }
+        }
+        else if (hitObject.name == "TooltipResetButton")
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("OnReset", RpcTarget.All);
+        }
+        else if (hitObject.name == "TooltipFlagButton")
+        {
+            PhotonView photonView = hitObject.GetComponentInParent<FetchAssetBundle>()?.gameObject.GetComponent<PhotonView>();
+            if (photonView != null)
+            {
+                photonView.RPC("OnFlagCreate", RpcTarget.All, hitPosition, hitNormal, hitObject.name, photonView.ViewID);
+            }
+        }
+        else if (hitObject.name == "TooltipMoveButton")
+        {
+            PhotonView photonView = hitObject.GetComponentInParent<FetchAssetBundle>()?.gameObject.GetComponent<PhotonView>();
+            if (photonView != null && photonView.IsMine)
+            {
+                if (!moving)
+                {
+                    ResetQuestMoveComponents();
+                    ObjectManipulator manipulator = gameObject.AddComponent<ObjectManipulator>();
+                    gameObject.AddComponent<NearInteractionGrabbable>();
+                    manipulator.OneHandRotationModeFar = ObjectManipulator.RotateInOneHandType.RotateAboutGrabPoint;
+                    gameObject.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.XAxis;
+                    gameObject.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.ZAxis;
+                    TMP_Text moveLabel = hitObject.GetComponentInChildren<TMP_Text>();
+                    if (moveLabel != null)
+                    {
+                        moveLabel.text = "Stop manipulation";
+                    }
+                    Renderer moveRenderer = hitObject.GetComponent<Renderer>();
+                    if (moveRenderer != null)
+                    {
+                        moveRenderer.material.color = Color.gray;
+                    }
+                    moving = true;
+                }
+                else
+                {
+                    ResetQuestMoveComponents();
+                    TMP_Text moveLabel = hitObject.GetComponentInChildren<TMP_Text>();
+                    if (moveLabel != null)
+                    {
+                        moveLabel.text = "Move";
+                    }
+                    Renderer moveRenderer = hitObject.GetComponent<Renderer>();
+                    if (moveRenderer != null)
+                    {
+                        moveRenderer.material.color = Color.white;
+                    }
+                    moving = false;
+                }
+            }
+        }
+        else if (hitObject.name == "TooltipInspectButton")
+        {
+            InspectorModelObject[] modelInspector = Resources.FindObjectsOfTypeAll<InspectorModelObject>();
+            if (modelInspector.Length == 0)
+            {
+                Debug.LogError("InspectorModelObject not found in scene; cannot open model inspector.");
+                return;
+            }
+
+            Transform modelInspectorTransform = modelInspector[0].transform;
+            foreach (Transform child in modelInspectorTransform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            FetchAssetBundle fetchAssetBundle = GetComponent<FetchAssetBundle>();
+            if (fetchAssetBundle == null || fetchAssetBundle.newPrefab == null)
+            {
+                Debug.LogError("Cannot open model inspector because the loaded prefab is missing.");
+                return;
+            }
+
+            inspectorPrefab = Instantiate(fetchAssetBundle.newPrefab);
+
+            GameObject[] toolTips = GameObject.FindGameObjectsWithTag("OutcropTooltip");
+            if (toolTips.Length > 0)
+            {
+                foreach (var tool in toolTips)
+                {
+                    Destroy(tool);
+                }
+            }
+
+            inspectorPrefab.transform.parent = modelInspectorTransform;
+            Bounds newBounds = GetChildRendererBounds(inspectorPrefab.gameObject);
+            if (newBounds.size.x > newBounds.size.z)
+            {
+                inspectorPrefab.transform.localScale /= (newBounds.size.x / 0.2f);
+            }
+            else
+            {
+                inspectorPrefab.transform.localScale /= (newBounds.size.z / 0.2f);
+            }
+
+            inspectorPrefab.transform.localPosition = Vector3.zero;
+            inspectorPrefab.transform.localEulerAngles = Vector3.zero;
+        }
     }
     GameObject inspectorPrefab;
+
+    private void ResetQuestMoveComponents()
+    {
+        ObjectManipulator manipulator = gameObject.GetComponent<ObjectManipulator>();
+        if (manipulator != null)
+        {
+            Destroy(manipulator);
+        }
+
+        NearInteractionGrabbable grabbable = gameObject.GetComponent<NearInteractionGrabbable>();
+        if (grabbable != null)
+        {
+            Destroy(grabbable);
+        }
+
+        foreach (RotationAxisConstraint constraint in gameObject.GetComponents<RotationAxisConstraint>())
+        {
+            Destroy(constraint);
+        }
+    }
 
     Bounds GetChildRendererBounds(GameObject go)
     {
