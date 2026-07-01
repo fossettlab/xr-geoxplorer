@@ -35,6 +35,21 @@ if (FindUnguardedRaycastManagerUsage("Assets/Scripts/RoomManager.cs", raycastBad
     return 2;
 }
 
+const string abInteractionBadGuard = @"class AssetBundleInteraction { void Update() { #if UNITY_EDITOR || UNITY_IOS
+ } }";
+const string abInteractionGoodGuard = @"class AssetBundleInteraction { void Update() { #if UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID
+ } }";
+const string abInteractionBadPointer = @"class AssetBundleInteraction { void OnPointerClicked(MixedRealityPointerEventData eventData) { } }";
+const string abInteractionGoodPointer = @"class AssetBundleInteraction { void OnPointerClicked(MixedRealityPointerEventData eventData) { if (eventData?.Pointer?.Result?.Details?.Object == null) return; } }";
+if (FindAssetBundleInteractionQuestGuard("Assets/Scripts/AssetBundleInteraction.cs", abInteractionBadGuard).Count != 1 ||
+    FindAssetBundleInteractionQuestGuard("Assets/Scripts/AssetBundleInteraction.cs", abInteractionGoodGuard).Count != 0 ||
+    FindAssetBundleInteractionQuestGuard("Assets/Scripts/AssetBundleInteraction.cs", abInteractionBadPointer).Count != 1 ||
+    FindAssetBundleInteractionQuestGuard("Assets/Scripts/AssetBundleInteraction.cs", abInteractionGoodPointer).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint AssetBundleInteraction self-test FAILED — the Quest interaction detector is broken.");
+    return 2;
+}
+
 string target = args.Length > 0 ? args[0] : ".";
 if (!Directory.Exists(target))
 {
@@ -75,10 +90,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: ar-placement — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindAssetBundleInteractionQuestGuard(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: quest-interaction — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, or unguarded AR raycast violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, unguarded AR raycast, or Quest asset-bundle interaction violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -213,6 +234,50 @@ static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string 
     }
 
     return findings;
+}
+
+static List<(int line, string snippet)> FindAssetBundleInteractionQuestGuard(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).EndsWith("/AssetBundleInteraction.cs", StringComparison.OrdinalIgnoreCase))
+    {
+        return findings;
+    }
+
+    if (code.Contains("#if UNITY_EDITOR || UNITY_IOS\n", StringComparison.Ordinal) ||
+        code.Contains("#if UNITY_EDITOR || UNITY_IOS\r\n", StringComparison.Ordinal))
+    {
+        int line = IndexOfLine(code, "#if UNITY_EDITOR || UNITY_IOS") + 1;
+        if (line > 0)
+        {
+            findings.Add((line,
+                "Update() touch path must include UNITY_ANDROID — Quest builds compile it out and lose all asset-bundle interactions — #if UNITY_EDITOR || UNITY_IOS"));
+        }
+    }
+
+    if (code.Contains("void OnPointerClicked(MixedRealityPointerEventData eventData)", StringComparison.Ordinal) &&
+        !code.Contains("eventData?.Pointer?.Result?.Details", StringComparison.Ordinal))
+    {
+        int line = IndexOfLine(code, "void OnPointerClicked(MixedRealityPointerEventData eventData)") + 1;
+        if (line > 0)
+        {
+            findings.Add((line,
+                "OnPointerClicked must handle MRTK pointer hits — HoloLens/WSA path was removed in OpenXR migration and Quest has no replacement without this handler"));
+        }
+    }
+
+    return findings;
+}
+
+static int IndexOfLine(string code, string needle)
+{
+    int index = code.IndexOf(needle, StringComparison.Ordinal);
+    if (index < 0)
+    {
+        return -1;
+    }
+
+    return code[..index].Count(c => c == '\n');
 }
 
 static bool IsAssetsScriptsPath(string path)
