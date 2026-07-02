@@ -474,8 +474,10 @@ Recommended staging procedure:
    each local bundle path, platform, production-shaped target container/blob
    name, single-container staging blob name, content type, and custom metadata
    from the committed manifest.
-4. Upload to a staging Azure container or staging storage account.
-5. Apply custom blob metadata from the upload plan during upload.
+4. Upload to a staging Azure container or staging storage account with
+   `scripts/upload_assetbundles_to_azure.py`.
+5. The upload helper applies custom blob metadata from the upload plan during
+   each upload.
 6. Smoke-test one representative bundle from each category on Quest 3 first,
    then Android/iOS mobile if available.
 
@@ -483,6 +485,20 @@ If staging uses Bradley's single `staging-assetbundles` container, upload each
 bundle to the plan's `stagingBlobName` so platform folders stay distinct, for
 example `android/geoxplorer-outcrop/marinheadlands-bundle`. If staging mirrors
 production's three-container shape, use `targetContainer` plus `targetBlobName`.
+
+Run a dry run first:
+
+```bash
+python3 scripts/upload_assetbundles_to_azure.py \
+  --plan /path/to/staging/AssetBundles/azure-upload-plan.json \
+  --container-url "https://<account>.blob.core.windows.net/staging-assetbundles?<sas>" \
+  --mode staging \
+  --dry-run
+```
+
+Then remove `--dry-run` to upload. Use `--platform android` or `--limit 1` for
+small smoke passes before uploading the full available-source bake. The SAS URL
+must be passed privately; do not commit it or paste it into GitHub issues.
 
 Materials may render magenta at this stage because URP-compatible bundles are
 tracked separately in #39. For #6, the load test is about download/load success
