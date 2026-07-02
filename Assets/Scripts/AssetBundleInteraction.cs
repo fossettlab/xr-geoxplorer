@@ -420,7 +420,8 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
             PhotonView photonView = hitObject.GetComponentInParent<FetchAssetBundle>()?.gameObject.GetComponent<PhotonView>();
             if (photonView != null)
             {
-                photonView.RPC("OnFlagCreate", RpcTarget.All, hitPosition, hitNormal, hitObject.name, photonView.ViewID);
+                // Flag the asset-surface hit captured when the tooltip was created, not the button itself.
+                photonView.RPC("OnFlagCreate", RpcTarget.All, hitObjectPosition, hitObjectNormal, hitObjectName, photonView.ViewID);
             }
         }
         else if (hitObject.name == "TooltipMoveButton")
@@ -500,13 +501,10 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 
             inspectorPrefab.transform.parent = modelInspectorTransform;
             Bounds newBounds = GetChildRendererBounds(inspectorPrefab.gameObject);
-            if (newBounds.size.x > newBounds.size.z)
+            float largestFootprint = Mathf.Max(newBounds.size.x, newBounds.size.z);
+            if (largestFootprint > 0f)
             {
-                inspectorPrefab.transform.localScale /= (newBounds.size.x / 0.2f);
-            }
-            else
-            {
-                inspectorPrefab.transform.localScale /= (newBounds.size.z / 0.2f);
+                inspectorPrefab.transform.localScale /= (largestFootprint / 0.2f);
             }
 
             inspectorPrefab.transform.localPosition = Vector3.zero;
