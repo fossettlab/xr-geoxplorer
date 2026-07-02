@@ -14,6 +14,7 @@ import datetime as dt
 import json
 import mimetypes
 import posixpath
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -119,6 +120,12 @@ def build_blob_url(container_url: str, blob_name: str) -> str:
     return urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, path, parsed.query, ""))
 
 
+# Azure blob metadata names must be identifier-like (letters, digits,
+# underscores; not starting with a digit). Values become HTTP header values, so
+# they must be ASCII with no control characters.
+_METADATA_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+
+
 def metadata_headers(metadata: Dict[str, Any]) -> Dict[str, str]:
     headers: Dict[str, str] = {}
     for key, value in sorted(metadata.items()):
@@ -127,7 +134,27 @@ def metadata_headers(metadata: Dict[str, Any]) -> Dict[str, str]:
         normalized_key = str(key).strip()
         if not normalized_key:
             continue
-        headers[f"x-ms-meta-{normalized_key}"] = str(value)
+        # Fail fast on invalid names/values rather than sending a malformed or
+        # injected HTTP header, or silently mangling the manifest metadata.
+        if not _METADATA_NAME_RE.match(normalized_key):
+            raise ValueError(
+                f"Invalid Azure metadata name {normalized_key!r}: use letters, "
+                "digits, and underscores, not starting with a digit."
+            )
+        text = str(value)
+        if any(ord(ch) < 0x20 or ord(ch) == 0x7f for ch in text):
+            raise ValueError(
+                f"Metadata {normalized_key!r} contains control characters; "
+                "refusing to send an unsafe HTTP header."
+            )
+        try:
+            text.encode("ascii")
+        except UnicodeEncodeError:
+            raise ValueError(
+                f"Metadata {normalized_key!r} has a non-ASCII value; Azure blob "
+                "metadata values must be ASCII."
+            )
+        headers[f"x-ms-meta-{normalized_key}"] = text
     return headers
 
 
