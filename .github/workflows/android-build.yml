@@ -40,6 +40,19 @@ jobs:
         run: |
           echo "::notice::Unity license secrets are not configured, so the Android build is skipped. Set UNITY_LICENSE, UNITY_EMAIL, and UNITY_PASSWORD to enable the compile gate."
 
+      # The unityci/editor Android image is large; the hosted runner's ~14 GB
+      # free space is not enough and the docker pull fails with "no space left
+      # on device" (exit 125). Drop runner-preinstalled toolchains we don't use
+      # (the Unity SDK/NDK live inside the container) to free ~25 GB first.
+      - name: Free disk space for the Unity image
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        run: |
+          echo "Disk before cleanup:"; df -h /
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc \
+            /usr/local/share/boost /usr/share/swift /opt/hostedtoolcache || true
+          sudo docker image prune -af || true
+          echo "Disk after cleanup:"; df -h /
+
       - name: Cache Unity Library
         if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
         uses: actions/cache@v6
