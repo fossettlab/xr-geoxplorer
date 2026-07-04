@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -126,6 +126,7 @@ public static class QuestAndroidStoreSettingsConfigurator
         GraphicsDeviceType[] graphicsApis = PlayerSettings.GetGraphicsAPIs(BuildTarget.Android);
         Require(!PlayerSettings.GetUseDefaultGraphicsAPIs(BuildTarget.Android), failures, "Android graphics APIs must be explicit");
         Require(graphicsApis.Length == 1 && graphicsApis[0] == GraphicsDeviceType.Vulkan, failures, "Android graphics APIs must be Vulkan only");
+        Require(EditorUserBuildSettings.androidBuildSubtarget == MobileTextureSubtarget.ASTC, failures, "Android texture compression must be ASTC");
 
         ValidateOpenXRSettings(failures);
         ValidateOpenXRFeatures(failures);
@@ -244,8 +245,11 @@ public static class QuestAndroidStoreSettingsConfigurator
         "android.permission.INTERNET",
         "com.oculus.permission.USE_ANCHOR_API",
         "com.oculus.permission.USE_SCENE",
+        "com.oculus.permission.HAND_TRACKING",
         "oculus.software.handtracking",
-        "com.oculus.feature.PASSTHROUGH"
+        "com.oculus.feature.PASSTHROUGH",
+        "com.oculus.intent.category.VR",
+        "com.oculus.supportedDevices"
     };
 
     private static readonly string[] RequiredGradlePropertiesSnippets =
@@ -272,13 +276,22 @@ public static class QuestAndroidStoreSettingsConfigurator
     private static void WriteAndroidManifestTemplate()
     {
         Directory.CreateDirectory(Path.GetDirectoryName(AndroidManifestPath));
-        File.WriteAllText(AndroidManifestPath, AndroidManifestContents);
+        File.WriteAllText(AndroidManifestPath, NormalizeNewlines(AndroidManifestContents));
     }
 
     private static void WriteGradlePropertiesTemplate()
     {
         Directory.CreateDirectory(Path.GetDirectoryName(GradlePropertiesTemplatePath));
-        File.WriteAllText(GradlePropertiesTemplatePath, GradlePropertiesContents);
+        File.WriteAllText(GradlePropertiesTemplatePath, NormalizeNewlines(GradlePropertiesContents));
+    }
+
+    // The template constants are verbatim string literals, so their newline
+    // bytes follow this source file's line endings (CRLF). The committed
+    // manifest and Gradle properties are LF, so normalize before writing to
+    // keep re-running the configurator idempotent instead of churning endings.
+    private static string NormalizeNewlines(string text)
+    {
+        return text.Replace("\r\n", "\n").Replace("\r", "\n");
     }
 
     private const string AndroidManifestContents = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -288,6 +301,7 @@ public static class QuestAndroidStoreSettingsConfigurator
     <uses-permission android:name=""android.permission.RECORD_AUDIO"" />
     <uses-permission android:name=""com.oculus.permission.USE_ANCHOR_API"" />
     <uses-permission android:name=""com.oculus.permission.USE_SCENE"" />
+    <uses-permission android:name=""com.oculus.permission.HAND_TRACKING"" />
 
     <uses-feature android:name=""android.hardware.microphone"" android:required=""false"" />
     <uses-feature android:name=""android.hardware.vr.headtracking"" android:required=""true"" android:version=""1"" />
@@ -295,12 +309,14 @@ public static class QuestAndroidStoreSettingsConfigurator
     <uses-feature android:name=""com.oculus.feature.PASSTHROUGH"" android:required=""true"" />
 
     <application>
+        <meta-data android:name=""com.oculus.supportedDevices"" android:value=""quest3"" />
         <activity android:name=""com.unity3d.player.UnityPlayerActivity""
                   android:theme=""@style/UnityThemeSelector""
                   android:exported=""true"">
             <intent-filter>
                 <action android:name=""android.intent.action.MAIN"" />
                 <category android:name=""android.intent.category.LAUNCHER"" />
+                <category android:name=""com.oculus.intent.category.VR"" />
             </intent-filter>
             <meta-data android:name=""unityplayer.UnityActivity"" android:value=""true"" />
         </activity>
