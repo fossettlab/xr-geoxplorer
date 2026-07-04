@@ -248,8 +248,7 @@ public static class QuestAndroidStoreSettingsConfigurator
         "com.oculus.permission.HAND_TRACKING",
         "oculus.software.handtracking",
         "com.oculus.feature.PASSTHROUGH",
-        "com.oculus.intent.category.VR",
-        "com.oculus.supportedDevices"
+        "com.oculus.intent.category.VR"
     };
 
     private static readonly string[] RequiredGradlePropertiesSnippets =
@@ -309,7 +308,6 @@ public static class QuestAndroidStoreSettingsConfigurator
     <uses-feature android:name=""com.oculus.feature.PASSTHROUGH"" android:required=""true"" />
 
     <application>
-        <meta-data android:name=""com.oculus.supportedDevices"" android:value=""quest3"" />
         <activity android:name=""com.unity3d.player.UnityPlayerActivity""
                   android:theme=""@style/UnityThemeSelector""
                   android:exported=""true"">

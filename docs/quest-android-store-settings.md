@@ -46,6 +46,12 @@ Meta Quest store permissions and features need to be explicit:
 - `oculus.software.handtracking` with `android:required="false"`
 - `com.oculus.feature.PASSTHROUGH` with `android:required="true"`
 
+The `com.oculus.supportedDevices` device-targeting metadata is intentionally
+*not* declared here: the Meta Quest OpenXR feature injects it at build time from
+its Target Devices setting, and a hand-written value collides with the feature's
+during manifest merge. Set the target device list through the Meta Quest feature
+in Project Settings > XR Plug-in Management > OpenXR, not in this manifest.
+
 ## Signing
 
 Do not commit a keystore, passwords, or signing credentials. Use a private lab
