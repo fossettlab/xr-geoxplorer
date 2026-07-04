@@ -61,67 +61,62 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     // Update is called once per frame
     void Update()
     {
-        if (isPlacing)
+        if (!isPlacing || newAnchorObject == null)
         {
-#if UNITY_IOS || UNITY_ANDROID
-            ARRaycastManager activeRaycastManager = EnsureRaycastManager();
-            if (activeRaycastManager == null || !activeRaycastManager.isActiveAndEnabled)
-            {
-                return;
-            }
-
-            Camera arCamera = Camera.main;
-            if (arCamera == null)
-            {
-                return;
-            }
-
-            var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-            var hits = new List<ARRaycastHit>();
-            activeRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
-
-            anchorValid = hits.Count > 0;
-            if (anchorValid)
-            {
-                anchorPose = hits[0].pose;
-
-                newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
-
-                var cameraForward = arCamera.transform.forward;
-                var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
-
-                newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
-
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    isPlacing = false;
-                    newAnchorObject.GetComponentInChildren<Renderer>().material.color = Color.green;
-
-                    if (creatingASA)
-                    {
-                        newAnchorObject.GetComponent<SpatialAnchorManager>().enabled = true;
-                        newAnchorObject.AddComponent<CreateASA>();
-                        newAnchorObject.GetComponent<CreateASA>().feedback = directionText;
-                        creatingASA = false;
-                    }
-                    else
-                    {
-                        lobbyManager.OnAnchorSuccessful(newAnchorObject);
-                    }
-                }
-            }
-            else
-            {
-                newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
-            }
-
-#endif
-
+            return;
         }
+
+#if UNITY_IOS || UNITY_ANDROID
+        if (UsesQuestPointerPlacement())
+        {
+            UpdateQuestPointerPlacement();
+            return;
+        }
+
+        ARRaycastManager activeRaycastManager = EnsureRaycastManager();
+        if (activeRaycastManager == null || !activeRaycastManager.isActiveAndEnabled)
+        {
+            return;
+        }
+
+        Camera arCamera = Camera.main;
+        if (arCamera == null)
+        {
+            return;
+        }
+
+        var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        var hits = new List<ARRaycastHit>();
+        activeRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
+
+        anchorValid = hits.Count > 0;
+        if (anchorValid)
+        {
+            anchorPose = hits[0].pose;
+
+            newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
+
+            var cameraForward = arCamera.transform.forward;
+            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+            anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
+
+            newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                ConfirmAnchorPlacement();
+            }
+        }
+        else
+        {
+            newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
+        }
+#endif
     }
 
 #if UNITY_IOS || UNITY_ANDROID
+    const float QuestPlacementRaycastDistance = 20f;
+
     ARRaycastManager EnsureRaycastManager()
     {
         if (raycastManager == null)
@@ -137,7 +132,81 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         ARRaycastManager activeRaycastManager = EnsureRaycastManager();
         return activeRaycastManager != null && activeRaycastManager.isActiveAndEnabled;
     }
+
+    bool RequiresArPlanePlacement()
+    {
+#if UNITY_IOS
+        return true;
+#else
+        return !Platform.IsQuest;
 #endif
+    }
+
+    bool UsesQuestPointerPlacement()
+    {
+        return Platform.IsQuest;
+    }
+
+    void UpdateQuestPointerPlacement()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            return;
+        }
+
+        Vector3 hitPosition = Vector3.zero;
+        GazeProvider gazeProvider = mainCamera.GetComponent<GazeProvider>();
+        if (gazeProvider != null && gazeProvider.HitPosition.magnitude > 0f)
+        {
+            hitPosition = gazeProvider.HitPosition;
+        }
+        else
+        {
+            Ray aimRay = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+            if (!Physics.Raycast(aimRay, out RaycastHit hit, QuestPlacementRaycastDistance))
+            {
+                StopListenForClicks();
+                anchorValid = false;
+                newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
+                return;
+            }
+
+            hitPosition = hit.point;
+        }
+
+        ListenForClicks();
+        anchorValid = true;
+        newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
+
+        var cameraForward = mainCamera.transform.forward;
+        var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+        anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
+        anchorPose.position = hitPosition;
+
+        newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+    }
+#endif
+
+    void ConfirmAnchorPlacement()
+    {
+        isPlacing = false;
+        newAnchorObject.GetComponentInChildren<Renderer>().material.color = Color.green;
+
+        if (creatingASA)
+        {
+            newAnchorObject.GetComponent<SpatialAnchorManager>().enabled = true;
+            newAnchorObject.AddComponent<CreateASA>();
+            newAnchorObject.GetComponent<CreateASA>().feedback = directionText;
+            creatingASA = false;
+            StopListenForClicks();
+        }
+        else
+        {
+            StopListenForClicks();
+            lobbyManager.OnAnchorSuccessful(newAnchorObject);
+        }
+    }
 
 
     public void OnCreateSelected()
@@ -179,7 +248,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         else
         {
 #if UNITY_IOS || UNITY_ANDROID
-            if (!IsArPlacementAvailable())
+            if (RequiresArPlanePlacement() && !IsArPlacementAvailable())
             {
                 directionText.text = "AR plane detection is not available on this device.";
                 yield break;
@@ -191,7 +260,14 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
             createInputTextBox.SetActive(false);
             startCreatingAnchorButton.SetActive(false);
             roomBackButton.SetActive(false);
-            directionText.text = "Place anchor location...";
+            directionText.text =
+#if UNITY_IOS || UNITY_ANDROID
+                UsesQuestPointerPlacement()
+                    ? "Aim at the placement location and select to confirm..."
+                    : "Place anchor location...";
+#else
+                "Place anchor location...";
+#endif
 
             isPlacing = true;
             anchorValid = false;
@@ -261,7 +337,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     public void OnContinueSelected()
     {
 #if UNITY_IOS || UNITY_ANDROID
-        if (!IsArPlacementAvailable())
+        if (RequiresArPlanePlacement() && !IsArPlacementAvailable())
         {
             directionText.text = "AR plane detection is not available on this device.";
             return;
@@ -272,7 +348,14 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         createAnchorButton.SetActive(false);
         findAnchorButton.SetActive(false);
         continueButton.SetActive(false);
-        directionText.text = "Place menu location...";
+        directionText.text =
+#if UNITY_IOS || UNITY_ANDROID
+            UsesQuestPointerPlacement()
+                ? "Aim at the menu location and select to confirm..."
+                : "Place menu location...";
+#else
+            "Place menu location...";
+#endif
         isPlacing = true;
         anchorValid = false;
 
@@ -326,6 +409,14 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
+#if UNITY_ANDROID
+        if (!UsesQuestPointerPlacement() || !isPlacing || !anchorValid)
+        {
+            return;
+        }
+
+        ConfirmAnchorPlacement();
+#endif
     }
 
 }

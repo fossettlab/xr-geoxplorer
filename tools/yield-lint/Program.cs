@@ -189,7 +189,10 @@ static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string 
         }
 
         if (line.Contains("raycastManager == null", StringComparison.Ordinal) ||
-            line.Contains("!arPlacementAvailable", StringComparison.Ordinal))
+            line.Contains("!arPlacementAvailable", StringComparison.Ordinal) ||
+            line.Contains("!IsArPlacementAvailable()", StringComparison.Ordinal) ||
+            line.Contains("UsesQuestPointerPlacement()", StringComparison.Ordinal) ||
+            line.Contains("activeRaycastManager == null", StringComparison.Ordinal))
         {
             continue;
         }
@@ -198,7 +201,10 @@ static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string 
         for (int j = Math.Max(0, i - 20); j < i; j++)
         {
             if (lines[j].Contains("raycastManager == null", StringComparison.Ordinal) ||
-                lines[j].Contains("!arPlacementAvailable", StringComparison.Ordinal))
+                lines[j].Contains("!arPlacementAvailable", StringComparison.Ordinal) ||
+                lines[j].Contains("!IsArPlacementAvailable()", StringComparison.Ordinal) ||
+                lines[j].Contains("UsesQuestPointerPlacement()", StringComparison.Ordinal) ||
+                lines[j].Contains("activeRaycastManager == null", StringComparison.Ordinal))
             {
                 guarded = true;
                 break;

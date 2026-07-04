@@ -29,6 +29,14 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
     // Update is called once per frame
     void Update()
     {
+#if UNITY_ANDROID
+        // Quest uses MRTK controller pointers in OnPointerClicked, not touch input.
+        if (Platform.IsQuest)
+        {
+            return;
+        }
+#endif
+
 #if UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID
 
 
