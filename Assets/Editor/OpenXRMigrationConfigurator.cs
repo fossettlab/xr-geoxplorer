@@ -33,10 +33,7 @@ public static class OpenXRMigrationConfigurator
 
     private static void ConfigureAndroidOpenXRPlayerSettings()
     {
-        PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
-        PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
-        PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
-        PlayerSettings.colorSpace = ColorSpace.Linear;
+        QuestAndroidStoreSettingsConfigurator.ApplyCoreAndroidPlayerSettings();
     }
 
     private static void ConfigureBuildTarget(BuildTargetGroup buildTargetGroup, string[] featureIds)
