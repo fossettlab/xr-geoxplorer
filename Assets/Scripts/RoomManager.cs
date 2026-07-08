@@ -40,6 +40,8 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     bool anchorValid;
     bool creatingASA;
 
+    const float QuestPlacementRayDistance = 10f;
+
 
     public void ListenForClicks()
     {
@@ -61,67 +63,29 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     // Update is called once per frame
     void Update()
     {
-        if (isPlacing)
+        if (!isPlacing || newAnchorObject == null)
         {
-#if UNITY_IOS || UNITY_ANDROID
-            ARRaycastManager activeRaycastManager = EnsureRaycastManager();
-            if (activeRaycastManager == null || !activeRaycastManager.isActiveAndEnabled)
-            {
-                return;
-            }
-
-            Camera arCamera = Camera.main;
-            if (arCamera == null)
-            {
-                return;
-            }
-
-            var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-            var hits = new List<ARRaycastHit>();
-            activeRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
-
-            anchorValid = hits.Count > 0;
-            if (anchorValid)
-            {
-                anchorPose = hits[0].pose;
-
-                newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
-
-                var cameraForward = arCamera.transform.forward;
-                var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-                anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
-
-                newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
-
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    isPlacing = false;
-                    newAnchorObject.GetComponentInChildren<Renderer>().material.color = Color.green;
-
-                    if (creatingASA)
-                    {
-                        newAnchorObject.GetComponent<SpatialAnchorManager>().enabled = true;
-                        newAnchorObject.AddComponent<CreateASA>();
-                        newAnchorObject.GetComponent<CreateASA>().feedback = directionText;
-                        creatingASA = false;
-                    }
-                    else
-                    {
-                        lobbyManager.OnAnchorSuccessful(newAnchorObject);
-                    }
-                }
-            }
-            else
-            {
-                newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
-            }
-
-#endif
-
+            return;
         }
+
+#if UNITY_IOS || UNITY_ANDROID
+        if (RequiresArPlanePlacement())
+        {
+            UpdateMobileArPlacement();
+        }
+        else if (Platform.IsQuest)
+        {
+            UpdateQuestPointerPlacement();
+        }
+#endif
     }
 
 #if UNITY_IOS || UNITY_ANDROID
+    static bool RequiresArPlanePlacement()
+    {
+        return Platform.IsMobile;
+    }
+
     ARRaycastManager EnsureRaycastManager()
     {
         if (raycastManager == null)
@@ -137,7 +101,118 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         ARRaycastManager activeRaycastManager = EnsureRaycastManager();
         return activeRaycastManager != null && activeRaycastManager.isActiveAndEnabled;
     }
+
+    void UpdateMobileArPlacement()
+    {
+        ARRaycastManager activeRaycastManager = EnsureRaycastManager();
+        if (activeRaycastManager == null || !activeRaycastManager.isActiveAndEnabled)
+        {
+            return;
+        }
+
+        Camera arCamera = Camera.main;
+        if (arCamera == null)
+        {
+            return;
+        }
+
+        var screenCenter = arCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        var hits = new List<ARRaycastHit>();
+        activeRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
+
+        anchorValid = hits.Count > 0;
+        if (anchorValid)
+        {
+            anchorPose = hits[0].pose;
+
+            newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
+
+            var cameraForward = arCamera.transform.forward;
+            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+            anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
+
+            newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                ConfirmAnchorPlacement();
+            }
+        }
+        else
+        {
+            newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
+        }
+    }
+
+    void UpdateQuestPointerPlacement()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            return;
+        }
+
+        Vector3 hitPosition;
+        if (TryGetQuestPlacementHit(mainCamera, out hitPosition))
+        {
+            ListenForClicks();
+            anchorValid = true;
+            newAnchorObject.GetComponentInChildren<Renderer>().enabled = true;
+
+            var cameraForward = mainCamera.transform.forward;
+            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+            anchorPose.position = hitPosition;
+            anchorPose.rotation = Quaternion.LookRotation(cameraBearing);
+            newAnchorObject.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+        }
+        else
+        {
+            StopListenForClicks();
+            anchorValid = false;
+            newAnchorObject.GetComponentInChildren<Renderer>().enabled = false;
+        }
+    }
+
+    bool TryGetQuestPlacementHit(Camera mainCamera, out Vector3 hitPosition)
+    {
+        GazeProvider gazeProvider = mainCamera.GetComponent<GazeProvider>();
+        if (gazeProvider != null && gazeProvider.HitPosition.magnitude > 0f)
+        {
+            hitPosition = gazeProvider.HitPosition;
+            return true;
+        }
+
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        RaycastHit physicsHit;
+        if (Physics.Raycast(ray, out physicsHit, QuestPlacementRayDistance))
+        {
+            hitPosition = physicsHit.point;
+            return true;
+        }
+
+        hitPosition = Vector3.zero;
+        return false;
+    }
 #endif
+
+    void ConfirmAnchorPlacement()
+    {
+        isPlacing = false;
+        StopListenForClicks();
+        newAnchorObject.GetComponentInChildren<Renderer>().material.color = Color.green;
+
+        if (creatingASA)
+        {
+            newAnchorObject.GetComponent<SpatialAnchorManager>().enabled = true;
+            newAnchorObject.AddComponent<CreateASA>();
+            newAnchorObject.GetComponent<CreateASA>().feedback = directionText;
+            creatingASA = false;
+        }
+        else
+        {
+            lobbyManager.OnAnchorSuccessful(newAnchorObject);
+        }
+    }
 
 
     public void OnCreateSelected()
@@ -179,7 +254,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
         else
         {
 #if UNITY_IOS || UNITY_ANDROID
-            if (!IsArPlacementAvailable())
+            if (RequiresArPlanePlacement() && !IsArPlacementAvailable())
             {
                 directionText.text = "AR plane detection is not available on this device.";
                 yield break;
@@ -261,7 +336,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     public void OnContinueSelected()
     {
 #if UNITY_IOS || UNITY_ANDROID
-        if (!IsArPlacementAvailable())
+        if (RequiresArPlanePlacement() && !IsArPlacementAvailable())
         {
             directionText.text = "AR plane detection is not available on this device.";
             return;
@@ -326,6 +401,12 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData)
     {
+        if (!isPlacing || !anchorValid || !Platform.IsQuest)
+        {
+            return;
+        }
+
+        ConfirmAnchorPlacement();
     }
 
 }

@@ -35,6 +35,15 @@ if (FindUnguardedRaycastManagerUsage("Assets/Scripts/RoomManager.cs", raycastBad
     return 2;
 }
 
+const string arPlacementBad = "class C { void M() { if (!IsArPlacementAvailable()) return; } }";
+const string arPlacementGood = "class C { void M() { if (RequiresArPlanePlacement() && !IsArPlacementAvailable()) return; } }";
+if (FindUnscopedArPlacementAvailabilityGuard("Assets/Scripts/RoomManager.cs", arPlacementBad).Count != 1 ||
+    FindUnscopedArPlacementAvailabilityGuard("Assets/Scripts/RoomManager.cs", arPlacementGood).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint AR placement self-test FAILED — the IsArPlacementAvailable detector is broken.");
+    return 2;
+}
+
 string target = args.Length > 0 ? args[0] : ".";
 if (!Directory.Exists(target))
 {
@@ -75,10 +84,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: ar-placement — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindUnscopedArPlacementAvailabilityGuard(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: ar-placement — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, or unguarded AR raycast violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, AR placement, or unguarded AR raycast violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -183,13 +198,16 @@ static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string 
     for (int i = 0; i < lines.Length; i++)
     {
         string line = lines[i];
-        if (!line.Contains("raycastManager.Raycast", StringComparison.Ordinal))
+        if (!line.Contains("raycastManager.Raycast", StringComparison.Ordinal) &&
+            !line.Contains("activeRaycastManager.Raycast", StringComparison.Ordinal))
         {
             continue;
         }
 
         if (line.Contains("raycastManager == null", StringComparison.Ordinal) ||
-            line.Contains("!arPlacementAvailable", StringComparison.Ordinal))
+            line.Contains("activeRaycastManager == null", StringComparison.Ordinal) ||
+            line.Contains("!arPlacementAvailable", StringComparison.Ordinal) ||
+            line.Contains("RequiresArPlanePlacement()", StringComparison.Ordinal))
         {
             continue;
         }
@@ -198,7 +216,9 @@ static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string 
         for (int j = Math.Max(0, i - 20); j < i; j++)
         {
             if (lines[j].Contains("raycastManager == null", StringComparison.Ordinal) ||
-                lines[j].Contains("!arPlacementAvailable", StringComparison.Ordinal))
+                lines[j].Contains("activeRaycastManager == null", StringComparison.Ordinal) ||
+                lines[j].Contains("!arPlacementAvailable", StringComparison.Ordinal) ||
+                lines[j].Contains("RequiresArPlanePlacement()", StringComparison.Ordinal))
             {
                 guarded = true;
                 break;
@@ -209,6 +229,48 @@ static List<(int line, string snippet)> FindUnguardedRaycastManagerUsage(string 
         {
             findings.Add((i + 1,
                 "Guard raycastManager before Raycast — it is null on Quest OpenXR and other non-AR scenes — " + line.Trim()));
+        }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindUnscopedArPlacementAvailabilityGuard(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).EndsWith("/RoomManager.cs", StringComparison.OrdinalIgnoreCase))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        if (!line.Contains("!IsArPlacementAvailable()", StringComparison.Ordinal))
+        {
+            continue;
+        }
+
+        if (line.Contains("RequiresArPlanePlacement()", StringComparison.Ordinal))
+        {
+            continue;
+        }
+
+        bool scoped = false;
+        for (int j = Math.Max(0, i - 3); j <= Math.Min(lines.Length - 1, i + 1); j++)
+        {
+            if (lines[j].Contains("RequiresArPlanePlacement()", StringComparison.Ordinal))
+            {
+                scoped = true;
+                break;
+            }
+        }
+
+        if (!scoped)
+        {
+            findings.Add((i + 1,
+                "Scope IsArPlacementAvailable() behind RequiresArPlanePlacement() — Quest OpenXR has no AR planes — " + line.Trim()));
         }
     }
 
