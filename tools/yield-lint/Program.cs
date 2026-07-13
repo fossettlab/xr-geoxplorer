@@ -44,6 +44,15 @@ if (FindUnscopedArPlacementAvailabilityGuard("Assets/Scripts/RoomManager.cs", ar
     return 2;
 }
 
+const string planetManagerBad = "class C { PlanetManager PlanetManager; void M() { if (PlanetManager.activePlanet != null) {} } }";
+const string planetManagerGood = "class C { PlanetManager PlanetManager; PlanetManager ResolvePlanetManager() { if (PlanetManager != null) return PlanetManager; return null; } void M() { var m = ResolvePlanetManager(); if (m != null && m.activePlanet != null) {} } }";
+if (FindUnguardedLobbyPlanetManagerUsage("Assets/Scripts/LobbyManager.cs", planetManagerBad).Count != 1 ||
+    FindUnguardedLobbyPlanetManagerUsage("Assets/Scripts/LobbyManager.cs", planetManagerGood).Count != 0)
+{
+    Console.Error.WriteLine("yield-lint PlanetManager self-test FAILED — the LobbyManager PlanetManager detector is broken.");
+    return 2;
+}
+
 string target = args.Length > 0 ? args[0] : ".";
 if (!Directory.Exists(target))
 {
@@ -90,10 +99,16 @@ foreach (string path in Directory.EnumerateFiles(target, "*.cs", SearchOption.Al
         Console.WriteLine($"{path}:{line}: ar-placement — {snippet}");
         total++;
     }
+
+    foreach ((int line, string snippet) in FindUnguardedLobbyPlanetManagerUsage(path, source))
+    {
+        Console.WriteLine($"{path}:{line}: lobby-planet — {snippet}");
+        total++;
+    }
 }
 
 Console.WriteLine(total == 0
-    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, AR placement, or unguarded AR raycast violations found."
+    ? "yield-lint: no yield-in-try-with-catch, forbidden scene-load, Camera.current, Firebase fetch-flag, AR placement, unguarded AR raycast, or LobbyManager PlanetManager violations found."
     : $"yield-lint: {total} violation(s) found.");
 return total == 0 ? 0 : 1;
 
@@ -272,6 +287,34 @@ static List<(int line, string snippet)> FindUnscopedArPlacementAvailabilityGuard
             findings.Add((i + 1,
                 "Scope IsArPlacementAvailable() behind RequiresArPlanePlacement() — Quest OpenXR has no AR planes — " + line.Trim()));
         }
+    }
+
+    return findings;
+}
+
+static List<(int line, string snippet)> FindUnguardedLobbyPlanetManagerUsage(string path, string code)
+{
+    var findings = new List<(int, string)>();
+    if (!("/" + path.Replace('\\', '/').TrimStart('/')).EndsWith("/LobbyManager.cs", StringComparison.OrdinalIgnoreCase))
+    {
+        return findings;
+    }
+
+    string[] lines = code.Split('\n');
+    for (int i = 0; i < lines.Length; i++)
+    {
+        string line = lines[i];
+        if (!line.Contains("PlanetManager.", StringComparison.Ordinal) ||
+            line.TrimStart().StartsWith("//", StringComparison.Ordinal) ||
+            line.Contains("public PlanetManager PlanetManager", StringComparison.Ordinal) ||
+            line.Contains("PlanetManager != null", StringComparison.Ordinal) ||
+            line.Contains("ResolvePlanetManager()", StringComparison.Ordinal))
+        {
+            continue;
+        }
+
+        findings.Add((i + 1,
+            "Resolve PlanetManager via ResolvePlanetManager() — PlatformRoot prefabs leave the serialized field null — " + line.Trim()));
     }
 
     return findings;

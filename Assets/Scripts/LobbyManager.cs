@@ -415,14 +415,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         gObject.transform.parent = TableAnchor.instance.transform;
     }
 
+    PlanetManager ResolvePlanetManager()
+    {
+        if (PlanetManager != null)
+        {
+            return PlanetManager;
+        }
+
+        if (TableAnchor.instance == null)
+        {
+            return null;
+        }
+
+        return TableAnchor.instance.GetComponent<PlanetManager>();
+    }
+
     public void ClearInteractablePlanet()
     {
-        if (PlanetManager.activePlanet != null)
+        PlanetManager manager = ResolvePlanetManager();
+        if (manager != null && manager.activePlanet != null)
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                PlanetManager.OnBack();
-                PhotonNetwork.Destroy(PlanetManager.activePlanet);
+                manager.OnBack();
+                PhotonNetwork.Destroy(manager.activePlanet);
             }
         }
     }
