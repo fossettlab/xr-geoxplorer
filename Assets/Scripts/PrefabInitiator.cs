@@ -12,7 +12,7 @@ public class PrefabInitiator : MonoBehaviour
 		this.name = prefabName;
         transform.localPosition = Vector3.zero;
         transform.localEulerAngles = new Vector3(0, 180, 0);
-        FindObjectOfType<PlanetManager>().activePlanet = this.gameObject;
+        LobbyManager.Instance.PlanetManager.activePlanet = this.gameObject;
 
         gameObject.AddComponent<ManipulationHandler>();
         gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeNear = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;

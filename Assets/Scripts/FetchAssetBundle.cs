@@ -38,7 +38,7 @@ public class FetchAssetBundle : MonoBehaviour
     void Start()
     {
         objectStage = this.transform;
-        lobbyManager = FindObjectOfType<LobbyManager>();
+        lobbyManager = LobbyManager.Instance;
         StartCoroutine(DownloadAssetBundle());
     }
 
@@ -118,7 +118,7 @@ public class FetchAssetBundle : MonoBehaviour
             newPrefab.GetComponent<Renderer>().material.SetTexture("_OverlayTexture", colorAltimetryTexture);
 #if UNITY_IOS || UNITY_ANDROID
             TableAnchor.instance.GetComponent<PlanetManager>().geoSlider.SetActive(true);
-            GameObject.Find("GeoText (TMP)").GetComponent<TextMeshProUGUI>().text = "Color Altimetry";
+            SceneQueries.ByName("GeoText (TMP)").GetComponent<TextMeshProUGUI>().text = "Color Altimetry";
 #endif
         }
 
@@ -149,7 +149,7 @@ public class FetchAssetBundle : MonoBehaviour
     //Delete the downloaded bundle
     public void DeleteBundle()
     {
-        Destroy(GameObject.Find(prefabName));
+        Destroy(SceneQueries.ByName(prefabName));
     }
 
     //UI to show download progress on the toggle button

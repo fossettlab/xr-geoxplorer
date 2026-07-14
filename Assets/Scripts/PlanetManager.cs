@@ -14,7 +14,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
 {
     /// <summary>
     /// Controls the interactions pertaining to downloaded assets. This includes the creation of shared tooltip-type menus on both MobileAR and HoloLens. Menus are created through PunRPC which creates a menu on each connected device. However only the instantiator of the model can delete or manipulate the model. It perhaps may be better UX to have some menus be only viewable on one device at a time?
-    /// 
+    ///
     /// TODO could be made a Singleton
     /// </summary>
 
@@ -141,12 +141,12 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
             {
 #if UNITY_EDITOR
                 DownloadButtonInteraction assetBundleDownloader = hit.collider.gameObject.GetComponentInParent<DownloadButtonInteraction>();
-                GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
+                LobbyManager.Instance.CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
 #elif UNITY_IOS || UNITY_ANDROID
                 if (touch.phase == TouchPhase.Ended)
                 {
                     DownloadButtonInteraction assetBundleDownloader = hit.collider.gameObject.GetComponentInParent<DownloadButtonInteraction>();
-                    GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
+                    LobbyManager.Instance.CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
                 }
 #endif
             }
@@ -158,7 +158,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
         tileStage.SetActive(false);
         activePlanet.SetActive(true);
-        GameObject[] toolTips = GameObject.FindGameObjectsWithTag("GoToTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag("GoToTooltip");
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -167,7 +167,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
             }
         }
 
-        GameObject[] flags = GameObject.FindGameObjectsWithTag("flag");
+        GameObject[] flags = SceneQueries.WithTag("flag");
         if (flags.Length > 0)
         {
             foreach (var flag in flags)
@@ -176,7 +176,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
             }
         }
 
-        GameObject[] primeflags = GameObject.FindGameObjectsWithTag("flagPrime");
+        GameObject[] primeflags = SceneQueries.WithTag("flagPrime");
         if (primeflags.Length > 0)
         {
             foreach (var flag in primeflags)
@@ -196,7 +196,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     [PunRPC]
     public void CreateTooltipAtLoc(float locationHitLat, float locationHitLon, Vector3 localHitPoint, Vector3 localHitNormal)
     {
-        GameObject[] toolTips = GameObject.FindGameObjectsWithTag("GoToTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag("GoToTooltip");
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -226,7 +226,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
         hideTilesButton.SetActive(true);
         geoSlider.SetActive(true);
 #if UNITY_IOS || UNITY_ANDROID
-        GameObject.Find("GeoText (TMP)").GetComponent<TextMeshProUGUI>().text = "Geology";
+        SceneQueries.ByName("GeoText (TMP)").GetComponent<TextMeshProUGUI>().text = "Geology";
 #endif
         ZoomInButton.SetActive(true);
         ZoomOutButton.SetActive(true);
@@ -263,7 +263,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
             hideTilesButton.GetComponentInChildren<TextMeshProUGUI>().text = "Show Map";
             tilesActive = false;
         }
-        
+
     }
 
 
@@ -271,7 +271,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
         if (tileStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = GameObject.FindGameObjectsWithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag("flag");
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -280,7 +280,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 }
             }
 
-            GameObject[] infoMarker = GameObject.FindGameObjectsWithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)
@@ -307,7 +307,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
         if (tileStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = GameObject.FindGameObjectsWithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag("flag");
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -316,7 +316,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 }
             }
 
-            GameObject[] infoMarker = GameObject.FindGameObjectsWithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)
@@ -340,17 +340,17 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
 
     public void OnPointerDown(MixedRealityPointerEventData eventData)
     {
-        
+
     }
 
     public void OnPointerDragged(MixedRealityPointerEventData eventData)
     {
-        
+
     }
 
     public void OnPointerUp(MixedRealityPointerEventData eventData)
     {
-        
+
 
     }
 
@@ -361,7 +361,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     //This is a lousy hack to stop the pointer firing twice on certain objects (not sure why)
     IEnumerator WaitForTapToFinish()
     {
-        
+
         yield return new WaitForSeconds(0.1f);
         tapped = false;
     }

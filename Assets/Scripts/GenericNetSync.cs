@@ -23,13 +23,13 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
     private Camera mainCamera;
 
     private PhotonView PV;
-    
+
     void Start()
     {
         PV = GetComponent<PhotonView>();
         mainCamera = Camera.main;
-        
-        TableAnchor tableAnchor = FindObjectOfType<TableAnchor>();
+
+        TableAnchor tableAnchor = TableAnchor.instance;
         if (PV.IsMine && User)
         {
             GenericNetworkManager.instance.localUser = PV;
@@ -38,7 +38,7 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
         {
             transform.parent = tableAnchor.transform;
         }
-       
+
 
         startingLocalPosition = transform.localPosition;
         startingLocalRotation = transform.localRotation;
@@ -88,7 +88,7 @@ public class GenericNetSync : MonoBehaviourPun, IPunObservable
 
     void FixedUpdate()
     {
-        
+
 
         if (!PV.IsMine)
         {

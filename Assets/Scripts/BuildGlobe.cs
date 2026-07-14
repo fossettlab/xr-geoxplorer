@@ -26,7 +26,7 @@ public class BuildGlobe : MonoBehaviour {
         float startLat = 90;
         float startLon = 0;
 
-        GameObject[] tileplanes = GameObject.FindGameObjectsWithTag("TilePlane");
+        GameObject[] tileplanes = SceneQueries.WithTag("TilePlane");
         if (tileplanes.Length > 0)
         {
             foreach (var go in tileplanes)
@@ -54,19 +54,19 @@ public class BuildGlobe : MonoBehaviour {
                 {
                     newPlaneObject.tag = "Coastlines";
                 }
-                
+
             }
-            
+
         }
-        
+
         this.transform.eulerAngles = new Vector3(0, -90, 0);
-        
+
     }
 
     private IEnumerator AddTexture(GameObject newPlaneObject, int i, int j, string instrument, string resolution, string imageType, string imageDate)
     {
         string url = "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/" + instrument + "/default/" + imageDate + "/" + resolution + "/3/" + i + "/" + j + "." + imageType;
-        
+
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
@@ -86,9 +86,9 @@ public class BuildGlobe : MonoBehaviour {
 
             }
 
-            
+
         }
-        
+
     }
 
 }

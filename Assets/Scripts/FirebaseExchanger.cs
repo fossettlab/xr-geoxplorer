@@ -9,6 +9,8 @@ using TMPro;
 
 public class FirebaseExchanger : MonoBehaviour
 {
+    public static FirebaseExchanger Instance { get; private set; }
+
     /// <summary>
     /// Gets current stored anchor information, downloads, checks for expiration.
     /// On creating a new ID, checks for conflicting name and uploads to Firebase.
@@ -30,6 +32,29 @@ public class FirebaseExchanger : MonoBehaviour
     public TextMeshProUGUI feedback;
 
     // Initial settings
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("FirebaseExchanger: duplicate instance destroyed.");
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        ServiceLocator.Register(this);
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+
+        ServiceLocator.Unregister(this);
+    }
+
     void Start()
     {
         conflictFound = false;
@@ -112,7 +137,7 @@ public class FirebaseExchanger : MonoBehaviour
             if (anchor.name == anchorName)
             {
                 Debug.Log("Found " + anchor.name + ": " + anchor.identifier);
-                anchorToFind = anchor.identifier;   
+                anchorToFind = anchor.identifier;
             }
         }
         return anchorToFind;

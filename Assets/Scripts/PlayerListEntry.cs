@@ -26,7 +26,7 @@ public class PlayerListEntry : MonoBehaviour
     public void OnEnable()
     {
         PlayerNumbering.OnPlayerNumberingChanged += OnPlayerNumberingChanged;
-    }   
+    }
 
     public void Start()
     {
@@ -51,7 +51,7 @@ public class PlayerListEntry : MonoBehaviour
 
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    FindObjectOfType<LobbyManager>().LocalPlayerPropertiesUpdated();
+                    LobbyManager.Instance.LocalPlayerPropertiesUpdated();
                 }
             });
         }

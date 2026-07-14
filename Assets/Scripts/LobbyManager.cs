@@ -8,10 +8,11 @@ using UnityEngine.XR.ARFoundation;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    public static LobbyManager Instance { get; private set; }
+
     /// <summary>
     /// Root manager class covers interactions to log in to Photon, as well as instantiate anchors and assetbundles. This class should always be active in the scene. Covers both MobileAR and HoloLens interactions.
-    ///
-    /// TODO: could be made a Singleton.
+    /// Access via <see cref="Instance"/> (registered with <see cref="ServiceLocator"/>).
     /// </summary>
 
 
@@ -55,6 +56,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("LobbyManager: duplicate instance destroyed.");
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        ServiceLocator.Register(this);
+
         Debug.developerConsoleVisible = false;
 
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -319,6 +330,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
+    void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+
+        ServiceLocator.Unregister(this);
+    }
+
     void StartGame()
     {
         CreatePlayer();
@@ -339,6 +360,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Pose anchorPose = Pose.identity;
         anchorPose.position = anchorObject.transform.position;
         anchorPose.rotation = anchorObject.transform.rotation;
+        // Cold path: AR managers are scene-wired once at session start (not per-frame).
         ARAnchorManager aRReferencePointManager = FindObjectOfType<ARAnchorManager>();
         if (aRReferencePointManager == null)
         {
@@ -362,6 +384,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 TableAnchor.instance.transform.parent = arReferencePoint.transform;
             }
 
+            // Cold path: disable AR planes once when entering a Photon room.
             ARPlaneManager arPlaneManager = FindObjectOfType<ARPlaneManager>();
 
             if (arPlaneManager != null)
@@ -486,7 +509,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(gObject);
         }
 
-        if (GameObject.FindGameObjectsWithTag("AssetBundle").Length == 0)
+        if (SceneQueries.WithTag("AssetBundle").Length == 0)
         {
             TableAnchor.instance.GetComponent<PlanetManager>().geoSlider.SetActive(false);
         }
@@ -494,7 +517,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void ResetAllAssetBundles()
     {
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("AssetBundleLoader");
+        GameObject[] gos = SceneQueries.WithTag("AssetBundleLoader");
         foreach (var go in gos)
         {
             go.GetComponent<AssetBundleInteraction>().OnReset();

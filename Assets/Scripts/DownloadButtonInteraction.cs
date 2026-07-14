@@ -20,6 +20,6 @@ public class DownloadButtonInteraction : MonoBehaviour
 
     public void OnSelect()
     {
-        GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().CreateInteractableObjects(storageAccountName, containerName, prefabName, bundleName, modelName);
+        LobbyManager.Instance.CreateInteractableObjects(storageAccountName, containerName, prefabName, bundleName, modelName);
     }
 }

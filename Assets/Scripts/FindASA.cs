@@ -27,7 +27,7 @@ public class FindASA : MonoBehaviour
         anchorLocateCriteria = new AnchorLocateCriteria();
 
         await Initialize();
-        
+
     }
 
     public async Task Initialize()
@@ -43,7 +43,7 @@ public class FindASA : MonoBehaviour
             await GetComponent<SpatialAnchorManager>().StartSessionAsync();
             feedback.text = "Started Session";
 
-            FirebaseExchanger firebase = FindObjectOfType<FirebaseExchanger>();
+            FirebaseExchanger firebase = FirebaseExchanger.Instance;
             while (!firebase.AnchorsLoaded)
             {
                 await Task.Delay(100);
@@ -95,7 +95,7 @@ public class FindASA : MonoBehaviour
             GetComponent<SpatialAnchorManager>().StopSession();
             feedback.text = "Stopped Session";
 
-            GameObject.FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>().OnAnchorSuccessful(this.gameObject);
+            LobbyManager.Instance.OnAnchorSuccessful(this.gameObject);
         }
     }
 
