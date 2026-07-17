@@ -4,26 +4,13 @@ using UnityEngine;
 
 public class FadeOutRealtimeEarth : MonoBehaviour
 {
-    GameObject[] cachedTilePlanes;
-
-    void OnEnable()
-    {
-        // Cache once; TilePlane set is static for the fade lifetime (avoid per-frame Find*).
-        cachedTilePlanes = SceneQueries.WithTag("TilePlane");
-    }
-
     // Update is called once per frame
     void Update()
     {
         float objectDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         if (objectDistance < 1.5f && objectDistance > 0.5f)
         {
-            if (cachedTilePlanes == null || cachedTilePlanes.Length == 0)
-            {
-                cachedTilePlanes = SceneQueries.WithTag("TilePlane");
-            }
-
-            foreach (var tile in cachedTilePlanes)
+            foreach (var tile in SceneQueries.WithTag("TilePlane"))
             {
                 if (tile == null)
                 {

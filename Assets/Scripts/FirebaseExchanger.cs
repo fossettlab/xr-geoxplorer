@@ -36,8 +36,8 @@ public class FirebaseExchanger : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("FirebaseExchanger: duplicate instance destroyed.");
-            Destroy(gameObject);
+            Debug.LogWarning("FirebaseExchanger: duplicate component destroyed.");
+            Destroy(this);
             return;
         }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Centralized tag/name scene queries. Dynamic multi-object sets (tooltips, flags, tiles)

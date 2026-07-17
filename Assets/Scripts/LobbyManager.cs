@@ -58,8 +58,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning("LobbyManager: duplicate instance destroyed.");
-            Destroy(gameObject);
+            Debug.LogWarning("LobbyManager: duplicate component destroyed.");
+            Destroy(this);
             return;
         }
 
@@ -438,7 +438,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         gObject.transform.parent = TableAnchor.instance.transform;
     }
 
-    PlanetManager ResolvePlanetManager()
+    public PlanetManager ResolvePlanetManager()
     {
         if (PlanetManager != null)
         {
