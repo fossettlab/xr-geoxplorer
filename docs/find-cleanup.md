@@ -11,7 +11,7 @@ About **60** call sites under `Assets/Scripts/` used
 | Scene-static managers | `LobbyManager`, `FirebaseExchanger`, `TableAnchor`, `PlanetManager` | **Singletons / Instance** + `ServiceLocator` |
 | Per-interaction lobby access | `FindGameObjectWithTag("NetworkRoom").GetComponent<LobbyManager>()` | `LobbyManager.Instance` |
 | Dynamic multi-object sets | tooltips, flags, tiles, loaders | `SceneQueries.WithTag` / `OneWithTag` / `AnyWithTag` |
-| Hot-path Update scan | `FadeOutRealtimeEarth` TilePlane find every frame | **Cached** on `OnEnable` |
+| Hot-path Update scan | `FadeOutRealtimeEarth` TilePlane find every frame | Kept as a centralized `SceneQueries.WithTag` lookup because `BuildGlobe` destroys/recreates tiles |
 | Cold AR wiring | `ARAnchorManager`, `ARPlaneManager`, `ARRaycastManager` | Left as `FindObjectOfType` with comments |
 | Editor/resources scan | `Resources.FindObjectsOfTypeAll<InspectorModelObject>()` | Left (not a scene Find; editor asset scan) |
 
@@ -50,6 +50,12 @@ Expected residual (≈10, all justified):
 | `RoomManager.EnsureRaycastManager` | Cached after first cold lookup |
 | `Resources.FindObjectsOfTypeAll` in `AssetBundleInteraction` | Asset database scan, not a scene Find |
 | Commented lines in `UIEnterAndLeave` / `TileStageOrganizer` | Dead code comments only |
+
+## Dynamic TilePlane note
+
+`FadeOutRealtimeEarth` intentionally re-queries `TilePlane` objects in
+`Update`. The globe builder can destroy and recreate map tiles, so a cached
+array can contain destroyed entries and stop affecting the rebuilt globe.
 
 ## Follow-ups (out of scope)
 
