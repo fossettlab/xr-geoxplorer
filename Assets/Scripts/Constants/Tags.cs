@@ -8,10 +8,6 @@ public static class Tags
     public const string ActiveModel = "activeModel";
     public const string AssetBundle = "AssetBundle";
     public const string AssetBundleLoader = "AssetBundleLoader";
-    // NOTE: "Coastlines" is NOT declared in TagManager.asset; assigning it
-    // (BuildGlobe) throws UnityException at runtime. Pre-existing on main;
-    // kept verbatim here to preserve behavior. Tracked separately.
-    public const string Coastlines = "Coastlines";
     public const string Flag = "flag";
     public const string FlagPrime = "flagPrime";
     public const string GoToTooltip = "GoToTooltip";
