@@ -10,10 +10,21 @@ public class FadeOutRealtimeEarth : MonoBehaviour
         float objectDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         if (objectDistance < 1.5f && objectDistance > 0.5f)
         {
-            GameObject[] tileObjects = GameObject.FindGameObjectsWithTag("TilePlane");
-            foreach (var tile in tileObjects)
+            foreach (var tile in SceneQueries.WithTag("TilePlane"))
             {
-                tile.GetComponent<Renderer>().material.color = new Color(tile.GetComponent<Renderer>().material.color.r, tile.GetComponent<Renderer>().material.color.g, tile.GetComponent<Renderer>().material.color.b, objectDistance - 0.5f);
+                if (tile == null)
+                {
+                    continue;
+                }
+
+                Renderer renderer = tile.GetComponent<Renderer>();
+                if (renderer == null)
+                {
+                    continue;
+                }
+
+                Color color = renderer.material.color;
+                renderer.material.color = new Color(color.r, color.g, color.b, objectDistance - 0.5f);
             }
         }
     }

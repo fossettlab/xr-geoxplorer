@@ -5,22 +5,26 @@ using UnityEngine;
 public class TableAnchor : MonoBehaviour
 {
     public static TableAnchor instance;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-      
         if (TableAnchor.instance == null)
         {
             TableAnchor.instance = this;
         }
-        else
+        else if (TableAnchor.instance != this)
         {
-            if (TableAnchor.instance != this)
-            {
-                Destroy(this.gameObject);
-                return;
-            }
+            Destroy(this.gameObject);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (TableAnchor.instance != this)
+        {
+            return;
+        }
+
         Debug.Log("Table Created");
         GameObject persistentRoot = FindSharedContentPersistenceRoot();
         if (persistentRoot.transform.parent != null)

@@ -11,7 +11,7 @@ public class ZoomScript : MonoBehaviour {
     {
         if (modelStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = GameObject.FindGameObjectsWithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag("flag");
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -20,7 +20,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] primeFlagMarker = GameObject.FindGameObjectsWithTag("flagPrime");
+            GameObject[] primeFlagMarker = SceneQueries.WithTag("flagPrime");
             if (primeFlagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -29,7 +29,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] infoMarker = GameObject.FindGameObjectsWithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)
@@ -46,14 +46,14 @@ public class ZoomScript : MonoBehaviour {
         {
             Debug.Log("Please wait for tiles to finish loading...");
         }
-        
+
     }
 
     public void ZoomOut()
     {
         if (modelStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = GameObject.FindGameObjectsWithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag("flag");
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -62,7 +62,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] primeFlagMarker = GameObject.FindGameObjectsWithTag("flagPrime");
+            GameObject[] primeFlagMarker = SceneQueries.WithTag("flagPrime");
             if (primeFlagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -71,7 +71,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] infoMarker = GameObject.FindGameObjectsWithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)

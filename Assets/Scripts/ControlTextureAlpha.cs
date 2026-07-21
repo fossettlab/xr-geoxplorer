@@ -10,12 +10,12 @@ public class ControlTextureAlpha : MonoBehaviour {
 
     public void FindTileObjects(float eventData)
     {
-        tiles = GameObject.FindGameObjectsWithTag("MapTile");
+        tiles = SceneQueries.WithTag("MapTile");
         if (tiles.Length == 0)
         {
-            tiles = GameObject.FindGameObjectsWithTag("AssetBundle");
+            tiles = SceneQueries.WithTag("AssetBundle");
         }
-        
+
         Renderer[] rends = new Renderer[tiles.Length];
         eventData = GetComponent<Slider>().value;
 
@@ -32,7 +32,7 @@ public class ControlTextureAlpha : MonoBehaviour {
             {
                 rend.material.SetFloat("_Blend", eventData);
             }
-            
+
         }
     }
 }

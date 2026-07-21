@@ -90,6 +90,7 @@ public class RoomManager : MonoBehaviour, IMixedRealityPointerHandler
     {
         if (raycastManager == null)
         {
+            // Cached after first lookup; ARRaycastManager is scene-static for mobile AR.
             raycastManager = FindObjectOfType<ARRaycastManager>();
         }
 

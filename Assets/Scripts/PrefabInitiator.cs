@@ -9,14 +9,32 @@ public class PrefabInitiator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		this.name = prefabName;
+        this.name = prefabName;
         transform.localPosition = Vector3.zero;
         transform.localEulerAngles = new Vector3(0, 180, 0);
-        FindObjectOfType<PlanetManager>().activePlanet = this.gameObject;
+        PlanetManager planetManager = ResolvePlanetManager();
+        if (planetManager != null)
+        {
+            planetManager.activePlanet = this.gameObject;
+        }
+        else
+        {
+            Debug.LogWarning("PrefabInitiator could not find a PlanetManager to mark the active planet.");
+        }
 
         gameObject.AddComponent<ManipulationHandler>();
         gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeNear = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;
         gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeFar = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;
 
+    }
+
+    private static PlanetManager ResolvePlanetManager()
+    {
+        if (LobbyManager.Instance != null)
+        {
+            return LobbyManager.Instance.ResolvePlanetManager();
+        }
+
+        return TableAnchor.instance != null ? TableAnchor.instance.GetComponent<PlanetManager>() : null;
     }
 }

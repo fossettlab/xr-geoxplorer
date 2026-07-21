@@ -71,7 +71,7 @@ public class OnClickModelInteraction : MonoBehaviour, IMixedRealityPointerHandle
 
     public  void MakeSelected()
     {
-        GameObject currentSelected = GameObject.FindGameObjectWithTag("activeModel");
+        GameObject currentSelected = SceneQueries.OneWithTag("activeModel");
 
         if (currentSelected != null)
         {
