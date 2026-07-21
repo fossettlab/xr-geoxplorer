@@ -50,11 +50,6 @@ public class BuildGlobe : MonoBehaviour {
 
                 StartCoroutine(AddTexture(newPlaneObject, i, j, instrument, resolution, imageType, imageDate));
 
-                if(instrument == "Coastlines")
-                {
-                    newPlaneObject.tag = Tags.Coastlines;
-                }
-
             }
 
         }
