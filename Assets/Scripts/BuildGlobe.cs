@@ -26,7 +26,7 @@ public class BuildGlobe : MonoBehaviour {
         float startLat = 90;
         float startLon = 0;
 
-        GameObject[] tileplanes = SceneQueries.WithTag("TilePlane");
+        GameObject[] tileplanes = SceneQueries.WithTag(Tags.TilePlane);
         if (tileplanes.Length > 0)
         {
             foreach (var go in tileplanes)
@@ -52,7 +52,7 @@ public class BuildGlobe : MonoBehaviour {
 
                 if(instrument == "Coastlines")
                 {
-                    newPlaneObject.tag = "Coastlines";
+                    newPlaneObject.tag = Tags.Coastlines;
                 }
 
             }

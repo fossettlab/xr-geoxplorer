@@ -78,7 +78,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
 #endif
 
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.tag == "tappable")
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.tag == Tags.Tappable)
             {
                 Vector3 hitPosition = hit.transform.InverseTransformPoint(hit.point);
                 hitLon = -Mathf.Atan2(hitPosition.x, hitPosition.z) * Mathf.Rad2Deg;
@@ -95,7 +95,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 }
 #endif
             }
-            else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.tag == "TooltipInteraction")
+            else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.tag == Tags.TooltipInteraction)
             {
 #if UNITY_EDITOR
                 PhotonView photonView = PhotonView.Get(this);
@@ -158,7 +158,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
         tileStage.SetActive(false);
         activePlanet.SetActive(true);
-        GameObject[] toolTips = SceneQueries.WithTag("GoToTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag(Tags.GoToTooltip);
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -167,7 +167,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
             }
         }
 
-        GameObject[] flags = SceneQueries.WithTag("flag");
+        GameObject[] flags = SceneQueries.WithTag(Tags.Flag);
         if (flags.Length > 0)
         {
             foreach (var flag in flags)
@@ -176,7 +176,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
             }
         }
 
-        GameObject[] primeflags = SceneQueries.WithTag("flagPrime");
+        GameObject[] primeflags = SceneQueries.WithTag(Tags.FlagPrime);
         if (primeflags.Length > 0)
         {
             foreach (var flag in primeflags)
@@ -196,7 +196,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     [PunRPC]
     public void CreateTooltipAtLoc(float locationHitLat, float locationHitLon, Vector3 localHitPoint, Vector3 localHitNormal)
     {
-        GameObject[] toolTips = SceneQueries.WithTag("GoToTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag(Tags.GoToTooltip);
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -271,7 +271,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
         if (tileStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = SceneQueries.WithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag(Tags.Flag);
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -280,7 +280,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 }
             }
 
-            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag(Tags.InfoMarker);
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)
@@ -307,7 +307,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
         if (tileStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = SceneQueries.WithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag(Tags.Flag);
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -316,7 +316,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 }
             }
 
-            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag(Tags.InfoMarker);
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)

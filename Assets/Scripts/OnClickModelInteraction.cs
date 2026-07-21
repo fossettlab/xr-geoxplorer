@@ -71,14 +71,14 @@ public class OnClickModelInteraction : MonoBehaviour, IMixedRealityPointerHandle
 
     public  void MakeSelected()
     {
-        GameObject currentSelected = SceneQueries.OneWithTag("activeModel");
+        GameObject currentSelected = SceneQueries.OneWithTag(Tags.ActiveModel);
 
         if (currentSelected != null)
         {
             currentSelected.GetComponent<OnClickModelInteraction>().MakeUnselected();
         }
 
-        this.gameObject.tag = "activeModel";
+        this.gameObject.tag = Tags.ActiveModel;
 
         Bounds modelBounds = GetChildRendererBounds(this.gameObject);
 
@@ -92,7 +92,7 @@ public class OnClickModelInteraction : MonoBehaviour, IMixedRealityPointerHandle
     }
     public void MakeUnselected()
     {
-        this.gameObject.tag = "AssetBundleLoader";
+        this.gameObject.tag = Tags.AssetBundleLoader;
         Destroy(thisSelectionIndicator);
         selected = false;
     }

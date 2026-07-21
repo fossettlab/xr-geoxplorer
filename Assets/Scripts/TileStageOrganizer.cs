@@ -53,7 +53,7 @@ public class TileStageOrganizer : MonoBehaviour
             Bounds bounds = renderers[0].mesh.bounds;
             for (int i = 1, ni = renderers.Length; i < ni; i++)
             {
-                if (renderers[i].tag == "MapTile" )
+                if (renderers[i].tag == Tags.MapTile )
                 {
                     bounds.Encapsulate(renderers[i].mesh.bounds);
                 }
