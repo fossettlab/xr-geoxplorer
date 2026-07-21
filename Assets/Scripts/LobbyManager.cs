@@ -59,6 +59,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Instance != null && Instance != this)
         {
             Debug.LogWarning("LobbyManager: duplicate component destroyed.");
+            enabled = false;
             Destroy(this);
             return;
         }

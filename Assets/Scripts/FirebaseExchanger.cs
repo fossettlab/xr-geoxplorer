@@ -37,6 +37,7 @@ public class FirebaseExchanger : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Debug.LogWarning("FirebaseExchanger: duplicate component destroyed.");
+            enabled = false;
             Destroy(this);
             return;
         }
@@ -57,6 +58,11 @@ public class FirebaseExchanger : MonoBehaviour
 
     void Start()
     {
+        if (Instance != this)
+        {
+            return;
+        }
+
         conflictFound = false;
         feedback.text = "Initializing Firebase Exchanger";
         StartCoroutine(FetchCurrentAnchors());
