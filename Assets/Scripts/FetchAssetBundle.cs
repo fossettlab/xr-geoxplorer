@@ -106,7 +106,7 @@ public class FetchAssetBundle : MonoBehaviour
 
         newPrefab = Instantiate(prefab, objectStage);
         newPrefab.name = prefabName;
-        newPrefab.tag = "AssetBundle";
+        newPrefab.tag = Tags.AssetBundle;
 
 
         if (prefabName.Contains(".IMG.blend"))

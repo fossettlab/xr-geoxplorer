@@ -10,7 +10,7 @@ public class FadeOutRealtimeEarth : MonoBehaviour
         float objectDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         if (objectDistance < 1.5f && objectDistance > 0.5f)
         {
-            foreach (var tile in SceneQueries.WithTag("TilePlane"))
+            foreach (var tile in SceneQueries.WithTag(Tags.TilePlane))
             {
                 if (tile == null)
                 {

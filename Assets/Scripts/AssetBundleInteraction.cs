@@ -48,7 +48,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 #endif
 
             FetchAssetBundle assetBundleLoader = Physics.Raycast(ray, out hit) ? hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>() : null;
-            if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == "AssetBundleLoader" && !SceneQueries.AnyWithTag("OutcropTooltip"))
+            if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == Tags.AssetBundleLoader && !SceneQueries.AnyWithTag(Tags.OutcropTooltip))
             {
                 Vector3 hitPosition = hit.transform.InverseTransformPoint(hit.point);
                 //Vector3 hitPosition = hit.point;
@@ -229,7 +229,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
     [PunRPC]
     private void CreateABTooltipAtLoc(Vector3 localHitPoint, Vector3 localHitNormal, string hitObject, int PVid)
     {
-        GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -254,7 +254,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
     [PunRPC]
     private void OnHideTooltip()
     {
-        GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -270,7 +270,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
         PhotonView PV = this.GetComponent<PhotonView>();
         if (PV.IsMine)
         {
-            GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+            GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
             if (toolTips.Length > 0)
             {
                 foreach (var tool in toolTips)
@@ -286,7 +286,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
     [PunRPC]
     private void OnFlagCreate(Vector3 localHitPoint, Vector3 localHitNormal, string hitObject, int PVid)
     {
-        GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+        GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
         if (toolTips.Length > 0)
         {
             foreach (var tool in toolTips)
@@ -308,7 +308,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
         PhotonView PV = this.GetComponent<PhotonView>();
         if (PV.IsMine)
         {
-            GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+            GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
             if (toolTips.Length > 0)
             {
                 foreach (var tool in toolTips)
@@ -329,7 +329,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
         PhotonView PV = this.GetComponent<PhotonView>();
         if (PV.IsMine)
         {
-            GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+            GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
             if (toolTips.Length > 0)
             {
                 foreach (var tool in toolTips)
@@ -383,7 +383,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
         }
 
         FetchAssetBundle assetBundleLoader = hitObject.GetComponentInParent<FetchAssetBundle>();
-        if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == "AssetBundleLoader" && !SceneQueries.AnyWithTag("OutcropTooltip"))
+        if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == Tags.AssetBundleLoader && !SceneQueries.AnyWithTag(Tags.OutcropTooltip))
         {
             PhotonView photonView = assetBundleLoader.gameObject.GetComponent<PhotonView>();
             if (photonView != null)
@@ -490,7 +490,7 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 
             inspectorPrefab = Instantiate(fetchAssetBundle.newPrefab);
 
-            GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+            GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
             if (toolTips.Length > 0)
             {
                 foreach (var tool in toolTips)

@@ -11,7 +11,7 @@ public class ZoomScript : MonoBehaviour {
     {
         if (modelStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = SceneQueries.WithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag(Tags.Flag);
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -20,7 +20,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] primeFlagMarker = SceneQueries.WithTag("flagPrime");
+            GameObject[] primeFlagMarker = SceneQueries.WithTag(Tags.FlagPrime);
             if (primeFlagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -29,7 +29,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag(Tags.InfoMarker);
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)
@@ -53,7 +53,7 @@ public class ZoomScript : MonoBehaviour {
     {
         if (modelStage.GetComponent<TileStageOrganizer>().mapTilesLoaded == 0)
         {
-            GameObject[] flagMarker = SceneQueries.WithTag("flag");
+            GameObject[] flagMarker = SceneQueries.WithTag(Tags.Flag);
             if (flagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -62,7 +62,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] primeFlagMarker = SceneQueries.WithTag("flagPrime");
+            GameObject[] primeFlagMarker = SceneQueries.WithTag(Tags.FlagPrime);
             if (primeFlagMarker != null)
             {
                 foreach (var item in flagMarker)
@@ -71,7 +71,7 @@ public class ZoomScript : MonoBehaviour {
                 }
             }
 
-            GameObject[] infoMarker = SceneQueries.WithTag("InfoMarker");
+            GameObject[] infoMarker = SceneQueries.WithTag(Tags.InfoMarker);
             if (infoMarker != null)
             {
                 foreach (var item in infoMarker)

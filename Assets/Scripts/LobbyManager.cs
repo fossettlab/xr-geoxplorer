@@ -510,7 +510,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(gObject);
         }
 
-        if (SceneQueries.WithTag("AssetBundle").Length == 0)
+        if (SceneQueries.WithTag(Tags.AssetBundle).Length == 0)
         {
             TableAnchor.instance.GetComponent<PlanetManager>().geoSlider.SetActive(false);
         }
@@ -518,7 +518,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void ResetAllAssetBundles()
     {
-        GameObject[] gos = SceneQueries.WithTag("AssetBundleLoader");
+        GameObject[] gos = SceneQueries.WithTag(Tags.AssetBundleLoader);
         foreach (var go in gos)
         {
             go.GetComponent<AssetBundleInteraction>().OnReset();

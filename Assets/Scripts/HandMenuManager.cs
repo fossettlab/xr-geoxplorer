@@ -20,7 +20,7 @@ public class HandMenuManager : MonoBehaviour
 
     public void SetActiveModelText(GameObject titleText)
     {
-        GameObject activeModel = SceneQueries.OneWithTag("activeModel");
+        GameObject activeModel = SceneQueries.OneWithTag(Tags.ActiveModel);
         if (activeModel != null)
         {
             titleText.GetComponent<TextMeshPro>().text = "Active model: " + activeModel.GetComponent<FetchAssetBundle>().modelName;
@@ -33,7 +33,7 @@ public class HandMenuManager : MonoBehaviour
 
     public void ModelMoveToggle()
     {
-        GameObject asset = SceneQueries.OneWithTag("activeModel");
+        GameObject asset = SceneQueries.OneWithTag(Tags.ActiveModel);
         if (asset == null)
         {
             return;
@@ -60,7 +60,7 @@ public class HandMenuManager : MonoBehaviour
     {
         if (!modelFlagToggleBool)
         {
-            GameObject activeModel = SceneQueries.OneWithTag("activeModel");
+            GameObject activeModel = SceneQueries.OneWithTag(Tags.ActiveModel);
             OnClickModelInteraction modelInteraction = activeModel != null ? activeModel.GetComponent<OnClickModelInteraction>() : null;
             if (modelInteraction != null)
             {
@@ -70,7 +70,7 @@ public class HandMenuManager : MonoBehaviour
         }
         else
         {
-            GameObject activeModel = SceneQueries.OneWithTag("activeModel");
+            GameObject activeModel = SceneQueries.OneWithTag(Tags.ActiveModel);
             OnClickModelInteraction modelInteraction = activeModel != null ? activeModel.GetComponent<OnClickModelInteraction>() : null;
             if (modelInteraction != null)
             {
@@ -82,7 +82,7 @@ public class HandMenuManager : MonoBehaviour
 
     public void ModelDelete()
     {
-        GameObject activeModel = SceneQueries.OneWithTag("activeModel");
+        GameObject activeModel = SceneQueries.OneWithTag(Tags.ActiveModel);
         if (activeModel == null || lobbyManager == null)
         {
             return;
@@ -91,7 +91,7 @@ public class HandMenuManager : MonoBehaviour
         PhotonView PV = activeModel.GetComponent<PhotonView>();
         if (PV.IsMine)
         {
-            GameObject[] toolTips = SceneQueries.WithTag("OutcropTooltip");
+            GameObject[] toolTips = SceneQueries.WithTag(Tags.OutcropTooltip);
             if (toolTips.Length > 0)
             {
                 foreach (var tool in toolTips)

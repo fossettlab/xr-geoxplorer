@@ -10,10 +10,10 @@ public class ControlTextureAlpha : MonoBehaviour {
 
     public void FindTileObjects(float eventData)
     {
-        tiles = SceneQueries.WithTag("MapTile");
+        tiles = SceneQueries.WithTag(Tags.MapTile);
         if (tiles.Length == 0)
         {
-            tiles = SceneQueries.WithTag("AssetBundle");
+            tiles = SceneQueries.WithTag(Tags.AssetBundle);
         }
 
         Renderer[] rends = new Renderer[tiles.Length];
