@@ -313,14 +313,14 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 if (isSimulated)
                     return SimulatedMouseSet.Contains(mouseButton);
                 else
-                    return UnityEngine.Input.GetMouseButton(mouseButton);
+                    return InputSimulationInput.GetMouseButton(mouseButton);
             }
             if (kb.TryGetKeyCode(out KeyCode keyCode))
             {
                 if (isSimulated)
                     return SimulatedKeySet.Contains(keyCode);
                 else
-                    return UnityEngine.Input.GetKey(keyCode);
+                    return InputSimulationInput.GetKey(keyCode);
             }
             return false;
         }
@@ -336,14 +336,14 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 if (isSimulated)
                     return SimulatedMouseDownSet.Contains(mouseButton);
                 else
-                    return UnityEngine.Input.GetMouseButtonDown(mouseButton);
+                    return InputSimulationInput.GetMouseButtonDown(mouseButton);
             }
             if (kb.TryGetKeyCode(out KeyCode keyCode))
             {
                 if (isSimulated)
                     return SimulatedKeyDownSet.Contains(keyCode);
                 else
-                    return UnityEngine.Input.GetKeyDown(keyCode);
+                    return InputSimulationInput.GetKeyDown(keyCode);
             }
             return false;
         }
@@ -359,14 +359,14 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 if (isSimulated)
                     return SimulatedMouseUpSet.Contains(mouseButton);
                 else
-                    return UnityEngine.Input.GetMouseButtonUp(mouseButton);
+                    return InputSimulationInput.GetMouseButtonUp(mouseButton);
             }
             if (kb.TryGetKeyCode(out KeyCode keyCode))
             {
                 if (isSimulated)
                     return SimulatedKeyUpSet.Contains(keyCode);
                 else
-                    return UnityEngine.Input.GetKeyUp(keyCode);
+                    return InputSimulationInput.GetKeyUp(keyCode);
             }
             return false;
         }

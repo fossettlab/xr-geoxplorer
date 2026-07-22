@@ -106,6 +106,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
         {
             base.Enable();
 
+#if ENABLE_LEGACY_INPUT_MANAGER
             if (!UInput.mousePresent)
             {
                 Disable();
@@ -152,6 +153,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
             }
 
             Service?.RaiseSourceDetected(Controller.InputSource, Controller);
+#endif
         }
 
         private static readonly ProfilerMarker UpdatePerfMarker = new ProfilerMarker("[MRTK] MouseDeviceManager.Update");
@@ -163,9 +165,11 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
             {
                 base.Update();
 
+#if ENABLE_LEGACY_INPUT_MANAGER
                 if (UInput.mousePresent && Controller == null) { Enable(); }
 
                 Controller?.Update();
+#endif
             }
         }
 

@@ -82,6 +82,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
             {
                 if (!Enabled) { return; }
 
+#if ENABLE_LEGACY_INPUT_MANAGER
                 if (Interactions == null)
                 {
                     Debug.LogError($"No interaction configuration for {GetType().Name}");
@@ -111,6 +112,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
                             break;
                     }
                 }
+#endif
             }
         }
 

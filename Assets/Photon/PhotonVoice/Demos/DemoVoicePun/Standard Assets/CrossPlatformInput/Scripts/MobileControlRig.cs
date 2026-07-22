@@ -47,7 +47,15 @@ namespace UnityStandardAssets.CrossPlatformInput
                     GameObject o = new GameObject("EventSystem");
 
                     o.AddComponent<UnityEngine.EventSystems.EventSystem>();
+#if ENABLE_INPUT_SYSTEM
+                    System.Type inputSystemModuleType = System.Type.GetType("UnityEngine.InputSystem.UI.InputSystemUIInputModule, Unity.InputSystem");
+                    if (inputSystemModuleType != null)
+                    {
+                        o.AddComponent(inputSystemModuleType);
+                    }
+#elif ENABLE_LEGACY_INPUT_MANAGER
                     o.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+#endif
                 }
             }
         }

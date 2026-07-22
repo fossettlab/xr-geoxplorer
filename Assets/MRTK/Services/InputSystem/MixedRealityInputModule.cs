@@ -100,6 +100,24 @@ namespace Microsoft.MixedReality.Toolkit.Input
 
         private static readonly ProfilerMarker ProcessPerfMarker = new ProfilerMarker("[MRTK] MixedRealityInputModule.Process");
 
+        /// <inheritdoc />
+        public override void UpdateModule()
+        {
+#if ENABLE_LEGACY_INPUT_MANAGER
+            base.UpdateModule();
+#endif
+        }
+
+        /// <inheritdoc />
+        public override bool ShouldActivateModule()
+        {
+#if ENABLE_LEGACY_INPUT_MANAGER
+            return base.ShouldActivateModule();
+#else
+            return isActiveAndEnabled;
+#endif
+        }
+
         /// <summary>
         /// Process the active pointers from MixedRealityInputManager and all other Unity input.
         /// </summary>
@@ -144,7 +162,9 @@ namespace Microsoft.MixedReality.Toolkit.Input
                     Cursor.lockState = cursorLockStateBackup;
                 }
 
+#if ENABLE_LEGACY_INPUT_MANAGER
                 base.Process();
+#endif
             }
         }
 
@@ -184,7 +204,21 @@ namespace Microsoft.MixedReality.Toolkit.Input
                     return pointerData.mouseState;
                 }
 
+                for (int i = 0; i < pointerDataToRemove.Count; i++)
+                {
+                    pointerData = pointerDataToRemove[i];
+                    if ((int)pointerData.pointer.PointerId == pointerId)
+                    {
+                        UpdateMousePointerEventData(pointerData);
+                        return pointerData.mouseState;
+                    }
+                }
+
+#if ENABLE_LEGACY_INPUT_MANAGER
                 return base.GetMousePointerEventData(pointerId);
+#else
+                return new MouseState();
+#endif
             }
         }
 

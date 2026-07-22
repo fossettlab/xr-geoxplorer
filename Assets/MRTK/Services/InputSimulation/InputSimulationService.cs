@@ -410,7 +410,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
 
         private void ResetMouseDelta()
         {
-            lastMousePosition = UnityEngine.Input.mousePosition;
+            lastMousePosition = InputSimulationInput.MousePosition;
 
             mouseDelta.Reset();
         }
@@ -438,19 +438,21 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 Vector3 worldDelta;
                 if (UnityEngine.Cursor.lockState == CursorLockMode.Locked)
                 {
-                    screenDelta.x = UnityEngine.Input.GetAxis(profile.MouseX);
-                    screenDelta.y = UnityEngine.Input.GetAxis(profile.MouseY);
+                    screenDelta.x = InputSimulationInput.GetAxis(profile.MouseX);
+                    screenDelta.y = InputSimulationInput.GetAxis(profile.MouseY);
 
-                    worldDelta.z = UnityEngine.Input.GetAxis(profile.MouseScroll);
+                    worldDelta.z = InputSimulationInput.GetAxis(profile.MouseScroll);
                 }
                 else
                 {
+                    Vector3 mousePosition = InputSimulationInput.MousePosition;
+
                     // Use frame-to-frame mouse delta in pixels to determine mouse rotation.
                     // The traditional GetAxis("Mouse X") method doesn't work under Remote Desktop.
-                    screenDelta.x = (UnityEngine.Input.mousePosition.x - lastMousePosition.x);
-                    screenDelta.y = (UnityEngine.Input.mousePosition.y - lastMousePosition.y);
+                    screenDelta.x = (mousePosition.x - lastMousePosition.x);
+                    screenDelta.y = (mousePosition.y - lastMousePosition.y);
 
-                    worldDelta.z = UnityEngine.Input.mouseScrollDelta.y;
+                    worldDelta.z = InputSimulationInput.MouseScrollDelta.y;
                 }
 
                 // Interpret scroll values as world space delta
@@ -473,7 +475,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 // Compute viewport-scale z delta
                 viewportDelta.z = WorldToViewport(worldDepthDelta).x;
 
-                lastMousePosition = UnityEngine.Input.mousePosition;
+                lastMousePosition = InputSimulationInput.MousePosition;
 
                 mouseDelta.screenDelta = screenDelta;
                 mouseDelta.worldDelta = worldDelta;

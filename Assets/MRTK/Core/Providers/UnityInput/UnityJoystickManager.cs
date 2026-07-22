@@ -68,6 +68,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
             {
                 base.Update();
 
+#if ENABLE_LEGACY_INPUT_MANAGER
                 deviceRefreshTimer += Time.unscaledDeltaTime;
 
                 if (deviceRefreshTimer >= DeviceRefreshInterval)
@@ -80,6 +81,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
                 {
                     controller.Value?.UpdateController();
                 }
+#endif
             }
         }
 

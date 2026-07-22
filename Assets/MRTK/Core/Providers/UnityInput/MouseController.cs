@@ -45,7 +45,9 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
 
         private MixedRealityPose controllerPose = MixedRealityPose.ZeroIdentity;
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         private IMixedRealityMouseDeviceManager mouseDeviceManager = null;
+#endif
 
         private static readonly ProfilerMarker UpdatePerfMarker = new ProfilerMarker("[MRTK] MouseController.Update");
 
@@ -56,6 +58,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
         {
             using (UpdatePerfMarker.Auto())
             {
+#if ENABLE_LEGACY_INPUT_MANAGER
                 if (!UInput.mousePresent) { return; }
 
                 if (mouseDeviceManager == null)
@@ -149,6 +152,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
                         }
                     }
                 }
+#endif
             }
         }
     }

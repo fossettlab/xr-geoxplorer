@@ -110,6 +110,24 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Facades
             return serviceList;
         }
 
+        private static bool IsEditableSceneTransform(Transform transform)
+        {
+            if (transform == null)
+            {
+                return false;
+            }
+
+            // Never parent under / mutate prefab assets (e.g. Resources platform roots).
+            if (EditorUtility.IsPersistent(transform) ||
+                PrefabUtility.IsPartOfPrefabAsset(transform) ||
+                !transform.gameObject.scene.IsValid())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private static void UpdateServiceFacades()
         {
             // If compiling or saving, don't modify service facades
@@ -131,6 +149,12 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Facades
             }
 
             var mrtkTransform = MixedRealityToolkit.Instance.transform;
+            if (!IsEditableSceneTransform(mrtkTransform))
+            {
+                // Active instance resolved to a prefab asset — do not touch hierarchy.
+                return;
+            }
+
             bool newMRTKActiveInstance = previousActiveInstance != null && MixedRealityToolkit.Instance != previousActiveInstance;
 
             var serviceSet = GetAllServices();
@@ -158,7 +182,8 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Facades
                     serviceSet.Remove(facade.Service);
 
                     // Ensure valid facades are parented under the current MRTK active instance
-                    if (facade.transform.parent != mrtkTransform)
+                    if (facade.transform.parent != mrtkTransform &&
+                        IsEditableSceneTransform(facade.transform))
                     {
                         facade.transform.parent = mrtkTransform;
                     }

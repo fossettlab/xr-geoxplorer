@@ -71,6 +71,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
                 }
                 touchesToRemove.Clear();
 
+#if ENABLE_LEGACY_INPUT_MANAGER
                 int touchCount = UInput.touchCount;
                 for (int i = 0; i < touchCount; i++)
                 {
@@ -94,6 +95,7 @@ namespace Microsoft.MixedReality.Toolkit.Input.UnityInput
                             break;
                     }
                 }
+#endif
             }
         }
 

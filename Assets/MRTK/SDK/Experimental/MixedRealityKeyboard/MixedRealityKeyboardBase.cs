@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using UnityEngine;
@@ -7,6 +7,9 @@ using UnityEngine.Events;
 using Windows.UI.ViewManagement;
 using Microsoft.MixedReality.Toolkit.Input;
 using System.Collections;
+#endif
+#if WINDOWS_UWP && ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
 #endif
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.UI
@@ -253,8 +256,18 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI
             if (keyboard != null)
             {
                 // Handle character deletion.
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Delete) || 
-                    UnityEngine.Input.GetKeyDown(KeyCode.Backspace))
+#if ENABLE_INPUT_SYSTEM
+                Keyboard currentKeyboard = Keyboard.current;
+                bool deletePressed = currentKeyboard != null &&
+                    (currentKeyboard.deleteKey.wasPressedThisFrame ||
+                     currentKeyboard.backspaceKey.wasPressedThisFrame);
+#elif ENABLE_LEGACY_INPUT_MANAGER
+                bool deletePressed = UnityEngine.Input.GetKeyDown(KeyCode.Delete) ||
+                    UnityEngine.Input.GetKeyDown(KeyCode.Backspace);
+#else
+                bool deletePressed = false;
+#endif
+                if (deletePressed)
                 {
                     if (CaretIndex > 0)
                     {
@@ -291,14 +304,28 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI
                 }
 
                 // Handle the arrow keys.
-                if (UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow) || 
-                    UnityEngine.Input.GetKey(KeyCode.LeftArrow))
+#if ENABLE_INPUT_SYSTEM
+                bool leftPressed = currentKeyboard != null &&
+                    (currentKeyboard.leftArrowKey.wasPressedThisFrame ||
+                     currentKeyboard.leftArrowKey.isPressed);
+                bool rightPressed = currentKeyboard != null &&
+                    (currentKeyboard.rightArrowKey.wasPressedThisFrame ||
+                     currentKeyboard.rightArrowKey.isPressed);
+#elif ENABLE_LEGACY_INPUT_MANAGER
+                bool leftPressed = UnityEngine.Input.GetKeyDown(KeyCode.LeftArrow) ||
+                    UnityEngine.Input.GetKey(KeyCode.LeftArrow);
+                bool rightPressed = UnityEngine.Input.GetKeyDown(KeyCode.RightArrow) ||
+                    UnityEngine.Input.GetKey(KeyCode.RightArrow);
+#else
+                bool leftPressed = false;
+                bool rightPressed = false;
+#endif
+                if (leftPressed)
                 {
                     CaretIndex = Mathf.Clamp(CaretIndex - 1, 0, Text.Length);
                 }
 
-                if (UnityEngine.Input.GetKeyDown(KeyCode.RightArrow) || 
-                    UnityEngine.Input.GetKey(KeyCode.RightArrow))
+                if (rightPressed)
                 {
                     CaretIndex = Mathf.Clamp(CaretIndex + 1, 0, Text.Length);
                 }
@@ -306,7 +333,16 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI
                 // Handle commit via the return key.
                 if (!multiLine)
                 {
-                    if (UnityEngine.Input.GetKeyDown(KeyCode.Return))
+#if ENABLE_INPUT_SYSTEM
+                    bool returnPressed = currentKeyboard != null &&
+                        (currentKeyboard.enterKey.wasPressedThisFrame ||
+                         currentKeyboard.numpadEnterKey.wasPressedThisFrame);
+#elif ENABLE_LEGACY_INPUT_MANAGER
+                    bool returnPressed = UnityEngine.Input.GetKeyDown(KeyCode.Return);
+#else
+                    bool returnPressed = false;
+#endif
+                    if (returnPressed)
                     {
                         onCommitText?.Invoke();
 

@@ -27,6 +27,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
         {
             using (OnPreSceneQueryPerfMarker.Auto())
             {
+#if ENABLE_LEGACY_INPUT_MANAGER
                 if (UInput.mousePosition.x < 0 ||
                     UInput.mousePosition.y < 0 ||
                     UInput.mousePosition.x > Screen.width ||
@@ -50,6 +51,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
 
                 transform.position = mainCamera.transform.position;
                 transform.rotation = Quaternion.LookRotation(ray.direction);
+#endif
             }
         }
 

@@ -184,6 +184,7 @@ namespace Microsoft.MixedReality.Toolkit.Windows.Input
             {
                 if (keywordRecognizer != null && keywordRecognizer.IsRunning)
                 {
+#if ENABLE_LEGACY_INPUT_MANAGER
                     for (int i = 0; i < Commands.Length; i++)
                     {
                         if (UInput.GetKeyDown(Commands[i].KeyCode))
@@ -191,6 +192,7 @@ namespace Microsoft.MixedReality.Toolkit.Windows.Input
                             OnPhraseRecognized((ConfidenceLevel)RecognitionConfidenceLevel, TimeSpan.Zero, DateTime.UtcNow, Commands[i].LocalizedKeyword);
                         }
                     }
+#endif
                 }
             }
         }

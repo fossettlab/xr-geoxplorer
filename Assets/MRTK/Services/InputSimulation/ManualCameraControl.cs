@@ -55,7 +55,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
 
         private static float GetKeyDir(string neg, string pos)
         {
-            return UnityEngine.Input.GetKey(neg) ? -1.0f : UnityEngine.Input.GetKey(pos) ? 1.0f : 0.0f;
+            return InputSimulationInput.GetKey(neg) ? -1.0f : InputSimulationInput.GetKey(pos) ? 1.0f : 0.0f;
         }
 
         private Vector3 GetCameraControlTranslation(Transform transform)
@@ -68,7 +68,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
             {
                 try
                 {
-                    deltaPosition += InputCurve(UnityEngine.Input.GetAxis("Fly")) * transform.up;
+                    deltaPosition += InputCurve(InputSimulationInput.GetAxis("Fly")) * transform.up;
                 }
                 catch (System.Exception)
                 {
@@ -81,7 +81,7 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 deltaPosition += GetKeyDir("page down", "page up") * Vector3.up;
             }
 
-            deltaPosition += InputCurve(UnityEngine.Input.GetAxis(profile.MoveHorizontal)) * transform.right;
+            deltaPosition += InputCurve(InputSimulationInput.GetAxis(profile.MoveHorizontal)) * transform.right;
 
             Vector3 forward;
             Vector3 up;
@@ -95,8 +95,8 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 forward = transform.forward;
                 up = transform.up;
             }
-            deltaPosition += InputCurve(UnityEngine.Input.GetAxis(profile.MoveVertical)) * forward;
-            deltaPosition += InputCurve(UnityEngine.Input.GetAxis(profile.MoveUpDown)) * up;
+            deltaPosition += InputCurve(InputSimulationInput.GetAxis(profile.MoveVertical)) * forward;
+            deltaPosition += InputCurve(InputSimulationInput.GetAxis(profile.MoveUpDown)) * up;
 
             float accel = KeyInputSystem.GetKey(profile.FastControlKey) ? profile.ControlFastSpeed : profile.ControlSlowSpeed;
             return accel * deltaPosition * Time.deltaTime;
@@ -113,8 +113,8 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 try
                 {
                     // Get the axes information from the right stick of X360 controller
-                    rot.x += InputCurve(UnityEngine.Input.GetAxis(profile.LookVertical)) * inversionFactor;
-                    rot.y += InputCurve(UnityEngine.Input.GetAxis(profile.LookHorizontal));
+                    rot.x += InputCurve(InputSimulationInput.GetAxis(profile.LookVertical)) * inversionFactor;
+                    rot.y += InputCurve(InputSimulationInput.GetAxis(profile.LookHorizontal));
                 }
                 catch (System.Exception)
                 {

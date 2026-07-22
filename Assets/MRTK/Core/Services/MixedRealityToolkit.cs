@@ -686,6 +686,16 @@ namespace Microsoft.MixedReality.Toolkit
                 return;
             }
 
+#if UNITY_EDITOR
+            // Prefab assets (including Resources platform roots) must never become the
+            // active MRTK instance — renaming / parenting them corrupts the asset.
+            if (EditorUtility.IsPersistent(toolkitInstance) ||
+                !toolkitInstance.gameObject.scene.IsValid())
+            {
+                return;
+            }
+#endif
+
             internalShutdown = false;
 
             if (!toolkitInstances.Contains(toolkitInstance))
@@ -1452,6 +1462,14 @@ namespace Microsoft.MixedReality.Toolkit
 
                     for (int i = toolkitInstances.Count - 1; i >= 0; i--)
                     {
+                        // Prefab assets can temporarily register via OnValidate; only
+                        // enforce the root-parent rule for live scene instances.
+                        if (toolkitInstances[i] == null ||
+                            !toolkitInstances[i].gameObject.scene.IsValid())
+                        {
+                            continue;
+                        }
+
                         // Make sure MRTK is not parented under anything
                         Debug.Assert(toolkitInstances[i].transform.parent == null, "MixedRealityToolkit instances should not be parented under any other GameObject.");
                     }
