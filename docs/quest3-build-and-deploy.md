@@ -148,8 +148,8 @@ Update this section when someone completes a formal headset pass:
 | Check | Status |
 |-------|--------|
 | `adb` available via Unity Android SDK | Verified on lab Mac paths above |
-| Quest 3 attached + authorized (`adb devices`) | Pending device connection |
-| MQDH installed | Pending on executor machine |
-| Unity Build And Run → launch ≥ 30s | Pending formal pass (informal Quest launches already used during #8 UI work) |
-| Head tracking / stereo view | Pending formal pass |
-| `quest3-firstboot.log` attached to #10 | Pending |
+| Quest 3 attached + authorized (`adb devices`) | Verified (Quest 3 `device`) |
+| MQDH installed | Optional; Build And Run used instead |
+| Unity Build And Run → launch ≥ 30s | **Pass** (2026-07-24) — app stayed up, no crash to Home |
+| Head tracking / stereo view | **Pass** — opaque dark blue-gray clear visible in stereo VR (camera alpha was 0 / passthrough-required before; fixed for opaque OpenXR) |
+| `quest3-firstboot.log` attached to #10 | Excerpt posted on issue #10; full log kept locally under `tmp/` (gitignored) |
