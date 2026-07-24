@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.XR;
 
 public class PlatformBootstrapper : MonoBehaviour
 {
@@ -163,8 +164,6 @@ public class PlatformBootstrapper : MonoBehaviour
         {
             case PlatformVariant.Quest3:
                 return "PlatformRoot/PlatformRoot.Quest3";
-            case PlatformVariant.HoloLens2:
-                return "PlatformRoot/PlatformRoot.HoloLens2";
             case PlatformVariant.Mobile:
                 return "PlatformRoot/PlatformRoot.Mobile";
             default:

@@ -10,7 +10,7 @@
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.vr.headtracking" android:required="true" android:version="1" />
     <uses-feature android:name="oculus.software.handtracking" android:required="false" />
-    <uses-feature android:name="com.oculus.feature.PASSTHROUGH" android:required="true" />
+    <uses-feature android:name="com.oculus.feature.PASSTHROUGH" android:required="false" />
     <!-- Required for Quest system/overlay keyboard (TMP / TouchScreenKeyboard) -->
     <uses-feature android:name="oculus.software.overlay_keyboard" android:required="false" />
 
