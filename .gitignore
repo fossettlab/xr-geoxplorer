@@ -118,3 +118,7 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# RemoteConfig prod overrides (SAS keys / env-specific injection)
+**/RemoteConfig.*.local.asset
+**/RemoteConfig.*.local.asset.meta

@@ -94,7 +94,7 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator FetchMetadata()
     {
-        string url = "https://haringerverdiag.blob.core.windows.net/" + platformType + "?restype=container&comp=list&include=metadata&prefix=geoxplorer-" + indexType;
+        string url = RemoteConfig.Current.BuildContainerListUrl(platformType, "geoxplorer-" + indexType);
         print(url);
         UnityWebRequest uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
@@ -328,7 +328,7 @@ public class MenuManager : MonoBehaviour
         UnityWebRequest uwrt;
         if (buttonObject.GetComponent<ButtonObjectType>().outcropObject.modelName != null)
         {
-            uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/outcrop/" + buttonObject.GetComponent<ButtonObjectType>().outcropObject.prefabName + ".png");
+            uwrt = UnityWebRequestTexture.GetTexture(RemoteConfig.Current.BuildThumbnailUrl("outcrop/" + buttonObject.GetComponent<ButtonObjectType>().outcropObject.prefabName + ".png"));
             yield return uwrt.SendWebRequest();
             if (uwrt.result != UnityWebRequest.Result.Success)
             {
@@ -344,7 +344,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (buttonObject.GetComponent<ButtonObjectType>().demObject.modelName != null)
         {
-            uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/dem/" + buttonObject.GetComponent<ButtonObjectType>().demObject.prefabName + ".png");
+            uwrt = UnityWebRequestTexture.GetTexture(RemoteConfig.Current.BuildThumbnailUrl("dem/" + buttonObject.GetComponent<ButtonObjectType>().demObject.prefabName + ".png"));
             yield return uwrt.SendWebRequest();
             if (uwrt.result != UnityWebRequest.Result.Success)
             {
@@ -360,7 +360,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (buttonObject.GetComponent<ButtonObjectType>().handSampleObject.modelName != null)
         {
-            uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/handsample/" + buttonObject.GetComponent<ButtonObjectType>().handSampleObject.prefabName + ".png");
+            uwrt = UnityWebRequestTexture.GetTexture(RemoteConfig.Current.BuildThumbnailUrl("handsample/" + buttonObject.GetComponent<ButtonObjectType>().handSampleObject.prefabName + ".png"));
             yield return uwrt.SendWebRequest();
             if (uwrt.result != UnityWebRequest.Result.Success)
             {
@@ -376,7 +376,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (buttonObject.GetComponent<ButtonObjectType>().crystalLatticeObject.modelName != null)
         {
-            uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/crystallattice/" + buttonObject.GetComponent<ButtonObjectType>().crystalLatticeObject.prefabName + ".png");
+            uwrt = UnityWebRequestTexture.GetTexture(RemoteConfig.Current.BuildThumbnailUrl("crystallattice/" + buttonObject.GetComponent<ButtonObjectType>().crystalLatticeObject.prefabName + ".png"));
             yield return uwrt.SendWebRequest();
             if (uwrt.result != UnityWebRequest.Result.Success)
             {

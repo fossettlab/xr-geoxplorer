@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5390117b5647440d8ae8e6b73fed03d4, type: 3}
+  m_Name: RemoteConfigCatalog
+  m_EditorClassIdentifier:
+  dev: {fileID: 11400000, guid: 41f3d9eb9c4c40fe9b057709af4cc07b, type: 2}
+  staging: {fileID: 11400000, guid: ffaf2d56c65f45bcbd21339415466cfe, type: 2}
+  prod: {fileID: 11400000, guid: 6feabc6d08ab49c0ba4efb16ac649020, type: 2}

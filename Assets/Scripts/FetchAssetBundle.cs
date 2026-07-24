@@ -68,7 +68,7 @@ public class FetchAssetBundle : MonoBehaviour
 #endif
 
 
-        string uri = "https://" + storageAccountName + ".blob.core.windows.net/" + extensionName + "/" + bundleName;  // + containerName + "/" + bundleName;
+        string uri = RemoteConfig.Current.BuildAssetBundleUri(extensionName, bundleName);  // + containerName + "/" + bundleName;
         print(uri);
         lobbyManager.ShowDownloadState();
         requestStarted = true;
