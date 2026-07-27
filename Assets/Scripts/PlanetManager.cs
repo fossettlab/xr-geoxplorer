@@ -60,22 +60,29 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     void Update()
     {
 
+
+#if XR_HL2
+        if (Camera.main.GetComponent<GazeProvider>().HitPosition.magnitude > 0)
+        {
+            ListenForCLicks();
+        }
+        else
+        {
+            StopListenForClicks();
+        }
+#endif
+
 #if UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID
 
-
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        bool pointerAction = GeoXInput.PrimaryPointerPressedThisFrame;
 #elif UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
+        bool pointerAction = GeoXInput.PrimaryTouchReleasedThisFrame;
 #endif
+
+        if (pointerAction && !EventSystem.current.IsPointerOverGameObject())
         {
-
-#if UNITY_EDITOR
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-#elif UNITY_IOS || UNITY_ANDROID
-            Touch touch = Input.GetTouch(0);
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
-#endif
+            Ray ray = Camera.main.ScreenPointToRay(GeoXInput.PointerPosition);
 
 
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.tag == Tags.Tappable)
@@ -88,11 +95,8 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 PhotonView photonView = PhotonView.Get(this);
                 this.photonView.RPC("CreateTooltipAtLoc", RpcTarget.All, hitLat, hitLon, hitPosition, hit.transform.InverseTransformPoint(hit.normal));
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    this.photonView.RPC("CreateTooltipAtLoc", RpcTarget.All, hitLat, hitLon, hitPosition, hit.transform.InverseTransformPoint(hit.normal));
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                this.photonView.RPC("CreateTooltipAtLoc", RpcTarget.All, hitLat, hitLon, hitPosition, hit.transform.InverseTransformPoint(hit.normal));
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.tag == Tags.TooltipInteraction)
@@ -101,11 +105,8 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 PhotonView photonView = PhotonView.Get(this);
                 this.photonView.RPC("GoToTiles", RpcTarget.All, hitLat, hitLon, 9);
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    this.photonView.RPC("GoToTiles", RpcTarget.All, hitLat, hitLon, 9);
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                this.photonView.RPC("GoToTiles", RpcTarget.All, hitLat, hitLon, 9);
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "MainInteractable")
@@ -113,10 +114,7 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
 #if UNITY_EDITOR
                 hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().MenuSwitcher();
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().MenuSwitcher();
-                }
+                hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().MenuSwitcher();
 #endif
 
             }
@@ -128,13 +126,10 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 hitLon = hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lon;
                 this.photonView.RPC("GoToTiles", RpcTarget.All, hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lat, hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lon, 100);  //100 means that no zooming takes place
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    hitLat = hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lat;
-                    hitLon = hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lon;
-                    this.photonView.RPC("GoToTiles", RpcTarget.All, hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lat, hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lon, 100);  //100 means that no zooming takes place
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                hitLat = hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lat;
+                hitLon = hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lon;
+                this.photonView.RPC("GoToTiles", RpcTarget.All, hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lat, hit.collider.gameObject.GetComponentInParent<SpatialTooltipManager>().lon, 100);  //100 means that no zooming takes place
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "GoToInteractable")
@@ -143,11 +138,8 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
                 DownloadButtonInteraction assetBundleDownloader = hit.collider.gameObject.GetComponentInParent<DownloadButtonInteraction>();
                 LobbyManager.Instance.CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    DownloadButtonInteraction assetBundleDownloader = hit.collider.gameObject.GetComponentInParent<DownloadButtonInteraction>();
-                    LobbyManager.Instance.CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
-                }
+                DownloadButtonInteraction assetBundleDownloader = hit.collider.gameObject.GetComponentInParent<DownloadButtonInteraction>();
+                LobbyManager.Instance.CreateInteractableObjects(assetBundleDownloader.storageAccountName, assetBundleDownloader.containerName, assetBundleDownloader.prefabName, assetBundleDownloader.bundleName, assetBundleDownloader.modelName);
 #endif
             }
         }
