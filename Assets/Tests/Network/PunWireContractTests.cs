@@ -20,10 +20,13 @@ namespace GeoX.Network.Tests
     /// resolved by reflection over the loaded Assembly-CSharp. The Photon types are
     /// referenced directly through the PhotonUnityNetworking assembly.
     ///
-    /// This is the deterministic tier only. The full two-client workflows (live room
-    /// join, remote sees movement, reconnect/teardown) run against a live Photon app
-    /// and are documented as a manual procedure in docs/networking-harness.md; they
-    /// are non-deterministic and multi-process, so they are not a CI gate.
+    /// This is the deterministic tier only, and it covers what does NOT depend on a
+    /// live PUN client: the deserialization contract and the anchor-ID handler effect.
+    /// The send side of transform sync branches on PhotonView ownership
+    /// (PhotonView.IsMine, which needs an initialized PhotonNetwork client), and the
+    /// full two-client workflows (live room join, remote sees movement,
+    /// reconnect/teardown) are non-deterministic and multi-process. Both are covered
+    /// by the manual live procedure in docs/networking-harness.md, not by this gate.
     /// </summary>
     public class PunWireContractTests
     {
@@ -58,11 +61,6 @@ namespace GeoX.Network.Tests
             return Field(target.GetType(), name).GetValue(target);
         }
 
-        private static void SetField(object target, string name, object value)
-        {
-            Field(target.GetType(), name).SetValue(target, value);
-        }
-
         private GameObject NewGameObject(string name)
         {
             GameObject go = new GameObject(name);
@@ -87,55 +85,13 @@ namespace GeoX.Network.Tests
             spawned.Clear();
         }
 
-        // --- transform sync: write path --------------------------------------
-
-        /// <summary>
-        /// Sending side: an owned/plain object serializes exactly localPosition,
-        /// localRotation, localScale, in that order. Pins the transform-sync payload
-        /// the #23 rewrite must reproduce.
-        /// </summary>
-        [Test]
-        public void SerializeView_Write_EmitsLocalPositionRotationScaleInOrder()
-        {
-            Type syncType = GameType("GenericNetSync");
-            GameObject go = NewGameObject("sync-write");
-            PhotonView view = go.AddComponent<PhotonView>();
-            Component sync = go.AddComponent(syncType);
-
-            // Bypass Start(): wire the private PhotonView the component reads, and
-            // leave User == false so serialization takes the plain-object branch
-            // (the general transform contract, independent of camera/anchor state).
-            SetField(sync, "PV", view);
-            SetField(sync, "User", false);
-
-            go.transform.localPosition = new Vector3(1f, 2f, 3f);
-            go.transform.localRotation = Quaternion.Euler(10f, 20f, 30f);
-            go.transform.localScale = new Vector3(4f, 5f, 6f);
-
-            PhotonStream stream = new PhotonStream(true, null);
-            // The public PUN constructor leaves the internal write list null (PUN
-            // fills it via the internal SetWriteStream before use), so initialize it
-            // here or the first SendNext throws a NullReferenceException.
-            typeof(PhotonStream).GetField("writeData",
-                BindingFlags.Instance | BindingFlags.NonPublic).SetValue(stream, new List<object>());
-            ((IPunObservable)sync).OnPhotonSerializeView(stream, default(PhotonMessageInfo));
-            object[] payload = stream.ToArray();
-
-            Assert.AreEqual(3, payload.Length, "expected exactly position, rotation, scale");
-            Assert.IsInstanceOf<Vector3>(payload[0]);
-            Assert.IsInstanceOf<Quaternion>(payload[1]);
-            Assert.IsInstanceOf<Vector3>(payload[2]);
-            Assert.AreEqual(go.transform.localPosition, (Vector3)payload[0]);
-            Assert.AreEqual(go.transform.localRotation, (Quaternion)payload[1]);
-            Assert.AreEqual(go.transform.localScale, (Vector3)payload[2]);
-        }
-
         // --- transform sync: read path ---------------------------------------
 
         /// <summary>
         /// Receiving side: three incoming values are read, in order, as
         /// position/rotation/scale into the network-target fields. Pins the
-        /// deserialization contract; the read branch touches no PUN connection state.
+        /// transform-sync deserialization contract; the read branch touches no PUN
+        /// connection state, so it is deterministic without a client.
         /// </summary>
         [Test]
         public void SerializeView_Read_StoresReceivedPositionRotationScale()

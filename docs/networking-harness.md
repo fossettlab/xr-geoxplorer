@@ -30,10 +30,9 @@ Location: `Assets/Tests/Network/`
   assemblies directly; resolves the gameplay types (which live in
   `Assembly-CSharp`, un-referenceable from a test assembly) by reflection.
 - `PunWireContractTests.cs`:
-  - `SerializeView_Write_EmitsLocalPositionRotationScaleInOrder` - the sender
-    serializes exactly `localPosition`, `localRotation`, `localScale`, in order.
   - `SerializeView_Read_StoresReceivedPositionRotationScale` - the receiver reads
-    three incoming values, in order, into its network-target fields.
+    three incoming values, in order, into its network-target fields. Pins the
+    transform-sync payload shape (`localPosition`, `localRotation`, `localScale`).
   - `SharedAnchorIdHandler_WritesIdIntoNetworkManager` - the buffered anchor-ID
     RPC handler copies the received string into
     `GenericNetworkManager.AzureAnchorID`.
@@ -46,10 +45,14 @@ Run locally: Unity Editor -> Window -> General -> Test Runner -> EditMode -> Run
 
 ### What Tier 1 does not cover
 
-The transform-sync owned-user/camera branch (anchor-relative substitution) depends
-on reliable PUN ownership and is exercised by the Tier 2 live run. Room join, RPC
-routing/buffering across real clients, disconnect, and reconnect are inherently
-multi-client and live only in Tier 2.
+The transform-sync **send** side is not in the gate: the serializer branches on
+`PhotonView.IsMine`, which reads the PhotonNetwork client's local player, and that
+client is not initialized in a headless no-connection EditMode run. The receive
+test above pins the same three-value payload shape from the other side, and the
+live send path is exercised in the Tier 2 run. The owned-user/camera branch
+(anchor-relative substitution) likewise depends on reliable PUN ownership. Room
+join, RPC routing/buffering across real clients, disconnect, and reconnect are
+inherently multi-client and live only in Tier 2.
 
 ## Tier 2 - live smoke procedure (manual, not a CI gate)
 
