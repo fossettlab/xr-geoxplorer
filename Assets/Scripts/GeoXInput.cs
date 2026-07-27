@@ -3,7 +3,9 @@ using UnityEngine.InputSystem;
 
 public static class GeoXInput
 {
-    public static bool PrimaryPointerPressed => Mouse.current != null && Mouse.current.leftButton.isPressed;
+    public static bool PrimaryPointerPressed =>
+        (Mouse.current != null && Mouse.current.leftButton.isPressed) ||
+        (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed);
 
     public static bool SecondaryPointerPressed => Mouse.current != null && Mouse.current.rightButton.isPressed;
 
@@ -72,7 +74,9 @@ public static class GeoXInput
                 return 0.0f;
             }
 
-            return Mouse.current.scroll.ReadValue().y / 120.0f;
+            // /120 converts a wheel notch to 1.0; * 0.1 restores the legacy
+            // "Mouse ScrollWheel" axis sensitivity the old Input Manager applied.
+            return Mouse.current.scroll.ReadValue().y / 120.0f * 0.1f;
         }
     }
 }

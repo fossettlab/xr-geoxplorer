@@ -61,17 +61,6 @@ public class PlanetManager : MonoBehaviourPun, IMixedRealityPointerHandler , IPu
     {
 
 
-#if XR_HL2
-        if (Camera.main.GetComponent<GazeProvider>().HitPosition.magnitude > 0)
-        {
-            ListenForCLicks();
-        }
-        else
-        {
-            StopListenForClicks();
-        }
-#endif
-
 #if UNITY_EDITOR || UNITY_IOS || UNITY_ANDROID
 
 #if UNITY_EDITOR
