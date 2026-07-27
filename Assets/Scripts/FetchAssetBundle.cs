@@ -48,6 +48,9 @@ public class FetchAssetBundle : MonoBehaviour
         if (storageAccountName == "")
         {
             object[] pV = GetComponent<PhotonView>().InstantiationData;
+            // pV[0] carries the storage account from the Photon instantiation data for
+            // compatibility, but the bundle URL is now built from RemoteConfig (#25):
+            // all content lives on one account, so the per-object value is not used for the URL.
             storageAccountName = pV[0].ToString();
             containerName = pV[1].ToString();
             prefabName = pV[2].ToString();

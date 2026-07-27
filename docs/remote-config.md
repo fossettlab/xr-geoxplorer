@@ -71,9 +71,15 @@ per build target, or from CI.
 
 **Inject at build / keep local:**
 
-- `RemoteConfig.Prod.local.asset` overrides for prod-only SAS endpoint + API key
-- CI may rewrite `RemoteConfig.Prod.asset` or drop a `.local.asset` into the
-  project before building, then discard it
+- `RemoteConfig.Prod.local.asset` is an **Editor-only** override: the loader reads
+  it via `AssetDatabase` under `#if UNITY_EDITOR`, so it does **not** ship in a
+  player/device build and dropping it into the project has no effect on a Quest
+  build.
+- To put prod-only values (e.g. the SAS key) into a **device build**, CI must
+  rewrite the committed, catalog-referenced `RemoteConfig.Prod.asset` before
+  building — that is the asset a player build actually loads. A build-time
+  injector for this is a TODO and is not needed until the Azure SAS backend
+  (#24) exists; today all three environments use the same public URLs.
 
 ## Adding a new endpoint
 
