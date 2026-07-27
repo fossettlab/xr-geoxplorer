@@ -33,19 +33,14 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 
 
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        bool pointerAction = GeoXInput.PrimaryPointerPressedThisFrame;
 #elif UNITY_IOS || UNITY_ANDROID
-        if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
+        bool pointerAction = GeoXInput.PrimaryTouchReleasedThisFrame;
 #endif
+
+        if (pointerAction && !EventSystem.current.IsPointerOverGameObject())
         {
-
-#if UNITY_EDITOR
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-#elif UNITY_IOS || UNITY_ANDROID
-            Touch touch = Input.GetTouch(0);
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
-
-#endif
+            Ray ray = Camera.main.ScreenPointToRay(GeoXInput.PointerPosition);
 
             FetchAssetBundle assetBundleLoader = Physics.Raycast(ray, out hit) ? hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>() : null;
             if (assetBundleLoader != null && assetBundleLoader.gameObject.tag == Tags.AssetBundleLoader && !SceneQueries.AnyWithTag(Tags.OutcropTooltip))
@@ -62,12 +57,9 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
                 photonView.RPC("CreateABTooltipAtLoc", RpcTarget.All, hitPosition, hitNormal, hit.transform.gameObject.name, photonView.ViewID);
 
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    //PhotonView photonView = PhotonView.Get(this);
-                    PhotonView photonView = hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
-                    photonView.RPC("CreateABTooltipAtLoc", RpcTarget.All, hitPosition, hitNormal, hit.transform.gameObject.name, photonView.ViewID);
-                }
+                //PhotonView photonView = PhotonView.Get(this);
+                PhotonView photonView = hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
+                photonView.RPC("CreateABTooltipAtLoc", RpcTarget.All, hitPosition, hitNormal, hit.transform.gameObject.name, photonView.ViewID);
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "TooltipHideButton")
@@ -76,11 +68,8 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
                 PhotonView photonView = PhotonView.Get(this);
                 photonView.RPC("OnHideTooltip", RpcTarget.All);
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    photonView.RPC("OnHideTooltip", RpcTarget.All);
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("OnHideTooltip", RpcTarget.All);
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "TooltipScaleButton")
@@ -89,11 +78,8 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
                 PhotonView photonView = PhotonView.Get(this);
                 photonView.RPC("OnMakeFullScale", RpcTarget.All);
 #elif UNITY_IOS || UNITY_ANDROID
-                    if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    photonView.RPC("OnMakeFullScale", RpcTarget.All);
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("OnMakeFullScale", RpcTarget.All);
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "TooltipDeleteButton")
@@ -105,13 +91,10 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
                     photonView.RPC("OnDelete", RpcTarget.All);
                 }
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
+                if (hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>() == PhotonView.Get(this))
                 {
-                    if (hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>() == PhotonView.Get(this))
-                    {
-                        PhotonView photonView = PhotonView.Get(this);
-                        photonView.RPC("OnDelete", RpcTarget.All);
-                    }
+                    PhotonView photonView = PhotonView.Get(this);
+                    photonView.RPC("OnDelete", RpcTarget.All);
                 }
 #endif
             }
@@ -121,11 +104,8 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
                 PhotonView photonView = PhotonView.Get(this);
                 photonView.RPC("OnReset", RpcTarget.All);
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    photonView.RPC("OnReset", RpcTarget.All);
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("OnReset", RpcTarget.All);
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "TooltipFlagButton")
@@ -135,11 +115,8 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
                 PhotonView photonView = hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
                 photonView.RPC("OnFlagCreate", RpcTarget.All, hitObjectPosition, hitObjectNormal, hitObjectName, photonView.ViewID);
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    PhotonView photonView = PhotonView.Get(this);
-                    photonView.RPC("OnFlagCreate", RpcTarget.All, hitObjectPosition, hitObjectNormal, hitObjectName, photonView.ViewID);
-                }
+                PhotonView photonView = PhotonView.Get(this);
+                photonView.RPC("OnFlagCreate", RpcTarget.All, hitObjectPosition, hitObjectNormal, hitObjectName, photonView.ViewID);
 #endif
             }
             else if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "TooltipMoveButton")
@@ -184,39 +161,34 @@ public class AssetBundleInteraction : MonoBehaviour, IMixedRealityPointerHandler
 
                 }
 #elif UNITY_IOS || UNITY_ANDROID
-                if (touch.phase == TouchPhase.Ended)
+                //PhotonView photonView = PhotonView.Get(this);
+                PhotonView photonView = hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
+                if (photonView.IsMine)
                 {
-                    //PhotonView photonView = PhotonView.Get(this);
-                    PhotonView photonView = hit.collider.gameObject.GetComponentInParent<FetchAssetBundle>().gameObject.GetComponent<PhotonView>();
-                    if (photonView.IsMine)
+                    if (!moving)
                     {
-                        if (!moving)
-                        {
+                        gameObject.AddComponent<ObjectManipulator>();
+                        gameObject.AddComponent<NearInteractionGrabbable>();
+                        gameObject.GetComponent<ObjectManipulator>().OneHandRotationModeFar = ObjectManipulator.RotateInOneHandType.RotateAboutGrabPoint;
+                        gameObject.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.XAxis;
+                        gameObject.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.ZAxis;
+                        //gameObject.AddComponent<FixedRotationToWorldConstraint>();
 
-                            gameObject.AddComponent<ObjectManipulator>();
-                            gameObject.AddComponent<NearInteractionGrabbable>();
-                            gameObject.GetComponent<ObjectManipulator>().OneHandRotationModeFar = ObjectManipulator.RotateInOneHandType.RotateAboutGrabPoint;
-                            gameObject.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.XAxis;
-                            gameObject.AddComponent<RotationAxisConstraint>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.AxisFlags.ZAxis;
-                            //gameObject.AddComponent<FixedRotationToWorldConstraint>();
-
-                            //gameObject.AddComponent<ManipulationHandler>();
-                            //gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeFar = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;
-                            //gameObject.GetComponent<ManipulationHandler>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.RotationConstraintType.YAxisOnly;
-                            hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.gray;
-                            hit.collider.gameObject.GetComponentInChildren<TextMeshPro>().text = "Stop manipulation";
-                            moving = true;
-                        }
-                        else
-                        {
-
-                            Destroy(gameObject.GetComponent<ObjectManipulator>());
-                            Destroy(gameObject.GetComponent<RotationAxisConstraint>());
-                            //Destroy(gameObject.GetComponent<ManipulationHandler>());
-                            hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.white;
-                            hit.collider.gameObject.GetComponentInChildren<TextMeshPro>().text = "Move";
-                            moving = false;
-                        }
+                        //gameObject.AddComponent<ManipulationHandler>();
+                        //gameObject.GetComponent<ManipulationHandler>().OneHandRotationModeFar = ManipulationHandler.RotateInOneHandType.RotateAboutObjectCenter;
+                        //gameObject.GetComponent<ManipulationHandler>().ConstraintOnRotation = Microsoft.MixedReality.Toolkit.Utilities.RotationConstraintType.YAxisOnly;
+                        hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.gray;
+                        hit.collider.gameObject.GetComponentInChildren<TextMeshPro>().text = "Stop manipulation";
+                        moving = true;
+                    }
+                    else
+                    {
+                        Destroy(gameObject.GetComponent<ObjectManipulator>());
+                        Destroy(gameObject.GetComponent<RotationAxisConstraint>());
+                        //Destroy(gameObject.GetComponent<ManipulationHandler>());
+                        hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.white;
+                        hit.collider.gameObject.GetComponentInChildren<TextMeshPro>().text = "Move";
+                        moving = false;
 
                     }
                 }
