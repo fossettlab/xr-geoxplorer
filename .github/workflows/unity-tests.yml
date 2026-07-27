@@ -1,0 +1,63 @@
+name: Unity Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unity-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unity-tests:
+    name: unity-tests (EditMode)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      HAS_UNITY_CREDENTIALS: ${{ secrets.UNITY_LICENSE != '' && secrets.UNITY_EMAIL != '' && secrets.UNITY_PASSWORD != '' }}
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Skip tests without Unity credentials
+        if: ${{ env.HAS_UNITY_CREDENTIALS != 'true' }}
+        run: echo "::notice::Unity credentials are not configured, so EditMode tests are skipped."
+
+      - name: Cache Unity Library
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: actions/cache@v6
+        with:
+          path: Library
+          key: Library-EditMode-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            Library-EditMode-
+            Library-
+
+      - name: Run EditMode tests
+        id: unity_tests
+        if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2022.3.62f2
+          testMode: EditMode
+          artifactsPath: artifacts
+
+      - name: Upload test results
+        if: ${{ always() && env.HAS_UNITY_CREDENTIALS == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unity-editmode-results
+          path: ${{ steps.unity_tests.outputs.artifactsPath }}
