@@ -27,6 +27,8 @@ public class PlatformBootstrapper : MonoBehaviour
 
     private void Awake()
     {
+        RemoteConfigLoader.EnsureLoaded();
+
         ActiveVariant = platformOverride == PlatformVariant.Auto
             ? ResolvePlatformVariant()
             : platformOverride;

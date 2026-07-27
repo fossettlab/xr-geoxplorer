@@ -102,7 +102,7 @@ public class MobileMenuManager : MonoBehaviour
 
     IEnumerator FetchFeatured()
     {
-        string url = "https://haringerverdiag.blob.core.windows.net/" + platformType + "?restype=container&comp=list&include=metadata&prefix=featured";
+        string url = RemoteConfig.Current.BuildContainerListUrl(platformType, "featured");
         print(url);
 
         List<OutcropObject> outcropModels = new List<OutcropObject>();
@@ -271,7 +271,7 @@ public class MobileMenuManager : MonoBehaviour
 
     IEnumerator FetchMetadata()
     {
-        string url = "https://haringerverdiag.blob.core.windows.net/" + platformType + "?restype=container&comp=list&include=metadata&prefix=geoxplorer-" + indexType;
+        string url = RemoteConfig.Current.BuildContainerListUrl(platformType, "geoxplorer-" + indexType);
         print(url);
         UnityWebRequest uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
@@ -726,7 +726,7 @@ public class MobileMenuManager : MonoBehaviour
 
     IEnumerator FetchThumbnail(string prefabName, GameObject buttonObject)
     {
-        UnityWebRequest uwrt = UnityWebRequestTexture.GetTexture("https://haringerverdiag.blob.core.windows.net/thumbnails/" + indexType + "/" + prefabName + ".png");
+        UnityWebRequest uwrt = UnityWebRequestTexture.GetTexture(RemoteConfig.Current.BuildThumbnailUrl(indexType + "/" + prefabName + ".png"));
         yield return uwrt.SendWebRequest();
         if (uwrt.result != UnityWebRequest.Result.Success)
         {

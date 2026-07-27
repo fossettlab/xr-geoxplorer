@@ -121,3 +121,7 @@ InitTestScene*.unity*
 
 # Local device logs / scratch (do not commit)
 /tmp/
+
+# RemoteConfig prod overrides (SAS keys / env-specific injection)
+**/RemoteConfig.*.local.asset
+**/RemoteConfig.*.local.asset.meta

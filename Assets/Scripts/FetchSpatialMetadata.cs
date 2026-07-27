@@ -45,7 +45,7 @@ public class FetchSpatialMetadata : MonoBehaviour
 
         
         //string url = "https://geobase.search.windows.net/indexes/geox" + type + "-" + platformType + "-index/docs?api-version=2019-05-06&api-key=" + apiKey + "&search=*&$top=1000";
-        string url = "https://haringerverdiag.blob.core.windows.net/" + platformType + "?restype=container&comp=list&include=metadata&prefix=geoxplorer-" + type;
+        string url = RemoteConfig.Current.BuildContainerListUrl(platformType, "geoxplorer-" + type);
         //UnityWebRequest request = UnityWebRequest.Get(url);
         //yield return request.SendWebRequest();
         print(url);
@@ -106,7 +106,7 @@ public class FetchSpatialMetadata : MonoBehaviour
                         newOC.latitude = latitude;
                         newOC.longitude = longitude;
                         newOC.prefabName = geoxoutcropModel[i].prefabName;
-                        newOC.storageAccountName = "haringerverdiag";
+                        newOC.storageAccountName = RemoteConfig.Current.StorageAccountName;
                         newOC.containerName = "geoxplorer-" + type;
                         newOC.bundleName = geoxoutcropModel[i].bundleName.Replace("geoxplorer-outcrop/","");
 
@@ -161,7 +161,7 @@ public class FetchSpatialMetadata : MonoBehaviour
                             newOC.latitude = latitude;
                             newOC.longitude = longitude;
                             newOC.prefabName = geoxdemModel[i].prefabName;
-                            newOC.storageAccountName = "haringerverdiag";
+                            newOC.storageAccountName = RemoteConfig.Current.StorageAccountName;
                             newOC.containerName = "geoxplorer-" + type;
                             newOC.bundleName = geoxdemModel[i].bundleName.Replace("geoxplorer-outcrop","");
 
@@ -182,7 +182,7 @@ public class FetchSpatialMetadata : MonoBehaviour
 
     IEnumerator FetchStraboDataset()
     {
-        string url = "https://strabospot.org/search/datasets.json";
+        string url = RemoteConfig.Current.StraboSpotSearchUrl;
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
 

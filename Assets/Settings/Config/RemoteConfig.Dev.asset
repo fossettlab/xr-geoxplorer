@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf70b3c8eef416cbff0a3a64a5e348d, type: 3}
+  m_Name: RemoteConfig.Dev
+  m_EditorClassIdentifier: 
+  environmentName: dev
+  assetBundleBaseUrl: https://haringerverdiag.blob.core.windows.net
+  thumbnailsBaseUrl: https://haringerverdiag.blob.core.windows.net/thumbnails
+  featuredModelsConfigUrl: https://haringerverdiag.blob.core.windows.net/thumbnails/FeaturedModels.txt
+  storageAccountName: haringerverdiag
+  sasEndpointBaseUrl: 
+  sasApiKey: 
+  straboSpotSearchUrl: https://strabospot.org/search/datasets.json
+  firebaseAnchorsUrl: https://flasasharing.firebaseio.com/anchors.json
