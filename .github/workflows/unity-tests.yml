@@ -57,7 +57,7 @@ jobs:
 
       - name: Upload test results
         if: ${{ always() && env.HAS_UNITY_CREDENTIALS == 'true' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: unity-editmode-results
           path: ${{ steps.unity_tests.outputs.artifactsPath }}
