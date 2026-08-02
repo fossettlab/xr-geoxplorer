@@ -8,6 +8,6 @@
     "SAS_TTL_MINUTES": "15",
     "SAS_API_KEY": "<set-a-strong-random-key-here; do NOT commit the real value>",
     "ANCHOR_TABLE_NAME": "geoxanchors",
-    "ANCHOR_TABLE_CONNECTION": "<optional; defaults to AzureWebJobsStorage when set>"
+    "ANCHOR_TABLE_CONNECTION": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;"
   }
 }

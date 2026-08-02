@@ -128,5 +128,7 @@ InitTestScene*.unity*
 
 # Local dev environment for the Python/.NET tooling (not part of the Unity app)
 .venv/
+.azurite/
+.npm-tools/
 tools/**/bin/
 tools/**/obj/

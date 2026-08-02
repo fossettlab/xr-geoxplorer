@@ -55,7 +55,9 @@ project. `.NET 8 SDK`, Azure Functions Core Tools v4 (`func`), and
   `compare_manifest_to_inventory.py` cross-checks the manifest against
   `docs/azure-haringerverdiag-inventory.csv` (no Azure/network needed).
   `test_sas_function.sh` and `test_anchor_function.sh` exercise local Function
-  endpoints (needs `func start` in `functions/`).
+  endpoints (needs `func start` in `functions/`; anchor CRUD needs Azurite —
+  see [`docs/functions-local-dev.md`](docs/functions-local-dev.md)).
+  `./scripts/check_merge_conflicts.sh` dry-runs merge conflicts for open PR branches.
 - **Functions CI** (`.github/workflows/functions-tests.yml`): runs
   `python -m pytest functions/tests/` on every PR — no Azure credentials needed.
 - **PR merge order** for open agent branches: see

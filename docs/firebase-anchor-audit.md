@@ -101,7 +101,7 @@ Azure Function endpoints (same app as #24 SAS):
 Unity client target: [`AnchorBackendClient.cs`](../Assets/Scripts/Config/AnchorBackendClient.cs)
 (replaces `FirebaseExchanger.cs` when wired). Scaffold: [`functions/anchor_persistence.py`](../functions/anchor_persistence.py).
 
-RemoteConfig fields (future): reuse `sasEndpointBaseUrl` + `sasApiKey` from #24.
+Full wiring guide: [`docs/firebase-to-anchor-migration.md`](firebase-to-anchor-migration.md).
 
 ## Cutover checklist (Phase B)
 

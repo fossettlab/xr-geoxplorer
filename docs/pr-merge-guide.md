@@ -51,6 +51,14 @@ Single new doc file — no conflicts expected.
 
 ## Step-by-step merge procedure
 
+Dry-run conflicts before merging:
+
+```bash
+./scripts/check_merge_conflicts.sh origin/main cursor/cloud-tickets-networking-auth-50b2
+./scripts/check_merge_conflicts.sh origin/main cursor/hololens-deprecation-50b2
+./scripts/check_merge_conflicts.sh origin/main cursor/unity6-migration-50b2
+```
+
 ### After #161 approved
 
 ```bash

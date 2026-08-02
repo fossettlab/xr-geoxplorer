@@ -50,7 +50,7 @@ Install in the fresh 2022.3 project (match `ProjectSettings/ProjectVersion.txt`)
 
 | Package | Purpose |
 |---|---|
-| `com.unity.netcode.gameobjects` | NGO core |
+| `com.unity.netcode.gameobjects` | NGO core — pin **1.15.1** on 2022.3 (see [`docs/ngo-package-pins.md`](ngo-package-pins.md)) |
 | `com.unity.services.relay` | NAT traversal / hosting |
 | `com.unity.services.lobby` | Session discovery |
 | Vivox (via Unity Services) | Voice |
