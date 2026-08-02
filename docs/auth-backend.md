@@ -32,6 +32,22 @@ Body:    {"bundle": "android/eastshorestructure-bundle"}
 
 The client then issues a plain `GET` against the returned `url`.
 
+### Unity client (EditMode-testable)
+
+[`RestrictedBundleSasClient.cs`](../Assets/Scripts/Config/RestrictedBundleSasClient.cs)
+builds the POST URL, attaches `X-API-Key` from `RemoteConfig.Current.SasApiKey`, and
+parses the JSON response. Example:
+
+```csharp
+StartCoroutine(RestrictedBundleSasClient.RequestSasUrl(
+    "android/eastshorestructure-bundle",
+    (url, ttlMinutes) => StartCoroutine(DownloadFromSignedUrl(url)),
+    error => Debug.LogError(error)));
+```
+
+Smoke test on device or Editor: configure `sasEndpointBaseUrl` + `sasApiKey` on the
+active RemoteConfig asset, call the client, then `UnityWebRequest.Get` the returned URL.
+
 ## User-delegation SAS flow
 
 1. The Function App runs with a **system-assigned managed identity**.
@@ -58,11 +74,16 @@ the #25 RemoteConfig (`sasApiKey` / `sasEndpointBaseUrl`), not hardcoded.
 
 ## Status
 
-**Code scaffolded; not yet provisioned live.** The endpoint has no consumer yet:
-the `restricted` scenes are orphaned (see [#37](https://github.com/fossettlab/xr-geoxplorer/issues/37) —
-the container was simply privatized), and #25 (which delivers the API key to the app)
-is not built, so the app cannot call this yet. Provision when #25 or #40 makes it
-consumable, so live infra is not run unused.
+**Code scaffolded; not yet provisioned live.** Python Function + unit tests live under
+[`functions/`](../functions/). Unity client helper:
+[`RestrictedBundleSasClient.cs`](../Assets/Scripts/Config/RestrictedBundleSasClient.cs)
+reads `sasEndpointBaseUrl` / `sasApiKey` from RemoteConfig (#25) and POSTs to this
+endpoint. The app does not yet call it from download paths — wire-up lands with #37
+when restricted bundles are fetched again.
+
+The endpoint has no production consumer until #25 values are set in the deployed
+RemoteConfig assets and #37 reconnects the restricted scene downloads. Provision live
+Azure infra when those tickets are ready, so the Function is not run unused.
 
 ## Provisioning (when ready)
 
