@@ -52,6 +52,8 @@ project. `.NET 8 SDK`, Azure Functions Core Tools v4 (`func`), and
   `compare_bundle_manifest.py --platform android --build-dir AssetBundles/android`
   compares a local bake folder to `docs/assetbundle-metadata-manifest.json`
   (add `--allow-missing` for partial #6 bakes).
+  `compare_manifest_to_inventory.py` cross-checks the manifest against
+  `docs/azure-haringerverdiag-inventory.csv` (no Azure/network needed).
   `test_sas_function.sh` and `test_anchor_function.sh` exercise local Function
   endpoints (needs `func start` in `functions/`).
 - **Functions CI** (`.github/workflows/functions-tests.yml`): runs

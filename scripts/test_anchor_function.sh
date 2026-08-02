@@ -17,6 +17,10 @@ post_create() {
     -d '{"name":"Cloud Test Room","identifier":"test-asa-id","dateExpired":"2026-12-31T00:00:00Z"}'
 }
 
+echo "== List anchors (expect 503 without table storage, or 200 [] when empty) =="
+curl -sS -w "\nHTTP %{http_code}\n" -X GET "$BASE" \
+  -H "X-API-Key: $KEY" | tail -3
+
 echo "== Create anchor (expect 503 without table storage, or 201 when configured) =="
 post_create | tail -3
 

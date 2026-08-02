@@ -20,6 +20,7 @@ from anchor_persistence import (
     normalize_anchor_id,
     parse_create_body,
     record_to_json,
+    records_to_firebase_list_json,
 )
 from sas_auth import DEFAULT_ALLOWLIST, api_key_valid, bundle_allowed, parse_allowlist
 
@@ -94,6 +95,21 @@ def _fetch_anchor(anchor_id: str) -> AnchorRecord | None:
         return None
 
 
+def _list_anchors() -> list[AnchorRecord]:
+    client = _table_client()
+    if client is None:
+        raise RuntimeError("Anchor table storage is not configured")
+    records: list[AnchorRecord] = []
+    try:
+        entities = client.query_entities(query_filter="PartitionKey eq 'anchor'")
+        for entity in entities:
+            records.append(AnchorRecord.from_table_entity(entity))
+    except Exception:  # noqa: BLE001
+        logging.exception("Failed to list anchors")
+        raise
+    return records
+
+
 # ANONYMOUS at the platform layer; the X-API-Key header is the (intentionally modest)
 # gate, checked in code so the client uses the contract documented in auth-backend.md.
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
@@ -154,6 +170,25 @@ def anchors_create(req: func.HttpRequest) -> func.HttpResponse:
     return func.HttpResponse(
         json.dumps(record_to_json(record)),
         status_code=201,
+        mimetype="application/json",
+    )
+
+
+@app.route(route="anchors", methods=["GET"])
+def anchors_list(req: func.HttpRequest) -> func.HttpResponse:
+    if not api_key_valid(req.headers.get("X-API-Key"), os.environ.get(API_KEY_SETTING)):
+        return func.HttpResponse("Unauthorized", status_code=401)
+
+    try:
+        records = _list_anchors()
+    except RuntimeError:
+        return func.HttpResponse("Anchor storage not configured", status_code=503)
+    except Exception:  # noqa: BLE001
+        return func.HttpResponse("Failed to list anchors", status_code=500)
+
+    return func.HttpResponse(
+        json.dumps(records_to_firebase_list_json(records)),
+        status_code=200,
         mimetype="application/json",
     )
 

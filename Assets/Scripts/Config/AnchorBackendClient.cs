@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -22,12 +24,27 @@ public static class AnchorBackendClient
         public string date_expired;
     }
 
+    /// <summary>Firebase-compatible list entry (camelCase date fields).</summary>
+    [Serializable]
+    public class AnchorListEntry
+    {
+        public string name;
+        public string identifier;
+        public string dateCreated;
+        public string dateExpired;
+    }
+
     [Serializable]
     private class CreateRequest
     {
         public string name;
         public string identifier;
         public string dateExpired;
+    }
+
+    public static string BuildListUrl(string endpointBaseUrl)
+    {
+        return AppendApiPath(endpointBaseUrl, "anchors");
     }
 
     public static string BuildCreateUrl(string endpointBaseUrl)
@@ -72,6 +89,78 @@ public static class AnchorBackendClient
 
         record = parsed;
         return true;
+    }
+
+    public static bool TryParseAnchorListResponse(string json, out List<AnchorListEntry> entries)
+    {
+        entries = null;
+        if (string.IsNullOrWhiteSpace(json) || json.Trim() == "null")
+        {
+            entries = new List<AnchorListEntry>();
+            return true;
+        }
+
+        try
+        {
+            entries = JsonConvert.DeserializeObject<List<AnchorListEntry>>(json);
+        }
+        catch (JsonException)
+        {
+            entries = null;
+            return false;
+        }
+
+        return entries != null;
+    }
+
+    public static IEnumerator ListAnchors(
+        Action<List<AnchorListEntry>> onSuccess,
+        Action<string> onError)
+    {
+        RemoteConfig config = RemoteConfig.Current;
+        if (config == null)
+        {
+            onError?.Invoke("RemoteConfig is not loaded.");
+            yield break;
+        }
+
+        string url = BuildListUrl(config.SasEndpointBaseUrl);
+        if (string.IsNullOrEmpty(url))
+        {
+            onError?.Invoke("Anchor endpoint is not configured.");
+            yield break;
+        }
+
+        if (string.IsNullOrEmpty(config.SasApiKey))
+        {
+            onError?.Invoke("API key is not configured.");
+            yield break;
+        }
+
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            request.SetRequestHeader("X-API-Key", config.SasApiKey);
+            yield return request.SendWebRequest();
+
+#if UNITY_2020_2_OR_NEWER
+            if (request.result != UnityWebRequest.Result.Success)
+#else
+            if (request.isNetworkError || request.isHttpError)
+#endif
+            {
+                onError?.Invoke("List anchors failed (" + request.responseCode + "): " + request.error);
+                yield break;
+            }
+
+            List<AnchorListEntry> parsed;
+            if (!TryParseAnchorListResponse(request.downloadHandler.text, out parsed))
+            {
+                onError?.Invoke("List anchors response was invalid JSON.");
+                yield break;
+            }
+
+            onSuccess?.Invoke(parsed);
+        }
     }
 
     public static IEnumerator CreateAnchor(

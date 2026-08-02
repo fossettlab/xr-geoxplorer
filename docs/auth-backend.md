@@ -59,9 +59,15 @@ Header: X-API-Key: <same SAS_API_KEY for v1>
 Body:   {"name":"Room A","identifier":"<cloud-anchor-id>","dateExpired":"2026-12-31T00:00:00Z"}
 201     {"id":"<32-hex>","name":"...","identifier":"...","date_created":"...","date_expired":"..."}
 
+GET /api/anchors
+Header: X-API-Key: <key>
+200     Firebase-compatible JSON array:
+        [{"name":"...","identifier":"...","dateCreated":"...","dateExpired":"..."}, ...]
+        Empty table returns `[]`. Matches Firebase Realtime Database list shape for drop-in migration.
+
 GET /api/anchors/{id}
 Header: X-API-Key: <key>
-200     same JSON body as POST response
+200     same JSON body as POST response (snake_case fields including `id`)
 401 / 400 / 404 / 503 as appropriate
 ```
 

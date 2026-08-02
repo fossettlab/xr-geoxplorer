@@ -94,21 +94,21 @@ IDs must survive app restarts until Meta anchor groups or marker-based alignment
 
 Azure Function endpoints (same app as #24 SAS):
 
+- `GET /api/anchors` — list all records (Firebase-compatible JSON array)
 - `POST /api/anchors` — store one record; returns `id`
-- `GET /api/anchors/{id}` — retrieve by id
+- `GET /api/anchors/{id}` — retrieve by id (admin/debug; not used by current app)
 
 Unity client target: [`AnchorBackendClient.cs`](../Assets/Scripts/Config/AnchorBackendClient.cs)
 (replaces `FirebaseExchanger.cs` when wired). Scaffold: [`functions/anchor_persistence.py`](../functions/anchor_persistence.py).
 
-RemoteConfig fields (future): reuse `sasApiKey` pattern or add
-`anchorEndpointBaseUrl` alongside existing auth settings.
+RemoteConfig fields (future): reuse `sasEndpointBaseUrl` + `sasApiKey` from #24.
 
 ## Cutover checklist (Phase B)
 
-- [ ] Deploy anchor endpoints with Table Storage backing
-- [ ] Implement `AnchorBackendClient` mirroring current FirebaseExchanger API
+- [ ] Deploy anchor endpoints with Table Storage backing (see [`docs/azure-function-provisioning.md`](azure-function-provisioning.md))
+- [x] Implement `AnchorBackendClient` mirroring Firebase list/create shape
 - [ ] Migrate call sites in post-#17 anchor code
-- [ ] Smoke test on Quest: POST then GET same record
+- [ ] Smoke test on Quest: GET list, POST create, verify name lookup
 - [ ] Remove `firebaseAnchorsUrl` from all RemoteConfig assets
 - [ ] Make Firebase database read-only → delete after 30 days
 - [ ] Grep repo: zero `firebaseio.com` references

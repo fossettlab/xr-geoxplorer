@@ -84,3 +84,17 @@ def parse_create_body(body: dict[str, Any] | None) -> tuple[AnchorRecord | None,
 
 def record_to_json(record: AnchorRecord) -> dict[str, Any]:
     return asdict(record)
+
+
+def record_to_firebase_json(record: AnchorRecord) -> dict[str, Any]:
+    """Firebase Realtime Database shape for drop-in GET list parity (#40)."""
+    return {
+        "name": record.name,
+        "identifier": record.identifier,
+        "dateCreated": record.date_created,
+        "dateExpired": record.date_expired,
+    }
+
+
+def records_to_firebase_list_json(records: list[AnchorRecord]) -> list[dict[str, Any]]:
+    return [record_to_firebase_json(record) for record in records]

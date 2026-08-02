@@ -9,7 +9,9 @@ from anchor_persistence import (  # noqa: E402
     normalize_anchor_id,
     new_anchor_id,
     parse_create_body,
+    record_to_firebase_json,
     record_to_json,
+    records_to_firebase_list_json,
 )
 
 
@@ -53,3 +55,30 @@ def test_record_to_json_roundtrip_fields():
     assert payload["name"] == "n"
     assert payload["identifier"] == "i"
     assert "id" in payload
+
+
+def test_record_to_firebase_json_uses_camel_case():
+    record, _ = parse_create_body(
+        {"name": "Room", "identifier": "asa-1", "dateExpired": "2026-01-01T00:00:00Z"}
+    )
+    payload = record_to_firebase_json(record)
+    assert payload == {
+        "name": "Room",
+        "identifier": "asa-1",
+        "dateCreated": record.date_created,
+        "dateExpired": "2026-01-01T00:00:00Z",
+    }
+    assert "id" not in payload
+
+
+def test_records_to_firebase_list_json_returns_array():
+    first, _ = parse_create_body(
+        {"name": "A", "identifier": "1", "dateExpired": "2026-01-01T00:00:00Z"}
+    )
+    second, _ = parse_create_body(
+        {"name": "B", "identifier": "2", "dateExpired": "2026-02-01T00:00:00Z"}
+    )
+    payload = records_to_firebase_list_json([first, second])
+    assert len(payload) == 2
+    assert payload[0]["name"] == "A"
+    assert payload[1]["name"] == "B"
