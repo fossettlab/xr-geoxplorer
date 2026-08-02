@@ -52,5 +52,7 @@ project. `.NET 8 SDK`, Azure Functions Core Tools v4 (`func`), and
   `compare_bundle_manifest.py --platform android --build-dir AssetBundles/android`
   compares a local bake folder to `docs/assetbundle-metadata-manifest.json`
   (add `--allow-missing` for partial #6 bakes).
+  `test_sas_function.sh` and `test_anchor_function.sh` exercise local Function
+  endpoints (needs `func start` in `functions/`).
 - **Functions CI** (`.github/workflows/functions-tests.yml`): runs
   `python -m pytest functions/tests/` on every PR — no Azure credentials needed.

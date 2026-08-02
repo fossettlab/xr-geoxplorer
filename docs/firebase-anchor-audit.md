@@ -97,8 +97,8 @@ Azure Function endpoints (same app as #24 SAS):
 - `POST /api/anchors` — store one record; returns `id`
 - `GET /api/anchors/{id}` — retrieve by id
 
-Unity client target: `AnchorBackendClient.cs` replacing `FirebaseExchanger.cs`.
-Scaffold: [`functions/anchor_persistence.py`](../functions/anchor_persistence.py).
+Unity client target: [`AnchorBackendClient.cs`](../Assets/Scripts/Config/AnchorBackendClient.cs)
+(replaces `FirebaseExchanger.cs` when wired). Scaffold: [`functions/anchor_persistence.py`](../functions/anchor_persistence.py).
 
 RemoteConfig fields (future): reuse `sasApiKey` pattern or add
 `anchorEndpointBaseUrl` alongside existing auth settings.
