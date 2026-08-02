@@ -1,15 +1,19 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class AnchorExchanger
 {
 //#if !UNITY_EDITOR
+		private static readonly HttpClient Http = new HttpClient();
+
 		private string baseAddress = "";
+		private CancellationTokenSource watchCancellation;
 
 		private List<string> anchorkeys = new List<string>();
 
@@ -24,13 +28,24 @@ public class AnchorExchanger
 			}
 		}
 
+		public void StopWatching()
+		{
+			watchCancellation?.Cancel();
+			watchCancellation?.Dispose();
+			watchCancellation = null;
+		}
+
 		public void WatchKeys(string exchangerUrl)
 		{
+			StopWatching();
 			baseAddress = exchangerUrl;
-			Task.Factory.StartNew(async () =>
+			watchCancellation = new CancellationTokenSource();
+			CancellationToken token = watchCancellation.Token;
+
+			_ = Task.Run(async () =>
 			{
 				string previousKey = string.Empty;
-				while (true)
+				while (!token.IsCancellationRequested)
 				{
 					string currentKey = await RetrieveLastAnchorKey();
 					if (!string.IsNullOrWhiteSpace(currentKey) && currentKey != previousKey)
@@ -42,17 +57,24 @@ public class AnchorExchanger
 						}
 						previousKey = currentKey;
 					}
-					await Task.Delay(500);
+
+					try
+					{
+						await Task.Delay(500, token);
+					}
+					catch (OperationCanceledException)
+					{
+						break;
+					}
 				}
-			}, TaskCreationOptions.LongRunning);
+			}, token);
 		}
 
 		public async Task<string> RetrieveAnchorKey(long anchorNumber)
 		{
 			try
 			{
-				HttpClient client = new HttpClient();
-				return await client.GetStringAsync(baseAddress + "/" + anchorNumber.ToString());
+				return await Http.GetStringAsync(baseAddress + "/" + anchorNumber.ToString());
 			}
 			catch (Exception ex)
 			{
@@ -66,8 +88,7 @@ public class AnchorExchanger
 		{
 			try
 			{
-				HttpClient client = new HttpClient();
-				return await client.GetStringAsync(baseAddress + "/last");
+				return await Http.GetStringAsync(baseAddress + "/last");
 			}
 			catch (Exception ex)
 			{
@@ -86,8 +107,7 @@ public class AnchorExchanger
 
 			try
 			{
-				HttpClient client = new HttpClient();
-				var response = await client.PostAsync(baseAddress, new StringContent(anchorKey));
+				var response = await Http.PostAsync(baseAddress, new StringContent(anchorKey));
 				if (response.IsSuccessStatusCode)
 				{
 					string responseBody = await response.Content.ReadAsStringAsync();
