@@ -1,0 +1,1 @@
+session_date,git_sha,pipeline,scene_view,refresh_target_hz,fps_avg,fps_min,dropped_frames_pct,cpu_ms_avg,gpu_ms_avg,cpu_level,gpu_level,thermal_state,notes

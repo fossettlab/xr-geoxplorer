@@ -58,3 +58,5 @@ project. `.NET 8 SDK`, Azure Functions Core Tools v4 (`func`), and
   endpoints (needs `func start` in `functions/`).
 - **Functions CI** (`.github/workflows/functions-tests.yml`): runs
   `python -m pytest functions/tests/` on every PR — no Azure credentials needed.
+- **PR merge order** for open agent branches: see
+  [`docs/pr-merge-guide.md`](docs/pr-merge-guide.md).

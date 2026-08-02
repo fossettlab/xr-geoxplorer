@@ -68,6 +68,8 @@ rg -l 'PunRPC|PhotonNetwork|PhotonView' Assets/Scripts --glob '*.cs'
 Expect touch points in: `GenericNetworkManager`, `LobbyManager`, `PlanetManager`,
 `MenuManager`, `RoomManager`, voice under `Assets/Photon/`.
 
+Full file-level inventory: [`docs/networking-file-inventory.md`](networking-file-inventory.md).
+
 ## Out of scope for #23
 
 - Normcore (dropped)
