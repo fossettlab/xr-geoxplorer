@@ -49,3 +49,8 @@ project. `.NET 8 SDK`, Azure Functions Core Tools v4 (`func`), and
   `docs/assetbundle-source-mapping.csv`** — `git checkout` it afterward if you
   only ran it to experiment. `upload_assetbundles_to_azure.py --dry-run`
   validates an upload plan without touching Azure.
+  `compare_bundle_manifest.py --platform android --build-dir AssetBundles/android`
+  compares a local bake folder to `docs/assetbundle-metadata-manifest.json`
+  (add `--allow-missing` for partial #6 bakes).
+- **Functions CI** (`.github/workflows/functions-tests.yml`): runs
+  `python -m pytest functions/tests/` on every PR — no Azure credentials needed.

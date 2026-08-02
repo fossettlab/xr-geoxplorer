@@ -48,6 +48,27 @@ StartCoroutine(RestrictedBundleSasClient.RequestSasUrl(
 Smoke test on device or Editor: configure `sasEndpointBaseUrl` + `sasApiKey` on the
 active RemoteConfig asset, call the client, then `UnityWebRequest.Get` the returned URL.
 
+## Anchor persistence endpoints (#40 Phase B scaffold)
+
+**Not wired in the Unity app yet** — replaces Firebase when #17 + #23 land. See
+[`docs/firebase-anchor-audit.md`](firebase-anchor-audit.md).
+
+```
+POST /api/anchors
+Header: X-API-Key: <same SAS_API_KEY for v1>
+Body:   {"name":"Room A","identifier":"<cloud-anchor-id>","dateExpired":"2026-12-31T00:00:00Z"}
+201     {"id":"<32-hex>","name":"...","identifier":"...","date_created":"...","date_expired":"..."}
+
+GET /api/anchors/{id}
+Header: X-API-Key: <key>
+200     same JSON body as POST response
+401 / 400 / 404 / 503 as appropriate
+```
+
+Backing store: Azure Table Storage (`ANCHOR_TABLE_NAME`, default `geoxanchors`).
+Connection via `ANCHOR_TABLE_CONNECTION` or `AzureWebJobsStorage`. Returns **503**
+when table storage is not configured (expected locally without Azurite).
+
 ## User-delegation SAS flow
 
 1. The Function App runs with a **system-assigned managed identity**.
