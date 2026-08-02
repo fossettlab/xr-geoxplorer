@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -6,6 +7,7 @@ public enum PlatformId
     Editor,
     Quest,
     Mobile,
+    [Obsolete("HoloLens 2 / UWP is not supported. Kept for API compatibility.")]
     LegacyHoloLens2,
     Other
 }
@@ -22,13 +24,6 @@ public static class Platform
             }
 
             RuntimePlatform runtimePlatform = Application.platform;
-            if (runtimePlatform == RuntimePlatform.WSAPlayerARM ||
-                runtimePlatform == RuntimePlatform.WSAPlayerX64 ||
-                runtimePlatform == RuntimePlatform.WSAPlayerX86)
-            {
-                return PlatformId.LegacyHoloLens2;
-            }
-
             if (runtimePlatform == RuntimePlatform.Android)
             {
                 return IsQuestRuntime() ? PlatformId.Quest : PlatformId.Mobile;
@@ -58,14 +53,15 @@ public static class Platform
         get { return Current == PlatformId.Mobile; }
     }
 
+    [Obsolete("HoloLens 2 / UWP is not supported.")]
     public static bool IsLegacyHoloLens2
     {
-        get { return Current == PlatformId.LegacyHoloLens2; }
+        get { return false; }
     }
 
     public static bool IsAnyXR
     {
-        get { return IsQuest || IsLegacyHoloLens2; }
+        get { return IsQuest; }
     }
 
     private static bool IsQuestRuntime()

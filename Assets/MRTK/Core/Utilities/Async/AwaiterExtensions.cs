@@ -76,10 +76,12 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
             return GetAwaiterReturnVoid(instruction);
         }
 
+#if !UNITY_6000_0_OR_NEWER
         public static SimpleCoroutineAwaiter<AsyncOperation> GetAwaiter(this AsyncOperation instruction)
         {
             return GetAwaiterReturnSelf(instruction);
         }
+#endif
 
         public static SimpleCoroutineAwaiter<Object> GetAwaiter(this ResourceRequest instruction)
         {

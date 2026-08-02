@@ -1,76 +1,92 @@
-# Handoff — xr-geoxplorer modernization
+# Handoff — xr-geoxplorer
 
-This repo is being revived from an archived **Unity 2019.4.8f1** state to a shippable **Meta Quest 3** mixed-reality app on **Unity 2022.3 LTS / URP / OpenXR / MRTK3**. **HoloLens 2 was dropped as a target on 2026-06-06** (EOL'd; lab units being sold) — Quest 3 is the only headset target, with iOS/Android secondary.
+**State as of 2026-08-02 (UTC):** Active work is on branch **`unity6-upgrade-spike`** (not merged to `main`). Project upgraded **2022.3.62f2 → Unity 6000.4.4f1**; **Unity CLI + Pipeline MCP** connected and verified. **GeoXShared** is the open scene; compile **green** (`recompile_status: completed`, no errors). Legacy **JsonDotNet** removed; **com.unity.nuget.newtonsoft-json** 3.0.2 via UPM. **HoloLens/UWP deprecated** (Quest-first). Next app task after landing spike PR: **#28 async hygiene** (see below).
 
-## Start here
+**Memory slug:** `~/.claude-washu/projects/-Users-abradley-Dropbox--Geospatial-Fossett-Lab-09-XR-xr-geoxplorer/memory/`
 
-1. **Read the epic:** https://github.com/fossettlab/xr-geoxplorer/issues/1 — it has the goal, the Quest-first decision principle, the dep graph, and a tree of 36 sub-issues. ~5 minutes.
-2. **Read the Azure storage inventory:** [`docs/azure-storage-inventory.md`](docs/azure-storage-inventory.md) — what's deployed on Azure today, which 5 of 23 containers the runtime uses, and the bundle-structure finding that reshaped #6. ~5 minutes.
-3. **Work the Pre-flight tickets in order:** #2 → #3 → #4. Most of #2's archaeology is already done (see its body); the dev decision left there is small. Ticket #4 is a 5-minute `git tag` task, tagged `good first issue` as a warm-up.
-4. **Each ticket is self-contained.** File:line references against the current codebase, acceptance-criteria checkboxes, suggested approach with code patterns, doc links, and explicit out-of-scope. If anything is unclear, comment on the ticket before starting work.
+---
 
-## Workflow
+## Unity 6 upgrade spike (branch: `unity6-upgrade-spike`)
 
-- **Fork the repo.** PRs come in from your fork. Each PR closes one sub-issue.
-- **Conventional commits** on PRs: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`.
-- **Never commit directly to `main`.** Open a PR.
-- **One PR per sub-issue** (or per coherent piece of one — the URP migration #13 may be multiple PRs).
-- Tag this repo's lead in PR review when a sub-issue is ready to close.
+### What changed (this spike)
 
-## Quest-first principle
+| Area | Change |
+|------|--------|
+| **Editor** | `ProjectSettings/ProjectVersion.txt` → **6000.4.4f1** |
+| **Packages** | Unity 6 migration bumped XR/OpenXR/Input System/etc.; added **com.unity.pipeline** 0.4.0-exp.1, **com.unity.nuget.newtonsoft-json** 3.0.2 |
+| **JsonDotNet** | Deleted `Assets/JsonDotNet/` (GUID conflict with UPM Newtonsoft); scripts still `using Newtonsoft.Json` |
+| **HoloLens** | `Platform.cs` / `PlatformBootstrapper` — no WSA detection; `LegacyHoloLens2` obsolete. MRTK `MixedRealityOptimizeUtils` — UWP/WMR stubs removed |
+| **MRTK compile** | `AwaiterExtensions.cs` — skip `AsyncOperation` awaiter on Unity 6 (conflict with built-in) |
+| **Agent tooling** | `.cursor/mcp.json` (Unity MCP server), `.cursor/permissions.json` (CLI/MCP allowlist + auto-review hints), `AGENTS.md` Unity workflow section |
+| **Scene** | **GeoXShared.unity** in build settings and opened via `unity command open_scene` |
 
-**HoloLens dropped 2026-06-06** — the HL2 references below are historical. Quest 3 is the only headset target, so the principle now governs Quest-vs-mobile trade-offs. Explicitly:
+### Unity MCP / CLI workflow (operator machine)
 
-- URP is mandatory (Quest perf parity).
-- Vulkan over D3D11 (Quest preferred).
-- MRTK3 over MRTK 2.8 (skipping the intermediate step).
-- Meta Spatial Anchors first. Cross-device (phone↔headset) co-location is marker-based (AprilTag/QR): Azure Spatial Anchors was retired 2024-11-20 with no replacement, and no platform-level cross-ecosystem shared anchors exist.
+- **Requires:** Unity Editor open on this project (`unity open "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer"` — use full path, not `~`).
+- **Verify connection:** `unity pipeline list` → Server Reachable; `unity status`.
+- **Read-only checks:** `unity command list_open_scenes`, `unity command get_console_logs -- --limit N`, `unity command recompile_status`.
+- **Do not** run destructive Pipeline commands (`delete_*`, `editor_play`, `package_remove`, etc.) without explicit user approval.
+- **Batch mode** (`unity run`) compiles then exits — Pipeline server needs a **GUI Editor** session.
 
-## Sizing convention
+### What is NOT done yet (Unity 6 track)
 
-Sub-issues use AI-first dev workflow estimates (Claude / Cursor / Copilot driving most typing):
-- **S** ≤ 2 h
-- **M** 2 h – 1 d
-- **L** 1 – 3 d
-- **XL** 3 – 7 d
-- **XXL** > 1 wk
+1. **PR to `main`** — spike unmerged; CI (android-build, unity-tests) not re-run on Unity 6 yet.
+2. **Android/Quest build** on 6000.4.4f1 — not verified (`unity build` / `unity command build` dry-run next).
+3. **#28 async hygiene** — resume after spike lands or continue on branch.
+4. **MRTK 2 → MRTK 3** — not started (#14); legacy MRTK still in `Assets/MRTK/`.
+5. **Package Manager online search auth error** in console — cosmetic unless searching registry in Editor.
 
-Hardware-in-loop work (device deploys, Unity build cycles, anchor lifecycle debugging) does **not** compress with AI and is sized accordingly. Adjust upward if your workflow is more manual.
+### Gotchas (Unity 6)
 
-## What you need that's not in the public tickets
+- **`main` is still 2022.3.62f2** until this branch merges.
+- **Preserve CRLF + UTF-8 BOM** on `.cs` edits.
+- **Legacy HoloLens** assets remain under `Assets/Scenes/_legacy/`, `PlatformRoot.HoloLens2.prefab` — reference only, not supported.
 
-These are deliberately not in tickets — request them from the project lead before starting the relevant phase:
+---
 
-| Need | When | What |
-|---|---|---|
-| **Azure subscription access** (Fossett Lab) | Phase 1 onward | Read access for the `haringerverdiag` storage account (asset bundles + thumbnails + restricted); write access for staging blob + the Azure Function (#24). Account inventory: `docs/azure-storage-inventory.md`. |
-| **NAS access** (Fossett Lab) | Phase 1 (#6) | The 48 GB `GeoXAssetBundles` Unity project at `/mnt/nas/dev/fossett_xr_apps/GeoXAssetBundles/` holds source content for the bundle re-bake. Likely accessed via lab VPN or a one-time rsync. |
-| **Firebase project access** | Phase 4 (#24) | Read access to inventory existing data before audit-or-delete. |
-| **Meta Quest Developer org invite** | Phase 6 (#33) | For App Lab submission. |
-| **One Quest 3 device, ideally two** | Phase 1 (#10) onward | Two are needed for the networking spike (#22) and the HW smoke suite (#32). |
-| **Unity Pro / Plus / Education license** | Phase 1 (#12) onward | Required for GitHub Actions builder; recommended for IL2CPP builds. |
-| **Production Android keystore** | Phase 6 (#33) | For signed App Lab uploads. Generate fresh; store in a secrets manager, not the repo. |
+## Prior sprint context (2026-07-27, `main`)
 
-## Hard external deadline
+**Last committed on `main`:** `22410a2` — "Migrate mouse/touch input to the new Input System (#8)".
 
-**Meta requires `targetSdkVersion = 34` (Android 14) for new binary uploads to App Lab and the Quest store from March 1, 2026.** Ticket #9 lands this; #33 verifies it in the final build.
+## One-paragraph summary
 
-## Top risks (also in the epic)
+Sean (contractor) is on vacation ~1 month; the operator has the Quest 3 back and wants **batched** headset validation, not tiny device tasks — so the plan is to drive every non-headset task to merged/staged while quarantining device-only work. This sprint reviewed all open PRs (operator + codex), merged the three clean ones, then merged RemoteConfig (#147, closes #25) and stood up the first **automated no-device test coverage** (#148: a `GeoX.Config` asmdef + EditMode tests + a `Unity Tests` CI workflow via `game-ci/unity-test-runner`). The big win: codex plan+impl review revealed PR **#143** was not a simple input migration but bundled a ~14k-line scene rewrite + a 2,350-line per-frame UI bootstrapper; we extracted only the legitimate input migration (a `GeoXInput` wrapper + 4 migrated scripts, Active Input Handling kept on **Both**), fixed two behavior regressions codex found, merged it as **#149** (closes #8), closed #143 as superseded, and filed the excluded work as **#150** (`needs-quest`). Infrastructure now in place: **Beads** as the local agent execution layer (stealth, git-excluded; `bd ready` = the work queue), **elves** installed globally (native-worker-only guardrail). The operating rule the operator set: **codex reviews both the plan and the implementation of everything** before merge. Next checkpoint: task **#28 async hygiene** (coroutine-native model chosen), through the same spec → codex → implement → codex → CI loop.
 
-1. **Bundle-structure mismatch** (#6): the NAS pipeline outputs one bundle per category; deployed bundles are one per model. Dev writes a fresh pipeline matching the deployed shape — small Editor script, ~1–2 days. Details in #6 and `docs/azure-storage-inventory.md`.
-2. **Custom shader rewrites** in #13 (`Blend2Textures.shader` fixed-function, `Planet.shader` Surface Shader) are URP **rewrites**, not conversions.
-3. **Networking rewrite** (#23) is genuinely large — 40 PunRPCs + Photon Voice migration + anchor-ID bridge.
-4. **URP perf gate** (#13) could fail on first attempt — keep the PR reversible.
-5. **March 2026 Meta deadline** is hard external (targetSdkVersion 34 for new uploads).
+## Where we are
 
-## Decisions already made (do not re-litigate without raising it on #1)
+- **Primary artifact:** the Unity app on `main`, all merged work compile-gated (Android build) + EditMode-tested + CS1626 lint green.
+- **Last committed state:** `22410a2` — "Migrate mouse/touch input to the new Input System (#8)".
+- **Key external state:** 0 open PRs. Beads DB at `.beads/` (git-excluded, local). Open GitHub issues tracked in Beads with `--external-ref gh-N`; `bd ready` gives the dependency-unblocked queue. New issue **#150** = deferred #143 UI/scene work (`needs-quest`, `headset-only`).
 
-- **Networking:** Unity Netcode for GameObjects + Relay + Vivox (default). Fusion 2 as fallback if NGO can't hit Quest perf. Normcore dropped.
-- **Anchors:** Meta XR Core SDK Spatial Anchors / Building Blocks (default). AR Foundation OpenXR as fallback. 1-2 day spike validates inside #17.
-- **Auth backend:** signed Azure Function. Firebase Unity SDK only if a feature actually needs it. Same Function also issues SAS tokens for the `restricted` container (#37).
-- **Scene architecture:** one `GeoXShared.unity` with per-platform prefab variants. Ends the manual scene-swap workflow described in the old `README.txt`.
-- **AssetBundle pipeline:** the NAS `GeoXAssetBundles` project (Unity 2017.4) is reference, not runnable; the dev writes a fresh small pipeline in #6 that produces the per-model layout the runtime expects. See `docs/azure-storage-inventory.md` and #6.
+## What changed this session (committed vs uncommitted)
 
-## Questions
+### Code / config (all committed, on `main`)
+- `Assets/Scripts/Config/RemoteConfig*.cs` + `GeoX.Config.asmdef` — RemoteConfig ScriptableObject + its assembly (#147/#148).
+- `Assets/Tests/EditMode/RemoteConfigTests.cs` + `GeoX.Config.Tests.asmdef` — 5 NUnit tests pinning RemoteConfig URLs (#148).
+- `.github/workflows/unity-tests.yml` — new `unity-tests (EditMode)` CI job (#148).
+- `Assets/Scripts/GeoXInput.cs` (new) + migrated `MobileManipulation/PlanetManager/AssetBundleInteraction/RoomManager.cs` — input migration (#149). CRLF+BOM preserved; Active Input Handling stays **Both**.
 
-Comment on the relevant sub-issue, or on the epic (#1) for cross-cutting questions.
+### Docs
+- `docs/remote-config.md` — corrected the prod-injection note (editor-only override; a device build needs CI to rewrite the committed `Prod.asset`).
+
+### Tooling (operator machine, not this repo)
+- Beads initialized (`.beads/`, git-excluded); elves installed at `~/.claude/skills/elves`.
+- `~/.claude/rules/account-data-routing.md` updated (WashU codex now defaults to `gpt-5.6-sol`) — uncommitted in the `~/.claude` config repo.
+
+## What is NOT done yet
+
+1. **#28 async hygiene** — coroutine-native model chosen; run spec → codex plan review → implement → codex impl review → CI. Start here.
+2. **#21 PUN characterization test harness** — headless test code (regression baseline for the eventual PUN→NGO rewrite).
+3. **#13 URP migration** — operator must approve the Quest-tuned URP config **before** codex implements; then stage as a build-green PR (perf validated later on Quest).
+4. **Editor Play Mode feel-check for #149** — mouse zoom speed / touch rotation on macOS (scroll units platform-dependent; Windows parity restored). No headset; operator's Mac.
+5. **`headset-only` beads** (#10,#11,#13,#17,#18,#19,#32,#33,#34) — batched Quest session when ready.
+
+## Gotchas for the next session
+
+- **Active Input Handling MUST stay "Both" (2)** — `QuestAndroidStoreSettingsConfigurator` on `main` validates and fails otherwise. Do NOT flip to "New" until MRTK3 (#14). (Memory: `input-handling-must-stay-both`.)
+- **`.cs` files are CRLF + UTF-8 BOM; do NOT renormalize endings.** `main`'s `MobileManipulation.cs` is legitimately mixed CRLF/LF — preserve per-line endings, change only real lines (the extraction used a difflib ending-preserving merge).
+- **Green CI ≠ correct/in-scope.** #143 was green but bloated — read a large PR's actual contents, not its stats.
+- **codex reviews everything (plan + impl)** — operator asked for this explicitly. Route via `~/.claude/scripts/codex_call.sh`; WashU session = `gpt-5.6-sol`. Watch for the codex "grok delegation" rabbit hole and >200KB prompts (both cause empty/timeout) — filter big diffs (exclude regenerated prefabs/scene/.meta).
+- **Beads is stealth/local** — do not commit `.beads/`; GitHub Issues stay canonical for humans (Sean/cursor). Reconcile bead status at each merge.
+- **elves external workers stay OFF** (no API keys) — native codex only, so proprietary code never leaves the machine.
+- **`scripts/__pycache__/`** is untracked noise — never `git add -A`; stage explicit paths.
