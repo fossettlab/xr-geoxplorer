@@ -125,3 +125,8 @@ InitTestScene*.unity*
 # RemoteConfig prod overrides (SAS keys / env-specific injection)
 **/RemoteConfig.*.local.asset
 **/RemoteConfig.*.local.asset.meta
+
+# Local dev environment for the Python/.NET tooling (not part of the Unity app)
+.venv/
+tools/**/bin/
+tools/**/obj/
