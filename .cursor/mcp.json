@@ -6,7 +6,7 @@
       "args": [
         "mcp",
         "--project-path",
-        "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer"
+        "${workspaceFolder}"
       ]
     }
   }

@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -402,20 +403,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 #if UNITY_6000_0_OR_NEWER && (UNITY_IOS || UNITY_ANDROID)
     private async System.Threading.Tasks.Task ApplyMobileAnchorAsync(ARAnchorManager anchorManager, Pose anchorPose)
     {
-        var result = await anchorManager.TryAddAnchorAsync(anchorPose);
-        if (!result.status.IsSuccess() || result.value == null)
+        try
         {
-            Debug.Log("There was an error creating a reference point");
-        }
-        else
-        {
-            TableAnchor.instance.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
-            TableAnchor.instance.transform.parent = result.value.transform;
-        }
+            var result = await anchorManager.TryAddAnchorAsync(anchorPose);
+            if (!result.status.IsSuccess() || result.value == null)
+            {
+                Debug.Log("There was an error creating a reference point");
+            }
+            else
+            {
+                TableAnchor.instance.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+                TableAnchor.instance.transform.parent = result.value.transform;
+            }
 
-        DisableArPlanes();
-        RoomUI.SetActive(false);
-        InAppUI.SetActive(true);
+            DisableArPlanes();
+            RoomUI.SetActive(false);
+            InAppUI.SetActive(true);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
 #endif
 
