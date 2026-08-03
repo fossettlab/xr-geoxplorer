@@ -219,6 +219,7 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
                 throw new ArgumentNullException(nameof(gameObject));
             }
 
+#if UNITY_IOS || UNITY_ANDROID
             DeleteNativeAnchor(gameObject);
 
             ARAnchor arAnchor = await AnchorHelpers.CreateAnchorAsync(
@@ -227,6 +228,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
             NativeAnchor component = gameObject.AddComponent<NativeAnchor>();
             component.InitializeWithAnchor(arAnchor);
             return component;
+#else
+            throw new PlatformNotSupportedException("Unable to create a native anchor. The platform is not supported.");
+#endif
         }
 #endif
 
