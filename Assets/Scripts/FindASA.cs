@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.SpatialAnchors;
@@ -20,14 +21,24 @@ public class FindASA : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        anchorLocatedAndPlaced = false;
-        //anchorExchanger.WatchKeys("https://flsharingservice.azurewebsites.net/api/anchors");
+        try
+        {
+            anchorLocatedAndPlaced = false;
+            //anchorExchanger.WatchKeys("https://flsharingservice.azurewebsites.net/api/anchors");
 
-        GetComponent<SpatialAnchorManager>().AnchorLocated += CloudAnchor_Located;
-        anchorLocateCriteria = new AnchorLocateCriteria();
+            GetComponent<SpatialAnchorManager>().AnchorLocated += CloudAnchor_Located;
+            anchorLocateCriteria = new AnchorLocateCriteria();
 
-        await Initialize();
-
+            await Initialize();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+            if (feedback != null)
+            {
+                feedback.text = ex.Message;
+            }
+        }
     }
 
     public async Task Initialize()

@@ -16,8 +16,19 @@ public class CreateASA : MonoBehaviour
 
     async void Start()
     {
-        this.gameObject.AddComponent<CloudNativeAnchor>();
-        await Initialize();
+        try
+        {
+            this.gameObject.AddComponent<CloudNativeAnchor>();
+            await Initialize();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+            if (feedback != null)
+            {
+                feedback.text = ex.Message;
+            }
+        }
     }
 
     public async Task Initialize()

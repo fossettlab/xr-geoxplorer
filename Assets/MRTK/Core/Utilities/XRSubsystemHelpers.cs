@@ -13,7 +13,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities
         {
 #if UNITY_2020_2_OR_NEWER
             var displaySubsystems = new List<XRDisplaySubsystem>();
-            SubsystemManager.GetInstances(displaySubsystems);
+            SubsystemManager.GetSubsystems(displaySubsystems);
 
             for (int i = 0; i < displaySubsystems.Count; i++)
             {
