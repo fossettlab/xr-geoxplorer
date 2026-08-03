@@ -12,7 +12,7 @@ Related settings (do not re-tune casually):
 
 | Requirement | Notes |
 |-------------|-------|
-| Unity **2022.3.62f2** | Matches `ProjectSettings/ProjectVersion.txt`. Install **Android Build Support** (SDK + NDK + OpenJDK) via Unity Hub. |
+| Unity **6000.4.4f1** | Matches `ProjectSettings/ProjectVersion.txt`. Install **Android Build Support** (SDK + NDK + OpenJDK) via Unity Hub. |
 | Quest 3 in **Developer Mode** | Meta Quest mobile app → headset → Settings → Developer Mode. |
 | USB debugging allowed | Connect USB-C; accept **Allow USB debugging** on the headset when prompted. |
 | `adb` | Comes with Unity's Android SDK (see path below). Optional: put it on your `PATH`. |
@@ -21,7 +21,7 @@ Related settings (do not re-tune casually):
 ### `adb` path (macOS, Unity Hub install)
 
 ```bash
-export ADB="/Applications/Unity/Hub/Editor/2022.3.62f2/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
+export ADB="/Applications/Unity/Hub/Editor/6000.4.4f1/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
 "$ADB" version
 "$ADB" devices -l
 ```
@@ -53,7 +53,7 @@ If validation fails, run `GeoXplorer > XR > Configure Quest Android Store Settin
 
 ## Unity Build And Run
 
-1. Open the project in **Unity 2022.3.62f2**.
+1. Open the project in **Unity 6000.4.4f1**.
 2. **File → Build Settings…**
    - Platform: **Android** → **Switch Platform** if needed.
    - Scenes In Build: only `Assets/Scenes/GeoXShared.unity` (enabled).
@@ -68,7 +68,7 @@ If validation fails, run `GeoXplorer > XR > Configure Quest Android Store Settin
 **File → Build Settings → Build**, then install manually:
 
 ```bash
-export ADB="/Applications/Unity/Hub/Editor/2022.3.62f2/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
+export ADB="/Applications/Unity/Hub/Editor/6000.4.4f1/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
 "$ADB" install -r "/path/to/GeoXplorerM.apk"
 "$ADB" shell am start -n edu.wustl.fossettlab.xrgeoxplorer/com.unity3d.player.UnityPlayerActivity
 ```
@@ -105,7 +105,7 @@ Out of scope for #10: controller/hand input, MRTK3, anchors, passthrough correct
 Stream Unity logs while launching:
 
 ```bash
-export ADB="/Applications/Unity/Hub/Editor/2022.3.62f2/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
+export ADB="/Applications/Unity/Hub/Editor/6000.4.4f1/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
 "$ADB" logcat -c
 # Launch the app from the headset or via Build And Run, then:
 "$ADB" logcat -s Unity ActivityManager AndroidRuntime
@@ -135,7 +135,7 @@ Attach `quest3-firstboot.log` to [#10](https://github.com/fossettlab/xr-geoxplor
 | Build fails on Gradle / ASA Maven | Confirm custom Gradle templates are enabled (#9). See `Assets/Plugins/Android/settingsTemplate.gradle`. |
 | Install succeeds, black screen | Confirm OpenXR Android loader + Meta Quest Support; check Logcat for XR provider errors. |
 | Wrong package / old build | Uninstall first: `"$ADB" uninstall edu.wustl.fossettlab.xrgeoxplorer` |
-| Editor missing Android module | Unity Hub → Installs → 2022.3.62f2 → Add Modules → Android Build Support. |
+| Editor missing Android module | Unity Hub → Installs → 6000.4.4f1 → Add Modules → Android Build Support. |
 
 ## Signing note
 

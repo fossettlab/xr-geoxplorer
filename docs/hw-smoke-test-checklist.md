@@ -8,7 +8,7 @@ Pair with Tier 2 networking checks in [`docs/networking-harness.md`](networking-
 ## Prerequisites
 
 - Quest 3 with Developer Mode + USB debugging
-- Built APK from Unity 2022.3 (see [`docs/quest3-build-and-deploy.md`](quest3-build-and-deploy.md))
+- Built APK from Unity **6000.4.4f1** (see [`docs/quest3-build-and-deploy.md`](quest3-build-and-deploy.md))
 - Optional second Quest or Editor clone for multiplayer rows
 
 ## Smoke matrix
