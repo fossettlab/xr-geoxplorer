@@ -1,49 +1,52 @@
 # Handoff — xr-geoxplorer
 
-**State as of 2026-08-02 (UTC):** Active work is on branch **`unity6-upgrade-spike`** (not merged to `main`). Project upgraded **2022.3.62f2 → Unity 6000.4.4f1**; **Unity CLI + Pipeline MCP** connected and verified. **GeoXShared** is the open scene; compile **green**; build target **Android**; EditMode tests **7/7 pass**; Android build **dry-run valid**. Legacy **JsonDotNet** removed; **com.unity.nuget.newtonsoft-json** 3.0.2 via UPM. **HoloLens/UWP deprecated** (Quest-first). **#28 async hygiene** in progress on branch (`docs/concurrency-model.md` + `AnchorExchanger`/`CreateASA`/`FindASA` touched).
+**State as of 2026-08-03 (UTC):** **`main` is Unity 6** (**6000.4.4f1**). Unity 6 upgrade (#162), cloud backend (#161 content), HoloLens deprecation, and anchor race fixes (#163, #164) are **merged**. CI green on lint, functions tests, EditMode, Android compile. **Unity CLI + Pipeline MCP** connected; Editor must launch with **`--args "-automated"`**. **#28 async hygiene** grep-clean in `Assets/Scripts/` (see `docs/concurrency-model.md`). **Next hard gate: Quest 3 device smoke test** (#32).
 
 **Memory slug:** `~/.claude-washu/projects/-Users-abradley-Dropbox--Geospatial-Fossett-Lab-09-XR-xr-geoxplorer/memory/`
 
 ---
 
-## Unity 6 upgrade spike (branch: `unity6-upgrade-spike`)
+## Current `main` (Unity 6)
 
-### What changed (this spike)
+### Landed recently
 
-| Area | Change |
-|------|--------|
-| **Editor** | `ProjectSettings/ProjectVersion.txt` → **6000.4.4f1** |
-| **Packages** | Unity 6 migration bumped XR/OpenXR/Input System/etc.; added **com.unity.pipeline** 0.4.0-exp.1, **com.unity.nuget.newtonsoft-json** 3.0.2 |
-| **JsonDotNet** | Deleted `Assets/JsonDotNet/` (GUID conflict with UPM Newtonsoft); scripts still `using Newtonsoft.Json` |
-| **HoloLens** | `Platform.cs` / `PlatformBootstrapper` — no WSA detection; `LegacyHoloLens2` obsolete. MRTK `MixedRealityOptimizeUtils` — UWP/WMR stubs removed |
-| **MRTK compile** | `AwaiterExtensions.cs` — skip `AsyncOperation` awaiter on Unity 6 (conflict with built-in) |
-| **AR Foundation 6** | `LobbyManager`, ASA `AnchorHelpers` — `TryAddAnchorAsync` / `TryRemoveAnchor` (sync API removed in AF 6) |
-| **Unity 6 API sweep** | MRTK/Photon demos — `linearVelocity`/`linearDamping`, `GraphicsSettings.defaultRenderPipeline`, `SubsystemManager.GetSubsystems` |
-| **#28 (partial)** | `AnchorExchanger` shared `HttpClient` + cancellable poll; `CreateASA`/`FindASA` try/catch; `docs/concurrency-model.md` |
-| **Agent tooling** | `.cursor/mcp.json` (Unity MCP server), `.cursor/permissions.json` (CLI/MCP allowlist + auto-review hints), `AGENTS.md` Unity workflow section |
-| **Scene** | **GeoXShared.unity** in build settings and opened via `unity command open_scene` |
+| PR | What |
+|----|------|
+| **#162** | Unity 6 upgrade, cloud auth backend, HoloLens cleanup, CI version-from-ProjectVersion |
+| **#163** | Unity 6 native anchor race — async create before `NativeToCloud`/`CloudToNative` |
+| **#164** | Copilot follow-ups (try/catch, AGENTS.md, portable MCP path, Newtonsoft 3.2.2) |
+
+Superseded/closed: #161, #159, #160, #158, #156, #157, `unity6-upgrade-spike` branch.
 
 ### Unity MCP / CLI workflow (operator machine)
 
-- **Requires:** Unity Editor open on this project (`unity open "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer"` — use full path, not `~`).
+- **Requires:** Unity Editor open on this project in **automated mode** (modal
+  popups otherwise break continuous CLI/MCP commands):
+
+  ```bash
+  unity open "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer" --args "-automated"
+  ```
+
+  Use the full path, not `~`. Do not open from Hub when agent work is planned.
 - **Verify connection:** `unity pipeline list` → Server Reachable; `unity status`.
 - **Read-only checks:** `unity command list_open_scenes`, `unity command get_console_logs -- --limit N`, `unity command recompile_status`.
 - **Do not** run destructive Pipeline commands (`delete_*`, `editor_play`, `package_remove`, etc.) without explicit user approval.
 - **Batch mode** (`unity run`) compiles then exits — Pipeline server needs a **GUI Editor** session.
 
-### What is NOT done yet (Unity 6 track)
+### What is NOT done yet
 
-1. **PR to `main`** — spike unmerged; CI (android-build, unity-tests) not re-run on Unity 6 yet.
-2. **Android/Quest build** on 6000.4.4f1 — dry-run valid; real APK/AAB not built yet.
-3. **#28 async hygiene** — grep acceptance on `Assets/Scripts/` mostly clean; finish sweep + codex review.
+1. **Quest 3 smoke test** (#32) — create/find anchor, Photon room, bundle load on device.
+2. **Real APK/AAB build** on 6000.4.4f1 locally or sideload to Quest.
+3. **#28 close-out** — grep acceptance met; codex impl review + close issue.
 4. **MRTK 2 → MRTK 3** — not started (#14); legacy MRTK still in `Assets/MRTK/`.
-5. **Package Manager online search auth error** in console — cosmetic unless searching registry in Editor.
+5. **Dependabot #155** — merge manually in GitHub UI (`upload-artifact` 4→7; CLI lacks `workflow` scope).
+6. **Azure Functions deploy + device SAS test** — gated on credentials (#24).
 
 ### Gotchas (Unity 6)
 
-- **`main` is still 2022.3.62f2** until this branch merges.
 - **Preserve CRLF + UTF-8 BOM** on `.cs` edits.
-- **Legacy HoloLens** assets remain under `Assets/Scenes/_legacy/`, `PlatformRoot.HoloLens2.prefab` — reference only, not supported.
+- **Legacy HoloLens** assets remain under `Assets/Scenes/_legacy/` — reference only, not supported.
+- **Package Manager online search auth error** in console — cosmetic unless searching registry in Editor.
 
 ---
 
@@ -57,9 +60,10 @@ Sean (contractor) is on vacation ~1 month; the operator has the Quest 3 back and
 
 ## Where we are
 
-- **Primary artifact:** the Unity app on `main`, all merged work compile-gated (Android build) + EditMode-tested + CS1626 lint green.
-- **Last committed state:** `22410a2` — "Migrate mouse/touch input to the new Input System (#8)".
-- **Key external state:** 0 open PRs. Beads DB at `.beads/` (git-excluded, local). Open GitHub issues tracked in Beads with `--external-ref gh-N`; `bd ready` gives the dependency-unblocked queue. New issue **#150** = deferred #143 UI/scene work (`needs-quest`, `headset-only`).
+- **Primary artifact:** Unity app on `main` at **6000.4.4f1**, compile-gated (Android build) + EditMode-tested + CS1626 lint green.
+- **Last committed state:** `85a47e4` — Copilot follow-ups (#164); anchor race fix `e1cc862` (#163); Unity 6 upgrade `8ab3ff0` (#162).
+- **Open PRs:** #155 (dependabot, merge in UI), #165 (cursor find-anchor placement race — supersede with local fix if landing here).
+- **Key external state:** Beads DB at `.beads/` (git-excluded, local). Issue **#150** = deferred #143 UI/scene work (`needs-quest`, `headset-only`).
 
 ## What changed this session (committed vs uncommitted)
 
@@ -78,10 +82,10 @@ Sean (contractor) is on vacation ~1 month; the operator has the Quest 3 back and
 
 ## What is NOT done yet
 
-1. **#28 async hygiene** — coroutine-native model chosen; run spec → codex plan review → implement → codex impl review → CI. Start here.
-2. **#21 PUN characterization test harness** — headless test code (regression baseline for the eventual PUN→NGO rewrite).
-3. **#13 URP migration** — operator must approve the Quest-tuned URP config **before** codex implements; then stage as a build-green PR (perf validated later on Quest).
-4. **Editor Play Mode feel-check for #149** — mouse zoom speed / touch rotation on macOS (scroll units platform-dependent; Windows parity restored). No headset; operator's Mac.
+1. **Quest 3 smoke test** (#32) — batched headset validation; first post-Unity-6 acceptance.
+2. **#28 async hygiene close-out** — grep clean; codex impl review then close issue.
+3. **#21 PUN characterization test harness** — headless test code (regression baseline for PUN→NGO rewrite).
+4. **#13 URP migration** — operator must approve Quest-tuned URP config before codex implements.
 5. **`headset-only` beads** (#10,#11,#13,#17,#18,#19,#32,#33,#34) — batched Quest session when ready.
 
 ## Gotchas for the next session

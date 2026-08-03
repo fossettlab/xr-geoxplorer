@@ -22,6 +22,16 @@ Editor.
 
 - Keep the Unity Editor open with this project loaded for connected-Editor
   commands (`unity status`, `unity command`, `unity list`).
+- **Always launch the Editor in automated mode** so modal dialogs do not block
+  CLI/MCP commands. Default open command (use full project path, not `~`):
+
+  ```bash
+  unity open "/path/to/xr-geoxplorer" --args "-automated"
+  ```
+
+  Do not open the project from Hub double-click when agent/MCP work is planned.
+  If the Editor shows "not in automated mode", quit and relaunch with the
+  command above.
 - Inspect available Editor commands with `unity command` and `unity list`
   before invoking anything.
 - Prefer registered Pipeline commands over arbitrary eval or undocumented APIs.
