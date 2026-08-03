@@ -1,10 +1,11 @@
 # NGO + Relay + Lobby package pins (#22 / #23)
 
-**Status:** planning reference (2026-08-02). Verified against Unity Manual for
-**2022.3.62f2** (this repo's editor version). Do **not** add these packages to
-`xr-geoxplorer` until the #22 spike scorecard says **go** — use a throwaway project.
+**Status:** planning reference (2026-08-03). **`main` is Unity 6000.4.4f1** but
+still runs **Photon PUN** — do **not** add NGO packages to this repo until the
+#22 spike scorecard says **go**. Use a throwaway project at the Unity version
+listed below for the spike.
 
-## Unity 2022.3.62f2 (current repo — spike target)
+## Unity 2022.3.62f2 (throwaway #22 spike project)
 
 Pin these in the throwaway project's `Packages/manifest.json`:
 
@@ -39,16 +40,15 @@ Registry** and search `Vivox` after linking UGS. Do not commit Vivox credentials
 
 | Editor | NGO line | Example version |
 |---|---|---|
-| Unity **2022.3.62f2** (this repo today) | **1.x** | 1.15.1 |
-| Unity **6000.x** (#160 migration target) | **2.x** | 2.13.x |
+| Unity **2022.3.62f2** (throwaway spike option) | **1.x** | 1.15.1 |
+| Unity **6000.4.4f1** (`main` — not yet on NGO) | **2.x** | Re-verify before #23 |
 
-The #22 spike runs on **2022.3** to match production. After Unity 6 lands (#160),
-re-run a minimal NGO connectivity check on **NGO 2.x** before starting #23 in the
-main repo.
+Unity 6 landed on `main` (#162). Re-run the #22 spike on **6000.4.4f1** with **NGO 2.x**
+before starting #23 in this repo.
 
 ## Throwaway project bootstrap
 
-1. Unity Hub → **2022.3.62f2** → new 3D project (not this repo).
+1. Unity Hub → **6000.4.4f1** (or **2022.3.62f2** for NGO 1.x baseline) → new 3D project (not this repo).
 2. **Edit → Project Settings → Services** → link Unity Cloud project with Relay,
    Lobby, Vivox enabled.
 3. Add package pins above to `Packages/manifest.json`; let Unity resolve lock file.

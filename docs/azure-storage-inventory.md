@@ -84,9 +84,11 @@ immediate children match the pipeline categories:
 
 The `production-*` containers are not a substitute for this re-bake source drop:
 they contain raw `.obj` / `.mtl` / texture files without the Unity `.meta` import
-settings needed to reproduce the deployed bundles. The Unity 2022.3 Editor
-pipeline should build the source-backed subset first and keep missing raw-source
-cases explicit instead of blocking the whole bake.
+settings needed to reproduce the deployed bundles. The original **2022.3** Editor
+pipeline (see [`assetbundle-rebake.md`](assetbundle-rebake.md)) built the
+source-backed subset first and kept missing raw-source cases explicit instead of
+blocking the whole bake. **`main` is now Unity 6000.4.4f1**; deployed bundles
+were validated on 2022.3 until a Unity 6 URP re-bake (#39).
 
 The source mapping in `docs/assetbundle-source-mapping.csv` shows the current
 coverage reality: of 922 deployed Android bundles, 186 are directly backed by
@@ -94,8 +96,8 @@ recoverable source, 11 are featured aliases of source-backed bundles, and 725 do
 not have recoverable source. The missing entries are almost entirely the DEM
 library and most of `bio`. Bradley's current direction is to run the #6 pipeline
 in partial-source mode, bake the recoverable source, and continue using deployed
-bundles for source-missing content when those bundles still load in Unity
-2022.3.
+bundles for source-missing content when those bundles still load in the Editor
+(Unity 6 on `main`; originally validated on 2022.3).
 
 Fresh Unity validation against the consolidated `importable-source/` mirror on
 2026-06-17 produced the current bakeable subset: 174 Android source-backed

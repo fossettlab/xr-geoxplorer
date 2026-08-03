@@ -1,5 +1,11 @@
 # AssetBundle Re-Bake Pipeline
 
+> **Editor note (2026-08):** `main` now targets **Unity 6000.4.4f1**. The bake
+> commands and validation notes below describe the **2022.3.62f2** pipeline used
+> to produce and verify deployed Azure bundles. A URP re-bake on Unity 6 is
+> tracked separately (#39). Until then, runtime loads the existing 2022.3-built
+> bundles.
+
 This document describes the Unity 2022.3 Built-in Render Pipeline AssetBundle
 scaffold for issue #6.
 

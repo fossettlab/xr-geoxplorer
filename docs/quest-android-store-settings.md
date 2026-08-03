@@ -18,7 +18,7 @@ GeoXplorer > XR > Validate Quest Android Store Settings
 
 The configurator sets the Android player to:
 
-- Unity 2022.3 Android target with IL2CPP, ARM64 only, Linear color space, and
+- Unity 6 Android target with IL2CPP, ARM64 only, Linear color space, and
   .NET Standard API compatibility.
 - Minimum API level Android 10/API 29.
 - Target API level Android 14/API 34.
@@ -60,7 +60,7 @@ from the repository.
 
 ## Manual Validation
 
-1. Open the project in Unity 2022.3 with Android Build Support installed.
+1. Open the project in Unity **6000.4.4f1** with Android Build Support installed.
 2. Run `GeoXplorer > XR > Configure Quest Android Store Settings`.
 3. Confirm the Unity Console has no compile errors.
 4. Open Project Settings > Player > Android and confirm the API levels, IL2CPP,

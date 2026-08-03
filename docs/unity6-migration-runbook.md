@@ -1,6 +1,11 @@
 # Unity 6 migration runbook (Mac session)
 
-**Branch:** `cursor/unity6-migration-50b2`
+> **Status: COMPLETED (2026-08-03).** Unity 6 landed on `main` via PR #162
+> (`6000.4.4f1`). This runbook is kept as historical operator notes for the
+> migration session; do not follow it for day-to-day work — use [`HANDOFF.md`](../HANDOFF.md)
+> and [`AGENTS.md`](../AGENTS.md) instead.
+
+**Branch:** `cursor/unity6-migration-50b2` (superseded)
 
 This runbook covers the Mac Unity Editor work for upgrading xr-geoxplorer from
 Unity **2022.3.62f2** to Unity **6000.x LTS**. Run it **after** the HoloLens

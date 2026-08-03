@@ -9,11 +9,11 @@ This PR is **Quest 3 / Android OpenXR only**. HoloLens/UWP support was intention
 - `com.unity.xr.openxr` — OpenXR loader and Meta Quest feature group
 - `com.unity.xr.management` — XR Plug-in Management
 - `com.unity.xr.hands` — hand tracking support used by OpenXR interaction profiles
-- `com.unity.inputsystem` — required by modern XR/MRTK input wiring on Unity 2022.3
+- `com.unity.inputsystem` — required by modern XR/MRTK input wiring
 
 ## Unity configuration
 
-1. Open the project in **Unity 2022.3** with **Android build support** installed.
+1. Open the project in **Unity 6000.4.4f1** with **Android build support** installed.
 2. Run: `GeoXplorer > XR > Configure OpenXR Migration`
 
 The menu command:

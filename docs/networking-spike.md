@@ -1,8 +1,8 @@
 # Networking spike — NGO + Relay + Vivox on Quest 3 (#22)
 
-**Status: plan + scorecard template. Not yet run.** Fill the scorecard during the
-spike and commit the completed version. This spike validates the chosen PUN
-replacement on real hardware before the full rewrite (#23) starts.
+**Status: plan + scorecard template. Not yet run.** **`main` is Unity 6000.4.4f1**
+(Photon PUN still in production). Run this spike in a **throwaway project** — see
+[`ngo-package-pins.md`](ngo-package-pins.md) for editor version options.
 
 The plan locks in **Unity Netcode for GameObjects (NGO) + Unity Relay + Vivox** as
 the default replacement (Photon PUN 2 is EOL; Photon Fusion 2 is the fallback if
@@ -46,7 +46,8 @@ project ID into your private notes (never commit keys to the repo).
 
 ### Throwaway project packages
 
-Install in the fresh 2022.3 project (match `ProjectSettings/ProjectVersion.txt`):
+Install in the throwaway spike project (prefer **6000.4.4f1** on `main`; **2022.3.62f2**
+optional for NGO 1.x baseline — see [`ngo-package-pins.md`](ngo-package-pins.md)):
 
 | Package | Purpose |
 |---|---|
@@ -77,7 +78,7 @@ Start from **Multiplayer Center** sample (Window → Multiplayer) rather than Bo
 
 Keep this out of `xr-geoxplorer` so it can't contaminate the main project.
 
-1. Fresh Unity **2022.3** project (match the main project's version).
+1. Fresh Unity project at **6000.4.4f1** (or 2022.3.62f2 for NGO 1.x baseline).
 2. Install: `com.unity.netcode.gameobjects`, `com.unity.services.relay`,
    `com.unity.services.lobby`, and Vivox (via Unity Services / package).
 3. Start from the **Multiplayer Center** sample (simpler than Boss Room) for the
