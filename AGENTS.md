@@ -33,9 +33,8 @@ Editor.
   work complete.
 
 **Editor connection requirement:** The official `com.unity.pipeline` package
-(required for CLI/MCP Editor access) needs **Unity 6.0+**. On branch
-`unity6-upgrade-spike` the project targets **6000.4.4f1**; `main` is still
-**2022.3.62f2** until the spike merges.
+(required for CLI/MCP Editor access) needs **Unity 6.0+**. The project targets
+**6000.4.4f1** on `main`.
 
 **HoloLens / UWP:** Not supported. Quest 3 and mobile are the only headset/AR
 targets. Legacy HoloLens prefabs and scenes remain under `Assets/Scenes/_legacy/`
