@@ -15,7 +15,7 @@ public class AnchorBackendClientTests
     public void TryParseAnchorListResponse_parses_firebase_shape_array()
     {
         string json = "[{\"name\":\"Room\",\"identifier\":\"asa-1\",\"dateCreated\":\"2026-01-01T00:00:00Z\",\"dateExpired\":\"2026-02-01T00:00:00Z\"}]";
-        List<AnchorListEntry> entries;
+        List<AnchorBackendClient.AnchorListEntry> entries;
         Assert.IsTrue(AnchorBackendClient.TryParseAnchorListResponse(json, out entries));
         Assert.AreEqual(1, entries.Count);
         Assert.AreEqual("Room", entries[0].name);
@@ -24,7 +24,7 @@ public class AnchorBackendClientTests
     [Test]
     public void TryParseAnchorListResponse_accepts_null_array()
     {
-        List<AnchorListEntry> entries;
+        List<AnchorBackendClient.AnchorListEntry> entries;
         Assert.IsTrue(AnchorBackendClient.TryParseAnchorListResponse("null", out entries));
         Assert.AreEqual(0, entries.Count);
     }
