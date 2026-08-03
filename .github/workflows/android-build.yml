@@ -53,19 +53,18 @@ jobs:
           sudo docker image prune -af || true
           echo "Disk after cleanup:"; df -h /
 
+      - name: Read Unity version from project
+        id: unity_version
+        run: echo "version=$(grep 'm_EditorVersion:' ProjectSettings/ProjectVersion.txt | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
       - name: Cache Unity Library
         if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
         uses: actions/cache@v6
         with:
           path: Library
-          key: Library-Android-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
+          key: Library-${{ steps.unity_version.outputs.version }}-Android-${{ hashFiles('Packages/manifest.json', 'Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
           restore-keys: |
-            Library-Android-
-            Library-
-
-      - name: Read Unity version from project
-        id: unity_version
-        run: echo "version=$(grep 'm_EditorVersion:' ProjectSettings/ProjectVersion.txt | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+            Library-${{ steps.unity_version.outputs.version }}-Android-
 
       - name: Build Android player
         if: ${{ env.HAS_UNITY_CREDENTIALS == 'true' }}
