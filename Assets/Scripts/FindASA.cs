@@ -122,17 +122,29 @@ public class FindASA : MonoBehaviour
 
         UnityDispatcher.InvokeOnAppThread(() =>
         {
+            _ = PlaceLocatedAnchorAsync();
+        });
+    }
+
+    private async Task PlaceLocatedAnchorAsync()
+    {
+        try
+        {
             Pose anchorPose = Pose.identity;
 
 #if UNITY_IOS || UNITY_ANDROID
-        anchorPose = currentCloudAnchor.GetPose();
-        this.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+            anchorPose = currentCloudAnchor.GetPose();
+            this.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
 #endif
 
             // If a cloud anchor is passed, apply it to the native anchor
             if (currentCloudAnchor != null)
             {
+#if UNITY_6000_0_OR_NEWER
+                await this.GetComponent<CloudNativeAnchor>().CloudToNativeAsync(currentCloudAnchor);
+#else
                 this.GetComponent<CloudNativeAnchor>().CloudToNative(currentCloudAnchor);
+#endif
             }
             this.GetComponentInChildren<Renderer>().enabled = true;
             this.GetComponentInChildren<Renderer>().material.color = Color.green;
@@ -143,7 +155,14 @@ public class FindASA : MonoBehaviour
             }
 
             anchorLocatedAndPlaced = true;
-        });
-
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+            if (feedback != null)
+            {
+                feedback.text = ex.Message;
+            }
+        }
     }
 }

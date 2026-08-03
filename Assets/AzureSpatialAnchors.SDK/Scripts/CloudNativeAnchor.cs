@@ -69,13 +69,27 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
         /// </remarks>
         public void CloudToNative(CloudSpatialAnchor cloudAnchor)
         {
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use CloudToNativeAsync on Unity 6 and later.");
+#else
             // Validate
             if (cloudAnchor == null) { throw new ArgumentNullException(nameof(cloudAnchor)); }
 
             // Apply and store updated native anchor
             nativeAnchor = gameObject.ApplyCloudAnchor(cloudAnchor);
             this.cloudAnchor = cloudAnchor;
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        public async Task CloudToNativeAsync(CloudSpatialAnchor cloudAnchor)
+        {
+            if (cloudAnchor == null) { throw new ArgumentNullException(nameof(cloudAnchor)); }
+
+            nativeAnchor = await gameObject.ApplyCloudAnchorAsync(cloudAnchor);
+            this.cloudAnchor = cloudAnchor;
+        }
+#endif
 
         /// <summary>
         /// Creates or updates the <see cref="CloudSpatialAnchor"/> returned by
@@ -95,6 +109,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
         /// </remarks>
         public void NativeToCloud(bool useExisting)
         {
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use NativeToCloudAsync on Unity 6 and later.");
+#else
             // Make sure there's a native anchor
             if (nativeAnchor == null) { nativeAnchor = gameObject.FindOrCreateNativeAnchor(); }
 
@@ -103,7 +120,20 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
             {
                 cloudAnchor = nativeAnchor.ToCloud();
             }
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        public async Task NativeToCloudAsync(bool useExisting = true)
+        {
+            if (nativeAnchor == null) { nativeAnchor = await gameObject.FindOrCreateNativeAnchorAsync(); }
+
+            if ((!useExisting) || (cloudAnchor == null))
+            {
+                cloudAnchor = await nativeAnchor.ToCloudAsync();
+            }
+        }
+#endif
 
         /// <summary>
         /// Creates or updates the <see cref="CloudSpatialAnchor"/> returned by
@@ -138,6 +168,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
         /// </param>
         public void SetPose(Vector3 position, Quaternion rotation)
         {
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use SetPoseAsync on Unity 6 and later.");
+#else
             // Changing the position resets both native and cloud anchors
             cloudAnchor = null;
             nativeAnchor = null;
@@ -147,7 +180,19 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
 
             // Get the native anchor back (if there was one)
             nativeAnchor = gameObject.FindNativeAnchor();
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        public async Task SetPoseAsync(Vector3 position, Quaternion rotation)
+        {
+            cloudAnchor = null;
+            nativeAnchor = null;
+
+            await gameObject.SetPoseAsync(position, rotation);
+            nativeAnchor = gameObject.FindNativeAnchor();
+        }
+#endif
 
         /// <summary>
         /// Sets the pose of the attached <see cref="GameObject"/>, modifying
