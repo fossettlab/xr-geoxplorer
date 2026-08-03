@@ -31,12 +31,18 @@ namespace Microsoft.Azure.SpatialAnchors.Unity.ARFoundation
         public string WorldAnchorIdentifier => Marshal.PtrToStringAuto(this.WorldAnchorHandle);
 
         /// <summary>
-        /// Awake is called when the script instance is being loaded.
+        /// On Unity 6+, anchor creation is async; SpatialAnchorExtensions creates the
+        /// ARAnchor first and calls <see cref="InitializeWithAnchor"/> before returning.
         /// </summary>
 #if UNITY_6000_0_OR_NEWER
-        private async void Awake()
+        internal void InitializeWithAnchor(ARAnchor anchor)
         {
-            this.WorldAnchor = await AnchorHelpers.CreateWorldAnchorAsync(this.gameObject.transform);
+            if (anchor == null)
+            {
+                throw new ArgumentNullException(nameof(anchor));
+            }
+
+            this.WorldAnchor = anchor;
             this.gameObject.transform.SetParent(this.WorldAnchor.transform, true);
         }
 #else

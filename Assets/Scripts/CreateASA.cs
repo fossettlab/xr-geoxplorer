@@ -73,10 +73,17 @@ public class CreateASA : MonoBehaviour
     protected virtual async Task<bool> SaveCurrentObjectAnchorToCloudAsync()
     {
         CloudNativeAnchor nativeAnchor = this.GetComponent<CloudNativeAnchor>();
+#if UNITY_6000_0_OR_NEWER
+        await nativeAnchor.SetPoseAsync(this.transform.position, this.transform.rotation);
+
+        // If the cloud portion of the anchor hasn't been created yet, create it
+        if (nativeAnchor.CloudAnchor == null) { await nativeAnchor.NativeToCloudAsync(); }
+#else
         nativeAnchor.SetPose(this.transform.position, this.transform.rotation);
 
         // If the cloud portion of the anchor hasn't been created yet, create it
         if (nativeAnchor.CloudAnchor == null) { nativeAnchor.NativeToCloud(); }
+#endif
 
         CloudSpatialAnchor cloudAnchor = nativeAnchor.CloudAnchor;
 

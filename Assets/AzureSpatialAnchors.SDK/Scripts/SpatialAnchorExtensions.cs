@@ -99,6 +99,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
         /// </exception>
         static public NativeAnchor ApplyCloudAnchor(this GameObject gameObject, CloudSpatialAnchor cloudAnchor)
         {
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use ApplyCloudAnchorAsync on Unity 6 and later.");
+#else
             // Validate
             if (gameObject == null) { throw new ArgumentNullException(nameof(gameObject)); }
             if (cloudAnchor == null) { throw new ArgumentNullException(nameof(cloudAnchor)); }
@@ -147,7 +150,28 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
 #if UNITY_EDITOR
 #pragma warning restore CS0162
 #endif
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        static public async Task<NativeAnchor> ApplyCloudAnchorAsync(this GameObject gameObject, CloudSpatialAnchor cloudAnchor)
+        {
+            if (gameObject == null) { throw new ArgumentNullException(nameof(gameObject)); }
+            if (cloudAnchor == null) { throw new ArgumentNullException(nameof(cloudAnchor)); }
+
+#if UNITY_IOS || UNITY_ANDROID
+            gameObject.DeleteNativeAnchor();
+
+            Pose pose = cloudAnchor.GetPose();
+            gameObject.transform.position = pose.position;
+            gameObject.transform.rotation = pose.rotation;
+
+            return await gameObject.CreateNativeAnchorAsync();
+#else
+            throw new PlatformNotSupportedException("Unable to apply the cloud anchor. The platform is not supported.");
+#endif
+        }
+#endif
 
         /// <summary>
         /// Creates and adds the appropriate platform-specific anchor.
@@ -176,12 +200,39 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
                 throw new ArgumentNullException(nameof(gameObject));
             }
 
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use CreateNativeAnchorAsync on Unity 6 and later.");
+#else
             // Remove any existing native anchor
             DeleteNativeAnchor(gameObject);
 
             // Add the platform-specific anchor
             return gameObject.AddComponent<NativeAnchor>();
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        static public async Task<NativeAnchor> CreateNativeAnchorAsync(this GameObject gameObject)
+        {
+            if (gameObject == null)
+            {
+                throw new ArgumentNullException(nameof(gameObject));
+            }
+
+#if UNITY_IOS || UNITY_ANDROID
+            DeleteNativeAnchor(gameObject);
+
+            ARAnchor arAnchor = await AnchorHelpers.CreateAnchorAsync(
+                gameObject.transform.position,
+                gameObject.transform.rotation);
+            NativeAnchor component = gameObject.AddComponent<NativeAnchor>();
+            component.InitializeWithAnchor(arAnchor);
+            return component;
+#else
+            throw new PlatformNotSupportedException("Unable to create a native anchor. The platform is not supported.");
+#endif
+        }
+#endif
 
         /// <summary>
         /// Removes and destroys any native anchor applied to the object.
@@ -249,6 +300,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
             // Validate
             if (gameObject == null) { throw new ArgumentNullException(nameof(gameObject)); }
 
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use FindOrCreateNativeAnchorAsync on Unity 6 and later.");
+#else
             // Try to find an existing anchor
             NativeAnchor anchor = FindNativeAnchor(gameObject);
 
@@ -260,7 +314,23 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
 
             // Return the anchor
             return anchor;
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        static public async Task<NativeAnchor> FindOrCreateNativeAnchorAsync(this GameObject gameObject)
+        {
+            if (gameObject == null) { throw new ArgumentNullException(nameof(gameObject)); }
+
+            NativeAnchor anchor = FindNativeAnchor(gameObject);
+            if (anchor == null)
+            {
+                anchor = await CreateNativeAnchorAsync(gameObject);
+            }
+
+            return anchor;
+        }
+#endif
 
         /// <summary>
         /// Gets the underlying pointer for the native anchor.
@@ -379,6 +449,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
             // Validate
             if (gameObject == null) { throw new ArgumentNullException(nameof(gameObject)); }
 
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use SetPoseAsync on Unity 6 and later.");
+#else
             // Check to see if we had a native anchor
             bool hadNative = gameObject.FindNativeAnchor();
 
@@ -391,7 +464,23 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
 
             // If there was a native anchor, add it back on
             if (hadNative) { gameObject.CreateNativeAnchor(); }
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        static public async Task SetPoseAsync(this GameObject gameObject, Vector3 position, Quaternion rotation)
+        {
+            if (gameObject == null) { throw new ArgumentNullException(nameof(gameObject)); }
+
+            bool hadNative = gameObject.FindNativeAnchor();
+            if (hadNative) { gameObject.DeleteNativeAnchor(); }
+
+            gameObject.transform.position = position;
+            gameObject.transform.rotation = rotation;
+
+            if (hadNative) { await gameObject.CreateNativeAnchorAsync(); }
+        }
+#endif
 
         /// <summary>
         /// Sets the pose of the <see cref="GameObject"/>, modifying native
@@ -435,6 +524,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
             // Validate
             if (anchor == null) { throw new ArgumentNullException(nameof(anchor)); }
 
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use ToCloudAsync on Unity 6 and later.");
+#else
             // Get the native pointer
             IntPtr ptr = anchor.GetPointer();
 
@@ -446,6 +538,20 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
 
             // Done!
             return cloudAnchor;
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        static public async Task<CloudSpatialAnchor> ToCloudAsync(this NativeAnchor anchor)
+        {
+            if (anchor == null) { throw new ArgumentNullException(nameof(anchor)); }
+
+            IntPtr ptr = anchor.GetPointer();
+
+            CloudSpatialAnchor cloudAnchor = new CloudSpatialAnchor();
+            cloudAnchor.LocalAnchor = ptr;
+            return cloudAnchor;
+        }
+#endif
     }
 }
