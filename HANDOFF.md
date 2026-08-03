@@ -1,6 +1,6 @@
 # Handoff — xr-geoxplorer
 
-**State as of 2026-08-02 (UTC):** Active work is on branch **`unity6-upgrade-spike`** (not merged to `main`). Project upgraded **2022.3.62f2 → Unity 6000.4.4f1**; **Unity CLI + Pipeline MCP** connected and verified. **GeoXShared** is the open scene; compile **green** (`recompile_status: completed`, no errors). Legacy **JsonDotNet** removed; **com.unity.nuget.newtonsoft-json** 3.0.2 via UPM. **HoloLens/UWP deprecated** (Quest-first). Next app task after landing spike PR: **#28 async hygiene** (see below).
+**State as of 2026-08-02 (UTC):** Active work is on branch **`unity6-upgrade-spike`** (not merged to `main`). Project upgraded **2022.3.62f2 → Unity 6000.4.4f1**; **Unity CLI + Pipeline MCP** connected and verified. **GeoXShared** is the open scene; compile **green**; build target **Android**; EditMode tests **7/7 pass**; Android build **dry-run valid**. Legacy **JsonDotNet** removed; **com.unity.nuget.newtonsoft-json** 3.0.2 via UPM. **HoloLens/UWP deprecated** (Quest-first). **#28 async hygiene** in progress on branch (`docs/concurrency-model.md` + `AnchorExchanger`/`CreateASA`/`FindASA` touched).
 
 **Memory slug:** `~/.claude-washu/projects/-Users-abradley-Dropbox--Geospatial-Fossett-Lab-09-XR-xr-geoxplorer/memory/`
 
@@ -17,6 +17,9 @@
 | **JsonDotNet** | Deleted `Assets/JsonDotNet/` (GUID conflict with UPM Newtonsoft); scripts still `using Newtonsoft.Json` |
 | **HoloLens** | `Platform.cs` / `PlatformBootstrapper` — no WSA detection; `LegacyHoloLens2` obsolete. MRTK `MixedRealityOptimizeUtils` — UWP/WMR stubs removed |
 | **MRTK compile** | `AwaiterExtensions.cs` — skip `AsyncOperation` awaiter on Unity 6 (conflict with built-in) |
+| **AR Foundation 6** | `LobbyManager`, ASA `AnchorHelpers` — `TryAddAnchorAsync` / `TryRemoveAnchor` (sync API removed in AF 6) |
+| **Unity 6 API sweep** | MRTK/Photon demos — `linearVelocity`/`linearDamping`, `GraphicsSettings.defaultRenderPipeline`, `SubsystemManager.GetSubsystems` |
+| **#28 (partial)** | `AnchorExchanger` shared `HttpClient` + cancellable poll; `CreateASA`/`FindASA` try/catch; `docs/concurrency-model.md` |
 | **Agent tooling** | `.cursor/mcp.json` (Unity MCP server), `.cursor/permissions.json` (CLI/MCP allowlist + auto-review hints), `AGENTS.md` Unity workflow section |
 | **Scene** | **GeoXShared.unity** in build settings and opened via `unity command open_scene` |
 

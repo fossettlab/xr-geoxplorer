@@ -373,7 +373,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         else
         {
 #if UNITY_6000_0_OR_NEWER
-            ApplyMobileAnchorAsync(aRReferencePointManager, anchorPose);
+            _ = ApplyMobileAnchorAsync(aRReferencePointManager, anchorPose);
             return;
 #else
             ARAnchor arReferencePoint = aRReferencePointManager.AddAnchor(anchorPose);
@@ -400,7 +400,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 #if UNITY_6000_0_OR_NEWER && (UNITY_IOS || UNITY_ANDROID)
-    private async void ApplyMobileAnchorAsync(ARAnchorManager anchorManager, Pose anchorPose)
+    private async System.Threading.Tasks.Task ApplyMobileAnchorAsync(ARAnchorManager anchorManager, Pose anchorPose)
     {
         var result = await anchorManager.TryAddAnchorAsync(anchorPose);
         if (!result.status.IsSuccess() || result.value == null)
