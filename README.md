@@ -11,9 +11,21 @@ modernization epic at
 contractor handoff at [`HANDOFF.md`](HANDOFF.md).
 
 ## Build
-Requires Unity **2019.4.8f1**. Uses MRTK 2.x, Photon PUN, Azure Spatial
-Anchors SDK. For modern revival: Unity 2022.3 LTS or Unity 6 + MRTK 3
-or OpenXR migration.
+
+Requires Unity **2022.3.62f2** (see [`ProjectSettings/ProjectVersion.txt`](ProjectSettings/ProjectVersion.txt)
+and [`CONTRIBUTING.md`](CONTRIBUTING.md)). The active target is Meta Quest 3 on OpenXR;
+MRTK 2.x, Photon PUN, and Azure Spatial Anchors SDK remain in the tree during modernization.
+
+**Quest 3 on-device:** follow [`docs/quest-session-1-runbook.md`](docs/quest-session-1-runbook.md)
+(first light + perf baseline) and [`docs/quest3-build-and-deploy.md`](docs/quest3-build-and-deploy.md).
+
+**Headless compile / Android build** (Mac or Linux with Unity Hub installed):
+
+```bash
+chmod +x scripts/unity.sh
+./scripts/unity.sh compile
+./scripts/unity.sh build-android
+```
 
 The `legacy-2019.4` tag preserves the last known-buildable Unity 2019.4.8f1 state.
 

@@ -1,15 +1,19 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class AnchorExchanger
 {
 //#if !UNITY_EDITOR
+		private static readonly HttpClient SharedHttpClient = new HttpClient();
+
 		private string baseAddress = "";
+		private CancellationTokenSource watchCancellation;
 
 		private List<string> anchorkeys = new List<string>();
 
@@ -24,35 +28,53 @@ public class AnchorExchanger
 			}
 		}
 
+		public void StopWatching()
+		{
+			watchCancellation?.Cancel();
+			watchCancellation?.Dispose();
+			watchCancellation = null;
+		}
+
 		public void WatchKeys(string exchangerUrl)
 		{
+			StopWatching();
 			baseAddress = exchangerUrl;
-			Task.Factory.StartNew(async () =>
+			watchCancellation = new CancellationTokenSource();
+			_ = WatchKeysAsync(watchCancellation.Token);
+		}
+
+		private async Task WatchKeysAsync(CancellationToken cancellationToken)
+		{
+			string previousKey = string.Empty;
+			while (!cancellationToken.IsCancellationRequested)
 			{
-				string previousKey = string.Empty;
-				while (true)
+				string currentKey = await RetrieveLastAnchorKey();
+				if (!string.IsNullOrWhiteSpace(currentKey) && currentKey != previousKey)
 				{
-					string currentKey = await RetrieveLastAnchorKey();
-					if (!string.IsNullOrWhiteSpace(currentKey) && currentKey != previousKey)
+					Debug.Log("Found key " + currentKey);
+					lock (anchorkeys)
 					{
-						Debug.Log("Found key " + currentKey);
-						lock (anchorkeys)
-						{
-							anchorkeys.Add(currentKey);
-						}
-						previousKey = currentKey;
+						anchorkeys.Add(currentKey);
 					}
-					await Task.Delay(500);
+					previousKey = currentKey;
 				}
-			}, TaskCreationOptions.LongRunning);
+
+				try
+				{
+					await Task.Delay(500, cancellationToken);
+				}
+				catch (OperationCanceledException)
+				{
+					break;
+				}
+			}
 		}
 
 		public async Task<string> RetrieveAnchorKey(long anchorNumber)
 		{
 			try
 			{
-				HttpClient client = new HttpClient();
-				return await client.GetStringAsync(baseAddress + "/" + anchorNumber.ToString());
+				return await SharedHttpClient.GetStringAsync(baseAddress + "/" + anchorNumber.ToString());
 			}
 			catch (Exception ex)
 			{
@@ -66,8 +88,7 @@ public class AnchorExchanger
 		{
 			try
 			{
-				HttpClient client = new HttpClient();
-				return await client.GetStringAsync(baseAddress + "/last");
+				return await SharedHttpClient.GetStringAsync(baseAddress + "/last");
 			}
 			catch (Exception ex)
 			{
@@ -86,8 +107,7 @@ public class AnchorExchanger
 
 			try
 			{
-				HttpClient client = new HttpClient();
-				var response = await client.PostAsync(baseAddress, new StringContent(anchorKey));
+				var response = await SharedHttpClient.PostAsync(baseAddress, new StringContent(anchorKey));
 				if (response.IsSuccessStatusCode)
 				{
 					string responseBody = await response.Content.ReadAsStringAsync();

@@ -30,6 +30,49 @@ These need a Unity account/dashboard and are not automatable here:
 3. **A perf baseline** from the Session 1 runbook (pre-URP FPS / frame time). The
    perf test below compares against it.
 
+## Operator checklist (before the spike session)
+
+Use this as a printable run sheet. Check items off as you go; paste Unity Cloud
+project ID into your private notes (never commit keys to the repo).
+
+### Unity Cloud + UGS (one-time)
+
+- [ ] Create or select a Unity Cloud project for the spike (separate from production).
+- [ ] In the throwaway Unity project: **Edit → Project Settings → Services** → link the cloud project.
+- [ ] Unity Dashboard → **Relay** → enable for the project.
+- [ ] Unity Dashboard → **Lobby** → enable for the project.
+- [ ] Unity Dashboard → **Vivox** → enable for the project.
+- [ ] Note free-tier limits for Relay CCU and Vivox concurrent users (for the scorecard).
+
+### Throwaway project packages
+
+Install in the fresh 2022.3 project (match `ProjectSettings/ProjectVersion.txt`):
+
+| Package | Purpose |
+|---|---|
+| `com.unity.netcode.gameobjects` | NGO core — pin **1.15.1** on 2022.3 (see [`docs/ngo-package-pins.md`](ngo-package-pins.md)) |
+| `com.unity.services.relay` | NAT traversal / hosting |
+| `com.unity.services.lobby` | Session discovery |
+| Vivox (via Unity Services) | Voice |
+
+Start from **Multiplayer Center** sample (Window → Multiplayer) rather than Boss Room.
+
+### Test clients
+
+- [ ] Quest 3 with Developer Mode + USB debugging (see Session 1 runbook).
+- [ ] Second client: second Quest **or** Unity Editor play mode connected through Relay.
+- [ ] Session 1 perf baseline captured (FPS / frame time) for test #5 comparison.
+
+### Session flow (3–5 days, hard stop at day 5)
+
+| Day | Goal |
+|---|---|
+| 1 | Packages + Relay join from Editor; one moving cube synced |
+| 2 | Quest build joins same Relay session; measure transform latency |
+| 3 | Vivox voice between clients |
+| 4 | Authority transfer + WiFi kill/resume test |
+| 5 | Fill scorecard below; go / no-go decision |
+
 ## Setup (throwaway project — NOT this repo)
 
 Keep this out of `xr-geoxplorer` so it can't contaminate the main project.

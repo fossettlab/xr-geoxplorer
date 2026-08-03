@@ -33,11 +33,19 @@ namespace Microsoft.Azure.SpatialAnchors.Unity.ARFoundation
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
+#if UNITY_6000_0_OR_NEWER
+        private async void Awake()
+        {
+            this.WorldAnchor = await AnchorHelpers.CreateWorldAnchorAsync(this.gameObject.transform);
+            this.gameObject.transform.SetParent(this.WorldAnchor.transform, true);
+        }
+#else
         private void Awake()
         {
             this.WorldAnchor = AnchorHelpers.CreateWorldAnchor(this.gameObject.transform);
             this.gameObject.transform.SetParent(this.WorldAnchor.transform, true);
         }
+#endif
 
         /// <summary>
         /// Destroying the attached Behaviour will result in the game or Scene
@@ -47,7 +55,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity.ARFoundation
         {
             if (this.WorldAnchor != null)
             {
-#if UNITY_2019_3_OR_NEWER
+#if UNITY_6000_0_OR_NEWER
+                SpatialAnchorManager.arAnchorManager.TryRemoveAnchor(this.WorldAnchor);
+#elif UNITY_2019_3_OR_NEWER
                 SpatialAnchorManager.arAnchorManager.RemoveAnchor(this.WorldAnchor);
 #else
                 SpatialAnchorManager.arAnchorManager.RemoveReferencePoint(this.WorldAnchor);

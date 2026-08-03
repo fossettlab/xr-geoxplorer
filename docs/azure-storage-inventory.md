@@ -169,6 +169,8 @@ The container literally named `restricted` has **Container-level public access**
 
 If those scenes are meant to be access-controlled (the name implies they are), this is a finding. If "restricted" just meant "labeled as such for app-side gating," it's working as intended.
 
+**Update (2026-08-02):** Phase A audit in [`docs/restricted-container-audit.md`](restricted-container-audit.md) found the current Quest modernization codebase does **not** fetch these bundles at all — the gated scenes are orphaned. Privatizing the container is still recommended; no Quest load test until scenes are revived.
+
 **Action:** confirm intent with whoever set this up (Bill?). If true restriction is needed, that's its own follow-up ticket — likely "move to private container, switch fetch to SAS tokens issued by the new Azure Function in #24."
 
 ### 3. The runtime depends on `thumbnails/FeaturedModels.txt`

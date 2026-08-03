@@ -55,7 +55,6 @@ public class PlatformBootstrapper : MonoBehaviour
             case PlatformId.Quest:
                 return PlatformVariant.Quest3;
             case PlatformId.Editor:
-            case PlatformId.LegacyHoloLens2:
             case PlatformId.Mobile:
             case PlatformId.Other:
             default:

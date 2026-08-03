@@ -372,6 +372,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         else
         {
+#if UNITY_6000_0_OR_NEWER
+            _ = ApplyMobileAnchorAsync(aRReferencePointManager, anchorPose);
+            return;
+#else
             ARAnchor arReferencePoint = aRReferencePointManager.AddAnchor(anchorPose);
 
             if (arReferencePoint == null)
@@ -385,17 +389,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 TableAnchor.instance.transform.parent = arReferencePoint.transform;
             }
 
-            // Cold path: disable AR planes once when entering a Photon room.
-            ARPlaneManager arPlaneManager = FindObjectOfType<ARPlaneManager>();
-
-            if (arPlaneManager != null)
-            {
-                foreach (var plane in arPlaneManager.trackables)
-                {
-                    plane.gameObject.SetActive(false);
-                }
-                arPlaneManager.enabled = false;
-            }
+            DisableArPlanes();
+#endif
         }
 
 #endif
@@ -403,6 +398,42 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         RoomUI.SetActive(false);
         InAppUI.SetActive(true);
     }
+
+#if UNITY_6000_0_OR_NEWER && (UNITY_IOS || UNITY_ANDROID)
+    private async System.Threading.Tasks.Task ApplyMobileAnchorAsync(ARAnchorManager anchorManager, Pose anchorPose)
+    {
+        var result = await anchorManager.TryAddAnchorAsync(anchorPose);
+        if (!result.status.IsSuccess() || result.value == null)
+        {
+            Debug.Log("There was an error creating a reference point");
+        }
+        else
+        {
+            TableAnchor.instance.transform.SetPositionAndRotation(anchorPose.position, anchorPose.rotation);
+            TableAnchor.instance.transform.parent = result.value.transform;
+        }
+
+        DisableArPlanes();
+        RoomUI.SetActive(false);
+        InAppUI.SetActive(true);
+    }
+#endif
+
+#if UNITY_IOS || UNITY_ANDROID
+    private static void DisableArPlanes()
+    {
+        ARPlaneManager arPlaneManager = FindObjectOfType<ARPlaneManager>();
+
+        if (arPlaneManager != null)
+        {
+            foreach (var plane in arPlaneManager.trackables)
+            {
+                plane.gameObject.SetActive(false);
+            }
+            arPlaneManager.enabled = false;
+        }
+    }
+#endif
 
     public void OnMenuSelect()
     {

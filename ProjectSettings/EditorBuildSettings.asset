@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/GeoXShared.unity
     guid: a52d968cd30ad45f58d3e6ba77b2bcf9
   m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 1bade21ed00d24a9da151988795dc30f,
+      type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 323adc0f749424e06a67b7d896731821,
+      type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 9a496fb8bc7d0422f8d6106a9978a47f,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a4d2fb8a4a6f74e87b62a26764d82924,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 49b9711eba03543beacd3f7233bea831,

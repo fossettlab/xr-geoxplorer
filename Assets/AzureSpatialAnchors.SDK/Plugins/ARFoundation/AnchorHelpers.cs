@@ -35,6 +35,9 @@ namespace Microsoft.Azure.SpatialAnchors.Unity.ARFoundation
         /// <exception cref="InvalidOperationException">Unable to create an anchor.</exception>
         public static ARAnchor CreateAnchor(Vector3 position, Quaternion rotation)
         {
+#if UNITY_6000_0_OR_NEWER
+            throw new InvalidOperationException("Use CreateAnchorAsync on Unity 6 and later.");
+#else
             Pose anchorPose = new Pose(position, rotation);
 
 #if UNITY_2019_3_OR_NEWER
@@ -50,7 +53,29 @@ namespace Microsoft.Azure.SpatialAnchors.Unity.ARFoundation
             }
 
             return anchor;
+#endif
         }
+
+#if UNITY_6000_0_OR_NEWER
+        public static async Task<ARAnchor> CreateWorldAnchorAsync(Transform transform)
+        {
+            return await CreateAnchorAsync(transform.position, transform.rotation);
+        }
+
+        public static async Task<ARAnchor> CreateAnchorAsync(Vector3 position, Quaternion rotation)
+        {
+            Pose anchorPose = new Pose(position, rotation);
+            var result = await SpatialAnchorManager.arAnchorManager.TryAddAnchorAsync(anchorPose);
+
+            if (!result.status.IsSuccess() || result.value == null)
+            {
+                Debug.LogError("Unable to create an anchor.");
+                throw new InvalidOperationException("Unable to create an anchor.");
+            }
+
+            return result.value;
+        }
+#endif
 
         /// <summary>
         /// Gets an anchor <see cref="Pose"/> from the specified <see cref="CloudSpatialAnchor"/>.

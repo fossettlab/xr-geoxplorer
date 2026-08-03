@@ -817,7 +817,7 @@ namespace Microsoft.MixedReality.Toolkit.Editor
         protected static bool UpgradeShaderForLightweightRenderPipelineValidate()
         {
             // If a scriptable render pipeline is not present, no need to upgrade the shader.
-            return GraphicsSettings.renderPipelineAsset != null;
+            return GraphicsSettings.defaultRenderPipeline != null;
         }
     }
 }

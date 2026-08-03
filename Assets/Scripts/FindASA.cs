@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.SpatialAnchors;
@@ -17,8 +18,7 @@ public class FindASA : MonoBehaviour
     CloudSpatialAnchorWatcher currentWatcher;
     bool anchorLocatedAndPlaced;
 
-    // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
         anchorLocatedAndPlaced = false;
         //anchorExchanger.WatchKeys("https://flsharingservice.azurewebsites.net/api/anchors");
@@ -26,8 +26,23 @@ public class FindASA : MonoBehaviour
         GetComponent<SpatialAnchorManager>().AnchorLocated += CloudAnchor_Located;
         anchorLocateCriteria = new AnchorLocateCriteria();
 
-        await Initialize();
+        _ = RunInitializeAsync();
+    }
 
+    private async Task RunInitializeAsync()
+    {
+        try
+        {
+            await Initialize();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+            if (feedback != null)
+            {
+                feedback.text = "Anchor lookup failed: " + ex.Message;
+            }
+        }
     }
 
     public async Task Initialize()
