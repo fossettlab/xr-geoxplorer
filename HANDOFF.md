@@ -34,8 +34,8 @@
 ### What is NOT done yet (Unity 6 track)
 
 1. **PR to `main`** — spike unmerged; CI (android-build, unity-tests) not re-run on Unity 6 yet.
-2. **Android/Quest build** on 6000.4.4f1 — not verified (`unity build` / `unity command build` dry-run next).
-3. **#28 async hygiene** — resume after spike lands or continue on branch.
+2. **Android/Quest build** on 6000.4.4f1 — dry-run valid; real APK/AAB not built yet.
+3. **#28 async hygiene** — grep acceptance on `Assets/Scripts/` mostly clean; finish sweep + codex review.
 4. **MRTK 2 → MRTK 3** — not started (#14); legacy MRTK still in `Assets/MRTK/`.
 5. **Package Manager online search auth error** in console — cosmetic unless searching registry in Editor.
 
