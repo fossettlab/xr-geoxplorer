@@ -1,9 +1,12 @@
 # PR merge guide — cloud + Unity agent handoff
 
+> **Status: COMPLETED (2026-08-03).** Unity 6 (#162), anchor fixes (#163–#166),
+> and doc updates landed on `main`. Kept for historical reference only.
+
 **Purpose:** ordered merge plan for open agent PRs, conflict hotspots, and
 post-merge verification. **Do not merge until a human approves each PR.**
 
-Last verified: 2026-08-03 (harmonized on `unity6-upgrade-spike` / PR #162).
+Last verified: 2026-08-03 (harmonized on `unity6-upgrade-spike` / PR #162 — **merged**).
 
 ## Harmonized merge path (current)
 
@@ -150,7 +153,7 @@ git push origin main
 | `docs/platform-helper.md` | #159 | Keep hololens version (HoloLens section removed) |
 | `docs/scene-architecture.md` | #159 | Keep hololens version |
 | `AGENTS.md` | #161 | Keep cloud version (has Functions/venv instructions) |
-| `README.md` | #161 | Keep cloud version (Unity 2022.3.62f2) |
+| `README.md` | #161 | Updated to Unity 6000.4.4f1 on `main` |
 
 ## Post-merge full-stack verification
 

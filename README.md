@@ -5,16 +5,19 @@ Canonical unified Meta Quest 3 + iOS/Android geoscience explorer.
 ## Status
 **Modernization in progress.** Real source activity through
 September 2020; project-file regeneration October 2023 (no code changes);
-modernization to Unity 2022.3 / Meta Quest 3 began April 2026. See the
-modernization epic at
+modernization to Meta Quest 3 began April 2026. **`main` migrated to Unity 6**
+(**6000.4.4f1**, August 2026 — see PR #162). See the modernization epic at
 [issue #1](https://github.com/fossettlab/xr-geoxplorer/issues/1) and the
 contractor handoff at [`HANDOFF.md`](HANDOFF.md).
 
 ## Build
 
-Requires Unity **2022.3.62f2** (see [`ProjectSettings/ProjectVersion.txt`](ProjectSettings/ProjectVersion.txt)
-and [`CONTRIBUTING.md`](CONTRIBUTING.md)). The active target is Meta Quest 3 on OpenXR;
-MRTK 2.x, Photon PUN, and Azure Spatial Anchors SDK remain in the tree during modernization.
+Requires Unity **6000.4.4f1** (see [`ProjectSettings/ProjectVersion.txt`](ProjectSettings/ProjectVersion.txt)
+and [`CONTRIBUTING.md`](CONTRIBUTING.md)). The active target is Meta Quest 3 on OpenXR.
+MRTK 2.x, Photon PUN, and Azure Spatial Anchors SDK remain in the tree during
+modernization (MRTK 3 migration is planned — #14).
+
+**Agent / MCP workflow:** launch the Editor in automated mode — see [`AGENTS.md`](AGENTS.md).
 
 **Quest 3 on-device:** follow [`docs/quest-session-1-runbook.md`](docs/quest-session-1-runbook.md)
 (first light + perf baseline) and [`docs/quest3-build-and-deploy.md`](docs/quest3-build-and-deploy.md).

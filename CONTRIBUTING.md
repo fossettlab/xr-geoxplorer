@@ -2,12 +2,18 @@
 
 ## Unity Version
 
-Use Unity `2022.3.62f2`, matching `ProjectSettings/ProjectVersion.txt`.
+Use Unity **6000.4.4f1**, matching `ProjectSettings/ProjectVersion.txt`.
 
 Open the project from the repository root. The main scene is:
 
 ```text
 Assets/Scenes/GeoXShared.unity
+```
+
+For agent/MCP sessions, launch the Editor in **automated mode** (see [`AGENTS.md`](AGENTS.md)):
+
+```bash
+unity open "/path/to/xr-geoxplorer" --args "-automated"
 ```
 
 ## Branches And Pull Requests
@@ -24,15 +30,21 @@ Assets/Scenes/GeoXShared.unity
 
 Before opening a PR that changes scripts, packages, or project settings:
 
-1. Open the project in Unity `2022.3.62f2`.
+1. Open the project in Unity **6000.4.4f1** (or use `./scripts/unity.sh compile` with the GUI Editor closed).
 2. Let Unity finish importing packages and compiling scripts.
 3. Confirm the Console has no new red compile errors.
 4. For Android/Quest-facing changes, switch Build Settings to Android and run a local Android build when possible.
 
-On macOS with the default Unity Hub install path, a basic batch import/compile check looks like:
+Headless import/compile check (Editor must not already have this project open):
 
 ```bash
-'/Applications/Unity/Hub/Editor/2022.3.62f2/Unity.app/Contents/MacOS/Unity' \
+./scripts/unity.sh compile
+```
+
+Or explicitly:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.4.4f1/Unity.app/Contents/MacOS/Unity' \
   -batchmode \
   -quit \
   -projectPath /path/to/xr-geoxplorer \
@@ -45,6 +57,7 @@ Pull requests to `main` run:
 
 - `C# Lint`, which catches `yield return` inside `try` blocks with `catch`.
 - `Android Unity Build`, which uses GameCI to build the Android target.
+- `Unity Tests` (EditMode) and `Functions Tests` where applicable.
 
 The Android build requires repository secrets:
 
@@ -77,3 +90,5 @@ The root `.editorconfig` defines the shared formatting defaults:
 - folder-matching namespaces as a suggestion
 
 Do not run broad auto-formatting across unrelated legacy files. Keep formatting changes scoped to files you are already editing.
+
+**Note:** tracked `.cs` files in this repo use **CRLF + UTF-8 BOM** historically. Preserve line endings on files you edit; do not normalize the whole tree.
