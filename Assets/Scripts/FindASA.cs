@@ -18,17 +18,21 @@ public class FindASA : MonoBehaviour
     CloudSpatialAnchorWatcher currentWatcher;
     bool anchorLocatedAndPlaced;
 
-    // Start is called before the first frame update
-    async void Start()
+    void Start()
+    {
+        anchorLocatedAndPlaced = false;
+        //anchorExchanger.WatchKeys("https://flsharingservice.azurewebsites.net/api/anchors");
+
+        GetComponent<SpatialAnchorManager>().AnchorLocated += CloudAnchor_Located;
+        anchorLocateCriteria = new AnchorLocateCriteria();
+
+        _ = RunInitializeAsync();
+    }
+
+    private async Task RunInitializeAsync()
     {
         try
         {
-            anchorLocatedAndPlaced = false;
-            //anchorExchanger.WatchKeys("https://flsharingservice.azurewebsites.net/api/anchors");
-
-            GetComponent<SpatialAnchorManager>().AnchorLocated += CloudAnchor_Located;
-            anchorLocateCriteria = new AnchorLocateCriteria();
-
             await Initialize();
         }
         catch (Exception ex)
@@ -36,7 +40,7 @@ public class FindASA : MonoBehaviour
             Debug.LogException(ex);
             if (feedback != null)
             {
-                feedback.text = ex.Message;
+                feedback.text = "Anchor lookup failed: " + ex.Message;
             }
         }
     }

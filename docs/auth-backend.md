@@ -32,6 +32,49 @@ Body:    {"bundle": "android/eastshorestructure-bundle"}
 
 The client then issues a plain `GET` against the returned `url`.
 
+### Unity client (EditMode-testable)
+
+[`RestrictedBundleSasClient.cs`](../Assets/Scripts/Config/RestrictedBundleSasClient.cs)
+builds the POST URL, attaches `X-API-Key` from `RemoteConfig.Current.SasApiKey`, and
+parses the JSON response. Example:
+
+```csharp
+StartCoroutine(RestrictedBundleSasClient.RequestSasUrl(
+    "android/eastshorestructure-bundle",
+    (url, ttlMinutes) => StartCoroutine(DownloadFromSignedUrl(url)),
+    error => Debug.LogError(error)));
+```
+
+Smoke test on device or Editor: configure `sasEndpointBaseUrl` + `sasApiKey` on the
+active RemoteConfig asset, call the client, then `UnityWebRequest.Get` the returned URL.
+
+## Anchor persistence endpoints (#40 Phase B scaffold)
+
+**Not wired in the Unity app yet** — replaces Firebase when #17 + #23 land. See
+[`docs/firebase-anchor-audit.md`](firebase-anchor-audit.md).
+
+```
+POST /api/anchors
+Header: X-API-Key: <same SAS_API_KEY for v1>
+Body:   {"name":"Room A","identifier":"<cloud-anchor-id>","dateExpired":"2026-12-31T00:00:00Z"}
+201     {"id":"<32-hex>","name":"...","identifier":"...","date_created":"...","date_expired":"..."}
+
+GET /api/anchors
+Header: X-API-Key: <key>
+200     Firebase-compatible JSON array:
+        [{"name":"...","identifier":"...","dateCreated":"...","dateExpired":"..."}, ...]
+        Empty table returns `[]`. Matches Firebase Realtime Database list shape for drop-in migration.
+
+GET /api/anchors/{id}
+Header: X-API-Key: <key>
+200     same JSON body as POST response (snake_case fields including `id`)
+401 / 400 / 404 / 503 as appropriate
+```
+
+Backing store: Azure Table Storage (`ANCHOR_TABLE_NAME`, default `geoxanchors`).
+Connection via `ANCHOR_TABLE_CONNECTION` or `AzureWebJobsStorage`. Returns **503**
+when table storage is not configured (expected locally without Azurite).
+
 ## User-delegation SAS flow
 
 1. The Function App runs with a **system-assigned managed identity**.
@@ -58,11 +101,16 @@ the #25 RemoteConfig (`sasApiKey` / `sasEndpointBaseUrl`), not hardcoded.
 
 ## Status
 
-**Code scaffolded; not yet provisioned live.** The endpoint has no consumer yet:
-the `restricted` scenes are orphaned (see [#37](https://github.com/fossettlab/xr-geoxplorer/issues/37) —
-the container was simply privatized), and #25 (which delivers the API key to the app)
-is not built, so the app cannot call this yet. Provision when #25 or #40 makes it
-consumable, so live infra is not run unused.
+**Code scaffolded; not yet provisioned live.** Python Function + unit tests live under
+[`functions/`](../functions/). Unity client helper:
+[`RestrictedBundleSasClient.cs`](../Assets/Scripts/Config/RestrictedBundleSasClient.cs)
+reads `sasEndpointBaseUrl` / `sasApiKey` from RemoteConfig (#25) and POSTs to this
+endpoint. The app does not yet call it from download paths — wire-up lands with #37
+when restricted bundles are fetched again.
+
+The endpoint has no production consumer until #25 values are set in the deployed
+RemoteConfig assets and #37 reconnects the restricted scene downloads. Provision live
+Azure infra when those tickets are ready, so the Function is not run unused.
 
 ## Provisioning (when ready)
 

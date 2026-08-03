@@ -1,11 +1,6 @@
-"""Azure Function: issue short-lived user-delegation SAS URLs for restricted bundles.
+"""Azure Function: SAS issuance (#24) and anchor persistence (#40 Phase B).
 
-A Unity client cannot fetch a private blob anonymously. ``POST /sas/restricted``
-mints a read-only, single-blob, <=15-minute *user-delegation* SAS so the client can
-GET one allow-listed bundle — with no storage account key in the app or in the
-Function's settings. See docs/auth-backend.md for the security model and its limits
-(notably: the client API key is extractable from the APK, so this is friction, not
-per-user authorization).
+See docs/auth-backend.md and docs/firebase-anchor-audit.md.
 """
 
 from __future__ import annotations
@@ -20,12 +15,20 @@ import azure.functions as func
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobSasPermissions, BlobServiceClient, generate_blob_sas
 
+from anchor_persistence import (
+    AnchorRecord,
+    normalize_anchor_id,
+    parse_create_body,
+    record_to_json,
+    records_to_firebase_list_json,
+)
 from sas_auth import DEFAULT_ALLOWLIST, api_key_valid, bundle_allowed, parse_allowlist
 
 # Function App application settings (see local.settings.json.example).
 STORAGE_ACCOUNT = os.environ.get("STORAGE_ACCOUNT_NAME", "haringerverdiag")
 RESTRICTED_CONTAINER = os.environ.get("RESTRICTED_CONTAINER", "restricted")
 API_KEY_SETTING = "SAS_API_KEY"
+ANCHOR_TABLE_NAME = os.environ.get("ANCHOR_TABLE_NAME", "geoxanchors")
 # Hard cap the SAS lifetime; a request can never widen it.
 TTL_CAP_MINUTES = 15
 SAS_TTL_MINUTES = min(int(os.environ.get("SAS_TTL_MINUTES", "15")), TTL_CAP_MINUTES)
@@ -54,6 +57,57 @@ def _make_sas_url(bundle: str) -> str:
         start=now,
     )
     return f"{account_url}/{RESTRICTED_CONTAINER}/{quote(bundle)}?{sas}"
+
+
+def _table_client():
+    """Return a Table client when ANCHOR_TABLE_CONNECTION or AzureWebJobsStorage is set."""
+    connection = os.environ.get("ANCHOR_TABLE_CONNECTION") or os.environ.get("AzureWebJobsStorage")
+    if not connection:
+        return None
+    try:
+        from azure.data.tables import TableServiceClient
+    except ImportError:
+        logging.error("azure-data-tables package is not installed")
+        return None
+    service = TableServiceClient.from_connection_string(connection)
+    try:
+        service.create_table_if_not_exists(ANCHOR_TABLE_NAME)
+    except Exception:  # noqa: BLE001
+        logging.exception("Failed to ensure anchor table exists")
+    return service.get_table_client(ANCHOR_TABLE_NAME)
+
+
+def _store_anchor(record: AnchorRecord) -> None:
+    client = _table_client()
+    if client is None:
+        raise RuntimeError("Anchor table storage is not configured")
+    client.create_entity(record.to_table_entity())
+
+
+def _fetch_anchor(anchor_id: str) -> AnchorRecord | None:
+    client = _table_client()
+    if client is None:
+        raise RuntimeError("Anchor table storage is not configured")
+    try:
+        entity = client.get_entity(partition_key="anchor", row_key=anchor_id)
+        return AnchorRecord.from_table_entity(entity)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _list_anchors() -> list[AnchorRecord]:
+    client = _table_client()
+    if client is None:
+        raise RuntimeError("Anchor table storage is not configured")
+    records: list[AnchorRecord] = []
+    try:
+        entities = client.query_entities(query_filter="PartitionKey eq 'anchor'")
+        for entity in entities:
+            records.append(AnchorRecord.from_table_entity(entity))
+    except Exception:  # noqa: BLE001
+        logging.exception("Failed to list anchors")
+        raise
+    return records
 
 
 # ANONYMOUS at the platform layer; the X-API-Key header is the (intentionally modest)
@@ -86,6 +140,81 @@ def sas_restricted(req: func.HttpRequest) -> func.HttpResponse:
 
     return func.HttpResponse(
         json.dumps({"url": url, "ttlMinutes": SAS_TTL_MINUTES}),
+        status_code=200,
+        mimetype="application/json",
+    )
+
+
+@app.route(route="anchors", methods=["POST"])
+def anchors_create(req: func.HttpRequest) -> func.HttpResponse:
+    if not api_key_valid(req.headers.get("X-API-Key"), os.environ.get(API_KEY_SETTING)):
+        return func.HttpResponse("Unauthorized", status_code=401)
+
+    try:
+        body = req.get_json()
+    except ValueError:
+        return func.HttpResponse("Body must be JSON", status_code=400)
+
+    record, error = parse_create_body(body)
+    if error:
+        return func.HttpResponse(error, status_code=400)
+
+    try:
+        _store_anchor(record)
+    except RuntimeError:
+        return func.HttpResponse("Anchor storage not configured", status_code=503)
+    except Exception:  # noqa: BLE001
+        logging.exception("Failed to store anchor %s", record.name)
+        return func.HttpResponse("Failed to store anchor", status_code=500)
+
+    return func.HttpResponse(
+        json.dumps(record_to_json(record)),
+        status_code=201,
+        mimetype="application/json",
+    )
+
+
+@app.route(route="anchors", methods=["GET"])
+def anchors_list(req: func.HttpRequest) -> func.HttpResponse:
+    if not api_key_valid(req.headers.get("X-API-Key"), os.environ.get(API_KEY_SETTING)):
+        return func.HttpResponse("Unauthorized", status_code=401)
+
+    try:
+        records = _list_anchors()
+    except RuntimeError:
+        return func.HttpResponse("Anchor storage not configured", status_code=503)
+    except Exception:  # noqa: BLE001
+        return func.HttpResponse("Failed to list anchors", status_code=500)
+
+    return func.HttpResponse(
+        json.dumps(records_to_firebase_list_json(records)),
+        status_code=200,
+        mimetype="application/json",
+    )
+
+
+@app.route(route="anchors/{anchor_id}", methods=["GET"])
+def anchors_get(req: func.HttpRequest) -> func.HttpResponse:
+    if not api_key_valid(req.headers.get("X-API-Key"), os.environ.get(API_KEY_SETTING)):
+        return func.HttpResponse("Unauthorized", status_code=401)
+
+    anchor_id = normalize_anchor_id(req.route_params.get("anchor_id"))
+    if not anchor_id:
+        return func.HttpResponse("Invalid anchor id", status_code=400)
+
+    try:
+        record = _fetch_anchor(anchor_id)
+    except RuntimeError:
+        return func.HttpResponse("Anchor storage not configured", status_code=503)
+    except Exception:  # noqa: BLE001
+        logging.exception("Failed to fetch anchor %s", anchor_id)
+        return func.HttpResponse("Failed to fetch anchor", status_code=500)
+
+    if record is None:
+        return func.HttpResponse("Not found", status_code=404)
+
+    return func.HttpResponse(
+        json.dumps(record_to_json(record)),
         status_code=200,
         mimetype="application/json",
     )

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class AnchorExchanger
 {
@@ -13,9 +13,9 @@ public class AnchorExchanger
 		private static readonly HttpClient SharedHttpClient = new HttpClient();
 
 		private string baseAddress = "";
+		private CancellationTokenSource watchCancellation;
 
 		private List<string> anchorkeys = new List<string>();
-		private CancellationTokenSource watchCancellation;
 
 		public List<string> AnchorKeys
 		{
@@ -28,20 +28,19 @@ public class AnchorExchanger
 			}
 		}
 
-		public void WatchKeys(string exchangerUrl)
-		{
-			baseAddress = exchangerUrl;
-			watchCancellation?.Cancel();
-			watchCancellation?.Dispose();
-			watchCancellation = new CancellationTokenSource();
-			_ = WatchKeysAsync(watchCancellation.Token);
-		}
-
-		public void StopWatchingKeys()
+		public void StopWatching()
 		{
 			watchCancellation?.Cancel();
 			watchCancellation?.Dispose();
 			watchCancellation = null;
+		}
+
+		public void WatchKeys(string exchangerUrl)
+		{
+			StopWatching();
+			baseAddress = exchangerUrl;
+			watchCancellation = new CancellationTokenSource();
+			_ = WatchKeysAsync(watchCancellation.Token);
 		}
 
 		private async Task WatchKeysAsync(CancellationToken cancellationToken)
@@ -59,7 +58,15 @@ public class AnchorExchanger
 					}
 					previousKey = currentKey;
 				}
-				await Task.Delay(500, cancellationToken);
+
+				try
+				{
+					await Task.Delay(500, cancellationToken);
+				}
+				catch (OperationCanceledException)
+				{
+					break;
+				}
 			}
 		}
 

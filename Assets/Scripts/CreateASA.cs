@@ -14,11 +14,16 @@ public class CreateASA : MonoBehaviour
     CloudSpatialAnchor currentCloudAnchor;
     CloudSpatialAnchorSession cloudSpatialAnchorSession;
 
-    async void Start()
+    void Start()
+    {
+        this.gameObject.AddComponent<CloudNativeAnchor>();
+        _ = RunInitializeAsync();
+    }
+
+    private async Task RunInitializeAsync()
     {
         try
         {
-            this.gameObject.AddComponent<CloudNativeAnchor>();
             await Initialize();
         }
         catch (Exception ex)
@@ -26,7 +31,7 @@ public class CreateASA : MonoBehaviour
             Debug.LogException(ex);
             if (feedback != null)
             {
-                feedback.text = ex.Message;
+                feedback.text = "Anchor creation failed: " + ex.Message;
             }
         }
     }
