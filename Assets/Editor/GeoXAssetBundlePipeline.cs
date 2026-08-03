@@ -186,13 +186,6 @@ public static class GeoXAssetBundlePipeline
         BuildForTarget(BuildTarget.iOS, "ios");
     }
 
-    [MenuItem("GeoXplorer/AssetBundles/Build/Build Historical WSA")]
-    public static void BuildWsa()
-    {
-        AssignBundleNamesForTargetPlatform("wsa");
-        BuildForTarget(BuildTarget.WSAPlayer, "wsa");
-    }
-
     [MenuItem("GeoXplorer/AssetBundles/Build/Build Standalone")]
     public static void BuildStandalone()
     {
@@ -1665,8 +1658,6 @@ public static class GeoXAssetBundlePipeline
                 return "android";
             case BuildTarget.iOS:
                 return "ios";
-            case BuildTarget.WSAPlayer:
-                return "wsa";
             default:
                 return "standalone";
         }

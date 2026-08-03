@@ -9,11 +9,9 @@ Use `Platform.Current` and the `Platform.Is...` properties when a script is deci
 - `Editor`: running inside the Unity Editor.
 - `Quest`: Android runtime that identifies as Quest, Oculus, or Meta XR hardware.
 - `Mobile`: iOS or non-Quest Android runtime.
-- `LegacyHoloLens2`: old WSA/HoloLens runtime compatibility path still present in legacy code.
 - `Other`: any runtime that is not one of the above.
 
-`LegacyHoloLens2` is intentionally named as legacy. New feature work should not add HoloLens behavior unless the project direction changes.
-`PlatformBootstrapper` still maps that legacy runtime to the shared mobile root because current `main` no longer carries a separate HoloLens platform-root variant.
+HoloLens 2 was dropped as a target on 2026-06-06. Quest 3 is the only headset target.
 
 ## Use `Platform` for runtime decisions
 
@@ -30,6 +28,6 @@ This keeps reviewer searches simple: runtime platform branches in app-owned code
 
 ## Keep `#if` for compile-time guards
 
-Preprocessor directives such as `#if UNITY_ANDROID`, `#if UNITY_IOS`, and `#if UNITY_WSA` are still appropriate when code cannot compile on every target because it references platform-only APIs or packages.
+Preprocessor directives such as `#if UNITY_ANDROID` and `#if UNITY_IOS` are still appropriate when code cannot compile on every target because it references platform-only APIs or packages.
 
 Do not replace those guards with `Platform` unless the guarded code can compile on all active build targets.

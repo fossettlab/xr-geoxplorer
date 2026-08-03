@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -7,8 +6,6 @@ public enum PlatformId
     Editor,
     Quest,
     Mobile,
-    [Obsolete("HoloLens 2 / UWP is not supported. Kept for API compatibility.")]
-    LegacyHoloLens2,
     Other
 }
 
@@ -51,12 +48,6 @@ public static class Platform
     public static bool IsMobile
     {
         get { return Current == PlatformId.Mobile; }
-    }
-
-    [Obsolete("HoloLens 2 / UWP is not supported.")]
-    public static bool IsLegacyHoloLens2
-    {
-        get { return false; }
     }
 
     public static bool IsAnyXR

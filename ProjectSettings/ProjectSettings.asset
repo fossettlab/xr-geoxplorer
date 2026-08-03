@@ -801,7 +801,7 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Template3D
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: Assets\WSATestCertificate.pfx
+  metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: FossettLab
   metroCertificateIssuer: FossettLab
