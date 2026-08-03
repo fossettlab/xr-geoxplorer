@@ -17,6 +17,7 @@ public class FindASA : MonoBehaviour
     protected AnchorLocateCriteria anchorLocateCriteria = null;
     CloudSpatialAnchorWatcher currentWatcher;
     bool anchorLocatedAndPlaced;
+    bool placementInProgress;
 
     void Start()
     {
@@ -117,8 +118,13 @@ public class FindASA : MonoBehaviour
     private void CloudAnchor_Located(object sender, AnchorLocatedEventArgs args)
     {
         //feedback.text = "Anchor " + anchorName + " located";
-        currentCloudAnchor = args.Anchor;
+        if (anchorLocatedAndPlaced || placementInProgress)
+        {
+            return;
+        }
 
+        placementInProgress = true;
+        currentCloudAnchor = args.Anchor;
 
         UnityDispatcher.InvokeOnAppThread(() =>
         {
@@ -163,6 +169,10 @@ public class FindASA : MonoBehaviour
             {
                 feedback.text = ex.Message;
             }
+        }
+        finally
+        {
+            placementInProgress = false;
         }
     }
 }
