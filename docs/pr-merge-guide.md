@@ -3,24 +3,51 @@
 **Purpose:** ordered merge plan for open agent PRs, conflict hotspots, and
 post-merge verification. **Do not merge until a human approves each PR.**
 
-Last verified: 2026-08-02 (cloud agent dry-run with `git merge-tree`).
+Last verified: 2026-08-03 (harmonized on `unity6-upgrade-spike` / PR #162).
 
-## Open PRs (merge in this order)
+## Harmonized merge path (current)
 
-| Order | PR | Branch | Depends on | Diff vs `main` (approx) |
-|---|---|---|---|---|
-| 1 | [#161](https://github.com/fossettlab/xr-geoxplorer/pull/161) | `cursor/cloud-tickets-networking-auth-50b2` | — | ~39 files, docs + functions + scripts |
-| 2 | [#159](https://github.com/fossettlab/xr-geoxplorer/pull/159) | `cursor/hololens-deprecation-50b2` | #161 merged | ~26 files, mostly deletions |
-| 3 | [#160](https://github.com/fossettlab/xr-geoxplorer/pull/160) | `cursor/unity6-migration-50b2` | #159 merged | 1 file (`docs/unity6-migration-runbook.md`) |
-| — | Close [#158](https://github.com/fossettlab/xr-geoxplorer/pull/158) | superseded by #161 | — | — |
-| — | Close [#156](https://github.com/fossettlab/xr-geoxplorer/pull/156) / [#157](https://github.com/fossettlab/xr-geoxplorer/pull/157) | doc content in #161 | — | — |
+**PR [#162](https://github.com/fossettlab/xr-geoxplorer/pull/162)** (`unity6-upgrade-spike`) now
+**includes** the content of #161, #159, and #160 with conflicts resolved locally:
 
-**Why this order:** #161 adds cloud tooling and docs without touching platform
-code. #159 deletes HoloLens assets and edits `Platform.cs` — independent of #161
-today, but landing cloud work first keeps the functions/CI path stable. #160 is
-docs-only and should rebase cleanly after #159.
+| Absorbed PR | Conflicts resolved | Notes |
+|---|---|---|
+| [#161](https://github.com/fossettlab/xr-geoxplorer/pull/161) cloud tickets | 5 files: `AGENTS.md`, `AnchorExchanger.cs`, `CreateASA.cs`, `FindASA.cs`, `docs/concurrency-model.md` | Took #161 cloud tooling + #162 Unity 6 async patterns |
+| [#159](https://github.com/fossettlab/xr-geoxplorer/pull/159) HoloLens deprecation | 1 file: `Platform.cs` | Removed `LegacyHoloLens2` enum entirely |
+| [#160](https://github.com/fossettlab/xr-geoxplorer/pull/160) Unity 6 runbook | none | Doc merged cleanly |
 
-## Conflict analysis (dry-run)
+**Recommended action:** merge **#162 only** into `main`, then **close #158–#161** as superseded.
+Keep [#155](https://github.com/fossettlab/xr-geoxplorer/pull/155) (dependabot) as a separate merge.
+
+## Original open PRs (superseded by #162)
+
+| Order | PR | Branch | Status |
+|---|---|---|---|
+| — | [#162](https://github.com/fossettlab/xr-geoxplorer/pull/162) | `unity6-upgrade-spike` | **Merge this** |
+| absorbed | [#161](https://github.com/fossettlab/xr-geoxplorer/pull/161) | `cursor/cloud-tickets-networking-auth-50b2` | Close after #162 |
+| absorbed | [#159](https://github.com/fossettlab/xr-geoxplorer/pull/159) | `cursor/hololens-deprecation-50b2` | Close after #162 |
+| absorbed | [#160](https://github.com/fossettlab/xr-geoxplorer/pull/160) | `cursor/unity6-migration-50b2` | Close after #162 |
+| — | Close [#158](https://github.com/fossettlab/xr-geoxplorer/pull/158) | superseded by #161 → now #162 | — |
+| — | Close [#156](https://github.com/fossettlab/xr-geoxplorer/pull/156) / [#157](https://github.com/fossettlab/xr-geoxplorer/pull/157) | doc content in #162 | — |
+
+**Why one PR:** #161 and #162 both touched #28 async hygiene files; #159 overlapped
+HoloLens deprecation already started on the Unity 6 spike. Harmonizing on #162 avoids
+three sequential merges to `main` and duplicate CI runs on 2022.3.
+
+## Conflict analysis (dry-run, pre-harmonization)
+
+### #161 vs #162 (resolved 2026-08-03)
+
+Trial merge had conflicts in:
+
+- `AGENTS.md` — merged Unity 6 MCP workflow + cloud VM instructions
+- `Assets/Scripts/AnchorExchanger.cs` — kept `WatchKeysAsync` (no `Task.Run`)
+- `Assets/Scripts/CreateASA.cs`, `FindASA.cs` — `void Start` + `RunInitializeAsync`
+- `docs/concurrency-model.md` — combined both versions
+
+### #159 vs #162 (resolved 2026-08-03)
+
+- `Assets/Scripts/Platform/Platform.cs` — removed obsolete `LegacyHoloLens2` stub
 
 ### #161 vs `main`
 
