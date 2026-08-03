@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Local Unity 2022.3 batchmode wrapper for compile checks and Android builds.
-# Requires Unity Hub editor 2022.3.62f2 (see ProjectSettings/ProjectVersion.txt).
+# Local Unity batchmode wrapper for compile checks and Android builds.
+# Editor version is read from ProjectSettings/ProjectVersion.txt.
 #
 # Usage:
 #   ./scripts/unity.sh compile
@@ -11,8 +11,8 @@
 
 set -euo pipefail
 
-UNITY_VERSION="2022.3.62f2"
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+UNITY_VERSION="$(grep '^m_EditorVersion:' "${PROJECT_ROOT}/ProjectSettings/ProjectVersion.txt" | awk '{print $2}')"
 BUILD_DIR="${PROJECT_ROOT}/build"
 LOG_DIR="${PROJECT_ROOT}/Logs"
 MAIN_SCENE="Assets/Scenes/GeoXShared.unity"
