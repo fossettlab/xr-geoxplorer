@@ -18,6 +18,21 @@ a green path.
 
 ## Prerequisites (operator — before the session)
 
+### Local preparation checkpoint (2026-09-04)
+
+The existing production project opened in automated mode on Unity 6000.4.4f1.
+All 18 discovered Edit Mode tests passed, including both
+`PunWireContractTests`. Those two tests cover received transform-field order
+and shared-anchor assignment; they do not establish live room, reconnect,
+authority or voice behavior. Android build support is installed.
+
+The current manifest and inspected package cache contain no NGO, Relay, Lobby
+or Vivox candidate package. Cloud-link settings are populated, but this does
+not establish service enablement or usable credentials. The Editor Console
+reports that its online package search lacks valid authentication credentials.
+Unity 6 package qualification and the two-client service trial remain open.
+No networking package or runtime code was changed during this preparation.
+
 These need a Unity account/dashboard and are not automatable here:
 
 1. **Unity Cloud project + UGS.** Create (or link) a Unity Cloud project, then in

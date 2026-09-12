@@ -1,0 +1,530 @@
+{
+  "build": {
+    "result": "Succeeded",
+    "platform": "Android",
+    "textureSubtarget": "ASTC",
+    "unityVersion": "6000.4.4f1",
+    "scene": "Assets/Scenes/GeoXShared.unity",
+    "outputPath": "build/GeoXplorer-openxr-1.17.0-2026-09-07.apk",
+    "recordedAtUtc": "2026-09-08T03:33:33.6610460Z",
+    "buildTimeMs": 43840.778000000006,
+    "totalErrors": 0,
+    "totalWarnings": 14,
+    "messages": [
+      {
+        "type": "Warning",
+        "content": "[Optional] Latency Optimization is recommended to be set to <b>Prioritize Input Polling</b> when Meta Quest support is enabled."
+      },
+      {
+        "type": "Warning",
+        "content": "Pipeline: No RuntimePipelineManager components found in build scenes. Pipeline will be disabled in Player builds."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      },
+      {
+        "type": "Warning",
+        "content": "Compressed texture GeoXplorerSEIcon_1024x1024 is used as icon. This might compromise visual quality of the final image. Uncompressed format might be considered as better import option."
+      }
+    ]
+  },
+  "apkVerification": {
+    "sha256": "85315d46e3fc344d219c39c5599167fd1a504c9cf111efaabc47a670430226c8",
+    "sizeBytes": 81455624,
+    "badging": [
+      "package: name='edu.wustl.fossettlab.xrgeoxplorer' versionCode='1' versionName='0.1' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+      "sdkVersion:'29'",
+      "targetSdkVersion:'34'",
+      "launchable-activity: name='com.unity3d.player.UnityPlayerGameActivity'  label='' icon=''",
+      "native-code: 'arm64-v8a'"
+    ],
+    "nativeLibraries": [
+      "lib/arm64-v8a/libUnityOpenXR.so",
+      "lib/arm64-v8a/libUnityOpenXRHands.so",
+      "lib/arm64-v8a/libazurespatialanchorsndk.so",
+      "lib/arm64-v8a/libgame.so",
+      "lib/arm64-v8a/libil2cpp.so",
+      "lib/arm64-v8a/libmain.so",
+      "lib/arm64-v8a/libopenxr_loader.so",
+      "lib/arm64-v8a/libopus_egpv.so",
+      "lib/arm64-v8a/libunity.so",
+      "lib/arm64-v8a/libwebrtc-audio.so"
+    ],
+    "launcher": "com.unity3d.player.UnityPlayerGameActivity",
+    "theme": "@style/BaseUnityGameActivityTheme",
+    "nativeLibrary": "game",
+    "signatureVerification": {
+      "tool": "Android SDK 36.0.0 apksigner verify --verbose",
+      "exitCode": 0,
+      "schemeV2": true,
+      "signers": 1
+    }
+  },
+  "tests": {
+    "status": "completed",
+    "duration": 0.26,
+    "summary": {
+      "total": 51,
+      "passed": 51,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "AnchorBackendClientTests.BuildCreateUrl_appends_api_anchors",
+        "Status": "Passed",
+        "Duration": 0.0072018,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.BuildGetUrl_includes_anchor_id",
+        "Status": "Passed",
+        "Duration": 0.0001374,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.BuildListUrl_appends_api_anchors",
+        "Status": "Passed",
+        "Duration": 5.4e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.TryParseAnchorListResponse_accepts_null_array",
+        "Status": "Passed",
+        "Duration": 0.0007865,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.TryParseAnchorListResponse_parses_firebase_shape_array",
+        "Status": "Passed",
+        "Duration": 0.0013075,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.TryParseAnchorResponse_parses_valid_json",
+        "Status": "Passed",
+        "Duration": 0.0003692,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildAssetBundleUri_composes_platform_and_bundle",
+        "Status": "Passed",
+        "Duration": 0.0004204,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildAssetBundleUri_trims_trailing_slash_on_base",
+        "Status": "Passed",
+        "Duration": 8.15e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildContainerListUrl_matches_azure_list_query",
+        "Status": "Passed",
+        "Duration": 0.0001039,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildThumbnailUrl_joins_thumbnails_root_and_path",
+        "Status": "Passed",
+        "Duration": 0.0001147,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildThumbnailUrl_trims_leading_slash_on_path",
+        "Status": "Passed",
+        "Duration": 7.15e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_appends_api_sas_restricted",
+        "Status": "Passed",
+        "Duration": 0.0003945,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_handles_base_already_ending_with_api",
+        "Status": "Passed",
+        "Duration": 6.44e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_trims_trailing_slash",
+        "Status": "Passed",
+        "Duration": 5.21e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.TryParseResponse_parses_valid_json",
+        "Status": "Passed",
+        "Duration": 0.0002799,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.TryParseResponse_rejects_missing_url",
+        "Status": "Passed",
+        "Duration": 0.000158,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.GamepadAndNumpadBindingsRemainAvailable",
+        "Status": "Passed",
+        "Duration": 0.0791797,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.KeyboardNavigationSubmitAndCancelUseNewDevices",
+        "Status": "Passed",
+        "Duration": 0.004844,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.ModuleReadsNewMouseStateAndRestoresItsPreviousInput",
+        "Status": "Passed",
+        "Duration": 0.0115492,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.TouchPressAndReleaseKeepTheirIdentityAndPhase",
+        "Status": "Passed",
+        "Duration": 0.0055212,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.OpenXrGamepadCompatibilityTests.ProjectLayoutsPermitGamepadCreation",
+        "Status": "Passed",
+        "Duration": 0.0018178,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Network.Tests.PunWireContractTests.SerializeView_Read_StoresReceivedPositionRotationScale",
+        "Status": "Passed",
+        "Duration": 0.0036454,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Network.Tests.PunWireContractTests.SharedAnchorIdHandler_WritesIdIntoNetworkManager",
+        "Status": "Passed",
+        "Duration": 0.0033196,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.DuplicatePropertiesAndTrailingContentFail",
+        "Status": "Passed",
+        "Duration": 0.0184818,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidNumericsFailExplicitly",
+        "Status": "Passed",
+        "Duration": 0.000399,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"body\")",
+        "Status": "Passed",
+        "Duration": 0.0005922,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"definition\")",
+        "Status": "Passed",
+        "Duration": 0.0004658,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"units\")",
+        "Status": "Passed",
+        "Duration": 6.24e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"target\")",
+        "Status": "Passed",
+        "Duration": 5.66e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"geographic\")",
+        "Status": "Passed",
+        "Duration": 5.43e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"duplicate\")",
+        "Status": "Passed",
+        "Duration": 5.14e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"same-frame-offset\")",
+        "Status": "Passed",
+        "Duration": 0.0014106,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.LargeOriginIsSubtractedBeforeFloatConversion",
+        "Status": "Passed",
+        "Duration": 0.0013805,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"version\")",
+        "Status": "Passed",
+        "Duration": 0.0024585,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"missing\")",
+        "Status": "Passed",
+        "Duration": 0.0012205,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"coordinate\")",
+        "Status": "Passed",
+        "Duration": 0.0100812,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"extra\")",
+        "Status": "Passed",
+        "Duration": 0.0016889,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-number\")",
+        "Status": "Passed",
+        "Duration": 0.0010008,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"numeric-name\")",
+        "Status": "Passed",
+        "Duration": 0.0006647,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-bool\")",
+        "Status": "Passed",
+        "Duration": 0.0009007,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Earth\")",
+        "Status": "Passed",
+        "Duration": 0.0015662,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Moon\")",
+        "Status": "Passed",
+        "Duration": 0.0008021,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Mars\")",
+        "Status": "Passed",
+        "Duration": 0.0008103,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(null)",
+        "Status": "Passed",
+        "Duration": 0.0007649,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,False)",
+        "Status": "Passed",
+        "Duration": 0.0031446,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,False)",
+        "Status": "Passed",
+        "Duration": 0.0024958,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,True)",
+        "Status": "Passed",
+        "Duration": 0.0023515,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,True)",
+        "Status": "Passed",
+        "Duration": 0.0022628,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RepresentationBasisUnitsAndDisplayComposeOnce",
+        "Status": "Passed",
+        "Duration": 0.0004534,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.ShearReflectionAndNonuniformScaleArePreserved",
+        "Status": "Passed",
+        "Duration": 0.0002594,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.UnknownUnregisteredInputPersistsWithoutAnInventedMetreOrBody",
+        "Status": "Passed",
+        "Duration": 0.0008555,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "repeatRepair": {
+    "Assets/Prefabs/PlatformRoot/PlatformRoot.Quest3.prefab": {
+      "before": "506d2f9bf11b493b8449db3ed5443f84eeaee092cfd4a5987aacb424c24ea4c8",
+      "after": "506d2f9bf11b493b8449db3ed5443f84eeaee092cfd4a5987aacb424c24ea4c8"
+    },
+    "Assets/Prefabs/PlatformRoot/PlatformRoot.Mobile.prefab": {
+      "before": "bd07b76c4c57ea2f2d29777c70eb3aefe79bf745a850add71ff558c73171af98",
+      "after": "bd07b76c4c57ea2f2d29777c70eb3aefe79bf745a850add71ff558c73171af98"
+    },
+    "Assets/Plugins/Android/AndroidManifest.xml": {
+      "before": "648a0e658b0f3aa197977bfca8a21d87624ad11f35b1a672886d51bc411f56b9",
+      "after": "648a0e658b0f3aa197977bfca8a21d87624ad11f35b1a672886d51bc411f56b9"
+    },
+    "ProjectSettings/ProjectSettings.asset": {
+      "before": "ed92e89020ffbdacc0a92173869f7bb03339f082024805a6391e3ba37e90b23e",
+      "after": "82f255484222be412ffd6f4947130c2ac82f33ee8eacbbac63219a1062b9fd41"
+    },
+    "playerSettingsComparison": "Same values as integrated settings; only WindowsStoreApps property ordering differs. Prefabs and manifest byte-identical after repeat repair."
+  },
+  "source": {
+    "branch": "codex/scientific-scene-foundation",
+    "baseHead": "a87c7d73b9e892355b46fe5478eba9520876aba2",
+    "workingTree": "uncommitted changes included",
+    "fullManifestPath": "build/GeoXplorer-openxr-1.17.0-2026-09-07.source.json",
+    "fullManifestSha256": "1091d3efd26ca4696ed28a30f0875cbf7f5b53a945be601ce6753948d0e6dc5f",
+    "fileCount": 7780,
+    "trialComparison": "All snapshotted Assets/Packages/ProjectSettings files match bytes except post-build cleanup of the two XR preloadedAssets references. XR Management XRBuildHelper and XRGeneralBuildProcessor add the current target settings during preprocess and remove them after building. Original integration settings retained.",
+    "changedIntegrationFileHashes": {
+      "Assets/Editor/CommandLineBuild.cs": "22f24244393261e2d9db994e084d49ce2e5f0d11dfaeff17af8f137fbd80b7fe",
+      "Assets/Editor/QuestAndroidStoreSettingsConfigurator.cs": "373ef05c9a1ac9c8124632a5ca9693c8be56d0e5c9d1e9a7819fa9d4e3bbc33a",
+      "Assets/Plugins/Android/mainTemplate.gradle": "d661306667dc700441310ef6939e54a74b2a2ab95e883d247b101169b73da4a0",
+      "Assets/Plugins/Android/AndroidManifest.xml": "648a0e658b0f3aa197977bfca8a21d87624ad11f35b1a672886d51bc411f56b9",
+      "Assets/Prefabs/PlatformRoot/PlatformRoot.Quest3.prefab": "506d2f9bf11b493b8449db3ed5443f84eeaee092cfd4a5987aacb424c24ea4c8",
+      "Assets/Prefabs/PlatformRoot/PlatformRoot.Mobile.prefab": "bd07b76c4c57ea2f2d29777c70eb3aefe79bf745a850add71ff558c73171af98",
+      "Assets/XR/Settings/OpenXRPackageSettings.asset": "86b3279fa05b4b2204598bee7d4bbcfeec39fde31cf192fda44448681d6e2461",
+      "Packages/manifest.json": "696ce400b6ea9e82dd17fb84fd589984b478e083cb8ce5a4f74ed5ca8e505055",
+      "Packages/packages-lock.json": "c6accdd78361913024e5cf3ad4c43fecff6b3e0011ba11d9c6c183382cd88ad1",
+      "ProjectSettings/ProjectSettings.asset": "9f6cb04dcf4b277634f9443d12bf6050666caa14c9224b810dc3edf450c4fdb1"
+    }
+  },
+  "firstBuildNotAccepted": {
+    "result": "Succeeded",
+    "totalErrors": 1,
+    "totalWarnings": 155,
+    "errors": [
+      {
+        "message": "Assets/Plugins/Android/mainTemplate.gradle file is missing the CMake arguments required for GameActivity and Framepacing to work. To fix this, add \"**DEFAULT_CONFIG_SETUP**\" inside the defaultConfig block. If not fixed, your build can fail."
+      }
+    ],
+    "textureSubtargetAfterBuild": "Generic"
+  },
+  "limitations": {
+    "questHardwareAcceptance": "not observed for this APK",
+    "csharpLint": "not run: dotnet command unavailable",
+    "warnings": "Final build warnings retained; first full compile also reported legacy API deprecation warnings."
+  }
+}

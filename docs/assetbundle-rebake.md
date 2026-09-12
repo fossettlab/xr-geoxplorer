@@ -1,5 +1,11 @@
 # AssetBundle Re-Bake Pipeline
 
+> **Content direction (2026-09-04):** retain this pipeline for curated and
+> Unity-specific content. The [open-input plan](open-3d-plan.md) adds direct
+> standard-format loading alongside it, starting with GLB. New ordinary models
+> will not require a bundle bake or Azure catalog registration. The existing
+> bundle and URP modernization work remains.
+
 > **Editor note (2026-08):** `main` now targets **Unity 6000.4.4f1**. The bake
 > commands and validation notes below describe the **2022.3.62f2** pipeline used
 > to produce and verify deployed Azure bundles. A URP re-bake on Unity 6 is

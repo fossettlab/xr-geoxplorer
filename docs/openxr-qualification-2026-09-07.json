@@ -1,0 +1,892 @@
+{
+  "unity": "6000.4.4f1",
+  "inputSystem": "1.19.0",
+  "source": "a87c7d73b9e892355b46fe5478eba9520876aba2",
+  "dependencyChanges": {
+    "com.unity.xr.openxr": {
+      "before": {
+        "version": "1.16.1",
+        "depth": 0,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.inputsystem": "1.6.3",
+          "com.unity.xr.core-utils": "2.3.0",
+          "com.unity.xr.management": "4.4.0",
+          "com.unity.modules.androidjni": "1.0.0",
+          "com.unity.xr.legacyinputhelpers": "2.1.2"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "after": {
+        "version": "1.17.0",
+        "depth": 0,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.inputsystem": "1.6.3",
+          "com.unity.xr.core-utils": "2.3.0",
+          "com.unity.xr.management": "4.4.0",
+          "com.unity.modules.androidjni": "1.0.0",
+          "com.unity.xr.legacyinputhelpers": "2.1.2"
+        },
+        "url": "https://packages.unity.com"
+      }
+    }
+  },
+  "effectiveBefore": [
+    {
+      "target": "Android",
+      "timing": false,
+      "foveation": "Legacy",
+      "renderMode": "SinglePassInstanced",
+      "depth": "Depth16Bit",
+      "features": [
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.SpaceWarpFeature",
+          "name": "SpaceWarpFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.ConformanceAutomation.ConformanceAutomationFeature",
+          "name": "ConformanceAutomationFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction",
+          "name": "DPadInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.EyeGazeInteraction",
+          "name": "EyeGazeInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.FoveatedRenderingFeature",
+          "name": "FoveatedRenderingFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandCommonPosesInteraction",
+          "name": "HandCommonPosesInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandInteractionProfile",
+          "name": "HandInteractionProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.KHRSimpleControllerProfile",
+          "name": "KHRSimpleControllerProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.MetaHandTrackingAim",
+          "name": "MetaHandTrackingAim Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.MetaQuestSupport.MetaQuestFeature",
+          "name": "MetaQuestFeature Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchPlusControllerProfile",
+          "name": "MetaQuestTouchPlusControllerProfile Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchProControllerProfile",
+          "name": "MetaQuestTouchProControllerProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MicrosoftHandInteraction",
+          "name": "MicrosoftHandInteraction Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Mock.MockRuntime",
+          "name": "MockRuntime Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.OculusQuestSupport.OculusQuestFeature",
+          "name": "OculusQuestFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.OculusTouchControllerProfile",
+          "name": "OculusTouchControllerProfile Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.PalmPoseInteraction",
+          "name": "PalmPoseInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.RuntimeDebugger.RuntimeDebuggerOpenXRFeature",
+          "name": "RuntimeDebuggerOpenXRFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Extensions.PerformanceSettings.XrPerformanceSettingsFeature",
+          "name": "XrPerformanceSettingsFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.HandTracking",
+          "name": "HandTracking Android",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "target": "Standalone",
+      "timing": false,
+      "foveation": "Legacy",
+      "renderMode": "SinglePassInstanced",
+      "depth": "None",
+      "features": [
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.ConformanceAutomation.ConformanceAutomationFeature",
+          "name": "ConformanceAutomationFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction",
+          "name": "DPadInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.EyeGazeInteraction",
+          "name": "EyeGazeInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.FoveatedRenderingFeature",
+          "name": "FoveatedRenderingFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandCommonPosesInteraction",
+          "name": "HandCommonPosesInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandInteractionProfile",
+          "name": "HandInteractionProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HPReverbG2ControllerProfile",
+          "name": "HPReverbG2ControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HTCViveControllerProfile",
+          "name": "HTCViveControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.KHRSimpleControllerProfile",
+          "name": "KHRSimpleControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.MetaHandTrackingAim",
+          "name": "MetaHandTrackingAim Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchPlusControllerProfile",
+          "name": "MetaQuestTouchPlusControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchProControllerProfile",
+          "name": "MetaQuestTouchProControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MicrosoftHandInteraction",
+          "name": "MicrosoftHandInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MicrosoftMotionControllerProfile",
+          "name": "MicrosoftMotionControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Mock.MockRuntime",
+          "name": "MockRuntime Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.OculusTouchControllerProfile",
+          "name": "OculusTouchControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.PalmPoseInteraction",
+          "name": "PalmPoseInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.RuntimeDebugger.RuntimeDebuggerOpenXRFeature",
+          "name": "RuntimeDebuggerOpenXRFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.ValveIndexControllerProfile",
+          "name": "ValveIndexControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Extensions.PerformanceSettings.XrPerformanceSettingsFeature",
+          "name": "XrPerformanceSettingsFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.HandTracking",
+          "name": "HandTracking Standalone",
+          "enabled": false
+        }
+      ]
+    }
+  ],
+  "effectiveAfter": [
+    {
+      "target": "Android",
+      "timing": false,
+      "foveation": "Legacy",
+      "renderMode": "SinglePassInstanced",
+      "depth": "Depth16Bit",
+      "features": [
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.AndroidMouseInteractionProfile",
+          "name": "AndroidMouseInteractionProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.ApiLayersFeature",
+          "name": "ApiLayersFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.SpaceWarpFeature",
+          "name": "SpaceWarpFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.ConformanceAutomation.ConformanceAutomationFeature",
+          "name": "ConformanceAutomationFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.DebugUtilsFeature",
+          "name": "DebugUtilsFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction",
+          "name": "DPadInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.EyeGazeInteraction",
+          "name": "EyeGazeInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.FoveatedRenderingFeature",
+          "name": "FoveatedRenderingFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandCommonPosesInteraction",
+          "name": "HandCommonPosesInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandInteractionProfile",
+          "name": "HandInteractionProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.KHRSimpleControllerProfile",
+          "name": "KHRSimpleControllerProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.MetaHandTrackingAim",
+          "name": "MetaHandTrackingAim Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.MetaQuestSupport.MetaQuestFeature",
+          "name": "MetaQuestFeature Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchPlusControllerProfile",
+          "name": "MetaQuestTouchPlusControllerProfile Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchProControllerProfile",
+          "name": "MetaQuestTouchProControllerProfile Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MicrosoftHandInteraction",
+          "name": "MicrosoftHandInteraction Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Mock.MockRuntime",
+          "name": "MockRuntime Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.OculusQuestSupport.OculusQuestFeature",
+          "name": "OculusQuestFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.OculusTouchControllerProfile",
+          "name": "OculusTouchControllerProfile Android",
+          "enabled": true
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.PalmPoseInteraction",
+          "name": "PalmPoseInteraction Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.RuntimeDebugger.RuntimeDebuggerOpenXRFeature",
+          "name": "RuntimeDebuggerOpenXRFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Extensions.PerformanceSettings.XrPerformanceSettingsFeature",
+          "name": "XrPerformanceSettingsFeature Android",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.HandTracking",
+          "name": "HandTracking Android",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "target": "Standalone",
+      "timing": false,
+      "foveation": "Legacy",
+      "renderMode": "SinglePassInstanced",
+      "depth": "None",
+      "features": [
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.ApiLayersFeature",
+          "name": "ApiLayersFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.ConformanceAutomation.ConformanceAutomationFeature",
+          "name": "ConformanceAutomationFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.DebugUtilsFeature",
+          "name": "DebugUtilsFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction",
+          "name": "DPadInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.EyeGazeInteraction",
+          "name": "EyeGazeInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.FoveatedRenderingFeature",
+          "name": "FoveatedRenderingFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandCommonPosesInteraction",
+          "name": "HandCommonPosesInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HandInteractionProfile",
+          "name": "HandInteractionProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HPReverbG2ControllerProfile",
+          "name": "HPReverbG2ControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.HTCViveControllerProfile",
+          "name": "HTCViveControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.KHRSimpleControllerProfile",
+          "name": "KHRSimpleControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.MetaHandTrackingAim",
+          "name": "MetaHandTrackingAim Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchPlusControllerProfile",
+          "name": "MetaQuestTouchPlusControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MetaQuestTouchProControllerProfile",
+          "name": "MetaQuestTouchProControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MicrosoftHandInteraction",
+          "name": "MicrosoftHandInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.MicrosoftMotionControllerProfile",
+          "name": "MicrosoftMotionControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Mock.MockRuntime",
+          "name": "MockRuntime Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.OculusTouchControllerProfile",
+          "name": "OculusTouchControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.PalmPoseInteraction",
+          "name": "PalmPoseInteraction Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.RuntimeDebugger.RuntimeDebuggerOpenXRFeature",
+          "name": "RuntimeDebuggerOpenXRFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Interactions.ValveIndexControllerProfile",
+          "name": "ValveIndexControllerProfile Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.OpenXR.Features.Extensions.PerformanceSettings.XrPerformanceSettingsFeature",
+          "name": "XrPerformanceSettingsFeature Standalone",
+          "enabled": false
+        },
+        {
+          "type": "UnityEngine.XR.Hands.OpenXR.HandTracking",
+          "name": "HandTracking Standalone",
+          "enabled": false
+        }
+      ]
+    }
+  ],
+  "newDisabledFeatures": {
+    "Android": [
+      "UnityEngine.XR.OpenXR.Features.Interactions.AndroidMouseInteractionProfile",
+      "UnityEngine.XR.OpenXR.Features.ApiLayersFeature",
+      "UnityEngine.XR.OpenXR.Features.DebugUtilsFeature"
+    ],
+    "Standalone": [
+      "UnityEngine.XR.OpenXR.Features.ApiLayersFeature",
+      "UnityEngine.XR.OpenXR.Features.DebugUtilsFeature"
+    ]
+  },
+  "tests": {
+    "status": "completed",
+    "duration": 0.28,
+    "summary": {
+      "total": 51,
+      "passed": 51,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "AnchorBackendClientTests.BuildCreateUrl_appends_api_anchors",
+        "Status": "Passed",
+        "Duration": 0.0067999,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.BuildGetUrl_includes_anchor_id",
+        "Status": "Passed",
+        "Duration": 0.0001851,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.BuildListUrl_appends_api_anchors",
+        "Status": "Passed",
+        "Duration": 7.22e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.TryParseAnchorListResponse_accepts_null_array",
+        "Status": "Passed",
+        "Duration": 0.000829,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.TryParseAnchorListResponse_parses_firebase_shape_array",
+        "Status": "Passed",
+        "Duration": 0.0014249,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "AnchorBackendClientTests.TryParseAnchorResponse_parses_valid_json",
+        "Status": "Passed",
+        "Duration": 0.0002476,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildAssetBundleUri_composes_platform_and_bundle",
+        "Status": "Passed",
+        "Duration": 0.000727,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildAssetBundleUri_trims_trailing_slash_on_base",
+        "Status": "Passed",
+        "Duration": 0.0001841,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildContainerListUrl_matches_azure_list_query",
+        "Status": "Passed",
+        "Duration": 0.0001446,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildThumbnailUrl_joins_thumbnails_root_and_path",
+        "Status": "Passed",
+        "Duration": 0.0001274,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RemoteConfigTests.BuildThumbnailUrl_trims_leading_slash_on_path",
+        "Status": "Passed",
+        "Duration": 7.57e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_appends_api_sas_restricted",
+        "Status": "Passed",
+        "Duration": 0.0003441,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_handles_base_already_ending_with_api",
+        "Status": "Passed",
+        "Duration": 5.92e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_trims_trailing_slash",
+        "Status": "Passed",
+        "Duration": 4.7e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.TryParseResponse_parses_valid_json",
+        "Status": "Passed",
+        "Duration": 0.00019,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "RestrictedBundleSasClientTests.TryParseResponse_rejects_missing_url",
+        "Status": "Passed",
+        "Duration": 0.0001488,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.GamepadAndNumpadBindingsRemainAvailable",
+        "Status": "Passed",
+        "Duration": 0.076207,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.KeyboardNavigationSubmitAndCancelUseNewDevices",
+        "Status": "Passed",
+        "Duration": 0.0045019,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.ModuleReadsNewMouseStateAndRestoresItsPreviousInput",
+        "Status": "Passed",
+        "Duration": 0.0104353,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.TouchPressAndReleaseKeepTheirIdentityAndPhase",
+        "Status": "Passed",
+        "Duration": 0.0241954,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Input.Tests.OpenXrGamepadCompatibilityTests.ProjectLayoutsPermitGamepadCreation",
+        "Status": "Passed",
+        "Duration": 0.0018213,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Network.Tests.PunWireContractTests.SerializeView_Read_StoresReceivedPositionRotationScale",
+        "Status": "Passed",
+        "Duration": 0.0037283,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Network.Tests.PunWireContractTests.SharedAnchorIdHandler_WritesIdIntoNetworkManager",
+        "Status": "Passed",
+        "Duration": 0.003675,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.DuplicatePropertiesAndTrailingContentFail",
+        "Status": "Passed",
+        "Duration": 0.0164758,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidNumericsFailExplicitly",
+        "Status": "Passed",
+        "Duration": 0.0004897,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"body\")",
+        "Status": "Passed",
+        "Duration": 0.000695,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"definition\")",
+        "Status": "Passed",
+        "Duration": 0.0005376,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"units\")",
+        "Status": "Passed",
+        "Duration": 9.69e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"target\")",
+        "Status": "Passed",
+        "Duration": 8.74e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"geographic\")",
+        "Status": "Passed",
+        "Duration": 6.94e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"duplicate\")",
+        "Status": "Passed",
+        "Duration": 7.66e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"same-frame-offset\")",
+        "Status": "Passed",
+        "Duration": 0.0017785,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.LargeOriginIsSubtractedBeforeFloatConversion",
+        "Status": "Passed",
+        "Duration": 0.0012968,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"version\")",
+        "Status": "Passed",
+        "Duration": 0.0023232,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"missing\")",
+        "Status": "Passed",
+        "Duration": 0.0013546,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"coordinate\")",
+        "Status": "Passed",
+        "Duration": 0.009121,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"extra\")",
+        "Status": "Passed",
+        "Duration": 0.0014959,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-number\")",
+        "Status": "Passed",
+        "Duration": 0.001234,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"numeric-name\")",
+        "Status": "Passed",
+        "Duration": 0.0008411,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-bool\")",
+        "Status": "Passed",
+        "Duration": 0.0010321,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Earth\")",
+        "Status": "Passed",
+        "Duration": 0.0014998,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Moon\")",
+        "Status": "Passed",
+        "Duration": 0.0009066,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Mars\")",
+        "Status": "Passed",
+        "Duration": 0.0009375,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(null)",
+        "Status": "Passed",
+        "Duration": 0.0008713,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,False)",
+        "Status": "Passed",
+        "Duration": 0.0035553,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,False)",
+        "Status": "Passed",
+        "Duration": 0.0022735,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,True)",
+        "Status": "Passed",
+        "Duration": 0.0022628,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,True)",
+        "Status": "Passed",
+        "Duration": 0.0024905,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RepresentationBasisUnitsAndDisplayComposeOnce",
+        "Status": "Passed",
+        "Duration": 0.0006466,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.ShearReflectionAndNonuniformScaleArePreserved",
+        "Status": "Passed",
+        "Duration": 0.0002824,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.UnknownUnregisteredInputPersistsWithoutAnInventedMetreOrBody",
+        "Status": "Passed",
+        "Duration": 0.0010708,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "questHardwareAcceptance": "not observed"
+}

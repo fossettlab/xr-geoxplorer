@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply from: '../shared/keepUnitySymbols.gradle'
+apply from: '../shared/common.gradle'
 **APPLY_PLUGINS**
 
 def azureSpatialAnchorsSdkVersion = '2.4.0'
@@ -23,6 +25,7 @@ dependencies {
 }
 
 android {
+    ndkVersion "**NDKVERSION**"
     namespace "com.unity3d.player"
     ndkPath "**NDKPATH**"
     compileSdkVersion **APIVERSION**
@@ -37,11 +40,13 @@ android {
         minSdkVersion **MINSDKVERSION**
         targetSdkVersion **TARGETSDKVERSION**
         ndk {
+            debugSymbolLevel **DEBUGSYMBOLLEVEL**
             abiFilters **ABIFILTERS**
         }
         versionCode **VERSIONCODE**
         versionName '**VERSIONNAME**'
         consumerProguardFiles 'proguard-unity.txt'**USER_PROGUARD**
+**DEFAULT_CONFIG_SETUP**
 
         externalNativeBuild {
             cmake {

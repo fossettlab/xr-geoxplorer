@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Xml.Linq;
 using UnityEditor;
 using UnityEditor.XR.OpenXR.Features;
 using UnityEngine;
@@ -21,7 +23,7 @@ public static class QuestAndroidStoreSettingsConfigurator
     private const string UseCustomGradlePropertiesTemplateProperty = "useCustomGradlePropertiesTemplate";
     private const string UseCustomGradleSettingsTemplateProperty = "useCustomGradleSettingsTemplate";
     private const string ActiveInputHandlerProperty = "activeInputHandler";
-    private const int ActiveInputHandlingBoth = 2;
+    private const int ActiveInputHandlingNew = 1; // Input System EditorPlayerSettingHelpers.InputHandler.
 
     private static readonly string[] RequiredAndroidFeatureIds =
     {
@@ -30,6 +32,37 @@ public static class QuestAndroidStoreSettingsConfigurator
         "com.unity.openxr.feature.input.metaquestplus",
         "com.unity.openxr.feature.input.metahandtrackingaim"
     };
+
+    // Narrow repair: do not rerun unrelated SDK, renderer, Gradle or feature settings.
+    [MenuItem("GeoXplorer/XR/Apply Reviewed Android Compatibility")]
+    public static void ApplyReviewedAndroidCompatibility()
+    {
+        SetPlayerSettingsInt(ActiveInputHandlerProperty, ActiveInputHandlingNew);
+        PlayerSettings.Android.applicationEntry = AndroidApplicationEntry.GameActivity;
+        WriteAndroidManifestTemplate();
+        foreach (string path in new[] {
+            "Assets/Prefabs/PlatformRoot/PlatformRoot.Quest3.prefab",
+            "Assets/Prefabs/PlatformRoot/PlatformRoot.Mobile.prefab" })
+        {
+            GameObject root = PrefabUtility.LoadPrefabContents(path);
+            try
+            {
+                bool changed = false;
+                foreach (var module in root.GetComponentsInChildren<UnityEngine.EventSystems.BaseInputModule>(true))
+                {
+                    if (!(module is UnityEngine.EventSystems.StandaloneInputModule)) continue;
+                    if (module.GetComponent<GeoX.Input.LegacyUiInputBridge>() != null) continue;
+                    module.gameObject.AddComponent<GeoX.Input.LegacyUiInputBridge>();
+                    changed = true;
+                }
+                if (changed) PrefabUtility.SaveAsPrefabAsset(root, path);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+        }
+        AssetDatabase.ImportAsset(AndroidManifestPath, ImportAssetOptions.ForceUpdate);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Reviewed Android compatibility applied; restart Editor for input backend changes.");
+    }
 
     [MenuItem("GeoXplorer/XR/Configure Quest Android Store Settings")]
     public static void ConfigureQuestAndroidStoreSettings()
@@ -72,7 +105,8 @@ public static class QuestAndroidStoreSettingsConfigurator
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
         PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.Android, ApiCompatibilityLevel.NET_Standard);
         PlayerSettings.colorSpace = ColorSpace.Linear;
-        SetPlayerSettingsInt(ActiveInputHandlerProperty, ActiveInputHandlingBoth);
+        SetPlayerSettingsInt(ActiveInputHandlerProperty, ActiveInputHandlingNew);
+        PlayerSettings.Android.applicationEntry = AndroidApplicationEntry.GameActivity;
     }
 
     private static void ApplyQuestStorePlayerSettings()
@@ -115,7 +149,8 @@ public static class QuestAndroidStoreSettingsConfigurator
         Require(PlayerSettings.GetScriptingBackend(BuildTargetGroup.Android) == ScriptingImplementation.IL2CPP, failures, "Android scripting backend must be IL2CPP");
         Require(PlayerSettings.GetApiCompatibilityLevel(BuildTargetGroup.Android) == ApiCompatibilityLevel.NET_Standard, failures, "API compatibility must be .NET Standard");
         Require(PlayerSettings.colorSpace == ColorSpace.Linear, failures, "color space must be Linear");
-        Require(GetPlayerSettingsInt(ActiveInputHandlerProperty) == ActiveInputHandlingBoth, failures, "Active Input Handling must be Both");
+        Require(GetPlayerSettingsInt(ActiveInputHandlerProperty) == ActiveInputHandlingNew, failures, "Active Input Handling must be Input System Package (New)");
+        Require(PlayerSettings.Android.applicationEntry == AndroidApplicationEntry.GameActivity, failures, "Android entry point must be GameActivity");
         Require(PlayerSettings.Android.forceInternetPermission, failures, "Internet Access must be Require");
         Require(PlayerSettings.GetApplicationIdentifier(BuildTargetGroup.Android) == PackageName, failures, "Android package name must be " + PackageName);
         Require(GetPlayerSettingsBool(UseCustomMainManifestProperty), failures, "custom main manifest must be enabled");
@@ -131,11 +166,30 @@ public static class QuestAndroidStoreSettingsConfigurator
         ValidateOpenXRSettings(failures);
         ValidateOpenXRFeatures(failures);
         ValidateFileContains(AndroidManifestPath, failures, RequiredManifestSnippets);
+        ValidateAndroidActivity(failures);
         ValidateFileContains(MainGradleTemplatePath, failures, RequiredMainGradleSnippets);
         ValidateFileContains(GradlePropertiesTemplatePath, failures, RequiredGradlePropertiesSnippets);
         ValidateFileContains(GradleSettingsTemplatePath, failures, RequiredGradleSettingsSnippets);
 
         return failures;
+    }
+
+    private static void ValidateAndroidActivity(List<string> failures)
+    {
+        if (!File.Exists(AndroidManifestPath)) return; // Reported by ValidateFileContains.
+        XNamespace android = "http://schemas.android.com/apk/res/android";
+        XElement[] activities = XDocument.Load(AndroidManifestPath)
+            .Descendants("activity").ToArray();
+        Require(activities.Length == 1 &&
+            (string)activities[0].Attribute(android + "name") == "com.unity3d.player.UnityPlayerGameActivity",
+            failures, "custom manifest must contain exactly one GameActivity");
+        if (activities.Length != 1) return;
+        Require((string)activities[0].Attribute(android + "theme") == "@style/BaseUnityGameActivityTheme",
+            failures, "GameActivity must use the Unity GameActivity theme");
+        Require(activities[0].Elements("meta-data").Any(element =>
+            (string)element.Attribute(android + "name") == "android.app.lib_name" &&
+            (string)element.Attribute(android + "value") == "game"),
+            failures, "GameActivity must load the game native library");
     }
 
     private static void ValidateOpenXRSettings(List<string> failures)
@@ -262,7 +316,9 @@ public static class QuestAndroidStoreSettingsConfigurator
     {
         "com.android.library",
         "spatialanchors_ndk",
-        "**TARGETSDKVERSION**"
+        "**TARGETSDKVERSION**",
+        "**DEFAULT_CONFIG_SETUP**",
+        "apply from: '../shared/common.gradle'"
     };
 
     private static readonly string[] RequiredGradleSettingsSnippets =
@@ -305,11 +361,11 @@ public static class QuestAndroidStoreSettingsConfigurator
     <uses-feature android:name=""android.hardware.microphone"" android:required=""false"" />
     <uses-feature android:name=""android.hardware.vr.headtracking"" android:required=""true"" android:version=""1"" />
     <uses-feature android:name=""oculus.software.handtracking"" android:required=""false"" />
-    <uses-feature android:name=""com.oculus.feature.PASSTHROUGH"" android:required=""true"" />
+    <uses-feature android:name=""com.oculus.feature.PASSTHROUGH"" android:required=""false"" />
 
     <application>
-        <activity android:name=""com.unity3d.player.UnityPlayerActivity""
-                  android:theme=""@style/UnityThemeSelector""
+        <activity android:name=""com.unity3d.player.UnityPlayerGameActivity""
+                  android:theme=""@style/BaseUnityGameActivityTheme""
                   android:exported=""true"">
             <intent-filter>
                 <action android:name=""android.intent.action.MAIN"" />
@@ -317,6 +373,7 @@ public static class QuestAndroidStoreSettingsConfigurator
                 <category android:name=""com.oculus.intent.category.VR"" />
             </intent-filter>
             <meta-data android:name=""unityplayer.UnityActivity"" android:value=""true"" />
+            <meta-data android:name=""android.app.lib_name"" android:value=""game"" />
         </activity>
     </application>
 </manifest>
