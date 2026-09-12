@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GeoXplorer scientific scene v2 review draft",
+  "description": "Review artifact. Semantic and provider validation are additional requirements in portable-scene-schema-review.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "revision", "sceneFrameId", "frames", "assets", "operations", "registrations", "layers", "metadata", "extensions"],
+  "properties": {
+    "schemaVersion": {"const": 2},
+    "id": {"$ref": "#/$defs/id"},
+    "revision": {"$ref": "#/$defs/id"},
+    "sceneFrameId": {"$ref": "#/$defs/id"},
+    "frames": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/frame"}},
+    "assets": {"type": "array", "items": {"$ref": "#/$defs/asset"}},
+    "operations": {"type": "array", "items": {"$ref": "#/$defs/operation"}},
+    "registrations": {"type": "array", "items": {"$ref": "#/$defs/registration"}},
+    "layers": {"type": "array", "items": {"$ref": "#/$defs/layer"}},
+    "metadata": {"type": "object"},
+    "extensions": {"type": "object", "additionalProperties": {"$ref": "#/$defs/extension"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "nullableId": {"anyOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+    "vector": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number"}},
+    "definition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["encoding", "value"],
+      "properties": {"encoding": {"enum": ["opaque", "wkt2", "projjson"]}, "value": {"type": ["object", "string"]}},
+      "allOf": [
+        {"if": {"properties": {"encoding": {"const": "wkt2"}}}, "then": {"properties": {"value": {"type": "string", "minLength": 1}}}},
+        {"if": {"properties": {"encoding": {"const": "projjson"}}}, "then": {"properties": {"value": {"type": "object"}}}}
+      ]
+    },
+    "frame": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "body", "kind", "definition", "cartesian"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "body": {"$ref": "#/$defs/nullableId"},
+        "kind": {"enum": ["unknown", "cartesian", "geographic"]},
+        "definition": {"$ref": "#/$defs/definition"},
+        "cartesian": {"oneOf": [{"type": "null"}, {
+          "type": "object", "additionalProperties": false, "required": ["axisConvention", "metresPerUnit"],
+          "properties": {"axisConvention": {"$ref": "#/$defs/id"}, "metresPerUnit": {"type": ["number", "null"], "exclusiveMinimum": 0}}
+        }]}
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false, "required": ["origins", "lineage", "statements"],
+      "properties": {
+        "origins": {"type": "array", "uniqueItems": true, "items": {"enum": ["measured", "reconstructed", "interpreted", "generated", "mixed"]}},
+        "lineage": {"type": "array", "items": {"type": "object"}},
+        "statements": {"type": "array", "items": {
+          "type": "object", "additionalProperties": false, "required": ["category", "status", "details"],
+          "properties": {
+            "category": {"enum": ["source-accuracy", "fit-residual", "operation-accuracy", "tracking", "representation-error", "declaration", "legacy"]},
+            "status": {"enum": ["supplied", "derived", "independently-checked", "unknown"]},
+            "details": {"type": "object"}
+          }
+        }}
+      }
+    },
+    "asset": {
+      "type": "object", "additionalProperties": false, "required": ["id", "contentHash", "format", "locators", "metadata", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "format": {"$ref": "#/$defs/nullableId"},
+        "contentHash": {"oneOf": [{"type": "null"}, {
+          "type": "object", "additionalProperties": false, "required": ["algorithm", "value"],
+          "properties": {"algorithm": {"$ref": "#/$defs/id"}, "value": {"$ref": "#/$defs/id"}}
+        }]},
+        "locators": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "metadata": {"type": "object"}, "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    },
+    "affine": {
+      "type": "object", "additionalProperties": false, "required": ["linear", "translation"],
+      "properties": {
+        "linear": {"type": "array", "minItems": 9, "maxItems": 9, "items": {"type": "number"}},
+        "translation": {"$ref": "#/$defs/vector"}
+      }
+    },
+    "geodetic": {
+      "type": "object", "additionalProperties": false,
+      "required": ["definition", "provider", "database", "resources", "domain", "inverseAvailable"],
+      "properties": {
+        "definition": {"$ref": "#/$defs/definition"},
+        "provider": {"type": "object", "additionalProperties": false, "required": ["name", "version"], "properties": {"name": {"$ref": "#/$defs/id"}, "version": {"$ref": "#/$defs/id"}}},
+        "database": {"type": "object"},
+        "resources": {"type": "array", "items": {"type": "object"}},
+        "domain": {"type": "object"},
+        "inverseAvailable": {"type": "boolean"}
+      }
+    },
+    "operation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "version", "sourceFrameId", "targetFrameId", "payload", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "kind": {"$ref": "#/$defs/id"}, "version": {"type": "integer", "minimum": 1},
+        "sourceFrameId": {"$ref": "#/$defs/id"}, "targetFrameId": {"$ref": "#/$defs/id"},
+        "payload": {"type": "object"}, "evidence": {"$ref": "#/$defs/evidence"}
+      },
+      "allOf": [
+        {"if": {"properties": {"kind": {"const": "affine"}, "version": {"const": 1}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/affine"}}}},
+        {"if": {"properties": {"kind": {"const": "geodetic"}, "version": {"const": 1}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/geodetic"}}}}
+      ]
+    },
+    "registration": {
+      "type": "object", "additionalProperties": false, "required": ["id", "operationId", "supersedes", "evidence"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "operationId": {"$ref": "#/$defs/id"}, "supersedes": {"$ref": "#/$defs/nullableId"}, "evidence": {"$ref": "#/$defs/evidence"}}
+    },
+    "representation": {
+      "type": "object", "additionalProperties": false, "required": ["id", "assetId", "frameId", "toSourceOperationId"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "assetId": {"$ref": "#/$defs/id"}, "frameId": {"$ref": "#/$defs/id"}, "toSourceOperationId": {"$ref": "#/$defs/nullableId"}}
+    },
+    "layer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "sourceFrameId", "activeRegistrationId", "sourceAssetIds", "representations", "metadata", "evidence"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "name": {"type": "string"}, "sourceFrameId": {"$ref": "#/$defs/id"},
+        "activeRegistrationId": {"$ref": "#/$defs/nullableId"},
+        "sourceAssetIds": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "representations": {"type": "array", "items": {"$ref": "#/$defs/representation"}},
+        "metadata": {"type": "object"}, "evidence": {"$ref": "#/$defs/evidence"}
+      }
+    },
+    "extension": {
+      "type": "object", "additionalProperties": false, "required": ["version", "required", "payload"],
+      "properties": {"version": {"type": "integer", "minimum": 1}, "required": {"type": "boolean"}, "payload": {}}
+    }
+  }
+}

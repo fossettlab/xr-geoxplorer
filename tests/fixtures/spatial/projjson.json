@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 2,
+  "id": "synthetic-portable-scene",
+  "revision": "authored-initial-revision",
+  "sceneFrameId": "local-study",
+  "frames": [
+    {
+      "id": "local-study",
+      "body": null,
+      "kind": "cartesian",
+      "definition": {
+        "encoding": "projjson",
+        "value": {
+          "type": "EngineeringCRS",
+          "name": "Synthetic unqualified fixture"
+        }
+      },
+      "cartesian": {
+        "axisConvention": "x-right,y-forward,z-up",
+        "metresPerUnit": null
+      }
+    },
+    {
+      "id": "original-model",
+      "body": null,
+      "kind": "unknown",
+      "definition": {
+        "encoding": "opaque",
+        "value": {}
+      },
+      "cartesian": null
+    }
+  ],
+  "assets": [
+    {
+      "id": "unresolved-model",
+      "contentHash": null,
+      "format": null,
+      "locators": [],
+      "metadata": {},
+      "evidence": {
+        "origins": [],
+        "lineage": [],
+        "statements": []
+      }
+    }
+  ],
+  "operations": [
+    {
+      "id": "declared-placement",
+      "kind": "affine",
+      "version": 1,
+      "sourceFrameId": "original-model",
+      "targetFrameId": "local-study",
+      "payload": {
+        "linear": [
+          -1,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          4
+        ],
+        "translation": [
+          10,
+          20,
+          30
+        ]
+      },
+      "evidence": {
+        "origins": [],
+        "lineage": [],
+        "statements": [
+          {
+            "category": "declaration",
+            "status": "supplied",
+            "details": {
+              "basis": "Authored identity relation for schema review only; physical units remain unknown"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "registrations": [
+    {
+      "id": "declared-solution",
+      "operationId": "declared-placement",
+      "supersedes": null,
+      "evidence": {
+        "origins": [],
+        "lineage": [],
+        "statements": []
+      }
+    }
+  ],
+  "layers": [
+    {
+      "id": "model-layer",
+      "name": "Unresolved model example",
+      "sourceFrameId": "original-model",
+      "activeRegistrationId": "declared-solution",
+      "sourceAssetIds": [
+        "unresolved-model"
+      ],
+      "representations": [
+        {
+          "id": "model-representation",
+          "assetId": "unresolved-model",
+          "frameId": "original-model",
+          "toSourceOperationId": null
+        }
+      ],
+      "metadata": {},
+      "evidence": {
+        "origins": [],
+        "lineage": [],
+        "statements": []
+      }
+    }
+  ],
+  "metadata": {
+    "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+    "largeInteger": 9007199254740993,
+    "beyondInt64": 123456789012345678901234567890,
+    "timestampText": "2026-09-07T00:00:00Z"
+  },
+  "extensions": {}
+}

@@ -1,0 +1,9 @@
+{
+    "name": "GeoX.Spatial",
+    "rootNamespace": "GeoX.Spatial",
+    "references": [],
+    "overrideReferences": true,
+    "precompiledReferences": ["Newtonsoft.Json.dll"],
+    "autoReferenced": true,
+    "noEngineReferences": true
+}
