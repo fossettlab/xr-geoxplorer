@@ -26,6 +26,36 @@ Pair with Tier 2 networking checks in [`docs/networking-harness.md`](networking-
 
 Record build git SHA, date, pass/fail per row, and logcat file for failures.
 
+## Planned scientific-scene and open-input checks
+
+These extend the existing matrix as [the new content path](open-3d-plan.md)
+lands. They are planned acceptance checks, not recorded passes.
+
+- Open an HTTPS GLB that has never been imported into this Unity project,
+  using the actual Quest UI. Verify materials, placement, manipulation, reset,
+  recenter, layer information, and unload.
+- Cancel during download/loading, retry after an error, and repeatedly load and
+  unload models. Check for late/orphaned objects and retained memory.
+- Load known-registered layers; toggle and select them. Move, rotate, and scale
+  the whole scene, then verify alignment and scientific coordinates are unchanged.
+- Preserve explicit Earth, Moon, Mars, and unknown/local-frame metadata. A
+  mismatched layer must not be silently treated as registered in the scene.
+- Save/reload scene state and replace/unload a runtime representation without
+  losing the layer's scientific identity and provenance.
+- Once shared layers are integrated, verify both clients agree on the scene,
+  registration, and display pose, or show a clear content-load failure.
+- Apply the [UI design acceptance](ui-design-principles.md): the dataset dominates
+  at rest, direct manipulation is discoverable, contextual controls dismiss
+  predictably, and typography/targets work at actual headset distances. Inspect
+  advanced scientific detail without crowding the default view.
+- Once implemented, transition tabletop to immersive and back without losing
+  registration, layer identity, visibility or selection. Verify easy return and
+  recenter; use calibrated scale claims only when physical dimensions are known.
+
+Record source/fixture identity and any preparation as well as the build and
+device evidence. A rendered derived mesh does not prove native DEM/point-cloud
+support, and a working local GLB does not prove shared-scene support.
+
 ## Post-#23 additions
 
 Replace Photon rows with NGO + Relay + Vivox equivalents from the networking spike

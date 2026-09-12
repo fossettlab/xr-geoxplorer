@@ -51,7 +51,10 @@ before starting #23 in this repo.
 1. Unity Hub → **6000.4.4f1** (or **2022.3.62f2** for NGO 1.x baseline) → new 3D project (not this repo).
 2. **Edit → Project Settings → Services** → link Unity Cloud project with Relay,
    Lobby, Vivox enabled.
-3. Add package pins above to `Packages/manifest.json`; let Unity resolve lock file.
+3. For the **2022.3 comparison only**, use the historical pins above. For the
+   **6000.4.4f1 trial**, qualify compatible package versions first and record the
+   resolved manifest and lock file in the trial evidence. Do not copy the
+   2022.3 pins into the Unity 6 trial or production project.
 4. **Window → Multiplayer → Multiplayer Center** → install NGO + Relay sample
    (preferred over Boss Room for Quest scope).
 5. Build Android (Quest) + run Editor as second client through Relay.

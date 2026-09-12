@@ -1,8 +1,9 @@
 # Quest Android Store Settings
 
-Issue #9 locks the Android/Quest project settings that must be stable before
-store-track builds. Run the configurator after package restore or after changing
-Android build support modules:
+Issue #9 records the Android/Quest project configuration. These API values are
+the repository's build baseline, not a statement of current store submission
+policy. Validate restored settings first; the broad configurator below reapplies
+SDK, renderer, Gradle and feature settings as well as the input/activity defaults:
 
 ```text
 GeoXplorer > XR > Configure Quest Android Store Settings
@@ -23,6 +24,9 @@ The configurator sets the Android player to:
 - Minimum API level Android 10/API 29.
 - Target API level Android 14/API 34.
 - Internet Access set to Require.
+- Input System Package (New), with the narrow LegacyUiInputBridge retained on
+  the existing Quest/mobile UI modules until their planned replacement.
+- GameActivity entry point, matching the custom Android manifest.
 - Package name `edu.wustl.fossettlab.xrgeoxplorer`.
 - Vulkan as the only Android graphics API.
 - ASTC as the selected Android texture compression build target.
@@ -44,7 +48,13 @@ Meta Quest store permissions and features need to be explicit:
 - `com.oculus.permission.USE_ANCHOR_API`
 - `com.oculus.permission.USE_SCENE`
 - `oculus.software.handtracking` with `android:required="false"`
-- `com.oculus.feature.PASSTHROUGH` with `android:required="true"`
+- `com.oculus.feature.PASSTHROUGH` with `android:required="false"`
+
+The sole launcher activity is `com.unity3d.player.UnityPlayerGameActivity`, using
+`@style/BaseUnityGameActivityTheme` and `android.app.lib_name=game`. PlayerSettings
+and the manifest must agree. To repair only that boundary and the input backend,
+use `GeoXplorer > XR > Apply Reviewed Android Compatibility`, restart the Editor,
+and validate. See the [qualification record](openxr-qualification-2026-09-07.md).
 
 The `com.oculus.supportedDevices` device-targeting metadata is intentionally
 *not* declared here: the Meta Quest OpenXR feature injects it at build time from

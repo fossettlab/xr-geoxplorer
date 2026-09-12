@@ -42,6 +42,8 @@ These values are already serialized in the repo:
 | Architecture | ARM64 |
 | Graphics API | Vulkan only |
 | XR loader (Android) | OpenXR + Meta Quest feature group |
+| Input backend | Input System Package (New) |
+| Android entry point | GameActivity |
 
 Before a first build on a fresh machine, run:
 
@@ -49,7 +51,18 @@ Before a first build on a fresh machine, run:
 GeoXplorer > XR > Validate Quest Android Store Settings
 ```
 
-If validation fails, run `GeoXplorer > XR > Configure Quest Android Store Settings`, then validate again.
+Inspect the validation failure before changing settings. For the reviewed Unity 6
+input/activity repair, run `GeoXplorer > XR > Apply Reviewed Android Compatibility`,
+then restart the Editor and validate again. The command preserves other SDK,
+renderer and feature settings. On a fresh Editor installation, select Android
+texture compression **ASTC** before validation; this build preference is not stored
+in the copied project settings. See the [qualification record](openxr-qualification-2026-09-07.md).
+
+The local `GeoXEditor.CommandLineBuild.BuildAndroid` entry point supplies ASTC
+explicitly and writes an error-checked build receipt beside the APK. The generic
+Pipeline `build` command does not expose this subtarget and resets the override.
+Use the project entry point for reproducible scripted Quest builds; see the
+[current APK checkpoint](android-build-checkpoint-2026-09-07.md).
 
 ## Unity Build And Run
 
@@ -70,7 +83,8 @@ If validation fails, run `GeoXplorer > XR > Configure Quest Android Store Settin
 ```bash
 export ADB="/Applications/Unity/Hub/Editor/6000.4.4f1/PlaybackEngines/AndroidPlayer/SDK/platform-tools/adb"
 "$ADB" install -r "/path/to/GeoXplorerM.apk"
-"$ADB" shell am start -n edu.wustl.fossettlab.xrgeoxplorer/com.unity3d.player.UnityPlayerActivity
+"$ADB" shell am start -n \
+  edu.wustl.fossettlab.xrgeoxplorer/com.unity3d.player.UnityPlayerGameActivity
 ```
 
 ### Development builds
@@ -143,6 +157,9 @@ Debug / Development Build And Run uses the Unity debug keystore. Do **not** comm
 
 ## Verification status
 
+The entries below describe the historical July build. They do not qualify the
+September OpenXR/input/GameActivity changes. Record a new identified APK and
+current hardware evidence before closing `geox-3kj` or its performance follow-on.
 Update this section when someone completes a formal headset pass:
 
 | Check | Status |

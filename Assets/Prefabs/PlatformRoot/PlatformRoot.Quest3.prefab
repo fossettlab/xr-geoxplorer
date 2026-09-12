@@ -17950,6 +17950,7 @@ GameObject:
   - component: {fileID: 2809284724317299224}
   - component: {fileID: 1892692927804427366}
   - component: {fileID: 6647042725370277465}
+  - component: {fileID: 2995542391194254912}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21801,3 +21802,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3302939214342889350}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2995542391194254912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415526782817660476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87e8fc05b36134635ba08b3640172d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GeoX.Input::GeoX.Input.LegacyUiInputBridge

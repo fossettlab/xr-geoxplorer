@@ -1,0 +1,9 @@
+{
+    "name": "GeoX.Input.Tests",
+    "references": ["GeoX.Input", "Unity.InputSystem", "Unity.InputSystem.TestFramework", "UnityEngine.UI", "UnityEngine.TestRunner", "UnityEditor.TestRunner"],
+    "includePlatforms": ["Editor"],
+    "overrideReferences": true,
+    "precompiledReferences": ["nunit.framework.dll"],
+    "autoReferenced": false,
+    "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}

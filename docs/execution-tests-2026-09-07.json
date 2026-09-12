@@ -1,0 +1,268 @@
+{
+  "unity": "6000.4.4f1",
+  "mode": "EditMode",
+  "summary": {
+    "total": 51,
+    "passed": 50,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "AnchorBackendClientTests.BuildCreateUrl_appends_api_anchors",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "AnchorBackendClientTests.BuildGetUrl_includes_anchor_id",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "AnchorBackendClientTests.BuildListUrl_appends_api_anchors",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "AnchorBackendClientTests.TryParseAnchorListResponse_accepts_null_array",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "AnchorBackendClientTests.TryParseAnchorListResponse_parses_firebase_shape_array",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "AnchorBackendClientTests.TryParseAnchorResponse_parses_valid_json",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RemoteConfigTests.BuildAssetBundleUri_composes_platform_and_bundle",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RemoteConfigTests.BuildAssetBundleUri_trims_trailing_slash_on_base",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RemoteConfigTests.BuildContainerListUrl_matches_azure_list_query",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RemoteConfigTests.BuildThumbnailUrl_joins_thumbnails_root_and_path",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RemoteConfigTests.BuildThumbnailUrl_trims_leading_slash_on_path",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_appends_api_sas_restricted",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_handles_base_already_ending_with_api",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RestrictedBundleSasClientTests.BuildRequestUrl_trims_trailing_slash",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RestrictedBundleSasClientTests.TryParseResponse_parses_valid_json",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "RestrictedBundleSasClientTests.TryParseResponse_rejects_missing_url",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.GamepadAndNumpadBindingsRemainAvailable",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.KeyboardNavigationSubmitAndCancelUseNewDevices",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.ModuleReadsNewMouseStateAndRestoresItsPreviousInput",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Input.Tests.LegacyUiInputBridgeTests.TouchPressAndReleaseKeepTheirIdentityAndPhase",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Input.Tests.OpenXrGamepadCompatibilityTests.ProjectLayoutsPermitGamepadCreation",
+      "Status": "Failed",
+      "Message": "System.InvalidOperationException : Cannot instantiate device layout 'Dpad' as child of '/Gamepad'; devices must be added at root"
+    },
+    {
+      "FullName": "GeoX.Network.Tests.PunWireContractTests.SerializeView_Read_StoresReceivedPositionRotationScale",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Network.Tests.PunWireContractTests.SharedAnchorIdHandler_WritesIdIntoNetworkManager",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.DuplicatePropertiesAndTrailingContentFail",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidNumericsFailExplicitly",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"body\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"definition\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"units\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"target\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"geographic\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"duplicate\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"same-frame-offset\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.LargeOriginIsSubtractedBeforeFloatConversion",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"version\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"missing\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"coordinate\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"extra\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-number\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"numeric-name\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-bool\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Earth\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Moon\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Mars\")",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(null)",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,False)",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,False)",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,True)",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,True)",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.RepresentationBasisUnitsAndDisplayComposeOnce",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.ShearReflectionAndNonuniformScaleArePreserved",
+      "Status": "Passed",
+      "Message": null
+    },
+    {
+      "FullName": "GeoX.Spatial.Tests.SceneStateTests.UnknownUnregisteredInputPersistsWithoutAnInventedMetreOrBody",
+      "Status": "Passed",
+      "Message": null
+    }
+  ]
+}
