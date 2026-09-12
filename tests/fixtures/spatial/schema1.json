@@ -1,0 +1,237 @@
+{
+  "SchemaVersion": 1,
+  "Id": "synthetic-schema1-scene",
+  "Frame": {
+    "Id": "scene-frame",
+    "Body": "Mars",
+    "Kind": "Cartesian",
+    "AxisConvention": "X-right,Y-forward,Z-up",
+    "MetresPerUnit": 2,
+    "Definition": {
+      "source": "Synthetic migration fixture",
+      "originalCRSText": "uninterpreted text"
+    }
+  },
+  "Layers": [
+    {
+      "Id": "layer-0",
+      "Name": "Synthetic layer 0",
+      "SourceFrame": {
+        "Id": "source-frame-0",
+        "Body": "Mars",
+        "Kind": "Cartesian",
+        "AxisConvention": "X-right,Y-forward,Z-up",
+        "MetresPerUnit": 2,
+        "Definition": {
+          "source": "Synthetic migration fixture",
+          "originalCRSText": "uninterpreted text"
+        }
+      },
+      "Registration": {
+        "SourceFrameId": "source-frame-0",
+        "TargetFrameId": "scene-frame",
+        "SourceToScene": {
+          "Linear": [
+            -1,
+            2,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            4
+          ],
+          "Translation": {
+            "X": 10,
+            "Y": 20,
+            "Z": 30
+          }
+        },
+        "Provenance": {
+          "method": "authored fixture"
+        },
+        "ValidationEvidence": {
+          "passed": true,
+          "accuracy": "not an accepted error estimate"
+        }
+      },
+      "Visible": true,
+      "Assets": [
+        {
+          "Id": "reused-asset-id",
+          "AccessReferenceId": "private-fixture-key-0",
+          "ContentHash": "unknown-algorithm-value",
+          "Format": "fixture-only",
+          "Metadata": {
+            "geox:schema1": "existing user metadata",
+            "largeInteger": 9007199254740993
+          }
+        }
+      ],
+      "Metadata": {
+        "purpose": "synthetic"
+      },
+      "Provenance": {
+        "origin": "uninterpreted legacy"
+      }
+    },
+    {
+      "Id": "layer-1",
+      "Name": "Synthetic layer 1",
+      "SourceFrame": {
+        "Id": "source-frame-1",
+        "Body": "Mars",
+        "Kind": "Cartesian",
+        "AxisConvention": "X-right,Y-forward,Z-up",
+        "MetresPerUnit": 2,
+        "Definition": {
+          "source": "Synthetic migration fixture",
+          "originalCRSText": "uninterpreted text"
+        }
+      },
+      "Registration": {
+        "SourceFrameId": "source-frame-1",
+        "TargetFrameId": "scene-frame",
+        "SourceToScene": {
+          "Linear": [
+            -1,
+            2,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            4
+          ],
+          "Translation": {
+            "X": 10,
+            "Y": 20,
+            "Z": 30
+          }
+        },
+        "Provenance": {
+          "method": "authored fixture"
+        },
+        "ValidationEvidence": {
+          "passed": true,
+          "accuracy": "not an accepted error estimate"
+        }
+      },
+      "Visible": false,
+      "Assets": [
+        {
+          "Id": "reused-asset-id",
+          "AccessReferenceId": "private-fixture-key-1",
+          "ContentHash": "unknown-algorithm-value",
+          "Format": "fixture-only",
+          "Metadata": {
+            "geox:schema1": "existing user metadata",
+            "largeInteger": 9007199254740993
+          }
+        }
+      ],
+      "Metadata": {
+        "purpose": "synthetic"
+      },
+      "Provenance": {
+        "origin": "uninterpreted legacy"
+      }
+    }
+  ],
+  "Display": {
+    "Origin": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+    },
+    "AxisBridge": {
+      "Linear": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "Translation": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      }
+    },
+    "Pose": {
+      "Linear": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Translation": {
+        "X": 10,
+        "Y": 20,
+        "Z": 30
+      }
+    },
+    "Scale": 2
+  },
+  "ResetDisplay": {
+    "Origin": {
+      "X": 0,
+      "Y": 0,
+      "Z": 0
+    },
+    "AxisBridge": {
+      "Linear": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Translation": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      }
+    },
+    "Pose": {
+      "Linear": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "Translation": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      }
+    },
+    "Scale": 1
+  },
+  "Metadata": {
+    "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+    "largeInteger": 9007199254740993,
+    "beyondInt64": 123456789012345678901234567890,
+    "timestampText": "2026-09-07T00:00:00Z"
+  }
+}

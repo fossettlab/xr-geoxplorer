@@ -1,0 +1,5268 @@
+{
+  "scope": "Provider-free semantic conformance only",
+  "commands": {
+    "csharp": [
+      "/Applications/Unity/Hub/Editor/6000.4.4f1/Unity.app/Contents/Resources/Scripting/NetCoreRuntime/dotnet",
+      "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/spatial-conformance/csharp/SpatialConformance.dll"
+    ],
+    "javascript": [
+      "node",
+      "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/tools/spatial-conformance/js/cli.mjs"
+    ]
+  },
+  "sources": {
+    "Assets/Scripts/Spatial/Core/DeclaredRegistration.cs": "b7f65761836e57f7169d123b3766f4fb0ec9f6e1b76b8c25b773e31d931b1457",
+    "Assets/Scripts/Spatial/Core/DeclaredRegistration.cs.meta": "cd2ecf8f65a95bd116109bb77771eb6b01886ac10d9d69abe87747137965f5c7",
+    "Assets/Scripts/Spatial/Core/GeoX.Spatial.asmdef": "9096722d3b18f728963eee4e6d5041bac4e22d652cf00b450da4e3ecdbc9b8b2",
+    "Assets/Scripts/Spatial/Core/GeoX.Spatial.asmdef.meta": "f7d09ef9fe192f76d89ca1cf8dcbfb051cd637c33a62e6766205d207b45c740b",
+    "Assets/Scripts/Spatial/Core/PortableJson.cs": "80bd7e14cdcdc7a9264396d1024ca59567e7699d99f722fd6bf2069d23ae6028",
+    "Assets/Scripts/Spatial/Core/PortableJson.cs.meta": "8ea62bcbdcbd0e5807f76e052e75380b65ddbbf327f7200f3ef6615c4cdce795",
+    "Assets/Scripts/Spatial/Core/SceneDocument.cs": "a2d75831485595cb3fa79f47a070748f8bfe98c173fd63bec1d9022f854737bf",
+    "Assets/Scripts/Spatial/Core/SceneDocument.cs.meta": "61123e6b0fa8cc0a776fd8c2aada261a912c69edd5da69f2c2ec932f962ed9b9",
+    "Assets/Scripts/Spatial/Core/SceneDocumentValidation.cs": "b01d47b7cb693d67aa146ceb9d00529aa1144e914e922d8cfc927433aa04bd6a",
+    "Assets/Scripts/Spatial/Core/SceneDocumentValidation.cs.meta": "0aa4d60bfb6d5ec816479a74447399da0991932c3cab00220e8625d96661c48b",
+    "Assets/Scripts/Spatial/Core/SceneJson.cs": "95d7ce3533bacc5bf18b87fffda739066f21e2f0da2e7c1276e8c2b2bdbe8224",
+    "Assets/Scripts/Spatial/Core/SceneJson.cs.meta": "40157b20db80a1050a3490e1d60bad9006b2be730cacd139634d529cb8570135",
+    "Assets/Scripts/Spatial/Core/SceneMigration.cs": "07abba47128aa02467f9a94b2445fb8538cf93d43201b7543ef7c5c89dbe5ce1",
+    "Assets/Scripts/Spatial/Core/SceneMigration.cs.meta": "3b8d8ba883c19804721682a8f9bb028dfead58e962840a029dd2d3d3d46336de",
+    "Assets/Scripts/Spatial/Core/SceneMigrationResult.cs": "3dcf3cc783d084e55a1218b77ccc46ef08efd2d2fbadd6290fddf1ce965333b6",
+    "Assets/Scripts/Spatial/Core/SceneMigrationResult.cs.meta": "9f68780d36176e62a20ebaaa551fac4844bd5b38ab2b4698848b122cbfc747ac",
+    "Assets/Scripts/Spatial/Core/SceneSidecars.cs": "1fd10bbf616cb414693e8b55cbd966a49744127c9ffae9d1e726b4b0b628b899",
+    "Assets/Scripts/Spatial/Core/SceneSidecars.cs.meta": "6c1a9a6e9fffb47f253c97444e18db2875a72e5d2ddb0a2b4edc27a0e33d3d90",
+    "Assets/Scripts/Spatial/Core/SceneState.cs": "292534f7b5ac380e0bd94ed649465710381c5686bbc46f8db9cab2d2b72c2c5f",
+    "Assets/Scripts/Spatial/Core/SceneState.cs.meta": "3d06f4eed51e96816c0953df616695b3acb538ca9fd0c1f3ea1362ccb5ed0fcb",
+    "Assets/Scripts/Spatial/Core/SpatialMath.cs": "a0d1e7762d4f8b346edbfe63045c1957e1794d4718215058fba47921ff2f57c1",
+    "Assets/Scripts/Spatial/Core/SpatialMath.cs.meta": "0e89e924800d86be6ed75cfd556ce703eaab49cc7f3b3b8d752544baabc0f8a3",
+    "scripts/build_spatial_conformance.py": "4916a48c5b88eee0113e49486a6aee05b0eb80bb1bf1d4d68ac1ef5adf5c211c",
+    "scripts/run_spatial_conformance.py": "2d3d6c99fde2fce17fd7bc0ee50b371fa14fc3a04bf87937b7eaf073dd15207b",
+    "scripts/spatial_conformance_cases.py": "69a97a630a4419df98e1a8fcac81dd2f14fde59d195b64d9bd2a37b97e7f4c60",
+    "tests/fixtures/spatial/README.md": "88851eb6984f313a59c41c409a8ecb15f66fe82fa17c191a973ac822fd5b49a3",
+    "tests/fixtures/spatial/affine.json": "c9b641c8ad81ffc7926a434bd533a64fd2fee78346993f4d1bffa7fb716c48ea",
+    "tests/fixtures/spatial/body-conflict.json": "f0dd570884c01a6a1baa43c2f18f5303a797050cae70a2a7bab62a43fc2d4b23",
+    "tests/fixtures/spatial/cases.json": "ad49931c18a2662c7a74c3b160c8948892401f276871e1456a129fa2b4118196",
+    "tests/fixtures/spatial/geodetic.json": "dfe6394fa5d47b7d93fdcee82b7fbf553a1df1f22e325d71deee89ac5b0c257b",
+    "tests/fixtures/spatial/geographic.json": "82cce3e76f27e7bd2c3386ac601bcd3141609e76c0c4876b40f87cf7710dc75c",
+    "tests/fixtures/spatial/projjson.json": "042bb23d19883644cd2975bbfcbb60bc355b2fdcd0ee92fb6b970159a2cb48ea",
+    "tests/fixtures/spatial/required-extension.json": "2c85319cffcf56c4afbae97393930529651e4c4b0ad419fae9788a2d80e399d0",
+    "tests/fixtures/spatial/schema1.json": "d6836fa92e78ee8eb6325530819c1134b2693607a48723f3dd56aeacab733590",
+    "tests/fixtures/spatial/unknown-operation.json": "3bcba74381c3401c0292423f5a9efb6d5a3e9825d4ccf90ec52bf5fdf7919fad",
+    "tests/fixtures/spatial/unknown-version.json": "17d110c541fbd6ac9f3578ac927213ad73ba08e9ae6dcf58fa6e48a6cc5437e7",
+    "tests/fixtures/spatial/wkt2.json": "9a41bb1782eabad0e4efe574925ba82d39a8bbeb2c3ba1bdd808dc22ac3b255b",
+    "tools/spatial-conformance/README.md": "9c090ebf347a0cc72526fef646fc8af2e4a946929055c6f9270dfff996db044a",
+    "tools/spatial-conformance/csharp/Program.cs": "fd165df163eeb76ff5b76b0301756a9c757ba35d7d54cfb5f5333d1d5caa3d9c",
+    "tools/spatial-conformance/js/cli.mjs": "cf367e60211b9f0bd718994bb60b7aaf5bc8f1871de65fbe695e405a26059e8e",
+    "tools/spatial-conformance/js/reader.mjs": "81e61924e0acd71b2742786d6c0bc261932325d790f928cf734eab904b1cbb80"
+  },
+  "passed": 88,
+  "total": 88,
+  "results": [
+    {
+      "case": "affine.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          14.0,
+          26.0,
+          46.0
+        ]
+      },
+      "requestSha256": "d3515edb7430332b9de44d809f966747a17e88027e092cc9e36a337d1dbc9830"
+    },
+    {
+      "case": "affine.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          14,
+          26,
+          46
+        ]
+      },
+      "requestSha256": "d3515edb7430332b9de44d809f966747a17e88027e092cc9e36a337d1dbc9830"
+    },
+    {
+      "case": "unknown-operation.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "future-adapter-map",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "inert": "do not execute",
+                "integer": 9007199254740993
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "unsupported_operation_kind_or_version"
+      },
+      "requestSha256": "5838965ac0bbaaffb7cfa62f0e954c52afb093b7b31b82dc61789aef24274c49"
+    },
+    {
+      "case": "unknown-operation.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "future-adapter-map",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "inert": "do not execute",
+                "integer": 9007199254740993
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "unsupported_operation_kind_or_version"
+      },
+      "requestSha256": "5838965ac0bbaaffb7cfa62f0e954c52afb093b7b31b82dc61789aef24274c49"
+    },
+    {
+      "case": "unknown-version.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 123456789012345678901234567890,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "unsupported_operation_kind_or_version"
+      },
+      "requestSha256": "9800d9c61d0e10e3df58fcf763bfbfaefb624ec57a5b9ca87ee8a3c2d7d3b055"
+    },
+    {
+      "case": "unknown-version.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 123456789012345678901234567890,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "unsupported_operation_kind_or_version"
+      },
+      "requestSha256": "9800d9c61d0e10e3df58fcf763bfbfaefb624ec57a5b9ca87ee8a3c2d7d3b055"
+    },
+    {
+      "case": "required-extension.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {
+            "example:future": {
+              "version": 1,
+              "required": true,
+              "payload": {
+                "future": null
+              }
+            }
+          }
+        },
+        "available": false,
+        "reason": "unsupported_required_extension"
+      },
+      "requestSha256": "00912280b7039ed854f46b7cb02c3c918eb8557258f5d90d772a2029bdfd0967"
+    },
+    {
+      "case": "required-extension.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {
+            "example:future": {
+              "version": 1,
+              "required": true,
+              "payload": {
+                "future": null
+              }
+            }
+          }
+        },
+        "available": false,
+        "reason": "unsupported_required_extension"
+      },
+      "requestSha256": "00912280b7039ed854f46b7cb02c3c918eb8557258f5d90d772a2029bdfd0967"
+    },
+    {
+      "case": "body-conflict.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": "Mars",
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": "Moon",
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "known_body_conflict"
+      },
+      "requestSha256": "fabcd6227b18f0bd4534bcabf504bb459ee987dbd81dd57fe17bf797c96864ba"
+    },
+    {
+      "case": "body-conflict.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": "Mars",
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": "Moon",
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "known_body_conflict"
+      },
+      "requestSha256": "fabcd6227b18f0bd4534bcabf504bb459ee987dbd81dd57fe17bf797c96864ba"
+    },
+    {
+      "case": "wkt2.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "wkt2",
+                "value": "ENGCRS[\"Synthetic unqualified fixture\"]"
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "crs_interpretation_required"
+      },
+      "requestSha256": "a4e62002198b7238a5df3d72f4e1f456042dc1204258cb6404f01409bd0af43a"
+    },
+    {
+      "case": "wkt2.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "wkt2",
+                "value": "ENGCRS[\"Synthetic unqualified fixture\"]"
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "crs_interpretation_required"
+      },
+      "requestSha256": "a4e62002198b7238a5df3d72f4e1f456042dc1204258cb6404f01409bd0af43a"
+    },
+    {
+      "case": "projjson.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "projjson",
+                "value": {
+                  "type": "EngineeringCRS",
+                  "name": "Synthetic unqualified fixture"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "crs_interpretation_required"
+      },
+      "requestSha256": "6fffe01bfd7857ecc79628fdd667cdbd26ef8686dae42829c544684b7220a94d"
+    },
+    {
+      "case": "projjson.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "projjson",
+                "value": {
+                  "type": "EngineeringCRS",
+                  "name": "Synthetic unqualified fixture"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "crs_interpretation_required"
+      },
+      "requestSha256": "6fffe01bfd7857ecc79628fdd667cdbd26ef8686dae42829c544684b7220a94d"
+    },
+    {
+      "case": "geodetic.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "geodetic",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "definition": {
+                  "encoding": "opaque",
+                  "value": "unqualified fixture definition"
+                },
+                "provider": {
+                  "name": "synthetic-unavailable-provider",
+                  "version": "fixture"
+                },
+                "database": {},
+                "resources": [
+                  {
+                    "id": "unresolved-grid"
+                  }
+                ],
+                "domain": {},
+                "inverseAvailable": false
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "qualified_geodetic_provider_required"
+      },
+      "requestSha256": "aba37d7f4289aff46d5324b418f3b1f6bf1696628c6b9ee972d7a3eda8c732aa"
+    },
+    {
+      "case": "geodetic.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "geodetic",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "definition": {
+                  "encoding": "opaque",
+                  "value": "unqualified fixture definition"
+                },
+                "provider": {
+                  "name": "synthetic-unavailable-provider",
+                  "version": "fixture"
+                },
+                "database": {},
+                "resources": [
+                  {
+                    "id": "unresolved-grid"
+                  }
+                ],
+                "domain": {},
+                "inverseAvailable": false
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "qualified_geodetic_provider_required"
+      },
+      "requestSha256": "aba37d7f4289aff46d5324b418f3b1f6bf1696628c6b9ee972d7a3eda8c732aa"
+    },
+    {
+      "case": "geographic.json",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "geographic",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": null
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "geographic_frame_requires_qualified_provider"
+      },
+      "requestSha256": "14321851f3ada047923f91a697d8de2b14b2564af008857de7c6cad8c7907571"
+    },
+    {
+      "case": "geographic.json",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "geographic",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": null
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": false,
+        "reason": "geographic_frame_requires_qualified_provider"
+      },
+      "requestSha256": "14321851f3ada047923f91a697d8de2b14b2564af008857de7c6cad8c7907571"
+    },
+    {
+      "case": "affine-inverse",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          2.0,
+          3.0,
+          4.0
+        ]
+      },
+      "requestSha256": "99ca2dfbb4e0cb8620489fcb9b3e5d7712b384627d7acec144737dfd008876aa"
+    },
+    {
+      "case": "affine-inverse",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          2,
+          3,
+          4
+        ]
+      },
+      "requestSha256": "99ca2dfbb4e0cb8620489fcb9b3e5d7712b384627d7acec144737dfd008876aa"
+    },
+    {
+      "case": "optional-extension-preserved",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {
+            "example:inert": {
+              "version": 1,
+              "required": false,
+              "payload": {
+                "nested": [
+                  null,
+                  true,
+                  {
+                    "__proto__": "inert",
+                    "integer": 123456789012345678901234567890
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "requestSha256": "68e22a435c2c10f03b6ca30f83529b6566422dcbdc600a6bde8ac4de3c266c74"
+    },
+    {
+      "case": "optional-extension-preserved",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {
+            "example:inert": {
+              "version": 1,
+              "required": false,
+              "payload": {
+                "nested": [
+                  null,
+                  true,
+                  {
+                    "__proto__": "inert",
+                    "integer": 123456789012345678901234567890
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "requestSha256": "68e22a435c2c10f03b6ca30f83529b6566422dcbdc600a6bde8ac4de3c266c74"
+    },
+    {
+      "case": "unresolved-assets-preserved",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        }
+      },
+      "requestSha256": "ab6da82e0e7d493c9a22af9048af25bd343c04a4dcafdbd252a91aaf54dc9cdf"
+    },
+    {
+      "case": "unresolved-assets-preserved",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        }
+      },
+      "requestSha256": "ab6da82e0e7d493c9a22af9048af25bd343c04a4dcafdbd252a91aaf54dc9cdf"
+    },
+    {
+      "case": "layer-forward",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "point": [
+          14.0,
+          26.0,
+          46.0
+        ],
+        "available": true,
+        "reason": null
+      },
+      "requestSha256": "97bcfcfbf1a5a8fd0fb4f67a3461878ef4e4f9df957b45e3c0ea41500190b858"
+    },
+    {
+      "case": "layer-forward",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          14,
+          26,
+          46
+        ]
+      },
+      "requestSha256": "97bcfcfbf1a5a8fd0fb4f67a3461878ef4e4f9df957b45e3c0ea41500190b858"
+    },
+    {
+      "case": "layer-inverse",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "point": [
+          2.0,
+          3.0,
+          4.0
+        ],
+        "available": true,
+        "reason": null
+      },
+      "requestSha256": "368cdffa917053b1fa775cf3dd993fb2edfabc7607ac332fe9b2118885183b60"
+    },
+    {
+      "case": "layer-inverse",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          2,
+          3,
+          4
+        ]
+      },
+      "requestSha256": "368cdffa917053b1fa775cf3dd993fb2edfabc7607ac332fe9b2118885183b60"
+    },
+    {
+      "case": "representation-identity",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "point": [
+          2.0,
+          3.0,
+          4.0
+        ],
+        "available": true,
+        "reason": null
+      },
+      "requestSha256": "7ef80014aa516bdf66fc7c000ddfa3d8857d37ae413731d435d2406816666227"
+    },
+    {
+      "case": "representation-identity",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z"
+          },
+          "extensions": {}
+        },
+        "available": true,
+        "reason": null,
+        "point": [
+          2,
+          3,
+          4
+        ]
+      },
+      "requestSha256": "7ef80014aa516bdf66fc7c000ddfa3d8857d37ae413731d435d2406816666227"
+    },
+    {
+      "case": "layer-needs-point",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "layer_mapping_requires_point"
+      },
+      "requestSha256": "e2c3337b37da50189b2cb2b8bd5b96026c7f7a505d9965fec52bb74f5cf01f9a"
+    },
+    {
+      "case": "layer-needs-point",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "layer_mapping_requires_point"
+      },
+      "requestSha256": "e2c3337b37da50189b2cb2b8bd5b96026c7f7a505d9965fec52bb74f5cf01f9a"
+    },
+    {
+      "case": "multiple-selectors",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "multiple_coordinate_operations"
+      },
+      "requestSha256": "ad3cf77d1d1dbb8af900eb544e2592e012418c07272f7e1a80cd1c45ebc287be"
+    },
+    {
+      "case": "multiple-selectors",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "multiple_coordinate_operations"
+      },
+      "requestSha256": "ad3cf77d1d1dbb8af900eb544e2592e012418c07272f7e1a80cd1c45ebc287be"
+    },
+    {
+      "case": "representation-needs-layer",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "representation_requires_layer_id"
+      },
+      "requestSha256": "99076d9a1a4619d38c6fea2d505489747d5d42f8ca715db27426243ebae197d8"
+    },
+    {
+      "case": "representation-needs-layer",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "representation_requires_layer_id"
+      },
+      "requestSha256": "99076d9a1a4619d38c6fea2d505489747d5d42f8ca715db27426243ebae197d8"
+    },
+    {
+      "case": "point-needs-selector",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "point_requires_operation_id"
+      },
+      "requestSha256": "81c81b4e720d70d2d9ab11f5ff1cec0c35364342c2487dd2c5614e170b906bbd"
+    },
+    {
+      "case": "point-needs-selector",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "point_requires_operation_id"
+      },
+      "requestSha256": "81c81b4e720d70d2d9ab11f5ff1cec0c35364342c2487dd2c5614e170b906bbd"
+    },
+    {
+      "case": "boolean-point-rejected",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "expected_number: point[0]"
+      },
+      "requestSha256": "183f2a5848a38597cf863f9b9163fdc070ba5bb41cbd4482c4b94924c86cfdf3"
+    },
+    {
+      "case": "boolean-point-rejected",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "expected_number"
+      },
+      "requestSha256": "183f2a5848a38597cf863f9b9163fdc070ba5bb41cbd4482c4b94924c86cfdf3"
+    },
+    {
+      "case": "inverse-type-rejected",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "expected_boolean: inverse"
+      },
+      "requestSha256": "aa8d0b460d8151ff12af4e9ded83217c166c8bb5fa85075f810bc6151c590c79"
+    },
+    {
+      "case": "inverse-type-rejected",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "expected_boolean: inverse"
+      },
+      "requestSha256": "aa8d0b460d8151ff12af4e9ded83217c166c8bb5fa85075f810bc6151c590c79"
+    },
+    {
+      "case": "integer-beyond-binary64-range",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z",
+            "arbitraryPrecisionInteger": 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "extensions": {}
+        }
+      },
+      "requestSha256": "ec3314d2294db5e894cfc21a7301e618624c8e4e27ee3478ced0ecc51b1eccbe"
+    },
+    {
+      "case": "integer-beyond-binary64-range",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "valid",
+        "document": {
+          "schemaVersion": 2,
+          "id": "synthetic-portable-scene",
+          "revision": "authored-initial-revision",
+          "sceneFrameId": "local-study",
+          "frames": [
+            {
+              "id": "local-study",
+              "body": null,
+              "kind": "cartesian",
+              "definition": {
+                "encoding": "opaque",
+                "value": {
+                  "purpose": "Authored local axes, no physical calibration"
+                }
+              },
+              "cartesian": {
+                "axisConvention": "x-right,y-forward,z-up",
+                "metresPerUnit": null
+              }
+            },
+            {
+              "id": "original-model",
+              "body": null,
+              "kind": "unknown",
+              "definition": {
+                "encoding": "opaque",
+                "value": {}
+              },
+              "cartesian": null
+            }
+          ],
+          "assets": [
+            {
+              "id": "unresolved-model",
+              "contentHash": null,
+              "format": null,
+              "locators": [],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "operations": [
+            {
+              "id": "declared-placement",
+              "kind": "affine",
+              "version": 1,
+              "sourceFrameId": "original-model",
+              "targetFrameId": "local-study",
+              "payload": {
+                "linear": [
+                  -1,
+                  2,
+                  0,
+                  0,
+                  2,
+                  0,
+                  0,
+                  0,
+                  4
+                ],
+                "translation": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": [
+                  {
+                    "category": "declaration",
+                    "status": "supplied",
+                    "details": {
+                      "basis": "Authored identity relation for schema review only; physical units remain unknown"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "registrations": [
+            {
+              "id": "declared-solution",
+              "operationId": "declared-placement",
+              "supersedes": null,
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "layers": [
+            {
+              "id": "model-layer",
+              "name": "Unresolved model example",
+              "sourceFrameId": "original-model",
+              "activeRegistrationId": "declared-solution",
+              "sourceAssetIds": [
+                "unresolved-model"
+              ],
+              "representations": [
+                {
+                  "id": "model-representation",
+                  "assetId": "unresolved-model",
+                  "frameId": "original-model",
+                  "toSourceOperationId": null
+                }
+              ],
+              "metadata": {},
+              "evidence": {
+                "origins": [],
+                "lineage": [],
+                "statements": []
+              }
+            }
+          ],
+          "metadata": {
+            "purpose": "Synthetic conformance fixture; no observation or accuracy claim",
+            "largeInteger": 9007199254740993,
+            "beyondInt64": 123456789012345678901234567890,
+            "timestampText": "2026-09-07T00:00:00Z",
+            "arbitraryPrecisionInteger": 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+          },
+          "extensions": {}
+        }
+      },
+      "requestSha256": "ec3314d2294db5e894cfc21a7301e618624c8e4e27ee3478ced0ecc51b1eccbe"
+    },
+    {
+      "case": "scalar-definition-rejected",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "invalid_definition_value"
+      },
+      "requestSha256": "4d1d33d189a9bc1adce31e24e0212039afeb865a9937d6929e6d9fb2f9e6d127"
+    },
+    {
+      "case": "scalar-definition-rejected",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "invalid_definition_value"
+      },
+      "requestSha256": "4d1d33d189a9bc1adce31e24e0212039afeb865a9937d6929e6d9fb2f9e6d127"
+    },
+    {
+      "case": "unknown-core-field",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unexpected_fields: "
+      },
+      "requestSha256": "85e620485b052ec0fc3d828d1692a4666d673c8e2aa07266b72f76685039fb7d"
+    },
+    {
+      "case": "unknown-core-field",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unexpected_fields: "
+      },
+      "requestSha256": "85e620485b052ec0fc3d828d1692a4666d673c8e2aa07266b72f76685039fb7d"
+    },
+    {
+      "case": "missing-core-field",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unexpected_fields: "
+      },
+      "requestSha256": "74880f933e87538afb2b76a03a08bd638905e74f893acfc45c3895077ea73e13"
+    },
+    {
+      "case": "missing-core-field",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unexpected_fields: "
+      },
+      "requestSha256": "74880f933e87538afb2b76a03a08bd638905e74f893acfc45c3895077ea73e13"
+    },
+    {
+      "case": "duplicate-frame-id",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "duplicate_identity: frames: local-study"
+      },
+      "requestSha256": "be5cde6ceca74cbf4c22106127e436cca0db66be2947a6f06c81161cc4865485"
+    },
+    {
+      "case": "duplicate-frame-id",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "duplicate_identity: frames: local-study"
+      },
+      "requestSha256": "be5cde6ceca74cbf4c22106127e436cca0db66be2947a6f06c81161cc4865485"
+    },
+    {
+      "case": "dangling-scene-frame",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "dangling_reference: sceneFrameId"
+      },
+      "requestSha256": "868fd39aa4acc3dc954096a9d794713572680fc33554f71e9fafb0a748c9965b"
+    },
+    {
+      "case": "dangling-scene-frame",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "dangling_reference: sceneFrameId"
+      },
+      "requestSha256": "868fd39aa4acc3dc954096a9d794713572680fc33554f71e9fafb0a748c9965b"
+    },
+    {
+      "case": "dangling-asset",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "dangling_reference: layers[0].sourceAssetIds[1]"
+      },
+      "requestSha256": "f6bea005752f2d7eba4b9c27cae31cc4a89637f6e4c43919d85448d9551e4018"
+    },
+    {
+      "case": "dangling-asset",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "dangling_reference: layers.sourceAssetIds"
+      },
+      "requestSha256": "f6bea005752f2d7eba4b9c27cae31cc4a89637f6e4c43919d85448d9551e4018"
+    },
+    {
+      "case": "dangling-registration",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "dangling_reference: layers[0].activeRegistrationId"
+      },
+      "requestSha256": "4aef80ad6620d4ed57acc0dea60ae2babad52e9638817c90e5bc44fe1a8e430b"
+    },
+    {
+      "case": "dangling-registration",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "dangling_reference: layers.activeRegistrationId"
+      },
+      "requestSha256": "4aef80ad6620d4ed57acc0dea60ae2babad52e9638817c90e5bc44fe1a8e430b"
+    },
+    {
+      "case": "history-cycle",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "cyclic_registration_history"
+      },
+      "requestSha256": "3476efffba5d668d436dfdb162f692864ef063a746d0f78af8c8c94abc883e1b"
+    },
+    {
+      "case": "history-cycle",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "cyclic_registration_history"
+      },
+      "requestSha256": "3476efffba5d668d436dfdb162f692864ef063a746d0f78af8c8c94abc883e1b"
+    },
+    {
+      "case": "singular-map",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "invalid_affine: singular_registration"
+      },
+      "requestSha256": "d6b7e7aee8eb0345c49b9d482b51c66aa9b613cd882063989e4456a73011aa71"
+    },
+    {
+      "case": "singular-map",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "singular_registration"
+      },
+      "requestSha256": "d6b7e7aee8eb0345c49b9d482b51c66aa9b613cd882063989e4456a73011aa71"
+    },
+    {
+      "case": "invalid-endpoints",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "same_frame_requires_identity"
+      },
+      "requestSha256": "32c8f22734db0c52f58a944e39d9d95d393950d518d6ead7393388008bd8a0e1"
+    },
+    {
+      "case": "invalid-endpoints",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "same_frame_requires_identity"
+      },
+      "requestSha256": "32c8f22734db0c52f58a944e39d9d95d393950d518d6ead7393388008bd8a0e1"
+    },
+    {
+      "case": "same-frame-nonidentity",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "same_frame_requires_identity"
+      },
+      "requestSha256": "b7097e51f2014905760f6f0ce6687e461dba4133c845a0a571338743ca818023"
+    },
+    {
+      "case": "same-frame-nonidentity",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "same_frame_requires_identity"
+      },
+      "requestSha256": "b7097e51f2014905760f6f0ce6687e461dba4133c845a0a571338743ca818023"
+    },
+    {
+      "case": "unsafe-locator",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unsafe_package_locator"
+      },
+      "requestSha256": "27f20f47f9434a4e29d6c28d58e370567080dc2aebbfbfb1cdee34f1bef747f0"
+    },
+    {
+      "case": "unsafe-locator",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unsafe_package_locator"
+      },
+      "requestSha256": "27f20f47f9434a4e29d6c28d58e370567080dc2aebbfbfb1cdee34f1bef747f0"
+    },
+    {
+      "case": "query-locator",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unsafe_locator"
+      },
+      "requestSha256": "47156abc7950a4571ad4fcbfcc30264e58a0c313e7f708c50a22aaca05e5f48a"
+    },
+    {
+      "case": "query-locator",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unsafe_locator"
+      },
+      "requestSha256": "47156abc7950a4571ad4fcbfcc30264e58a0c313e7f708c50a22aaca05e5f48a"
+    },
+    {
+      "case": "invalid-evidence-status",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unexpected_enum: operations[0].evidence.statements[0].status"
+      },
+      "requestSha256": "260ad309d84d43bf15a65f5d4815681b1ad4a6bb18e563684c02deef43d16e03"
+    },
+    {
+      "case": "invalid-evidence-status",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unexpected_enum: operations[0].evidence.statements[0].status"
+      },
+      "requestSha256": "260ad309d84d43bf15a65f5d4815681b1ad4a6bb18e563684c02deef43d16e03"
+    },
+    {
+      "case": "floating-schema-version",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unsupported_scene_schema"
+      },
+      "requestSha256": "946873071a88d8275c9d00e429611680c754857084b161c88c1ab6a9d56cb753"
+    },
+    {
+      "case": "floating-schema-version",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "unsupported_scene_schema"
+      },
+      "requestSha256": "946873071a88d8275c9d00e429611680c754857084b161c88c1ab6a9d56cb753"
+    },
+    {
+      "case": "zero-operation-version",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "expected_positive_integer"
+      },
+      "requestSha256": "43208c35e9df291fee4491f56b16e9dd97df9cb07f8e2bee5ce82192bda1cce2"
+    },
+    {
+      "case": "zero-operation-version",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "expected_positive_integer"
+      },
+      "requestSha256": "43208c35e9df291fee4491f56b16e9dd97df9cb07f8e2bee5ce82192bda1cce2"
+    },
+    {
+      "case": "duplicate-json-key",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "Property with the name 'schemaVersion' already exists in the current JSON object. Path 'document.schemaVersion', line 1, position 50."
+      },
+      "requestSha256": "92e566cb5de38b3bba3777e6c11bc09eb66e2bfc4ad8b5767c5361beab065dcb"
+    },
+    {
+      "case": "duplicate-json-key",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "duplicate_json_key: schemaVersion"
+      },
+      "requestSha256": "92e566cb5de38b3bba3777e6c11bc09eb66e2bfc4ad8b5767c5361beab065dcb"
+    },
+    {
+      "case": "escaped-duplicate-key",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "Property with the name 'schemaVersion' already exists in the current JSON object. Path 'document.schemaVersion', line 1, position 55."
+      },
+      "requestSha256": "552cb719ef1b5276eb8cdc60a4e4614559a8f8d350af815903eefee3e26d228f"
+    },
+    {
+      "case": "escaped-duplicate-key",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "duplicate_json_key: schemaVersion"
+      },
+      "requestSha256": "552cb719ef1b5276eb8cdc60a4e4614559a8f8d350af815903eefee3e26d228f"
+    },
+    {
+      "case": "trailing-comma",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "trailing_comma"
+      },
+      "requestSha256": "24633447d7ff308e91405afbea42e02fcc80660d580310091f6c4f5eb51dae82"
+    },
+    {
+      "case": "trailing-comma",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "trailing_comma"
+      },
+      "requestSha256": "24633447d7ff308e91405afbea42e02fcc80660d580310091f6c4f5eb51dae82"
+    },
+    {
+      "case": "nonfinite-number",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "non_finite_number: document.metadata.largeInteger"
+      },
+      "requestSha256": "357b497971740335ba2e57cd693421c95b3a2b3d4fbd3c4e19b82dd5b4d5b5b2"
+    },
+    {
+      "case": "nonfinite-number",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "non_finite_number: document.metadata.largeInteger"
+      },
+      "requestSha256": "357b497971740335ba2e57cd693421c95b3a2b3d4fbd3c4e19b82dd5b4d5b5b2"
+    },
+    {
+      "case": "comment",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "invalid_json_token"
+      },
+      "requestSha256": "81ff4f4314a24e00b9035475b992b8b6fb37bc873d9cd58fa00ddb809c377e36"
+    },
+    {
+      "case": "comment",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "invalid_json_token"
+      },
+      "requestSha256": "81ff4f4314a24e00b9035475b992b8b6fb37bc873d9cd58fa00ddb809c377e36"
+    },
+    {
+      "case": "trailing-document",
+      "reader": "csharp",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "Additional text encountered after finished reading JSON content: {. Path '', line 1, position 1954."
+      },
+      "requestSha256": "d4754020285eccce4058636e846b6fe43f705f0dddbe376cf827e57c64915ace"
+    },
+    {
+      "case": "trailing-document",
+      "reader": "javascript",
+      "passed": true,
+      "problems": [],
+      "actual": {
+        "status": "invalid",
+        "error": "trailing_content"
+      },
+      "requestSha256": "d4754020285eccce4058636e846b6fe43f705f0dddbe376cf827e57c64915ace"
+    }
+  ]
+}
