@@ -132,3 +132,9 @@ InitTestScene*.unity*
 .npm-tools/
 tools/**/bin/
 tools/**/obj/
+
+# Local qualification scratch files
+__pycache__/
+/.beads.gate.lock
+/Assets/Plugins/Android/mainTemplate.gradle.backup
+/Assets/Plugins/Android/mainTemplate.gradle.backup.meta
