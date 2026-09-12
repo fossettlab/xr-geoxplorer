@@ -1,0 +1,6 @@
+{
+  "name": "GeoX.ProjQualification.Editor",
+  "references": ["GeoX.ProjQualification"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

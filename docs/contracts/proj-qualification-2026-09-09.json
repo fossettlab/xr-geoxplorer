@@ -1,0 +1,324 @@
+{
+  "date": "2026-09-09",
+  "bead": "geox-k1v.7.1",
+  "status": "device_execution_pending",
+  "productionAdoptionApproved": false,
+  "questExecutionObserved": false,
+  "nativeBuilds": {
+    "macos": {
+      "target": "macos",
+      "sources": {
+        "proj": {
+          "version": "9.8.1",
+          "url": "https://download.osgeo.org/proj/proj-9.8.1.tar.gz",
+          "sha256": "af5b731c145c1d13c4e3b4eeb7d167e94e845e440f71e3496b4ed8dae0291960",
+          "source_page": "https://proj.org/en/stable/download.html"
+        },
+        "sqlite": {
+          "version": "3.53.4",
+          "url": "https://www.sqlite.org/2026/sqlite-amalgamation-3530400.zip",
+          "sha256": "1e71ddf93849c6a6ecf58b827c0692073d2dd7ee40196158068f7b29f422e87d",
+          "published_sha3_256": "628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e",
+          "source_page": "https://www.sqlite.org/download.html"
+        }
+      },
+      "configure": [
+        "/opt/homebrew/bin/cmake",
+        "-S",
+        "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/tools/proj-qualification",
+        "-B",
+        "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/macos/cmake",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DPROJ_SOURCE_DIR=/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/src/proj-9.8.1",
+        "-DSQLite3_INCLUDE_DIR=/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/src/sqlite-amalgamation-3530400",
+        "-DSQLite3_LIBRARY=/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/macos/libsqlite3.a",
+        "-DEXE_SQLITE3=/usr/bin/sqlite3"
+      ],
+      "compiler": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin25.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n",
+      "ndk": null,
+      "files": {
+        "PROJ-COPYING.txt": {
+          "sha256": "6a8f30793e877d32e3f88b972f0970a051a3b5a26cd057d3993cb51e21c43319",
+          "bytes": 1784
+        },
+        "SQLite-NOTICE.txt": {
+          "sha256": "20fb383990ca20da93cfea516f7bc407333fc8a94028a86b3cad3069959d36e8",
+          "bytes": 424
+        },
+        "libgeox_proj_probe.dylib": {
+          "sha256": "c5abbd1f7862f80acc81d64f1725e6b71f500e80e64def6288019525e403b574",
+          "bytes": 5165560
+        },
+        "nlohmann-json-LICENSE.txt": {
+          "sha256": "1afde928f1a24c82b28f3e7c82eeb8fde6b8423867bd6df66d30dbac9b8e5850",
+          "bytes": 1404
+        },
+        "nlohmann-wrapper-LICENSE.txt": {
+          "sha256": "47e498ebb7a2d9823c85157c099d8737e587bf27bc678bfb91f654a917dd9251",
+          "bytes": 1523
+        },
+        "proj.db": {
+          "sha256": "ba59d662d0e3e4d46b3b43e72dba5d25b8bbd1e1441c80f03cb70572aa8862b4",
+          "bytes": 10223616
+        }
+      }
+    },
+    "android": {
+      "target": "android",
+      "sources": {
+        "proj": {
+          "version": "9.8.1",
+          "url": "https://download.osgeo.org/proj/proj-9.8.1.tar.gz",
+          "sha256": "af5b731c145c1d13c4e3b4eeb7d167e94e845e440f71e3496b4ed8dae0291960",
+          "source_page": "https://proj.org/en/stable/download.html"
+        },
+        "sqlite": {
+          "version": "3.53.4",
+          "url": "https://www.sqlite.org/2026/sqlite-amalgamation-3530400.zip",
+          "sha256": "1e71ddf93849c6a6ecf58b827c0692073d2dd7ee40196158068f7b29f422e87d",
+          "published_sha3_256": "628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e",
+          "source_page": "https://www.sqlite.org/download.html"
+        }
+      },
+      "configure": [
+        "/opt/homebrew/bin/cmake",
+        "-S",
+        "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/tools/proj-qualification",
+        "-B",
+        "/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/android/cmake",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DPROJ_SOURCE_DIR=/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/src/proj-9.8.1",
+        "-DSQLite3_INCLUDE_DIR=/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/src/sqlite-amalgamation-3530400",
+        "-DSQLite3_LIBRARY=/Users/abradley/Dropbox/_Geospatial/Fossett_Lab/09_XR/xr-geoxplorer/build/proj-qualification/android/libsqlite3.a",
+        "-DEXE_SQLITE3=/usr/bin/sqlite3",
+        "-DCMAKE_TOOLCHAIN_FILE=/Applications/Unity/Hub/Editor/6000.4.4f1/PlaybackEngines/AndroidPlayer/NDK/build/cmake/android.toolchain.cmake",
+        "-DANDROID_ABI=arm64-v8a",
+        "-DANDROID_PLATFORM=android-29",
+        "-DANDROID_STL=c++_static",
+        "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+      ],
+      "compiler": "Android (12470979, +pgo, -bolt, +lto, -mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)\nTarget: aarch64-unknown-linux-android29\nThread model: posix\nInstalledDir: /Applications/Unity/Hub/Editor/6000.4.4f1/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/darwin-x86_64/bin\n",
+      "ndk": "Pkg.Desc = Android NDK\nPkg.Revision = 27.2.12479018\nPkg.BaseRevision = 27.2.12479018\nPkg.ReleaseName = r27c\n",
+      "files": {
+        "PROJ-COPYING.txt": {
+          "sha256": "6a8f30793e877d32e3f88b972f0970a051a3b5a26cd057d3993cb51e21c43319",
+          "bytes": 1784
+        },
+        "SQLite-NOTICE.txt": {
+          "sha256": "20fb383990ca20da93cfea516f7bc407333fc8a94028a86b3cad3069959d36e8",
+          "bytes": 424
+        },
+        "libgeox_proj_probe.so": {
+          "sha256": "f63c62ebfcb6e7ac25ea5e36c02558045c4ce10d7823399077a8ab753cf320d6",
+          "bytes": 50422752
+        },
+        "nlohmann-json-LICENSE.txt": {
+          "sha256": "1afde928f1a24c82b28f3e7c82eeb8fde6b8423867bd6df66d30dbac9b8e5850",
+          "bytes": 1404
+        },
+        "nlohmann-wrapper-LICENSE.txt": {
+          "sha256": "47e498ebb7a2d9823c85157c099d8737e587bf27bc678bfb91f654a917dd9251",
+          "bytes": 1523
+        },
+        "proj.db": {
+          "sha256": "ba59d662d0e3e4d46b3b43e72dba5d25b8bbd1e1441c80f03cb70572aa8862b4",
+          "bytes": 10223616
+        }
+      }
+    }
+  },
+  "desktop": {
+    "success": true,
+    "checks": [
+      {
+        "id": "desktop",
+        "exitCode": 0,
+        "passed": true,
+        "report": "build/proj-qualification/desktop-report.json"
+      },
+      {
+        "id": "missing-database",
+        "exitCode": 1,
+        "passed": true,
+        "report": "build/proj-qualification/missing-database-report.json"
+      },
+      {
+        "id": "desktop-after-failure",
+        "exitCode": 0,
+        "passed": true,
+        "report": "build/proj-qualification/desktop-after-failure-report.json"
+      }
+    ],
+    "ambientNetwork": "ON",
+    "ambientData": "deliberately absent",
+    "files": {
+      "build/proj-qualification/fixtures.json": "8d0023fb25657a54aa1eaa571ce275175985185d87ce911a75c74884ecb88bb3",
+      "build/proj-qualification/macos/bundle/libgeox_proj_probe.dylib": "c5abbd1f7862f80acc81d64f1725e6b71f500e80e64def6288019525e403b574",
+      "build/proj-qualification/macos/bundle/proj.db": "ba59d662d0e3e4d46b3b43e72dba5d25b8bbd1e1441c80f03cb70572aa8862b4"
+    }
+  },
+  "database": {
+    "DATABASE.LAYOUT.VERSION.MAJOR": "1",
+    "DATABASE.LAYOUT.VERSION.MINOR": "6",
+    "EPSG.DATE": "2025-10-02",
+    "EPSG.VERSION": "v12.029",
+    "PROJ.VERSION": "9.8.1"
+  },
+  "unity": {
+    "version": "6000.4.4f1",
+    "tests": {
+      "status": "completed",
+      "duration": 0.78,
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "GeoX.ProjQualification.ProbeTests.NativeReferencesAndFailureRecoveryThroughManagedAbi",
+          "Status": "Passed",
+          "Duration": 0.7599511,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "consoleBeforeBuild": {
+      "entries": [],
+      "cursor": 2,
+      "returned": 0,
+      "dropped": false
+    },
+    "buildResult": "Succeeded\nErrors: 0\nWarnings: 1\nWarning: Pipeline: No RuntimePipelineManager components found in build scenes. Pipeline will be disabled in Player builds.",
+    "trial": "/private/tmp/geox-proj-qualification-k2lh1xbw"
+  },
+  "apk": {
+    "path": "build/proj-qualification/GeoX-ProjQualification-2026-09-09.apk",
+    "sha256": "9ac99fcc9b1bce93809d17789edbde4a2f87a1d3674e859103d9a3fc40367748",
+    "bytes": 39503987,
+    "verification": {
+      "apksigner": {
+        "exitCode": 0,
+        "output": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\n"
+      },
+      "zipalign": {
+        "exitCode": 0,
+        "output": "Verification successful"
+      },
+      "aapt": {
+        "exitCode": 0,
+        "output": "package: name='edu.wustl.fossett.geoxprojqualification' versionCode='1' versionName='1.0' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'\nsdkVersion:'29'\ntargetSdkVersion:'34'\nuses-permission: name='android.permission.INTERNET'\nuses-permission: name='edu.wustl.fossett.geoxprojqualification.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'\nlaunchable-activity: name='com.unity3d.player.UnityPlayerGameActivity'  label='' icon=''\nnative-code: 'arm64-v8a'"
+      },
+      "native": {
+        "sha256": "066e5bb712a9e8b86f65e9ddfba950eee000660b77674eb73ee2483ff27b4059",
+        "bytes": 4791064,
+        "definedExports": [
+          "geox_proj_probe_run"
+        ],
+        "elf": "ELF Header:\n  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00\n  Class:                             ELF64\n  Data:                              2's complement, little endian\n  Version:                           1 (current)\n  OS/ABI:                            UNIX - System V\n  ABI Version:                       0\n  Type:                              DYN (Shared object file)\n  Machine:                           AArch64\n  Version:                           0x1\n  Entry point address:               0x0\n  Start of program headers:          64 (bytes into file)\n  Start of section headers:          4789336 (bytes into file)\n  Flags:                             0x0\n  Size of this header:               64 (bytes)\n  Size of program headers:           56 (bytes)\n  Number of program headers:         9\n  Size of section headers:           64 (bytes)\n  Number of section headers:         27\n  Section header string table index: 26\n\nElf file type is DYN (Shared object file)\nEntry point 0x0\nThere are 9 program headers, starting at offset 64\n\nProgram Headers:\n  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align\n  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x0001f8 0x0001f8 R   0x8\n  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x46e6f0 0x46e6f0 R E 0x4000\n  LOAD           0x46e6f0 0x00000000004726f0 0x00000000004726f0 0x01f738 0x01f910 RW  0x4000\n  LOAD           0x48de28 0x0000000000495e28 0x0000000000495e28 0x003398 0x0070d8 RW  0x4000\n  DYNAMIC        0x48ca68 0x0000000000490a68 0x0000000000490a68 0x0001b0 0x0001b0 RW  0x8\n  GNU_RELRO      0x46e6f0 0x00000000004726f0 0x00000000004726f0 0x01f738 0x01f910 R   0x1\n  GNU_EH_FRAME   0x0b12dc 0x00000000000b12dc 0x00000000000b12dc 0x00ea0c 0x00ea0c R   0x4\n  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x0\n  NOTE           0x000238 0x0000000000000238 0x0000000000000238 0x0000bc 0x0000bc R   0x4\n\n Section to Segment mapping:\n  Segment Sections...\n   00     \n   01     .note.android.ident .note.gnu.build-id .dynsym .gnu.version .gnu.version_r .gnu.hash .dynstr .rela.dyn .rela.plt .gcc_except_table .rodata .eh_frame_hdr .eh_frame .text .plt \n   02     .data.rel.ro .fini_array .init_array .dynamic .got .got.plt .relro_padding \n   03     .data .bss \n   04     .dynamic \n   05     .data.rel.ro .fini_array .init_array .dynamic .got .got.plt .relro_padding \n   06     .eh_frame_hdr \n   07     \n   08     .note.android.ident .note.gnu.build-id \n   None   .comment .shstrtab \nDynamic section at offset 0x48ca68 contains 27 entries:\n  Tag                Type           Name/Value\n  0x0000000000000001 (NEEDED)       Shared library: [libm.so]\n  0x0000000000000001 (NEEDED)       Shared library: [libdl.so]\n  0x0000000000000001 (NEEDED)       Shared library: [libc.so]\n  0x000000000000000e (SONAME)       Library soname: [libgeox_proj_probe.so]\n  0x000000000000001e (FLAGS)        BIND_NOW \n  0x000000006ffffffb (FLAGS_1)      NOW \n  0x0000000000000007 (RELA)         0x1ba8\n  0x0000000000000008 (RELASZ)       292584 (bytes)\n  0x0000000000000009 (RELAENT)      24 (bytes)\n  0x000000006ffffff9 (RELACOUNT)    12166\n  0x0000000000000017 (JMPREL)       0x49290\n  0x0000000000000002 (PLTRELSZ)     3600 (bytes)\n  0x0000000000000003 (PLTGOT)       0x491960\n  0x0000000000000014 (PLTREL)       RELA\n  0x0000000000000006 (SYMTAB)       0x2f8\n  0x000000000000000b (SYMENT)       24 (bytes)\n  0x0000000000000005 (STRTAB)       0x14f0\n  0x000000000000000a (STRSZ)        1717 (bytes)\n  0x000000006ffffef5 (GNU_HASH)     0x14d0\n  0x0000000000000019 (INIT_ARRAY)   0x4909f0\n  0x000000000000001b (INIT_ARRAYSZ) 120 (bytes)\n  0x000000000000001a (FINI_ARRAY)   0x4909e0\n  0x000000000000001c (FINI_ARRAYSZ) 16 (bytes)\n  0x000000006ffffff0 (VERSYM)       0x1318\n  0x000000006ffffffe (VERNEED)      0x1470\n  0x000000006fffffff (VERNEEDNUM)   3\n  0x0000000000000000 (NULL)         0x0\n",
+        "libraries": [
+          "lib/arm64-v8a/libc++_shared.so",
+          "lib/arm64-v8a/libgame.so",
+          "lib/arm64-v8a/libgeox_proj_probe.so",
+          "lib/arm64-v8a/libil2cpp.so",
+          "lib/arm64-v8a/libmain.so",
+          "lib/arm64-v8a/libswappywrapper.so",
+          "lib/arm64-v8a/libunity.so"
+        ]
+      }
+    },
+    "resources": {
+      "proj.db": {
+        "sha256": "ba59d662d0e3e4d46b3b43e72dba5d25b8bbd1e1441c80f03cb70572aa8862b4",
+        "bytes": 10223616
+      },
+      "nlohmann-json-LICENSE.txt": {
+        "sha256": "1afde928f1a24c82b28f3e7c82eeb8fde6b8423867bd6df66d30dbac9b8e5850",
+        "bytes": 1404
+      },
+      "PROJ-COPYING.txt": {
+        "sha256": "6a8f30793e877d32e3f88b972f0970a051a3b5a26cd057d3993cb51e21c43319",
+        "bytes": 1784
+      },
+      "nlohmann-wrapper-LICENSE.txt": {
+        "sha256": "47e498ebb7a2d9823c85157c099d8737e587bf27bc678bfb91f654a917dd9251",
+        "bytes": 1523
+      },
+      "SQLite-NOTICE.txt": {
+        "sha256": "20fb383990ca20da93cfea516f7bc407333fc8a94028a86b3cad3069959d36e8",
+        "bytes": 424
+      }
+    },
+    "fixtures": {
+      "sha256": "8d0023fb25657a54aa1eaa571ce275175985185d87ce911a75c74884ecb88bb3",
+      "bytes": 16717
+    }
+  },
+  "applicationIntegrity": {
+    "preExistingFiles": 7796,
+    "changed": []
+  },
+  "sources": {
+    "tools/proj-qualification/CMakeLists.txt": {
+      "sha256": "6a192c8e781ce1b670fb040f0ee15aae80a45f30d90b1cdc25e8239a5746a7d9",
+      "bytes": 1176
+    },
+    "tools/proj-qualification/exports.map": {
+      "sha256": "6297b1d586721b342dbaa957dec36896071c7acfa6b969cc5fce8016c5e10e21",
+      "bytes": 48
+    },
+    "tools/proj-qualification/probe.cpp": {
+      "sha256": "8330d23c88d07b73eca3b9a0ad200a4662a651ef2d6221eb1c16be93157b9d54",
+      "bytes": 11325
+    },
+    "tools/proj-qualification/sources.json": {
+      "sha256": "5f07fd3884fa4e218696d5edd6ad17ed5dc4e17f3cc521717a8d4a7d0e644c9a",
+      "bytes": 604
+    },
+    "tools/proj-qualification/unity/Editor/GeoX.ProjQualification.Editor.asmdef": {
+      "sha256": "741df73d595210b00cd312571344568a8cc20575c4a693068bec0863fa90e921",
+      "bytes": 173
+    },
+    "tools/proj-qualification/unity/Editor/ProbeBuild.cs": {
+      "sha256": "f640adb8dba8356ca39e5dfe2ef03233ec2314da437cf8ce94310a89834f17bc",
+      "bytes": 2649
+    },
+    "tools/proj-qualification/unity/Editor/ProbeTests.cs": {
+      "sha256": "d9ee4991e42f4b630332e781cb015a21359f1c92a041626416b625ce28279226",
+      "bytes": 1085
+    },
+    "tools/proj-qualification/unity/Runtime/GeoX.ProjQualification.asmdef": {
+      "sha256": "51f58758c60a3f25332204f12e9b09c1444e9789be6ff6082bdd08d9db0345f0",
+      "bytes": 84
+    },
+    "tools/proj-qualification/unity/Runtime/ProbeBridge.cs": {
+      "sha256": "0d0a3733773e20d7709b9549f93fd694a863cc1f163152d5b2bd8542df08e338",
+      "bytes": 643
+    },
+    "tools/proj-qualification/unity/Runtime/ProbePlayer.cs": {
+      "sha256": "e568af637170d87a84bde4223fbcbc1849004fc189a37e784e0fb24863317a19",
+      "bytes": 4293
+    }
+  },
+  "scripts": {
+    "scripts/build_proj_qualification.py": {
+      "sha256": "e0e20ad4d9a859efaaa153693a32e50a1f00fa2e99c6b2f06ba031cb2c3337f3",
+      "bytes": 7365
+    },
+    "scripts/prepare_proj_unity_trial.py": {
+      "sha256": "66cfd74145be3599988179988e529f80b6d1b3c83cb2bc54e5dd56d9ebb85d88",
+      "bytes": 2857
+    },
+    "scripts/record_proj_qualification.py": {
+      "sha256": "75b9dd2eb8fc0e364050c065732e3a5fb39b74614bd811b8cfab07c8f18ef7ca",
+      "bytes": 9117
+    },
+    "scripts/run_proj_qualification.py": {
+      "sha256": "0ab6941dc490d235f93659b23d050c753d94b2aa4d787da3119e664c7a6330d5",
+      "bytes": 8052
+    }
+  }
+}

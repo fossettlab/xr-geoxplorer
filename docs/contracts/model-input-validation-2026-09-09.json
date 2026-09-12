@@ -1,0 +1,457 @@
+{
+  "validator": "2.0.0-dev.3.10",
+  "node": "v22.22.3",
+  "validatorArchiveSha256": "4e03dbdc3bc0d1342afd5d2d7ae341a7e3474502ccb872b02dbbaddaee0fdec6",
+  "manifestSha256": "479b86961aa2d7b033af42892a39c8865f3df204ba05e9a8392dd7276c5134e6",
+  "success": true,
+  "records": [
+    {
+      "file": "triangle.glb",
+      "sha256": "909a9253bab0a4c31de0f3c47d06b1aa09e96a33ce168656e1935ab1c4920266",
+      "expected": "valid; check triangle, normal and material",
+      "report": {
+        "uri": "triangle.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.605Z",
+        "issues": {
+          "numErrors": 0,
+          "numWarnings": 0,
+          "numInfos": 1,
+          "numHints": 0,
+          "messages": [
+            {
+              "code": "UNUSED_OBJECT",
+              "message": "This object may be unused.",
+              "severity": 2,
+              "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+            }
+          ],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "glb",
+              "byteLength": 96
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": false,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "hierarchy.glb",
+      "sha256": "0468fd0c93295b4da75e56bd7da3803a95a1c1adea59ad3b420f493799f468db",
+      "expected": "valid; preserve authored parent/child transforms",
+      "report": {
+        "uri": "hierarchy.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.608Z",
+        "issues": {
+          "numErrors": 0,
+          "numWarnings": 0,
+          "numInfos": 1,
+          "numHints": 0,
+          "messages": [
+            {
+              "code": "UNUSED_OBJECT",
+              "message": "This object may be unused.",
+              "severity": 2,
+              "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+            }
+          ],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "glb",
+              "byteLength": 96
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": false,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "textured.glb",
+      "sha256": "9f84a7ff86b6dbc746b27cada3c4492f114bc2f10f803ee0cd82ae9abdfeed14",
+      "expected": "valid; embedded image",
+      "report": {
+        "uri": "textured.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.615Z",
+        "issues": {
+          "numErrors": 0,
+          "numWarnings": 0,
+          "numInfos": 0,
+          "numHints": 0,
+          "messages": [],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "glb",
+              "byteLength": 168
+            },
+            {
+              "pointer": "/images/0",
+              "mimeType": "image/png",
+              "storage": "buffer-view",
+              "image": {
+                "width": 1,
+                "height": 1,
+                "format": "rgba",
+                "primaries": "srgb",
+                "transfer": "srgb",
+                "bits": 8
+              }
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": true,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "external-image.glb",
+      "sha256": "55941b253db9d90f23beda4eefa6d4d42aa987cf5891ac2b53d190bbb70cfbae",
+      "expected": "valid format; initial self-contained-only route must reject external image",
+      "report": {
+        "uri": "external-image.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.618Z",
+        "issues": {
+          "numErrors": 0,
+          "numWarnings": 0,
+          "numInfos": 1,
+          "numHints": 0,
+          "messages": [
+            {
+              "code": "URI_GLB",
+              "message": "URI is used in GLB container.",
+              "severity": 2,
+              "pointer": "/images/0/uri"
+            }
+          ],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "glb",
+              "byteLength": 96
+            },
+            {
+              "pointer": "/images/0",
+              "mimeType": "image/png",
+              "storage": "external",
+              "uri": "pixel.png",
+              "image": {
+                "width": 1,
+                "height": 1,
+                "format": "rgba",
+                "primaries": "srgb",
+                "transfer": "srgb",
+                "bits": 8
+              }
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": true,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "missing-image.glb",
+      "sha256": "6daa761044e11602d0ece4a7fb18bf9ed8dd8fb8bde806cc3433ea907492377a",
+      "expected": "reject external image initially; later report missing companion",
+      "report": {
+        "uri": "missing-image.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.620Z",
+        "issues": {
+          "numErrors": 1,
+          "numWarnings": 0,
+          "numInfos": 1,
+          "numHints": 0,
+          "messages": [
+            {
+              "code": "URI_GLB",
+              "message": "URI is used in GLB container.",
+              "severity": 2,
+              "pointer": "/images/0/uri"
+            },
+            {
+              "code": "IO_ERROR",
+              "message": "Node Exception: Error: Fixture companion unavailable",
+              "severity": 0,
+              "pointer": "/images/0/uri"
+            }
+          ],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "glb",
+              "byteLength": 96
+            },
+            {
+              "pointer": "/images/0",
+              "storage": "external",
+              "uri": "missing.png"
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": true,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "unsupported-required.glb",
+      "sha256": "2dce0ad4c571fca96644362a30caa75afe3fec0b5c175a9f4de212b80215e904",
+      "expected": "reject unsupported required extension",
+      "report": {
+        "uri": "unsupported-required.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.621Z",
+        "issues": {
+          "numErrors": 0,
+          "numWarnings": 0,
+          "numInfos": 2,
+          "numHints": 0,
+          "messages": [
+            {
+              "code": "UNSUPPORTED_EXTENSION",
+              "message": "Cannot validate an extension as it is not supported by the validator: 'GEOX_fixture_unknown'.",
+              "severity": 2,
+              "pointer": "/extensionsUsed/0"
+            },
+            {
+              "code": "UNUSED_OBJECT",
+              "message": "This object may be unused.",
+              "severity": 2,
+              "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+            }
+          ],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "extensionsUsed": [
+            "GEOX_fixture_unknown"
+          ],
+          "extensionsRequired": [
+            "GEOX_fixture_unknown"
+          ],
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "glb",
+              "byteLength": 96
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": false,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "truncated.glb",
+      "sha256": "8c4f58bd09d68094ff058e778078541a75d4b72d6227dcd15a857bda5cf6acdd",
+      "expected": "reject length/chunk truncation",
+      "report": {
+        "uri": "truncated.glb",
+        "mimeType": "model/gltf-binary",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.623Z",
+        "issues": {
+          "numErrors": 1,
+          "numWarnings": 0,
+          "numInfos": 1,
+          "numHints": 0,
+          "messages": [
+            {
+              "code": "UNUSED_OBJECT",
+              "message": "This object may be unused.",
+              "severity": 2,
+              "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+            },
+            {
+              "code": "GLB_UNEXPECTED_END_OF_CHUNK_DATA",
+              "message": "Unexpected end of chunk data.",
+              "severity": 0,
+              "offset": 917
+            }
+          ],
+          "truncated": false
+        }
+      },
+      "passed": true
+    },
+    {
+      "file": "bad-magic.glb",
+      "sha256": "e1e4560d0be886a1a4cda1f1820908140928be3b5f6ad33656a4f10adaa61578",
+      "expected": "reject bad container magic",
+      "error": "Invalid data: could not detect glTF format.",
+      "passed": true
+    },
+    {
+      "file": "multifile.gltf",
+      "sha256": "72ba1cc67a60f28b3cf0bb60f24c82fe587c0b2dd9e15538a1314d1f751b7999",
+      "expected": "valid when explicit companion resolution is enabled",
+      "report": {
+        "uri": "multifile.gltf",
+        "mimeType": "model/gltf+json",
+        "validatorVersion": "2.0.0-dev.3.10",
+        "validatedAt": "2026-09-10T00:03:45.626Z",
+        "issues": {
+          "numErrors": 0,
+          "numWarnings": 0,
+          "numInfos": 0,
+          "numHints": 0,
+          "messages": [],
+          "truncated": false
+        },
+        "info": {
+          "version": "2.0",
+          "generator": "GeoXplorer authored test fixtures",
+          "resources": [
+            {
+              "pointer": "/buffers/0",
+              "mimeType": "application/gltf-buffer",
+              "storage": "external",
+              "uri": "geometry.bin",
+              "byteLength": 96
+            },
+            {
+              "pointer": "/images/0",
+              "mimeType": "image/png",
+              "storage": "external",
+              "uri": "pixel.png",
+              "image": {
+                "width": 1,
+                "height": 1,
+                "format": "rgba",
+                "primaries": "srgb",
+                "transfer": "srgb",
+                "bits": 8
+              }
+            }
+          ],
+          "animationCount": 0,
+          "materialCount": 1,
+          "hasMorphTargets": false,
+          "hasSkins": false,
+          "hasTextures": true,
+          "hasDefaultScene": true,
+          "drawCallCount": 1,
+          "totalVertexCount": 3,
+          "totalTriangleCount": 1,
+          "maxUVs": 1,
+          "maxInfluences": 0,
+          "maxAttributes": 3
+        }
+      },
+      "passed": true
+    }
+  ]
+}
