@@ -1,0 +1,2867 @@
+{
+  "fixtures": {
+    "cases": [
+      {
+        "id": "earth-grs80-cartesian",
+        "source": "EPSG:4937",
+        "target": "EPSG:4936",
+        "input": [
+          45.3935192042,
+          17.7562015132,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "available",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "earth-utm32",
+        "source": "EPSG:4258",
+        "target": "EPSG:25832",
+        "input": [
+          56,
+          12
+        ],
+        "expected": [
+          687071.44,
+          6210141.33
+        ],
+        "axisExpectation": [
+          "north",
+          "east"
+        ],
+        "domain": [
+          6,
+          0,
+          12,
+          84
+        ],
+        "tolerance": 0.01,
+        "inverseTolerance": 2.5579538487363607e-12,
+        "outcome": "available",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/projections/utm.html",
+          "basis": "Published zone 32 GRS80 example rounded to 2 decimal metres; one published decimal unit. EPSG:4258 and EPSG:25832 explicitly use GRS80."
+        }
+      },
+      {
+        "id": "moon-spherical-eqc-0-90",
+        "source": "IAU_2015:30100",
+        "target": "IAU_2015:30110",
+        "input": [
+          0,
+          90
+        ],
+        "expected": [
+          2729101.5381734534,
+          0.0
+        ],
+        "axisExpectation": [
+          "north",
+          "east"
+        ],
+        "domain": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tolerance": 3.878286546201726e-08,
+        "inverseTolerance": 2.5579538487363607e-12,
+        "outcome": "available",
+        "reference": {
+          "definition": "https://psdi.astrogeology.usgs.gov/moon/standards/data_examples/",
+          "radiusMetres": 1737400,
+          "formula": "https://proj.org/en/stable/operations/projections/eqc.html",
+          "basis": "Authored points; independent analytic x=R*longitude_radians, y=R*latitude_radians for spherical equidistant cylindrical projection with zero central meridian, origin and standard parallel. Binary64 margin 64*epsilon*coordinate scale; no height or physical accuracy claim."
+        }
+      },
+      {
+        "id": "moon-spherical-eqc-30-60",
+        "source": "IAU_2015:30100",
+        "target": "IAU_2015:30110",
+        "input": [
+          30,
+          60
+        ],
+        "expected": [
+          1819401.0254489686,
+          909700.5127244843
+        ],
+        "axisExpectation": [
+          "north",
+          "east"
+        ],
+        "domain": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tolerance": 2.5855243641344837e-08,
+        "inverseTolerance": 2.5579538487363607e-12,
+        "outcome": "available",
+        "reference": {
+          "definition": "https://psdi.astrogeology.usgs.gov/moon/standards/data_examples/",
+          "radiusMetres": 1737400,
+          "formula": "https://proj.org/en/stable/operations/projections/eqc.html",
+          "basis": "Authored points; independent analytic x=R*longitude_radians, y=R*latitude_radians for spherical equidistant cylindrical projection with zero central meridian, origin and standard parallel. Binary64 margin 64*epsilon*coordinate scale; no height or physical accuracy claim."
+        }
+      },
+      {
+        "id": "mars-spherical-eqc-0-90",
+        "source": "IAU_2015:49900",
+        "target": "IAU_2015:49910",
+        "input": [
+          0,
+          90
+        ],
+        "expected": [
+          5334722.7770975595,
+          0.0
+        ],
+        "axisExpectation": [
+          "north",
+          "east"
+        ],
+        "domain": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tolerance": 7.581097033121238e-08,
+        "inverseTolerance": 2.5579538487363607e-12,
+        "outcome": "available",
+        "reference": {
+          "definition": "https://voparis-vespa-crs.obspm.fr/web/mars.html",
+          "radiusMetres": 3396190,
+          "formula": "https://proj.org/en/stable/operations/projections/eqc.html",
+          "basis": "Authored points; independent analytic x=R*longitude_radians, y=R*latitude_radians for spherical equidistant cylindrical projection with zero central meridian, origin and standard parallel. Binary64 margin 64*epsilon*coordinate scale; no height or physical accuracy claim."
+        }
+      },
+      {
+        "id": "mars-spherical-eqc-30-60",
+        "source": "IAU_2015:49900",
+        "target": "IAU_2015:49910",
+        "input": [
+          30,
+          60
+        ],
+        "expected": [
+          3556481.851398373,
+          1778240.9256991865
+        ],
+        "axisExpectation": [
+          "north",
+          "east"
+        ],
+        "domain": [
+          -180,
+          -90,
+          180,
+          90
+        ],
+        "tolerance": 5.054064688747492e-08,
+        "inverseTolerance": 2.5579538487363607e-12,
+        "outcome": "available",
+        "reference": {
+          "definition": "https://voparis-vespa-crs.obspm.fr/web/mars.html",
+          "radiusMetres": 3396190,
+          "formula": "https://proj.org/en/stable/operations/projections/eqc.html",
+          "basis": "Authored points; independent analytic x=R*longitude_radians, y=R*latitude_radians for spherical equidistant cylindrical projection with zero central meridian, origin and standard parallel. Binary64 margin 64*epsilon*coordinate scale; no height or physical accuracy claim."
+        }
+      },
+      {
+        "id": "wrong-axis-contract",
+        "source": "EPSG:4937",
+        "target": "EPSG:4936",
+        "input": [
+          45.3935192042,
+          17.7562015132,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "east",
+          "north",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "axis_mismatch",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "missing-height",
+        "source": "EPSG:4258",
+        "target": "EPSG:4936",
+        "input": [
+          45,
+          17
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "height_required",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "missing-ordinate",
+        "source": "EPSG:4937",
+        "target": "EPSG:4936",
+        "input": [
+          45,
+          17
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "missing_or_extra_coordinate",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "null-height",
+        "source": "EPSG:4937",
+        "target": "EPSG:4936",
+        "input": [
+          45,
+          17,
+          null
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "missing_or_non_numeric_coordinate",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "outside-domain",
+        "source": "EPSG:4937",
+        "target": "EPSG:4936",
+        "input": [
+          91,
+          17,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "outside_declared_domain",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "different-body",
+        "source": "EPSG:4937",
+        "target": "IAU_2015:30110",
+        "input": [
+          45.3935192042,
+          17.7562015132,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "body_mismatch",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "unknown-crs",
+        "source": "GEOX_QUALIFICATION:unavailable",
+        "target": "EPSG:4936",
+        "input": [
+          45.3935192042,
+          17.7562015132,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "crs_unavailable",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "dynamic-frame",
+        "source": "EPSG:7912",
+        "target": "EPSG:7912",
+        "input": [
+          45.3935192042,
+          17.7562015132,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "dynamic_frame_unqualified",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      },
+      {
+        "id": "valid-after-failures",
+        "source": "EPSG:4937",
+        "target": "EPSG:4936",
+        "input": [
+          45.3935192042,
+          17.7562015132,
+          133.12
+        ],
+        "expected": [
+          4272922.1553,
+          1368283.0597,
+          4518261.3501
+        ],
+        "axisExpectation": [
+          "north",
+          "east",
+          "up"
+        ],
+        "domain": [
+          -16.1,
+          33.26,
+          38.01,
+          84.73
+        ],
+        "tolerance": 0.0001,
+        "inverseTolerance": 9.063877826065436e-08,
+        "outcome": "available",
+        "reference": {
+          "url": "https://proj.org/en/stable/operations/conversions/cart.html",
+          "basis": "Published GRS80 result rounded to 4 decimal metres; tolerance is one published decimal unit. GRS80 semi-major axis 6378137 m sets inverse arithmetic margin.",
+          "epochInPublishedExample": 2017.8,
+          "epochUse": "No dynamic transformation: geographic and geocentric forms of the same ETRS89 frame. The epoch in the published cart example is a passthrough ordinate.",
+          "axisUse": "Published longitude/latitude reordered explicitly to the declared EPSG latitude/longitude/height axes."
+        }
+      }
+    ],
+    "lifecycleIterations": 100
+  },
+  "desktopResults": {
+    "database": {
+      "DATABASE.LAYOUT.VERSION.MAJOR": "1",
+      "DATABASE.LAYOUT.VERSION.MINOR": "6",
+      "EPSG.DATE": "2025-10-02",
+      "EPSG.VERSION": "v12.029",
+      "PROJ.VERSION": "9.8.1"
+    },
+    "failed": 0,
+    "lifecycleIterations": 100,
+    "networkEnabled": false,
+    "provider": "9.8.1",
+    "results": [
+      {
+        "evidence": {
+          "actual": [
+            4272922.155264674,
+            1368283.0597426926,
+            4518261.350077252
+          ],
+          "body": "Earth",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 8.1956841313513e-10,
+          "maxError": 4.26925253123045e-05,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 9602
+                },
+                "name": "Geographic/geocentric conversions"
+              },
+              "name": "Conversion from ETRS89 (geog3D) to ETRS89 (geocentric)",
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"Conversion from ETRS89 (geog3D) to ETRS89 (geocentric)\",\n    METHOD[\"Geographic/geocentric conversions\",\n        ID[\"EPSG\",9602]]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": null,
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +z_in=m +xy_out=rad +z_out=m +step +proj=cart +ellps=GRS80",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "up",
+              "name": "Ellipsoidal height",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "area": "Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.",
+              "bbox": {
+                "east_longitude": 38.01,
+                "north_latitude": 84.73,
+                "south_latitude": 33.26,
+                "west_longitude": -16.1
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "h",
+                    "direction": "up",
+                    "name": "Ellipsoidal height",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum_ensemble": {
+                "accuracy": "0.1",
+                "ellipsoid": {
+                  "inverse_flattening": 298.257222101,
+                  "name": "GRS 1980",
+                  "semi_major_axis": 6378137
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 6258
+                },
+                "members": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1178
+                    },
+                    "name": "European Terrestrial Reference Frame 1989"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1179
+                    },
+                    "name": "European Terrestrial Reference Frame 1990"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1180
+                    },
+                    "name": "European Terrestrial Reference Frame 1991"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1181
+                    },
+                    "name": "European Terrestrial Reference Frame 1992"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1182
+                    },
+                    "name": "European Terrestrial Reference Frame 1993"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1183
+                    },
+                    "name": "European Terrestrial Reference Frame 1994"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1184
+                    },
+                    "name": "European Terrestrial Reference Frame 1996"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1185
+                    },
+                    "name": "European Terrestrial Reference Frame 1997"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1186
+                    },
+                    "name": "European Terrestrial Reference Frame 2000"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1204
+                    },
+                    "name": "European Terrestrial Reference Frame 2005"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1206
+                    },
+                    "name": "European Terrestrial Reference Frame 2014"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1382
+                    },
+                    "name": "European Terrestrial Reference Frame 2020"
+                  }
+                ],
+                "name": "European Terrestrial Reference System 1989 ensemble"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 4937
+              },
+              "name": "ETRS89",
+              "remarks": "Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.",
+              "scope": "Spatial referencing.",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"ETRS89\",\n    ENSEMBLE[\"European Terrestrial Reference System 1989 ensemble\",\n        MEMBER[\"European Terrestrial Reference Frame 1989\"],\n        MEMBER[\"European Terrestrial Reference Frame 1990\"],\n        MEMBER[\"European Terrestrial Reference Frame 1991\"],\n        MEMBER[\"European Terrestrial Reference Frame 1992\"],\n        MEMBER[\"European Terrestrial Reference Frame 1993\"],\n        MEMBER[\"European Terrestrial Reference Frame 1994\"],\n        MEMBER[\"European Terrestrial Reference Frame 1996\"],\n        MEMBER[\"European Terrestrial Reference Frame 1997\"],\n        MEMBER[\"European Terrestrial Reference Frame 2000\"],\n        MEMBER[\"European Terrestrial Reference Frame 2005\"],\n        MEMBER[\"European Terrestrial Reference Frame 2014\"],\n        MEMBER[\"European Terrestrial Reference Frame 2020\"],\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[0.1]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,3],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"ellipsoidal height (h)\",up,\n            ORDER[3],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Spatial referencing.\"],\n        AREA[\"Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.\"],\n        BBOX[33.26,-16.1,84.73,38.01]],\n    ID[\"EPSG\",4937],\n    REMARK[\"Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "geocentricX",
+              "name": "Geocentric X",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "geocentricY",
+              "name": "Geocentric Y",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "geocentricZ",
+              "name": "Geocentric Z",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "area": "Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.",
+              "bbox": {
+                "east_longitude": 38.01,
+                "north_latitude": 84.73,
+                "south_latitude": 33.26,
+                "west_longitude": -16.1
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "X",
+                    "direction": "geocentricX",
+                    "name": "Geocentric X",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "Y",
+                    "direction": "geocentricY",
+                    "name": "Geocentric Y",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "Z",
+                    "direction": "geocentricZ",
+                    "name": "Geocentric Z",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "datum_ensemble": {
+                "accuracy": "0.1",
+                "ellipsoid": {
+                  "inverse_flattening": 298.257222101,
+                  "name": "GRS 1980",
+                  "semi_major_axis": 6378137
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 6258
+                },
+                "members": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1178
+                    },
+                    "name": "European Terrestrial Reference Frame 1989"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1179
+                    },
+                    "name": "European Terrestrial Reference Frame 1990"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1180
+                    },
+                    "name": "European Terrestrial Reference Frame 1991"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1181
+                    },
+                    "name": "European Terrestrial Reference Frame 1992"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1182
+                    },
+                    "name": "European Terrestrial Reference Frame 1993"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1183
+                    },
+                    "name": "European Terrestrial Reference Frame 1994"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1184
+                    },
+                    "name": "European Terrestrial Reference Frame 1996"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1185
+                    },
+                    "name": "European Terrestrial Reference Frame 1997"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1186
+                    },
+                    "name": "European Terrestrial Reference Frame 2000"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1204
+                    },
+                    "name": "European Terrestrial Reference Frame 2005"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1206
+                    },
+                    "name": "European Terrestrial Reference Frame 2014"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1382
+                    },
+                    "name": "European Terrestrial Reference Frame 2020"
+                  }
+                ],
+                "name": "European Terrestrial Reference System 1989 ensemble"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 4936
+              },
+              "name": "ETRS89",
+              "remarks": "Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.",
+              "scope": "Spatial referencing.",
+              "type": "GeodeticCRS"
+            },
+            "wkt2": "GEODCRS[\"ETRS89\",\n    ENSEMBLE[\"European Terrestrial Reference System 1989 ensemble\",\n        MEMBER[\"European Terrestrial Reference Frame 1989\"],\n        MEMBER[\"European Terrestrial Reference Frame 1990\"],\n        MEMBER[\"European Terrestrial Reference Frame 1991\"],\n        MEMBER[\"European Terrestrial Reference Frame 1992\"],\n        MEMBER[\"European Terrestrial Reference Frame 1993\"],\n        MEMBER[\"European Terrestrial Reference Frame 1994\"],\n        MEMBER[\"European Terrestrial Reference Frame 1996\"],\n        MEMBER[\"European Terrestrial Reference Frame 1997\"],\n        MEMBER[\"European Terrestrial Reference Frame 2000\"],\n        MEMBER[\"European Terrestrial Reference Frame 2005\"],\n        MEMBER[\"European Terrestrial Reference Frame 2014\"],\n        MEMBER[\"European Terrestrial Reference Frame 2020\"],\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[0.1]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[Cartesian,3],\n        AXIS[\"(X)\",geocentricX,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(Y)\",geocentricY,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(Z)\",geocentricZ,\n            ORDER[3],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Spatial referencing.\"],\n        AREA[\"Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.\"],\n        BBOX[33.26,-16.1,84.73,38.01]],\n    ID[\"EPSG\",4936],\n    REMARK[\"Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.\"]]"
+          }
+        },
+        "id": "earth-grs80-cartesian",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "evidence": {
+          "actual": [
+            687071.4391094431,
+            6210141.326748009
+          ],
+          "body": "Earth",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 7.105427357601002e-15,
+          "maxError": 0.0032519912347197533,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "id": {
+                "authority": "EPSG",
+                "code": 16032
+              },
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 9807
+                },
+                "name": "Transverse Mercator"
+              },
+              "name": "UTM zone 32N",
+              "parameters": [
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8801
+                  },
+                  "name": "Latitude of natural origin",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8802
+                  },
+                  "name": "Longitude of natural origin",
+                  "unit": "degree",
+                  "value": 9
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8805
+                  },
+                  "name": "Scale factor at natural origin",
+                  "unit": "unity",
+                  "value": 0.9996
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8806
+                  },
+                  "name": "False easting",
+                  "unit": "metre",
+                  "value": 500000
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8807
+                  },
+                  "name": "False northing",
+                  "unit": "metre",
+                  "value": 0
+                }
+              ],
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"UTM zone 32N\",\n    METHOD[\"Transverse Mercator\",\n        ID[\"EPSG\",9807]],\n    PARAMETER[\"Latitude of natural origin\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8801]],\n    PARAMETER[\"Longitude of natural origin\",9,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8802]],\n    PARAMETER[\"Scale factor at natural origin\",0.9996,\n        SCALEUNIT[\"unity\",1],\n        ID[\"EPSG\",8805]],\n    PARAMETER[\"False easting\",500000,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8806]],\n    PARAMETER[\"False northing\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8807]],\n    ID[\"EPSG\",16032]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": {
+            "boundsDegrees": [
+              6.0,
+              0.0,
+              12.0,
+              84.0
+            ],
+            "name": "Between 6\u00b0E and 12\u00b0E, northern hemisphere between equator and 84\u00b0N, onshore and offshore."
+          },
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +xy_out=rad +step +proj=utm +zone=32 +ellps=GRS80",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "area": "Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.",
+              "bbox": {
+                "east_longitude": 38.01,
+                "north_latitude": 84.73,
+                "south_latitude": 33.26,
+                "west_longitude": -16.1
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum_ensemble": {
+                "accuracy": "0.1",
+                "ellipsoid": {
+                  "inverse_flattening": 298.257222101,
+                  "name": "GRS 1980",
+                  "semi_major_axis": 6378137
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 6258
+                },
+                "members": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1178
+                    },
+                    "name": "European Terrestrial Reference Frame 1989"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1179
+                    },
+                    "name": "European Terrestrial Reference Frame 1990"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1180
+                    },
+                    "name": "European Terrestrial Reference Frame 1991"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1181
+                    },
+                    "name": "European Terrestrial Reference Frame 1992"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1182
+                    },
+                    "name": "European Terrestrial Reference Frame 1993"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1183
+                    },
+                    "name": "European Terrestrial Reference Frame 1994"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1184
+                    },
+                    "name": "European Terrestrial Reference Frame 1996"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1185
+                    },
+                    "name": "European Terrestrial Reference Frame 1997"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1186
+                    },
+                    "name": "European Terrestrial Reference Frame 2000"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1204
+                    },
+                    "name": "European Terrestrial Reference Frame 2005"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1206
+                    },
+                    "name": "European Terrestrial Reference Frame 2014"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1382
+                    },
+                    "name": "European Terrestrial Reference Frame 2020"
+                  }
+                ],
+                "name": "European Terrestrial Reference System 1989 ensemble"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 4258
+              },
+              "name": "ETRS89",
+              "remarks": "Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.",
+              "scope": "Spatial referencing.",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"ETRS89\",\n    ENSEMBLE[\"European Terrestrial Reference System 1989 ensemble\",\n        MEMBER[\"European Terrestrial Reference Frame 1989\"],\n        MEMBER[\"European Terrestrial Reference Frame 1990\"],\n        MEMBER[\"European Terrestrial Reference Frame 1991\"],\n        MEMBER[\"European Terrestrial Reference Frame 1992\"],\n        MEMBER[\"European Terrestrial Reference Frame 1993\"],\n        MEMBER[\"European Terrestrial Reference Frame 1994\"],\n        MEMBER[\"European Terrestrial Reference Frame 1996\"],\n        MEMBER[\"European Terrestrial Reference Frame 1997\"],\n        MEMBER[\"European Terrestrial Reference Frame 2000\"],\n        MEMBER[\"European Terrestrial Reference Frame 2005\"],\n        MEMBER[\"European Terrestrial Reference Frame 2014\"],\n        MEMBER[\"European Terrestrial Reference Frame 2020\"],\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[0.1]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    USAGE[\n        SCOPE[\"Spatial referencing.\"],\n        AREA[\"Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.\"],\n        BBOX[33.26,-16.1,84.73,38.01]],\n    ID[\"EPSG\",4258],\n    REMARK[\"Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "east",
+              "name": "Easting",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "north",
+              "name": "Northing",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum_ensemble": {
+                  "accuracy": "0.1",
+                  "ellipsoid": {
+                    "inverse_flattening": 298.257222101,
+                    "name": "GRS 1980",
+                    "semi_major_axis": 6378137
+                  },
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 6258
+                  },
+                  "members": [
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1178
+                      },
+                      "name": "European Terrestrial Reference Frame 1989"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1179
+                      },
+                      "name": "European Terrestrial Reference Frame 1990"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1180
+                      },
+                      "name": "European Terrestrial Reference Frame 1991"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1181
+                      },
+                      "name": "European Terrestrial Reference Frame 1992"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1182
+                      },
+                      "name": "European Terrestrial Reference Frame 1993"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1183
+                      },
+                      "name": "European Terrestrial Reference Frame 1994"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1184
+                      },
+                      "name": "European Terrestrial Reference Frame 1996"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1185
+                      },
+                      "name": "European Terrestrial Reference Frame 1997"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1186
+                      },
+                      "name": "European Terrestrial Reference Frame 2000"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1204
+                      },
+                      "name": "European Terrestrial Reference Frame 2005"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1206
+                      },
+                      "name": "European Terrestrial Reference Frame 2014"
+                    },
+                    {
+                      "id": {
+                        "authority": "EPSG",
+                        "code": 1382
+                      },
+                      "name": "European Terrestrial Reference Frame 2020"
+                    }
+                  ],
+                  "name": "European Terrestrial Reference System 1989 ensemble"
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 4258
+                },
+                "name": "ETRS89",
+                "remarks": "Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.",
+                "type": "GeographicCRS"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 9807
+                  },
+                  "name": "Transverse Mercator"
+                },
+                "name": "UTM zone 32N",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8801
+                    },
+                    "name": "Latitude of natural origin",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": 9
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8805
+                    },
+                    "name": "Scale factor at natural origin",
+                    "unit": "unity",
+                    "value": 0.9996
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 500000
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 25832
+              },
+              "name": "ETRS89 / UTM zone 32N",
+              "type": "ProjectedCRS",
+              "usages": [
+                {
+                  "area": "Europe between 6\u00b0E and 12\u00b0E: Austria; Denmark - onshore and offshore; Germany - onshore and offshore; Italy - onshore and offshore; Norway including Svalbard - onshore and offshore; Spain - offshore.",
+                  "bbox": {
+                    "east_longitude": 12.01,
+                    "north_latitude": 84.01,
+                    "south_latitude": 36.53,
+                    "west_longitude": 6
+                  },
+                  "scope": "Engineering survey, topographic mapping."
+                },
+                {
+                  "area": "Europe between 6\u00b0E and 12\u00b0E and approximately 36\u00b030'N to 84\u00b0N.",
+                  "bbox": {
+                    "east_longitude": 12.01,
+                    "north_latitude": 84.01,
+                    "south_latitude": 36.53,
+                    "west_longitude": 6
+                  },
+                  "scope": "Pan-European conformal mapping at scales larger than 1:500,000."
+                }
+              ]
+            },
+            "wkt2": "PROJCRS[\"ETRS89 / UTM zone 32N\",\n    BASEGEOGCRS[\"ETRS89\",\n        ENSEMBLE[\"European Terrestrial Reference System 1989 ensemble\",\n            MEMBER[\"European Terrestrial Reference Frame 1989\"],\n            MEMBER[\"European Terrestrial Reference Frame 1990\"],\n            MEMBER[\"European Terrestrial Reference Frame 1991\"],\n            MEMBER[\"European Terrestrial Reference Frame 1992\"],\n            MEMBER[\"European Terrestrial Reference Frame 1993\"],\n            MEMBER[\"European Terrestrial Reference Frame 1994\"],\n            MEMBER[\"European Terrestrial Reference Frame 1996\"],\n            MEMBER[\"European Terrestrial Reference Frame 1997\"],\n            MEMBER[\"European Terrestrial Reference Frame 2000\"],\n            MEMBER[\"European Terrestrial Reference Frame 2005\"],\n            MEMBER[\"European Terrestrial Reference Frame 2014\"],\n            MEMBER[\"European Terrestrial Reference Frame 2020\"],\n            ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n                LENGTHUNIT[\"metre\",1]],\n            ENSEMBLEACCURACY[0.1]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4258]],\n    CONVERSION[\"UTM zone 32N\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",9,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9996,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",500000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Engineering survey, topographic mapping.\"],\n        AREA[\"Europe between 6\u00b0E and 12\u00b0E: Austria; Denmark - onshore and offshore; Germany - onshore and offshore; Italy - onshore and offshore; Norway including Svalbard - onshore and offshore; Spain - offshore.\"],\n        BBOX[36.53,6,84.01,12.01]],\n    USAGE[\n        SCOPE[\"Pan-European conformal mapping at scales larger than 1:500,000.\"],\n        AREA[\"Europe between 6\u00b0E and 12\u00b0E and approximately 36\u00b030'N to 84\u00b0N.\"],\n        BBOX[36.53,6,84.01,12.01]],\n    ID[\"EPSG\",25832]]"
+          }
+        },
+        "id": "earth-utm32",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "evidence": {
+          "actual": [
+            2729101.5381734534,
+            0.0
+          ],
+          "body": "Moon",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 1.4210854715202004e-14,
+          "maxError": 0.0,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "id": {
+                "authority": "IAU",
+                "code": 10,
+                "version": 2015
+              },
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 1028
+                },
+                "name": "Equidistant Cylindrical"
+              },
+              "name": "Equirectangular, clon = 0",
+              "parameters": [
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8823
+                  },
+                  "name": "Latitude of 1st standard parallel",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8802
+                  },
+                  "name": "Longitude of natural origin",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8806
+                  },
+                  "name": "False easting",
+                  "unit": "metre",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8807
+                  },
+                  "name": "False northing",
+                  "unit": "metre",
+                  "value": 0
+                }
+              ],
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"Equirectangular, clon = 0\",\n    METHOD[\"Equidistant Cylindrical\",\n        ID[\"EPSG\",1028]],\n    PARAMETER[\"Latitude of 1st standard parallel\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8823]],\n    PARAMETER[\"Longitude of natural origin\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8802]],\n    PARAMETER[\"False easting\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8806]],\n    PARAMETER[\"False northing\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8807]],\n    ID[\"IAU\",10,2015]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": null,
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +xy_out=rad +step +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=1737400",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum": {
+                "ellipsoid": {
+                  "name": "Moon (2015) - Sphere",
+                  "radius": 1737400
+                },
+                "name": "Moon (2015) - Sphere",
+                "prime_meridian": {
+                  "longitude": 0,
+                  "name": "Reference Meridian"
+                },
+                "type": "GeodeticReferenceFrame"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 30100,
+                "version": 2015
+              },
+              "name": "Moon (2015) - Sphere / Ocentric",
+              "remarks": "Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"Moon (2015) - Sphere / Ocentric\",\n    DATUM[\"Moon (2015) - Sphere\",\n        ELLIPSOID[\"Moon (2015) - Sphere\",1737400,0,\n            LENGTHUNIT[\"metre\",1]]],\n    PRIMEM[\"Reference Meridian\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    ID[\"IAU\",30100,2015],\n    REMARK[\"Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "east",
+              "name": "Easting",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "north",
+              "name": "Northing",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum": {
+                  "ellipsoid": {
+                    "name": "Moon (2015) - Sphere",
+                    "radius": 1737400
+                  },
+                  "name": "Moon (2015) - Sphere",
+                  "prime_meridian": {
+                    "longitude": 0,
+                    "name": "Reference Meridian"
+                  },
+                  "type": "GeodeticReferenceFrame"
+                },
+                "id": {
+                  "authority": "IAU",
+                  "code": 30100,
+                  "version": 2015
+                },
+                "name": "Moon (2015) - Sphere / Ocentric",
+                "remarks": "Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+                "type": "GeographicCRS"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 1028
+                  },
+                  "name": "Equidistant Cylindrical"
+                },
+                "name": "Equirectangular, clon = 0",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8823
+                    },
+                    "name": "Latitude of 1st standard parallel",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 30110,
+                "version": 2015
+              },
+              "name": "Moon (2015) - Sphere / Ocentric / Equirectangular, clon = 0",
+              "type": "ProjectedCRS"
+            },
+            "wkt2": "PROJCRS[\"Moon (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",\n    BASEGEOGCRS[\"Moon (2015) - Sphere / Ocentric\",\n        DATUM[\"Moon (2015) - Sphere\",\n            ELLIPSOID[\"Moon (2015) - Sphere\",1737400,0,\n                LENGTHUNIT[\"metre\",1]]],\n        PRIMEM[\"Reference Meridian\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"IAU\",30100,2015]],\n    CONVERSION[\"Equirectangular, clon = 0\",\n        METHOD[\"Equidistant Cylindrical\",\n            ID[\"EPSG\",1028]],\n        PARAMETER[\"Latitude of 1st standard parallel\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8823]],\n        PARAMETER[\"Longitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"False easting\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    ID[\"IAU\",30110,2015]]"
+          }
+        },
+        "id": "moon-spherical-eqc-0-90",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "evidence": {
+          "actual": [
+            1819401.0254489686,
+            909700.5127244843
+          ],
+          "body": "Moon",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 7.105427357601002e-15,
+          "maxError": 0.0,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "id": {
+                "authority": "IAU",
+                "code": 10,
+                "version": 2015
+              },
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 1028
+                },
+                "name": "Equidistant Cylindrical"
+              },
+              "name": "Equirectangular, clon = 0",
+              "parameters": [
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8823
+                  },
+                  "name": "Latitude of 1st standard parallel",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8802
+                  },
+                  "name": "Longitude of natural origin",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8806
+                  },
+                  "name": "False easting",
+                  "unit": "metre",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8807
+                  },
+                  "name": "False northing",
+                  "unit": "metre",
+                  "value": 0
+                }
+              ],
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"Equirectangular, clon = 0\",\n    METHOD[\"Equidistant Cylindrical\",\n        ID[\"EPSG\",1028]],\n    PARAMETER[\"Latitude of 1st standard parallel\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8823]],\n    PARAMETER[\"Longitude of natural origin\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8802]],\n    PARAMETER[\"False easting\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8806]],\n    PARAMETER[\"False northing\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8807]],\n    ID[\"IAU\",10,2015]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": null,
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +xy_out=rad +step +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=1737400",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum": {
+                "ellipsoid": {
+                  "name": "Moon (2015) - Sphere",
+                  "radius": 1737400
+                },
+                "name": "Moon (2015) - Sphere",
+                "prime_meridian": {
+                  "longitude": 0,
+                  "name": "Reference Meridian"
+                },
+                "type": "GeodeticReferenceFrame"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 30100,
+                "version": 2015
+              },
+              "name": "Moon (2015) - Sphere / Ocentric",
+              "remarks": "Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"Moon (2015) - Sphere / Ocentric\",\n    DATUM[\"Moon (2015) - Sphere\",\n        ELLIPSOID[\"Moon (2015) - Sphere\",1737400,0,\n            LENGTHUNIT[\"metre\",1]]],\n    PRIMEM[\"Reference Meridian\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    ID[\"IAU\",30100,2015],\n    REMARK[\"Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "east",
+              "name": "Easting",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "north",
+              "name": "Northing",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum": {
+                  "ellipsoid": {
+                    "name": "Moon (2015) - Sphere",
+                    "radius": 1737400
+                  },
+                  "name": "Moon (2015) - Sphere",
+                  "prime_meridian": {
+                    "longitude": 0,
+                    "name": "Reference Meridian"
+                  },
+                  "type": "GeodeticReferenceFrame"
+                },
+                "id": {
+                  "authority": "IAU",
+                  "code": 30100,
+                  "version": 2015
+                },
+                "name": "Moon (2015) - Sphere / Ocentric",
+                "remarks": "Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+                "type": "GeographicCRS"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 1028
+                  },
+                  "name": "Equidistant Cylindrical"
+                },
+                "name": "Equirectangular, clon = 0",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8823
+                    },
+                    "name": "Latitude of 1st standard parallel",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 30110,
+                "version": 2015
+              },
+              "name": "Moon (2015) - Sphere / Ocentric / Equirectangular, clon = 0",
+              "type": "ProjectedCRS"
+            },
+            "wkt2": "PROJCRS[\"Moon (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",\n    BASEGEOGCRS[\"Moon (2015) - Sphere / Ocentric\",\n        DATUM[\"Moon (2015) - Sphere\",\n            ELLIPSOID[\"Moon (2015) - Sphere\",1737400,0,\n                LENGTHUNIT[\"metre\",1]]],\n        PRIMEM[\"Reference Meridian\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"IAU\",30100,2015]],\n    CONVERSION[\"Equirectangular, clon = 0\",\n        METHOD[\"Equidistant Cylindrical\",\n            ID[\"EPSG\",1028]],\n        PARAMETER[\"Latitude of 1st standard parallel\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8823]],\n        PARAMETER[\"Longitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"False easting\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    ID[\"IAU\",30110,2015]]"
+          }
+        },
+        "id": "moon-spherical-eqc-30-60",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "evidence": {
+          "actual": [
+            5334722.7770975595,
+            0.0
+          ],
+          "body": "Mars",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 1.4210854715202004e-14,
+          "maxError": 0.0,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "id": {
+                "authority": "IAU",
+                "code": 10,
+                "version": 2015
+              },
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 1028
+                },
+                "name": "Equidistant Cylindrical"
+              },
+              "name": "Equirectangular, clon = 0",
+              "parameters": [
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8823
+                  },
+                  "name": "Latitude of 1st standard parallel",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8802
+                  },
+                  "name": "Longitude of natural origin",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8806
+                  },
+                  "name": "False easting",
+                  "unit": "metre",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8807
+                  },
+                  "name": "False northing",
+                  "unit": "metre",
+                  "value": 0
+                }
+              ],
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"Equirectangular, clon = 0\",\n    METHOD[\"Equidistant Cylindrical\",\n        ID[\"EPSG\",1028]],\n    PARAMETER[\"Latitude of 1st standard parallel\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8823]],\n    PARAMETER[\"Longitude of natural origin\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8802]],\n    PARAMETER[\"False easting\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8806]],\n    PARAMETER[\"False northing\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8807]],\n    ID[\"IAU\",10,2015]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": null,
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +xy_out=rad +step +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum": {
+                "anchor": "Viking 1 lander: 47.95137 W",
+                "ellipsoid": {
+                  "name": "Mars (2015) - Sphere",
+                  "radius": 3396190
+                },
+                "name": "Mars (2015) - Sphere",
+                "prime_meridian": {
+                  "longitude": 0,
+                  "name": "Reference Meridian"
+                },
+                "type": "GeodeticReferenceFrame"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 49900,
+                "version": 2015
+              },
+              "name": "Mars (2015) - Sphere / Ocentric",
+              "remarks": "Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"Mars (2015) - Sphere / Ocentric\",\n    DATUM[\"Mars (2015) - Sphere\",\n        ELLIPSOID[\"Mars (2015) - Sphere\",3396190,0,\n            LENGTHUNIT[\"metre\",1]],\n        ANCHOR[\"Viking 1 lander: 47.95137 W\"]],\n    PRIMEM[\"Reference Meridian\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    ID[\"IAU\",49900,2015],\n    REMARK[\"Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "east",
+              "name": "Easting",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "north",
+              "name": "Northing",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum": {
+                  "anchor": "Viking 1 lander: 47.95137 W",
+                  "ellipsoid": {
+                    "name": "Mars (2015) - Sphere",
+                    "radius": 3396190
+                  },
+                  "name": "Mars (2015) - Sphere",
+                  "prime_meridian": {
+                    "longitude": 0,
+                    "name": "Reference Meridian"
+                  },
+                  "type": "GeodeticReferenceFrame"
+                },
+                "id": {
+                  "authority": "IAU",
+                  "code": 49900,
+                  "version": 2015
+                },
+                "name": "Mars (2015) - Sphere / Ocentric",
+                "remarks": "Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+                "type": "GeographicCRS"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 1028
+                  },
+                  "name": "Equidistant Cylindrical"
+                },
+                "name": "Equirectangular, clon = 0",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8823
+                    },
+                    "name": "Latitude of 1st standard parallel",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 49910,
+                "version": 2015
+              },
+              "name": "Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0",
+              "type": "ProjectedCRS"
+            },
+            "wkt2": "PROJCRS[\"Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",\n    BASEGEOGCRS[\"Mars (2015) - Sphere / Ocentric\",\n        DATUM[\"Mars (2015) - Sphere\",\n            ELLIPSOID[\"Mars (2015) - Sphere\",3396190,0,\n                LENGTHUNIT[\"metre\",1]],\n            ANCHOR[\"Viking 1 lander: 47.95137 W\"]],\n        PRIMEM[\"Reference Meridian\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"IAU\",49900,2015]],\n    CONVERSION[\"Equirectangular, clon = 0\",\n        METHOD[\"Equidistant Cylindrical\",\n            ID[\"EPSG\",1028]],\n        PARAMETER[\"Latitude of 1st standard parallel\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8823]],\n        PARAMETER[\"Longitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"False easting\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    ID[\"IAU\",49910,2015]]"
+          }
+        },
+        "id": "mars-spherical-eqc-0-90",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "evidence": {
+          "actual": [
+            3556481.851398373,
+            1778240.9256991865
+          ],
+          "body": "Mars",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 7.105427357601002e-15,
+          "maxError": 0.0,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "id": {
+                "authority": "IAU",
+                "code": 10,
+                "version": 2015
+              },
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 1028
+                },
+                "name": "Equidistant Cylindrical"
+              },
+              "name": "Equirectangular, clon = 0",
+              "parameters": [
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8823
+                  },
+                  "name": "Latitude of 1st standard parallel",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8802
+                  },
+                  "name": "Longitude of natural origin",
+                  "unit": "degree",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8806
+                  },
+                  "name": "False easting",
+                  "unit": "metre",
+                  "value": 0
+                },
+                {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 8807
+                  },
+                  "name": "False northing",
+                  "unit": "metre",
+                  "value": 0
+                }
+              ],
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"Equirectangular, clon = 0\",\n    METHOD[\"Equidistant Cylindrical\",\n        ID[\"EPSG\",1028]],\n    PARAMETER[\"Latitude of 1st standard parallel\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8823]],\n    PARAMETER[\"Longitude of natural origin\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433],\n        ID[\"EPSG\",8802]],\n    PARAMETER[\"False easting\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8806]],\n    PARAMETER[\"False northing\",0,\n        LENGTHUNIT[\"metre\",1],\n        ID[\"EPSG\",8807]],\n    ID[\"IAU\",10,2015]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": null,
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +xy_out=rad +step +proj=eqc +lat_ts=0 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum": {
+                "anchor": "Viking 1 lander: 47.95137 W",
+                "ellipsoid": {
+                  "name": "Mars (2015) - Sphere",
+                  "radius": 3396190
+                },
+                "name": "Mars (2015) - Sphere",
+                "prime_meridian": {
+                  "longitude": 0,
+                  "name": "Reference Meridian"
+                },
+                "type": "GeodeticReferenceFrame"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 49900,
+                "version": 2015
+              },
+              "name": "Mars (2015) - Sphere / Ocentric",
+              "remarks": "Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"Mars (2015) - Sphere / Ocentric\",\n    DATUM[\"Mars (2015) - Sphere\",\n        ELLIPSOID[\"Mars (2015) - Sphere\",3396190,0,\n            LENGTHUNIT[\"metre\",1]],\n        ANCHOR[\"Viking 1 lander: 47.95137 W\"]],\n    PRIMEM[\"Reference Meridian\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n    ID[\"IAU\",49900,2015],\n    REMARK[\"Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "east",
+              "name": "Easting",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "north",
+              "name": "Northing",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "base_crs": {
+                "coordinate_system": {
+                  "axis": [
+                    {
+                      "abbreviation": "Lat",
+                      "direction": "north",
+                      "name": "Geodetic latitude",
+                      "unit": "degree"
+                    },
+                    {
+                      "abbreviation": "Lon",
+                      "direction": "east",
+                      "name": "Geodetic longitude",
+                      "unit": "degree"
+                    }
+                  ],
+                  "subtype": "ellipsoidal"
+                },
+                "datum": {
+                  "anchor": "Viking 1 lander: 47.95137 W",
+                  "ellipsoid": {
+                    "name": "Mars (2015) - Sphere",
+                    "radius": 3396190
+                  },
+                  "name": "Mars (2015) - Sphere",
+                  "prime_meridian": {
+                    "longitude": 0,
+                    "name": "Reference Meridian"
+                  },
+                  "type": "GeodeticReferenceFrame"
+                },
+                "id": {
+                  "authority": "IAU",
+                  "code": 49900,
+                  "version": 2015
+                },
+                "name": "Mars (2015) - Sphere / Ocentric",
+                "remarks": "Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5",
+                "type": "GeographicCRS"
+              },
+              "conversion": {
+                "method": {
+                  "id": {
+                    "authority": "EPSG",
+                    "code": 1028
+                  },
+                  "name": "Equidistant Cylindrical"
+                },
+                "name": "Equirectangular, clon = 0",
+                "parameters": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8823
+                    },
+                    "name": "Latitude of 1st standard parallel",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8802
+                    },
+                    "name": "Longitude of natural origin",
+                    "unit": "degree",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8806
+                    },
+                    "name": "False easting",
+                    "unit": "metre",
+                    "value": 0
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 8807
+                    },
+                    "name": "False northing",
+                    "unit": "metre",
+                    "value": 0
+                  }
+                ]
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "E",
+                    "direction": "east",
+                    "name": "Easting",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "N",
+                    "direction": "north",
+                    "name": "Northing",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "id": {
+                "authority": "IAU",
+                "code": 49910,
+                "version": 2015
+              },
+              "name": "Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0",
+              "type": "ProjectedCRS"
+            },
+            "wkt2": "PROJCRS[\"Mars (2015) - Sphere / Ocentric / Equirectangular, clon = 0\",\n    BASEGEOGCRS[\"Mars (2015) - Sphere / Ocentric\",\n        DATUM[\"Mars (2015) - Sphere\",\n            ELLIPSOID[\"Mars (2015) - Sphere\",3396190,0,\n                LENGTHUNIT[\"metre\",1]],\n            ANCHOR[\"Viking 1 lander: 47.95137 W\"]],\n        PRIMEM[\"Reference Meridian\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"IAU\",49900,2015]],\n    CONVERSION[\"Equirectangular, clon = 0\",\n        METHOD[\"Equidistant Cylindrical\",\n            ID[\"EPSG\",1028]],\n        PARAMETER[\"Latitude of 1st standard parallel\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8823]],\n        PARAMETER[\"Longitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"False easting\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    ID[\"IAU\",49910,2015]]"
+          }
+        },
+        "id": "mars-spherical-eqc-30-60",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "id": "wrong-axis-contract",
+        "outcome": "axis_mismatch",
+        "passed": true
+      },
+      {
+        "id": "missing-height",
+        "outcome": "height_required",
+        "passed": true
+      },
+      {
+        "id": "missing-ordinate",
+        "outcome": "missing_or_extra_coordinate",
+        "passed": true
+      },
+      {
+        "id": "null-height",
+        "outcome": "missing_or_non_numeric_coordinate",
+        "passed": true
+      },
+      {
+        "id": "outside-domain",
+        "outcome": "outside_declared_domain",
+        "passed": true
+      },
+      {
+        "id": "different-body",
+        "outcome": "body_mismatch",
+        "passed": true
+      },
+      {
+        "id": "unknown-crs",
+        "outcome": "crs_unavailable",
+        "passed": true
+      },
+      {
+        "id": "dynamic-frame",
+        "outcome": "dynamic_frame_unqualified",
+        "passed": true
+      },
+      {
+        "evidence": {
+          "actual": [
+            4272922.155264674,
+            1368283.0597426926,
+            4518261.350077252
+          ],
+          "body": "Earth",
+          "datasetAccuracy": null,
+          "gridCount": 0,
+          "inverseAvailable": true,
+          "inverseMaxError": 8.1956841313513e-10,
+          "maxError": 4.26925253123045e-05,
+          "operationDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "method": {
+                "id": {
+                  "authority": "EPSG",
+                  "code": 9602
+                },
+                "name": "Geographic/geocentric conversions"
+              },
+              "name": "Conversion from ETRS89 (geog3D) to ETRS89 (geocentric)",
+              "type": "Conversion"
+            },
+            "wkt2": "CONVERSION[\"Conversion from ETRS89 (geog3D) to ETRS89 (geocentric)\",\n    METHOD[\"Geographic/geocentric conversions\",\n        ID[\"EPSG\",9602]]]"
+          },
+          "providerAccuracyMetres": null,
+          "providerAreaOfUse": null,
+          "selectedOperation": "+proj=pipeline +step +proj=axisswap +order=2,1 +step +proj=unitconvert +xy_in=deg +z_in=m +xy_out=rad +z_out=m +step +proj=cart +ellps=GRS80",
+          "sourceAxes": [
+            {
+              "direction": "north",
+              "name": "Geodetic latitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "east",
+              "name": "Geodetic longitude",
+              "siFactor": 0.017453292519943295,
+              "unit": "degree"
+            },
+            {
+              "direction": "up",
+              "name": "Ellipsoidal height",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "sourceDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "area": "Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.",
+              "bbox": {
+                "east_longitude": 38.01,
+                "north_latitude": 84.73,
+                "south_latitude": 33.26,
+                "west_longitude": -16.1
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "Lat",
+                    "direction": "north",
+                    "name": "Geodetic latitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "Lon",
+                    "direction": "east",
+                    "name": "Geodetic longitude",
+                    "unit": "degree"
+                  },
+                  {
+                    "abbreviation": "h",
+                    "direction": "up",
+                    "name": "Ellipsoidal height",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "ellipsoidal"
+              },
+              "datum_ensemble": {
+                "accuracy": "0.1",
+                "ellipsoid": {
+                  "inverse_flattening": 298.257222101,
+                  "name": "GRS 1980",
+                  "semi_major_axis": 6378137
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 6258
+                },
+                "members": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1178
+                    },
+                    "name": "European Terrestrial Reference Frame 1989"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1179
+                    },
+                    "name": "European Terrestrial Reference Frame 1990"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1180
+                    },
+                    "name": "European Terrestrial Reference Frame 1991"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1181
+                    },
+                    "name": "European Terrestrial Reference Frame 1992"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1182
+                    },
+                    "name": "European Terrestrial Reference Frame 1993"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1183
+                    },
+                    "name": "European Terrestrial Reference Frame 1994"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1184
+                    },
+                    "name": "European Terrestrial Reference Frame 1996"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1185
+                    },
+                    "name": "European Terrestrial Reference Frame 1997"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1186
+                    },
+                    "name": "European Terrestrial Reference Frame 2000"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1204
+                    },
+                    "name": "European Terrestrial Reference Frame 2005"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1206
+                    },
+                    "name": "European Terrestrial Reference Frame 2014"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1382
+                    },
+                    "name": "European Terrestrial Reference Frame 2020"
+                  }
+                ],
+                "name": "European Terrestrial Reference System 1989 ensemble"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 4937
+              },
+              "name": "ETRS89",
+              "remarks": "Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.",
+              "scope": "Spatial referencing.",
+              "type": "GeographicCRS"
+            },
+            "wkt2": "GEOGCRS[\"ETRS89\",\n    ENSEMBLE[\"European Terrestrial Reference System 1989 ensemble\",\n        MEMBER[\"European Terrestrial Reference Frame 1989\"],\n        MEMBER[\"European Terrestrial Reference Frame 1990\"],\n        MEMBER[\"European Terrestrial Reference Frame 1991\"],\n        MEMBER[\"European Terrestrial Reference Frame 1992\"],\n        MEMBER[\"European Terrestrial Reference Frame 1993\"],\n        MEMBER[\"European Terrestrial Reference Frame 1994\"],\n        MEMBER[\"European Terrestrial Reference Frame 1996\"],\n        MEMBER[\"European Terrestrial Reference Frame 1997\"],\n        MEMBER[\"European Terrestrial Reference Frame 2000\"],\n        MEMBER[\"European Terrestrial Reference Frame 2005\"],\n        MEMBER[\"European Terrestrial Reference Frame 2014\"],\n        MEMBER[\"European Terrestrial Reference Frame 2020\"],\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[0.1]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[ellipsoidal,3],\n        AXIS[\"geodetic latitude (Lat)\",north,\n            ORDER[1],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"geodetic longitude (Lon)\",east,\n            ORDER[2],\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        AXIS[\"ellipsoidal height (h)\",up,\n            ORDER[3],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Spatial referencing.\"],\n        AREA[\"Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.\"],\n        BBOX[33.26,-16.1,84.73,38.01]],\n    ID[\"EPSG\",4937],\n    REMARK[\"Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.\"]]"
+          },
+          "targetAxes": [
+            {
+              "direction": "geocentricX",
+              "name": "Geocentric X",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "geocentricY",
+              "name": "Geocentric Y",
+              "siFactor": 1.0,
+              "unit": "metre"
+            },
+            {
+              "direction": "geocentricZ",
+              "name": "Geocentric Z",
+              "siFactor": 1.0,
+              "unit": "metre"
+            }
+          ],
+          "targetDefinition": {
+            "projjson": {
+              "$schema": "https://proj.org/schemas/v0.7/projjson.schema.json",
+              "area": "Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.",
+              "bbox": {
+                "east_longitude": 38.01,
+                "north_latitude": 84.73,
+                "south_latitude": 33.26,
+                "west_longitude": -16.1
+              },
+              "coordinate_system": {
+                "axis": [
+                  {
+                    "abbreviation": "X",
+                    "direction": "geocentricX",
+                    "name": "Geocentric X",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "Y",
+                    "direction": "geocentricY",
+                    "name": "Geocentric Y",
+                    "unit": "metre"
+                  },
+                  {
+                    "abbreviation": "Z",
+                    "direction": "geocentricZ",
+                    "name": "Geocentric Z",
+                    "unit": "metre"
+                  }
+                ],
+                "subtype": "Cartesian"
+              },
+              "datum_ensemble": {
+                "accuracy": "0.1",
+                "ellipsoid": {
+                  "inverse_flattening": 298.257222101,
+                  "name": "GRS 1980",
+                  "semi_major_axis": 6378137
+                },
+                "id": {
+                  "authority": "EPSG",
+                  "code": 6258
+                },
+                "members": [
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1178
+                    },
+                    "name": "European Terrestrial Reference Frame 1989"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1179
+                    },
+                    "name": "European Terrestrial Reference Frame 1990"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1180
+                    },
+                    "name": "European Terrestrial Reference Frame 1991"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1181
+                    },
+                    "name": "European Terrestrial Reference Frame 1992"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1182
+                    },
+                    "name": "European Terrestrial Reference Frame 1993"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1183
+                    },
+                    "name": "European Terrestrial Reference Frame 1994"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1184
+                    },
+                    "name": "European Terrestrial Reference Frame 1996"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1185
+                    },
+                    "name": "European Terrestrial Reference Frame 1997"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1186
+                    },
+                    "name": "European Terrestrial Reference Frame 2000"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1204
+                    },
+                    "name": "European Terrestrial Reference Frame 2005"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1206
+                    },
+                    "name": "European Terrestrial Reference Frame 2014"
+                  },
+                  {
+                    "id": {
+                      "authority": "EPSG",
+                      "code": 1382
+                    },
+                    "name": "European Terrestrial Reference Frame 2020"
+                  }
+                ],
+                "name": "European Terrestrial Reference System 1989 ensemble"
+              },
+              "id": {
+                "authority": "EPSG",
+                "code": 4936
+              },
+              "name": "ETRS89",
+              "remarks": "Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.",
+              "scope": "Spatial referencing.",
+              "type": "GeodeticCRS"
+            },
+            "wkt2": "GEODCRS[\"ETRS89\",\n    ENSEMBLE[\"European Terrestrial Reference System 1989 ensemble\",\n        MEMBER[\"European Terrestrial Reference Frame 1989\"],\n        MEMBER[\"European Terrestrial Reference Frame 1990\"],\n        MEMBER[\"European Terrestrial Reference Frame 1991\"],\n        MEMBER[\"European Terrestrial Reference Frame 1992\"],\n        MEMBER[\"European Terrestrial Reference Frame 1993\"],\n        MEMBER[\"European Terrestrial Reference Frame 1994\"],\n        MEMBER[\"European Terrestrial Reference Frame 1996\"],\n        MEMBER[\"European Terrestrial Reference Frame 1997\"],\n        MEMBER[\"European Terrestrial Reference Frame 2000\"],\n        MEMBER[\"European Terrestrial Reference Frame 2005\"],\n        MEMBER[\"European Terrestrial Reference Frame 2014\"],\n        MEMBER[\"European Terrestrial Reference Frame 2020\"],\n        ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n            LENGTHUNIT[\"metre\",1]],\n        ENSEMBLEACCURACY[0.1]],\n    PRIMEM[\"Greenwich\",0,\n        ANGLEUNIT[\"degree\",0.0174532925199433]],\n    CS[Cartesian,3],\n        AXIS[\"(X)\",geocentricX,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(Y)\",geocentricY,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"(Z)\",geocentricZ,\n            ORDER[3],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Spatial referencing.\"],\n        AREA[\"Europe - onshore and offshore: Albania; Andorra; Austria; Belgium; Bosnia and Herzegovina; Bulgaria; Croatia; Czechia; Denmark; Estonia; Faroe Islands; Finland; France; Germany; Gibraltar; Greece; Hungary; Ireland; Italy; Kosovo; Latvia; Liechtenstein; Lithuania; Luxembourg; Malta; Moldova; Monaco; Montenegro; Netherlands; North Macedonia; Norway including Svalbard and Jan Mayen; Poland; Portugal - mainland; Romania; San Marino; Serbia; Slovakia; Slovenia; Spain - mainland and Balearic islands; Sweden; Switzerland; United Kingdom (UK) including Channel Islands and Isle of Man; Vatican City State.\"],\n        BBOX[33.26,-16.1,84.73,38.01]],\n    ID[\"EPSG\",4936],\n    REMARK[\"Has been realized through ETRF89, ETRF90, ETRF91, ETRF92, ETRF93, ETRF94, ETRF96, ETRF97, ETRF2000, ETRF2005 and ETRF2014. This 'ensemble' covers any or all of these realizations without distinction.\"]]"
+          }
+        },
+        "id": "valid-after-failures",
+        "outcome": "available",
+        "passed": true
+      },
+      {
+        "id": "missing-grid",
+        "passed": true
+      }
+    ],
+    "success": true
+  }
+}

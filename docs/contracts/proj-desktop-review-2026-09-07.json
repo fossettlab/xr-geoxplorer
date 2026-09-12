@@ -1,0 +1,83 @@
+{
+  "scope": "Desktop documentation review; no Android or scene-method qualification",
+  "environment": {
+    "PROJ_DATA": "/opt/homebrew/share/proj",
+    "PROJ_NETWORK": "OFF",
+    "PROJ_USER_WRITABLE_DIRECTORY": "/private/tmp/geox-proj-review-no-grids"
+  },
+  "database_sha256": "84d63c84fcfdd290ff6d4e0e49bf41cd0f2997e96fced50e431912ae3fd6978d",
+  "database_metadata": {
+    "DATABASE.LAYOUT.VERSION.MAJOR": "1",
+    "DATABASE.LAYOUT.VERSION.MINOR": "6",
+    "EPSG.DATE": "2026-02-14",
+    "EPSG.VERSION": "v12.049",
+    "ESRI.DATE": "2025-12-01",
+    "ESRI.VERSION": "ArcGIS Pro 3.6",
+    "IGNF.DATE": "2019-05-24",
+    "IGNF.SOURCE": "https://raw.githubusercontent.com/rouault/proj-resources/master/IGNF.v3.1.0.xml",
+    "IGNF.VERSION": "3.1.0",
+    "NKG.DATE": "2025-02-13",
+    "NKG.SOURCE": "https://github.com/NordicGeodesy/NordicTransformations",
+    "NKG.VERSION": "1.0.w",
+    "PROJ.VERSION": "9.8.0",
+    "PROJ_DATA.VERSION": "1.24"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/proj"
+      ],
+      "stdin": null,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Rel. 9.8.0, March 2nd, 2026\nusage: proj [-bdeEfiIlmorsStTvVwW [args]] [+opt[=arg] ...] [file ...]\n"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/projinfo",
+        "--searchpaths"
+      ],
+      "stdin": null,
+      "returncode": 0,
+      "stdout": "/private/tmp/geox-proj-review-no-grids\n/opt/homebrew/share/proj\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/cct",
+        "-d",
+        "4",
+        "+proj=cart",
+        "+ellps=GRS80"
+      ],
+      "stdin": "17.7562015132 45.3935192042 133.12 2017.8\n",
+      "returncode": 0,
+      "stdout": " 4272922.1553   1368283.0597  4518261.3501     2017.8000\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/projinfo",
+        "IAU_2015:30100",
+        "-o",
+        "PROJJSON"
+      ],
+      "stdin": null,
+      "returncode": 0,
+      "stdout": "PROJJSON:\n{\n  \"$schema\": \"https://proj.org/schemas/v0.7/projjson.schema.json\",\n  \"type\": \"GeographicCRS\",\n  \"name\": \"Moon (2015) - Sphere / Ocentric\",\n  \"datum\": {\n    \"type\": \"GeodeticReferenceFrame\",\n    \"name\": \"Moon (2015) - Sphere\",\n    \"ellipsoid\": {\n      \"name\": \"Moon (2015) - Sphere\",\n      \"radius\": 1737400\n    },\n    \"prime_meridian\": {\n      \"name\": \"Reference Meridian\",\n      \"longitude\": 0\n    }\n  },\n  \"coordinate_system\": {\n    \"subtype\": \"ellipsoidal\",\n    \"axis\": [\n      {\n        \"name\": \"Geodetic latitude\",\n        \"abbreviation\": \"Lat\",\n        \"direction\": \"north\",\n        \"unit\": \"degree\"\n      },\n      {\n        \"name\": \"Geodetic longitude\",\n        \"abbreviation\": \"Lon\",\n        \"direction\": \"east\",\n        \"unit\": \"degree\"\n      }\n    ]\n  },\n  \"id\": {\n    \"authority\": \"IAU\",\n    \"code\": 30100,\n    \"version\": 2015\n  },\n  \"remarks\": \"Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/projinfo",
+        "IAU_2015:49900",
+        "-o",
+        "PROJJSON"
+      ],
+      "stdin": null,
+      "returncode": 0,
+      "stdout": "PROJJSON:\n{\n  \"$schema\": \"https://proj.org/schemas/v0.7/projjson.schema.json\",\n  \"type\": \"GeographicCRS\",\n  \"name\": \"Mars (2015) - Sphere / Ocentric\",\n  \"datum\": {\n    \"type\": \"GeodeticReferenceFrame\",\n    \"name\": \"Mars (2015) - Sphere\",\n    \"anchor\": \"Viking 1 lander: 47.95137 W\",\n    \"ellipsoid\": {\n      \"name\": \"Mars (2015) - Sphere\",\n      \"radius\": 3396190\n    },\n    \"prime_meridian\": {\n      \"name\": \"Reference Meridian\",\n      \"longitude\": 0\n    }\n  },\n  \"coordinate_system\": {\n    \"subtype\": \"ellipsoidal\",\n    \"axis\": [\n      {\n        \"name\": \"Geodetic latitude\",\n        \"abbreviation\": \"Lat\",\n        \"direction\": \"north\",\n        \"unit\": \"degree\"\n      },\n      {\n        \"name\": \"Geodetic longitude\",\n        \"abbreviation\": \"Lon\",\n        \"direction\": \"east\",\n        \"unit\": \"degree\"\n      }\n    ]\n  },\n  \"id\": {\n    \"authority\": \"IAU\",\n    \"code\": 49900,\n    \"version\": 2015\n  },\n  \"remarks\": \"Use semi-major radius as sphere for interoperability. Source of IAU Coordinate systems: https://doi.org/10.1007/s10569-017-9805-5\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}

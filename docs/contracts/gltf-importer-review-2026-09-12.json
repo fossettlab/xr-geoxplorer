@@ -1,0 +1,1491 @@
+{
+  "scope": "Isolated Edit Mode correctness evidence; not importer adoption or Quest acceptance",
+  "project": "/private/tmp/geox-gltf-trial-n78u5x07",
+  "unityVersion": "m_EditorVersion: 6000.4.4f1\nm_EditorVersionWithRevision: 6000.4.4f1 (360f97ecca93)\n",
+  "manifest": {
+    "dependencies": {
+      "com.unity.pipeline": "0.4.0-exp.1",
+      "com.unity.test-framework": "1.6.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequesttexture": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.imgui": "1.0.0",
+      "com.unity.modules.animation": "1.0.0",
+      "com.unity.modules.physics": "1.0.0",
+      "com.unity.cloud.gltfast": "6.20.0"
+    }
+  },
+  "lock": {
+    "dependencies": {
+      "com.unity.burst": {
+        "version": "1.8.30",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.mathematics": "1.2.1",
+          "com.unity.modules.jsonserialize": "1.0.0"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.cloud.gltfast": {
+        "version": "6.20.0",
+        "depth": 0,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.burst": "1.8.30",
+          "com.unity.collections": "2.6.8",
+          "com.unity.mathematics": "1.3.3",
+          "com.unity.modules.jsonserialize": "1.0.0",
+          "com.unity.modules.unitywebrequest": "1.0.0"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.collections": {
+        "version": "6.4.0",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.burst": "1.8.23",
+          "com.unity.mathematics": "1.3.2",
+          "com.unity.nuget.mono-cecil": "1.11.5",
+          "com.unity.test-framework": "1.4.6",
+          "com.unity.test-framework.performance": "3.0.3"
+        }
+      },
+      "com.unity.ext.nunit": {
+        "version": "2.0.5",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.mathematics": {
+        "version": "1.3.3",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {},
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.nuget.mono-cecil": {
+        "version": "1.11.6",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {},
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.nuget.newtonsoft-json": {
+        "version": "3.2.2",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {},
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.pipeline": {
+        "version": "0.4.0-exp.1",
+        "depth": 0,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.test-framework": "1.1.33",
+          "com.unity.nuget.mono-cecil": "1.11.6",
+          "com.unity.modules.uielements": "1.0.0",
+          "com.unity.modules.jsonserialize": "1.0.0",
+          "com.unity.modules.screencapture": "1.0.0",
+          "com.unity.nuget.newtonsoft-json": "3.0.2"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.test-framework": {
+        "version": "1.6.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.ext.nunit": "2.0.3",
+          "com.unity.modules.imgui": "1.0.0",
+          "com.unity.modules.jsonserialize": "1.0.0"
+        }
+      },
+      "com.unity.test-framework.performance": {
+        "version": "3.4.0",
+        "depth": 2,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.test-framework": "1.1.33",
+          "com.unity.modules.jsonserialize": "1.0.0"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.modules.animation": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.hierarchycore": {
+        "version": "1.0.0",
+        "depth": 2,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.imageconversion": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.imgui": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.jsonserialize": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.physics": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.screencapture": {
+        "version": "1.0.0",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.modules.imageconversion": "1.0.0"
+        }
+      },
+      "com.unity.modules.ui": {
+        "version": "1.0.0",
+        "depth": 2,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.uielements": {
+        "version": "1.0.0",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.modules.ui": "1.0.0",
+          "com.unity.modules.imgui": "1.0.0",
+          "com.unity.modules.jsonserialize": "1.0.0",
+          "com.unity.modules.hierarchycore": "1.0.0",
+          "com.unity.modules.physics": "1.0.0"
+        }
+      },
+      "com.unity.modules.unitywebrequest": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.unitywebrequesttexture": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.modules.unitywebrequest": "1.0.0",
+          "com.unity.modules.imageconversion": "1.0.0"
+        }
+      }
+    }
+  },
+  "harnessSha256": {
+    "Editor/GeoX.GltfTrial.Tests.asmdef": "9a1e1861d00f7156d8f7238db55cfaafd86817efc20b4efc26be612295125db4",
+    "Editor/ImporterBuild.cs": "65e7ae585d540f6a2b02c909889b032782abcd855e725e865e8cf23b049dc29b",
+    "Editor/ImporterTests.cs": "dc71daf2287388812615b840db601ccd0b34d3270a9d310f8787ed4e99e336c6",
+    "Editor/QualificationTests.cs": "4e09dfcc3af0e2f0c3ee5d1117ddfbb08acee65000843eabc3dce1b689aaa124",
+    "Runtime/GeoX.GltfTrial.asmdef": "a05c044bbd225a54a4211fd9fca239dfcf4cef7befe204df8b65c8e57fd73acb",
+    "Runtime/ImporterPlayer.cs": "96be45fdbb42cf0b7e6683de79cc842fb8cbdec323e542b698f2a86961b4e275",
+    "Runtime/ImporterTrial.cs": "9bd2534b3dc7c62b9217dff782eff0115ee5c8f283a22185159c7b5ab009584a"
+  },
+  "fixtureManifest": {
+    "source": "scripts/generate_model_input_fixtures.py; synthetic, project-authored",
+    "license": "No project redistribution license declared; no third-party model data included",
+    "format_sources": [
+      "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html",
+      "https://www.w3.org/TR/png/"
+    ],
+    "zlib_runtime": "1.2.12",
+    "status": "generated fixtures; no Unity/Quest acceptance implied",
+    "files": [
+      {
+        "path": "triangle.glb",
+        "bytes": 924,
+        "sha256": "909a9253bab0a4c31de0f3c47d06b1aa09e96a33ce168656e1935ab1c4920266",
+        "expected": "valid; check triangle, normal and material"
+      },
+      {
+        "path": "hierarchy.glb",
+        "bytes": 1040,
+        "sha256": "0468fd0c93295b4da75e56bd7da3803a95a1c1adea59ad3b420f493799f468db",
+        "expected": "valid; preserve authored parent/child transforms"
+      },
+      {
+        "path": "textured.glb",
+        "bytes": 1148,
+        "sha256": "9f84a7ff86b6dbc746b27cada3c4492f114bc2f10f803ee0cd82ae9abdfeed14",
+        "expected": "valid; embedded image"
+      },
+      {
+        "path": "external-image.glb",
+        "bytes": 1012,
+        "sha256": "55941b253db9d90f23beda4eefa6d4d42aa987cf5891ac2b53d190bbb70cfbae",
+        "expected": "valid format; initial self-contained-only route must reject external image"
+      },
+      {
+        "path": "missing-image.glb",
+        "bytes": 1012,
+        "sha256": "6daa761044e11602d0ece4a7fb18bf9ed8dd8fb8bde806cc3433ea907492377a",
+        "expected": "reject external image initially; later report missing companion"
+      },
+      {
+        "path": "unsupported-required.glb",
+        "bytes": 1052,
+        "sha256": "2dce0ad4c571fca96644362a30caa75afe3fec0b5c175a9f4de212b80215e904",
+        "expected": "reject unsupported required extension"
+      },
+      {
+        "path": "truncated.glb",
+        "bytes": 917,
+        "sha256": "8c4f58bd09d68094ff058e778078541a75d4b72d6227dcd15a857bda5cf6acdd",
+        "expected": "reject length/chunk truncation"
+      },
+      {
+        "path": "bad-magic.glb",
+        "bytes": 924,
+        "sha256": "e1e4560d0be886a1a4cda1f1820908140928be3b5f6ad33656a4f10adaa61578",
+        "expected": "reject bad container magic"
+      },
+      {
+        "path": "multifile.gltf",
+        "bytes": 907,
+        "sha256": "72ba1cc67a60f28b3cf0bb60f24c82fe587c0b2dd9e15538a1314d1f751b7999",
+        "expected": "valid when explicit companion resolution is enabled"
+      },
+      {
+        "path": "geometry.bin",
+        "bytes": 96,
+        "sha256": "578ecc07351d17997fd90a04819f6b0ba060c38c5142179c1b3a83adb4c664be",
+        "expected": "companion for multifile.gltf"
+      },
+      {
+        "path": "pixel.png",
+        "bytes": 70,
+        "sha256": "5c952aabb3e3a327a99de9fd0f0c7e4a0a7695fed51414edfe864ac06ed56b1b",
+        "expected": "authored companion image"
+      }
+    ]
+  },
+  "applicationFilesCompared": 7800,
+  "applicationFilesChanged": [],
+  "gltfastArchiveFileCount": 826,
+  "gltfastResolvedFileCount": 824,
+  "gltfastFileDifferences": {
+    ".attestation.p7m": {
+      "archiveSha256": "4137d582a2c107a24da5acb6063a3b7918eca5828e63ccb0af3bf50fe8f54eaa",
+      "resolvedSha256": null
+    },
+    ".signature": {
+      "archiveSha256": "67b5b2a9c347cba8b6b47241e34d4b7c202c17341cd2e2c5bf1ef9a3d5279067",
+      "resolvedSha256": null
+    },
+    "package.json": {
+      "archiveSha256": "efb2aec74d1525576150f4cc73d76f895d0f048bd9d72504fc46a10933b696bb",
+      "resolvedSha256": "a987022e825df24cc75ee3799a2860cb3bc25d0ad2d0539d50aafd9cc619e226"
+    }
+  },
+  "gltfastManifestDifferences": {
+    "_fingerprint": {
+      "archive": null,
+      "resolved": "11ddc2436f976fb498cfe518dd0ef7af58654d3a"
+    }
+  },
+  "licenseAndNoticeArtifacts": {
+    "com.unity.cloud.gltfast": {
+      "LICENSE.md": {
+        "sha256": "cccf2d7a6c705ec991d5229a775e7fbd41fa6de57d4e3f33bbecb967c3055ef9",
+        "text": "Unity glTFast copyright \u00a9 2023 Unity Technologies and the Unity glTFast authors\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not\nuse this file except in compliance with the License. You may obtain a copy\nof the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT\nWARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the\nLicense for the specific language governing permissions and limitations\nunder the License.\n\n                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n"
+      }
+    },
+    "com.unity.burst": {
+      "LICENSE.md": {
+        "sha256": "9bd567d6de754ab7396a8e3022758c617b78d7115bf1585bdb29ae0de464d059",
+        "text": "Burst copyright \u00a9 2022 Unity Technologies\nSource code of the package is licensed under the Unity Companion License (see https://unity3d.com/legal/licenses/unity_companion_license); otherwise licensed under the Unity Package Distribution License (see https://unity3d.com/legal/licenses/Unity_Package_Distribution_License ).\n\nUnless expressly provided otherwise, the software under this license is made available strictly on an \u201cAS IS\u201d BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions.\n"
+      },
+      "Third Party Notices.md": {
+        "sha256": "01b366462da89d104fc7db01309b69de07cee05400ec429e2ea9e4c23fa5f085",
+        "text": "This package contains third-party software components governed by the license(s) indicated below:\n\n\n---------\n\nComponent Name: LLVM\n\nLicense Type: Apache 2.0 with LLVM Exceptions\n\nCopyright: The LLVM project does not collect copyright assignments, which means that the copyright for the code in the project is held by the respective contributors. Because you (or your company) retain ownership of the code you contribute, you know it may only be used under the terms of the open source license you contributed it under: the license for your contributions cannot be changed in the future without your approval.\n\nhttps://github.com/llvm/llvm-project/tree/main/llvm\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n\n--- LLVM Exceptions to the Apache 2.0 License ---  \nAs an exception, if, as a result of your compiling your source code, portions of this Software are embedded into an Object form of such source code, you may redistribute such embedded portions in such Object form without complying with the conditions of Sections 4(a), 4(b) and 4(d) of the License.\nIn addition, if you combine or link compiled forms of this Software with software that is licensed under the GPLv2 (\"Combined Software\") and if a court of competent jurisdiction determines that the patent provision (Section 3), the indemnity provision (Section 9) or other Section of the License conflicts with the conditions of the GPLv2, you may retroactively and prospectively choose to deem waived or otherwise exclude such Section(s) of the License, but only in their entirety and only with respect to the Combined Software.\n\n\n---------\nComponent Name: Legacy LLVM License\n\nLicense Type: The University of Illinois/NCSA Open Source License (NCSA)\n\nCopyright (c) 2007-2019 University of Illinois at Urbana-Champaign. All rights reserved.\n\nhttps://llvm.org/docs/DeveloperPolicy.html#legacy\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal with the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nRedistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimers.\nRedistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimers in the documentation and/or other materials provided with the distribution.\nLLVM Team, University of Illinois at Urbana-Champaign, nor the names of its contributors may be used to endorse or promote products derived from this Software without specific prior written permission.\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.\n\n\n---------\nComponent Name: Mono.Cecil\n\nLicense Type: MIT\n\nCopyright (c) 2008 - 2015 Jb Evain All rights reserved.\nCopyright (c) 2008 - 2011 Novell, Inc. All rights reserved.\n\n[https://github.com/jbevain/cecil](https://github.com/jbevain/cecil)\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n---------\nComponent Name: Smash\n\nLicense Type: BSD 2-Clause\n\nCopyright (c) 2021, Alexandre Mutel All rights reserved.\n\n[https://github.com/xoofx/smash](https://github.com/xoofx/smash)\n\nRedistribution and use in source and binary forms, with or without modification\n, are permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice, this \n   list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice, \n   this list of conditions and the following disclaimer in the documentation \n   and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND \nANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED \nWARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE \nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE\nFOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL \nDAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR \nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER \nCAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,\nOR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE \nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n---------\nComponent Name: xxHash Library\n\n\nLicense Type: BSD 2-Clause\n\nCopyright (c) 2012-2021, Yann Collet All rights reserved.\n\n[https://github.com/Cyan4973/xxHash](https://github.com/Cyan4973/xxHash)\n\nRedistribution and use in source and binary forms, with or without modification,\nare permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this\n  list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice, this\n  list of conditions and the following disclaimer in the documentation and/or\n  other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND\nANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED\nWARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR\nANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES\n(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;\nLOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON\nANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\nSOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n---------\nComponent Name: musl\n\nmusl as a whole is licensed under the following standard MIT license:\n\nCopyright \u00a9 2005-2019 Rich Felker, et al.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\nAuthors/contributors include:\n\nA. Wilcox Alex Dowad Alex Suykov Alexander Monakov Andre McCurdy Andrew Kelley Anthony G. Basile Aric Belsito Arvid Picciani Bartosz Brachaczek Benjamin Peterson Bobby Bingham Boris Brezillon Brent Cook Chris Spiegel Cl\u00e9ment Vasseur Daniel Micay Daniel Sabogal Daurnimator David Carlier David Edelsohn Denys Vlasenko Dmitry Ivanov Dmitry V. Levin Drew DeVault Emil Renner Berthing Fangrui Song Felix Fietkau Felix Janda Gianluca Anzolin Hauke Mehrtens He X Hiltjo Posthuma Isaac Dunham Jaydeep Patil Jens Gustedt Jeremy Huntwork Jo-Philipp Wich Joakim Sindholt John Spencer Josiah Worcester Julien Ramseier Justin Cormack Kaarle Ritvanen Khem Raj Kylie McClain Leah Neukirchen Luca Barbato Luka Perkov M Farkas-Dyck (Strake) Mahesh Bodapati Markus Wichmann Masanori Ogino Michael Clark Michael Forney Mikhail Kremnyov Natanael Copa Nicholas J. Kain orc Pascal Cuoq Patrick Oppenlander Petr Hosek Petr Skocik Pierre Carrier Reini Urban Rich Felker Richard Pennington Ryan Fairfax Samuel Holland Segev Finer Shiz sin Solar Designer Stefan Kristiansson Stefan O'Rear Szabolcs Nagy Timo Ter\u00e4s Trutz Behn Valentin Ochs Will Dietz William Haddon William Pitcock\n\nPortions of this software are derived from third-party works licensed under terms compatible with the above MIT license:\n\nThe TRE regular expression implementation (src/regex/reg* and src/regex/tre*) is Copyright \u00a9 2001-2008 Ville Laurikari and licensed under a 2-clause BSD license (license text in the source files). The included version has been heavily modified by Rich Felker in 2012, in the interests of size, simplicity, and namespace cleanliness.\n\nMuch of the math library code (src/math/* and src/complex/*) is Copyright \u00a9 1993,2004 Sun Microsystems or Copyright \u00a9 2003-2011 David Schultz or Copyright \u00a9 2003-2009 Steven G. Kargl or Copyright \u00a9 2003-2009 Bruce D. Evans or Copyright \u00a9 2008 Stephen L. Moshier and labelled as such in comments in the individual source files. All have been licensed under extremely permissive terms.\n\nThe ARM memcpy code (src/string/arm/memcpy_el.S) is Copyright \u00a9 2008 The Android Open Source Project and is licensed under a two-clause BSD license. It was taken from Bionic libc, used on Android.\n\nThe implementation of DES for crypt (src/crypt/crypt_des.c) is Copyright \u00a9 1994 David Burren. It is licensed under a BSD license.\n\nThe implementation of blowfish crypt (src/crypt/crypt_blowfish.c) was originally written by Solar Designer and placed into the public domain. The code also comes with a fallback permissive license for use in jurisdictions that may not recognize the public domain.\n\nThe smoothsort implementation (src/stdlib/qsort.c) is Copyright \u00a9 2011 Valentin Ochs and is licensed under an MIT-style license.\n\nThe x86_64 port was written by Nicholas J. Kain and is licensed under the standard MIT terms.\n\nThe mips and microblaze ports were originally written by Richard Pennington for use in the ellcc project. The original code was adapted by Rich Felker for build system and code conventions during upstream integration. It is licensed under the standard MIT terms.\n\nThe mips64 port was contributed by Imagination Technologies and is licensed under the standard MIT terms.\n\nThe powerpc port was also originally written by Richard Pennington, and later supplemented and integrated by John Spencer. It is licensed under the standard MIT terms.\n\nAll other files which have no copyright comments are original works produced specifically for use as part of this library, written either by Rich Felker, the main author of the library, or by one or more contibutors listed above. Details on authorship of individual files can be found in the git version control history of the project. The omission of copyright and license comments in each file is in the interest of source tree size.\n\nIn addition, permission is hereby granted for all public header files (include/* and arch//bits/) and crt files intended to be linked into applications (crt/, ldso/dlstart.c, and arch//crt_arch.h) to omit the copyright notice and permission notice otherwise required by the license, and to use these files without any requirement of attribution. These files include substantial contributions from:\n\nBobby Bingham John Spencer Nicholas J. Kain Rich Felker Richard Pennington Stefan Kristiansson Szabolcs Nagy\n\nall of whom have explicitly granted such permission.\n\nThis file previously contained text expressing a belief that most of the files covered by the above exception were sufficiently trivial not to be subject to copyright, resulting in confusion over whether it negated the permissions granted in the license. In the spirit of permissive licensing, and of not having licensing issues being an obstacle to adoption, that text has been removed.\n\n---------\nComponent Name: SLEEF\n\nBoost Software License - Version 1.0 - August 17th, 2003\n\nPermission is hereby granted, free of charge, to any person or organization\nobtaining a copy of the software and accompanying documentation covered by\nthis license (the \"Software\") to use, reproduce, display, distribute,\nexecute, and transmit the Software, and to prepare derivative works of the\nSoftware, and to permit third-parties to whom the Software is furnished to\ndo so, all subject to the following:\n\nThe copyright notices in the Software and this entire statement, including\nthe above license grant, this restriction and the following disclaimer,\nmust be included in all copies of the Software, in whole or in part, and\nall derivative works of the Software, unless such copies or derivative\nworks are solely in the form of machine-executable object code generated by\na source language processor.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT\nSHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE\nFOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,\nARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER\nDEALINGS IN THE SOFTWARE.\n\n---------\nComponent Name: gRPC for .NET\n\n\n                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"[]\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n\n   Copyright [yyyy] [name of copyright owner]\n\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n\n---------\nComponent Name: Google.Protobuf\n\nCopyright 2008 Google Inc.  All rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n    * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n    * Redistributions in binary form must reproduce the above\ncopyright notice, this list of conditions and the following disclaimer\nin the documentation and/or other materials provided with the\ndistribution.\n    * Neither the name of Google Inc. nor the names of its\ncontributors may be used to endorse or promote products derived from\nthis software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nCode generated by the Protocol Buffer compiler is owned by the owner\nof the input file used when generating it.  This code is not\nstandalone and requires a support library to be linked with it.  This\nsupport library is itself covered by the above license.\n\n---------\nComponent Name: mimalloc\n\nMIT License\n\nCopyright (c) 2018-2021 Microsoft Corporation, Daan Leijen\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE."
+      }
+    },
+    "com.unity.collections": {
+      "LICENSE.md": {
+        "sha256": "4947f647c031b0fec440237f8136386a606dd998089bb1df67316ee693f568f5",
+        "text": "com.unity.collections copyright \u00a9 2024 Unity Technologies\n\nLicensed under the Unity Companion License for Unity-dependent projects (see https://unity3d.com/legal/licenses/unity_companion_license).\n\nUnless expressly provided otherwise, the Software under this license is made available strictly on an \u201cAS IS\u201d BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions.\n"
+      }
+    },
+    "com.unity.mathematics": {
+      "LICENSE.md": {
+        "sha256": "5b1a26ff2ca6e6e7d9fd2b6df151e1a43c671fdf49c05dcee1227f20dcf25fde",
+        "text": "com.unity.mathematics copyright \u00a9 2023 Unity Technologies ApS\n\nLicensed under the Unity Companion License for Unity-dependent projects (see https://unity3d.com/legal/licenses/unity_companion_license).\nUnless expressly provided otherwise, the Software under this license is made available strictly on an \u201cAS IS\u201d BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions."
+      }
+    }
+  },
+  "unityTestSourceBinding": "ancillary pipeline status; not test-time source-bound",
+  "unityTest": {
+    "status": "completed",
+    "duration": 2.51,
+    "summary": {
+      "total": 129,
+      "passed": 129,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "GeoX.GltfTrial.ImporterTests.CuratedFixturesDiagnosticsCancellationAndRetry",
+        "Status": "Passed",
+        "Duration": 0.465718,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.GltfTrial.QualificationTests.AuthoredGeometryHierarchyAndMaterialFidelity",
+        "Status": "Passed",
+        "Duration": 0.1639099,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.GltfTrial.QualificationTests.CancelDuringHierarchyCreationThenRetry",
+        "Status": "Passed",
+        "Duration": 0.7706659,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.GltfTrial.QualificationTests.CancelDuringLoadThenRetry",
+        "Status": "Passed",
+        "Duration": 0.1985226,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ApplyAppendsHistoryAndPreservesUnknownsMetadataAndOtherLayers",
+        "Status": "Passed",
+        "Duration": 0.1079294,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ApplyLinksThePreviousSolutionWithoutChangingOldRecords",
+        "Status": "Passed",
+        "Duration": 0.0081124,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ApplyRejectsReusedIdentifiers(\"operation\")",
+        "Status": "Passed",
+        "Duration": 0.0052748,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ApplyRejectsReusedIdentifiers(\"registration\")",
+        "Status": "Passed",
+        "Duration": 0.0054677,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ApplyRejectsReusedIdentifiers(\"revision\")",
+        "Status": "Passed",
+        "Duration": 0.004937,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ApplyReloadAndUndoRetainRecordsWhileRestoringNull",
+        "Status": "Passed",
+        "Duration": 0.0226994,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.BeginAndUndoRequireTheExactExpectedRevisionAndSceneTarget",
+        "Status": "Passed",
+        "Duration": 0.011084,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.CancelDiscardsPreviewAndKeepsCanonicalSceneExactly",
+        "Status": "Passed",
+        "Duration": 0.0070429,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.KnownBodyConflictIsRejectedWithoutRelabelingTheSource",
+        "Status": "Passed",
+        "Duration": 0.0026851,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.PreviewIsDetachedAndChangesOnlyTheSelectedLayerMapping",
+        "Status": "Passed",
+        "Duration": 0.0051259,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.ProposalDefensivelyCopiesTheMapAndEvidence",
+        "Status": "Passed",
+        "Duration": 0.0052525,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.SingularMapAndMissingDeclarationEvidenceAreRejected",
+        "Status": "Passed",
+        "Duration": 0.0040504,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.StaleProposalCannotOverwriteAnotherSceneRevision",
+        "Status": "Passed",
+        "Duration": 0.0099517,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.UndoRestoresPreviousActiveSolutionWithoutErasingNewHistory",
+        "Status": "Passed",
+        "Duration": 0.0201096,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.UnsupportedCrsEvaluationIsRejected(\"geographic\")",
+        "Status": "Passed",
+        "Duration": 0.002117,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.UnsupportedCrsEvaluationIsRejected(\"wkt2\")",
+        "Status": "Passed",
+        "Duration": 0.0027018,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.DeclaredRegistrationTests.UnsupportedCrsEvaluationIsRejected(\"required-extension\")",
+        "Status": "Passed",
+        "Duration": 0.0030841,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.EvidenceStatusRemainsDistinctAndUninterpreted(\"supplied\")",
+        "Status": "Passed",
+        "Duration": 0.003978,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.EvidenceStatusRemainsDistinctAndUninterpreted(\"derived\")",
+        "Status": "Passed",
+        "Duration": 0.0027837,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.EvidenceStatusRemainsDistinctAndUninterpreted(\"independently-checked\")",
+        "Status": "Passed",
+        "Duration": 0.0018452,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.EvidenceStatusRemainsDistinctAndUninterpreted(\"unknown\")",
+        "Status": "Passed",
+        "Duration": 0.0027784,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ExplicitMappingNeverRewritesUnknownSourceBody(\"Earth\")",
+        "Status": "Passed",
+        "Duration": 0.0024608,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ExplicitMappingNeverRewritesUnknownSourceBody(\"Moon\")",
+        "Status": "Passed",
+        "Duration": 0.0027227,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ExplicitMappingNeverRewritesUnknownSourceBody(\"Mars\")",
+        "Status": "Passed",
+        "Duration": 0.008826,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ExplicitMappingNeverRewritesUnknownSourceBody(\"project:asteroid\")",
+        "Status": "Passed",
+        "Duration": 0.0020262,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ExplicitMappingNeverRewritesUnknownSourceBody(null)",
+        "Status": "Passed",
+        "Duration": 0.0022534,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"missing-field\")",
+        "Status": "Passed",
+        "Duration": 0.0065628,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"extra-field\")",
+        "Status": "Passed",
+        "Duration": 0.0009141,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"wrong-version-type\")",
+        "Status": "Passed",
+        "Duration": 0.0049208,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-frame\")",
+        "Status": "Passed",
+        "Duration": 0.0012179,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-asset\")",
+        "Status": "Passed",
+        "Duration": 0.001729,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-operation\")",
+        "Status": "Passed",
+        "Duration": 0.002203,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-registration\")",
+        "Status": "Passed",
+        "Duration": 0.001817,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-layer\")",
+        "Status": "Passed",
+        "Duration": 0.0018433,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-representation\")",
+        "Status": "Passed",
+        "Duration": 0.0019294,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"dangling-frame\")",
+        "Status": "Passed",
+        "Duration": 0.0016673,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"dangling-asset\")",
+        "Status": "Passed",
+        "Duration": 0.0018791,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"dangling-solution\")",
+        "Status": "Passed",
+        "Duration": 0.002384,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"dangling-history\")",
+        "Status": "Passed",
+        "Duration": 0.0028778,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"cycle\")",
+        "Status": "Passed",
+        "Duration": 0.0021504,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"wrong-registration-endpoint\")",
+        "Status": "Passed",
+        "Duration": 0.0074856,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"wrong-representation-endpoint\")",
+        "Status": "Passed",
+        "Duration": 0.0267681,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"same-frame-offset\")",
+        "Status": "Passed",
+        "Duration": 0.0060928,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"singular\")",
+        "Status": "Passed",
+        "Duration": 0.0022275,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"ill-conditioned\")",
+        "Status": "Passed",
+        "Duration": 0.0021992,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"string-coordinate\")",
+        "Status": "Passed",
+        "Duration": 0.0020898,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"negative-unit\")",
+        "Status": "Passed",
+        "Duration": 0.0011177,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"unknown-evidence-status\")",
+        "Status": "Passed",
+        "Duration": 0.0016582,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"duplicate-origin\")",
+        "Status": "Passed",
+        "Duration": 0.0043848,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"numeric-name\")",
+        "Status": "Passed",
+        "Duration": 0.0019691,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.MalformedScienceIsRejected(\"float-operation-version\")",
+        "Status": "Passed",
+        "Duration": 0.0010563,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NewCommonFrameUsesNewDefinitionsWithoutRewritingHistory",
+        "Status": "Passed",
+        "Duration": 0.0159187,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"duplicate\",\"{\\\"x\\\":1,\\\"x\\\":2}\")",
+        "Status": "Passed",
+        "Duration": 0.0022807,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"NaN\",\"{\\\"x\\\":NaN}\")",
+        "Status": "Passed",
+        "Duration": 0.0005987,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"Infinity\",\"{\\\"x\\\":Infinity}\")",
+        "Status": "Passed",
+        "Duration": 0.0004892,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"overflow\",\"{\\\"x\\\":1e999}\")",
+        "Status": "Passed",
+        "Duration": 0.0007174,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"comment\",\"{/* comment */\\\"x\\\":1}\")",
+        "Status": "Passed",
+        "Duration": 0.0004675,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"single-quote\",\"{'x':1}\")",
+        "Status": "Passed",
+        "Duration": 0.0006145,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"unquoted-keyword\",\"{true:1}\")",
+        "Status": "Passed",
+        "Duration": 0.00133,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"trailing-comma\",\"{\\\"x\\\":1,}\")",
+        "Status": "Passed",
+        "Duration": 0.000521,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"hex\",\"{\\\"x\\\":0x10}\")",
+        "Status": "Passed",
+        "Duration": 0.0005475,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"leading-zero\",\"{\\\"x\\\":01}\")",
+        "Status": "Passed",
+        "Duration": 0.0004721,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NonJsonMetadataCannotHideInsideOtherwiseValidScene(\"raw-newline\",\"{\\\"x\\\":\\\"a\\nb\\\"}\")",
+        "Status": "Passed",
+        "Duration": 0.0004837,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.NullMappingsNeverSilentlyRegisterLayers",
+        "Status": "Passed",
+        "Duration": 0.0047303,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.OptionalExtensionsAndUnresolvedAssetsRemainInert",
+        "Status": "Passed",
+        "Duration": 0.0031876,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"../asset.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0023041,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"/Users/someone/model.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0021786,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"~/model.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0011078,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"models/%2e%2e/model.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0011377,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"models\\\\model.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0024516,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"https://user:secret@example.org/model.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0026494,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"https://example.org/model.glb?sig=private\")",
+        "Status": "Passed",
+        "Duration": 0.0041625,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableLocatorsRejectPrivateOrAmbiguousAccess(\"file:///model.glb\")",
+        "Status": "Passed",
+        "Duration": 0.0020049,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.RepresentationBasisIsAppliedExactlyOnceBeforeRegistration",
+        "Status": "Passed",
+        "Duration": 0.002985,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ScientificRevisionsProtectHistoricalDefinitions(\"metadata\")",
+        "Status": "Passed",
+        "Duration": 0.0055683,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ScientificRevisionsProtectHistoricalDefinitions(\"frame\")",
+        "Status": "Passed",
+        "Duration": 0.0040241,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ScientificRevisionsProtectHistoricalDefinitions(\"operation\")",
+        "Status": "Passed",
+        "Duration": 0.0055009,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.ScientificRevisionsProtectHistoricalDefinitions(\"registration\")",
+        "Status": "Passed",
+        "Duration": 0.0034193,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_affine.json",
+        "Status": "Passed",
+        "Duration": 0.0045372,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_unknown-operation.json",
+        "Status": "Passed",
+        "Duration": 0.0036907,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_unknown-version.json",
+        "Status": "Passed",
+        "Duration": 0.00264,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_required-extension.json",
+        "Status": "Passed",
+        "Duration": 0.0033984,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_body-conflict.json",
+        "Status": "Passed",
+        "Duration": 0.0059919,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_wkt2.json",
+        "Status": "Passed",
+        "Duration": 0.0030285,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_projjson.json",
+        "Status": "Passed",
+        "Duration": 0.0029194,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_geodetic.json",
+        "Status": "Passed",
+        "Duration": 0.0029149,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneDocumentTests.PortableFixture_geographic.json",
+        "Status": "Passed",
+        "Duration": 0.0027925,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.BlankLegacyLabelsRemainInspectableWithoutBecomingKnownIdentifiers",
+        "Status": "Passed",
+        "Duration": 0.0341666,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.ConflictingInlineFramesAreRejectedEvenWithoutRegistration",
+        "Status": "Passed",
+        "Duration": 0.0027537,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.EqualAssetsDeduplicateButConflictsGetDeterministicCollisionCheckedIds",
+        "Status": "Passed",
+        "Duration": 0.0140713,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.MigrationIsExplicitAndCannotOverwriteOriginalFiles",
+        "Status": "Passed",
+        "Duration": 0.0141207,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.MigrationKeepsScienceAndSeparatesViewSessionAndPrivateAccess",
+        "Status": "Passed",
+        "Duration": 0.0227815,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.MigrationPreservesCoordinateAndDisplayResults(\"affine\")",
+        "Status": "Passed",
+        "Duration": 0.0356549,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.MigrationPreservesCoordinateAndDisplayResults(\"unknown-units\")",
+        "Status": "Passed",
+        "Duration": 0.0748579,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.MigrationPreservesCoordinateAndDisplayResults(\"large-origin\")",
+        "Status": "Passed",
+        "Duration": 0.0164434,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.UnregisteredUnknownFrameKeepsEveryOriginalField",
+        "Status": "Passed",
+        "Duration": 0.0059684,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneMigrationTests.ViewEditsHaveNoEffectOnScientificRevisionOrRegistration",
+        "Status": "Passed",
+        "Duration": 0.0094241,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.DuplicatePropertiesAndTrailingContentFail",
+        "Status": "Passed",
+        "Duration": 0.0017518,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidNumericsFailExplicitly",
+        "Status": "Passed",
+        "Duration": 0.0004623,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"body\")",
+        "Status": "Passed",
+        "Duration": 0.0006637,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"definition\")",
+        "Status": "Passed",
+        "Duration": 0.000121,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"units\")",
+        "Status": "Passed",
+        "Duration": 0.0001253,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"target\")",
+        "Status": "Passed",
+        "Duration": 0.0001128,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"geographic\")",
+        "Status": "Passed",
+        "Duration": 9.07e-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"duplicate\")",
+        "Status": "Passed",
+        "Duration": 0.0003122,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.InvalidRegistrationIsNotSilentlyAccepted(\"same-frame-offset\")",
+        "Status": "Passed",
+        "Duration": 0.0001077,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.LargeOriginIsSubtractedBeforeFloatConversion",
+        "Status": "Passed",
+        "Duration": 0.0003655,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"version\")",
+        "Status": "Passed",
+        "Duration": 0.0023887,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"missing\")",
+        "Status": "Passed",
+        "Duration": 0.0017423,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"coordinate\")",
+        "Status": "Passed",
+        "Duration": 0.0031595,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"extra\")",
+        "Status": "Passed",
+        "Duration": 0.0019748,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-number\")",
+        "Status": "Passed",
+        "Duration": 0.0013579,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"numeric-name\")",
+        "Status": "Passed",
+        "Duration": 0.001265,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.MalformedDocumentsDoNotAcquireDefaultMeaning(\"string-bool\")",
+        "Status": "Passed",
+        "Duration": 0.0014144,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Earth\")",
+        "Status": "Passed",
+        "Duration": 0.0021019,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Moon\")",
+        "Status": "Passed",
+        "Duration": 0.00132,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(\"Mars\")",
+        "Status": "Passed",
+        "Duration": 0.0016876,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.PersistenceKeepsBodyUnknownMetadataAndUnloadedLayerIdentity(null)",
+        "Status": "Passed",
+        "Duration": 0.0016254,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,False)",
+        "Status": "Passed",
+        "Duration": 0.0051109,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,False)",
+        "Status": "Passed",
+        "Duration": 0.0061401,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(1,True)",
+        "Status": "Passed",
+        "Duration": 0.0038961,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RegisteredLayersRemainCoincidentUnderDisplayChanges(2,True)",
+        "Status": "Passed",
+        "Duration": 0.0035065,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.RepresentationBasisUnitsAndDisplayComposeOnce",
+        "Status": "Passed",
+        "Duration": 0.0011489,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.ShearReflectionAndNonuniformScaleArePreserved",
+        "Status": "Passed",
+        "Duration": 0.0014098,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "GeoX.Spatial.Tests.SceneStateTests.UnknownUnregisteredInputPersistsWithoutAnInventedMetreOrBody",
+        "Status": "Passed",
+        "Duration": 0.0017914,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "importerCases": {
+    "harnessSha256": {
+      "Editor/GeoX.GltfTrial.Tests.asmdef": "9a1e1861d00f7156d8f7238db55cfaafd86817efc20b4efc26be612295125db4",
+      "Editor/ImporterBuild.cs": "65e7ae585d540f6a2b02c909889b032782abcd855e725e865e8cf23b049dc29b",
+      "Editor/ImporterTests.cs": "dc71daf2287388812615b840db601ccd0b34d3270a9d310f8787ed4e99e336c6",
+      "Editor/QualificationTests.cs": "4e09dfcc3af0e2f0c3ee5d1117ddfbb08acee65000843eabc3dce1b689aaa124",
+      "Runtime/GeoX.GltfTrial.asmdef": "a05c044bbd225a54a4211fd9fca239dfcf4cef7befe204df8b65c8e57fd73acb",
+      "Runtime/ImporterPlayer.cs": "96be45fdbb42cf0b7e6683de79cc842fb8cbdec323e542b698f2a86961b4e275",
+      "Runtime/ImporterTrial.cs": "9bd2534b3dc7c62b9217dff782eff0115ee5c8f283a22185159c7b5ab009584a"
+    },
+    "fixtureSha256": {
+      "bad-magic.glb.bytes": "e1e4560d0be886a1a4cda1f1820908140928be3b5f6ad33656a4f10adaa61578",
+      "external-image.glb.bytes": "55941b253db9d90f23beda4eefa6d4d42aa987cf5891ac2b53d190bbb70cfbae",
+      "geometry.bin.bytes": "578ecc07351d17997fd90a04819f6b0ba060c38c5142179c1b3a83adb4c664be",
+      "hierarchy.glb.bytes": "0468fd0c93295b4da75e56bd7da3803a95a1c1adea59ad3b420f493799f468db",
+      "missing-image.glb.bytes": "6daa761044e11602d0ece4a7fb18bf9ed8dd8fb8bde806cc3433ea907492377a",
+      "multifile.gltf.bytes": "72ba1cc67a60f28b3cf0bb60f24c82fe587c0b2dd9e15538a1314d1f751b7999",
+      "pixel.png.bytes": "5c952aabb3e3a327a99de9fd0f0c7e4a0a7695fed51414edfe864ac06ed56b1b",
+      "textured.glb.bytes": "9f84a7ff86b6dbc746b27cada3c4492f114bc2f10f803ee0cd82ae9abdfeed14",
+      "triangle.glb.bytes": "909a9253bab0a4c31de0f3c47d06b1aa09e96a33ce168656e1935ab1c4920266",
+      "truncated.glb.bytes": "8c4f58bd09d68094ff058e778078541a75d4b72d6227dcd15a857bda5cf6acdd",
+      "unsupported-required.glb.bytes": "2dce0ad4c571fca96644362a30caa75afe3fec0b5c175a9f4de212b80215e904"
+    },
+    "results": [
+      {
+        "fixture": "triangle.glb",
+        "caseId": "triangle.glb:case-1",
+        "stage": "inspect",
+        "errorCount": 0,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": true,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 1,
+        "vertices": 3,
+        "diagnostics": [],
+        "shaders": [
+          "glTF/PbrMetallicRoughness"
+        ],
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "hierarchy.glb",
+        "caseId": "hierarchy.glb:case-2",
+        "stage": "inspect",
+        "errorCount": 0,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": true,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 1,
+        "vertices": 3,
+        "diagnostics": [],
+        "shaders": [
+          "glTF/PbrMetallicRoughness"
+        ],
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "textured.glb",
+        "caseId": "textured.glb:case-3",
+        "stage": "inspect",
+        "errorCount": 0,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": true,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 1,
+        "vertices": 3,
+        "diagnostics": [],
+        "shaders": [
+          "glTF/PbrMetallicRoughness"
+        ],
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "external-image.glb",
+        "caseId": "external-image.glb:case-4",
+        "stage": "load",
+        "errorCount": 2,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": false,
+        "cancelled": false,
+        "deniedRequests": 1,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Error:TextureDownloadFailed",
+          "Error:TextureLoadFailed"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "missing-image.glb",
+        "caseId": "missing-image.glb:case-5",
+        "stage": "load",
+        "errorCount": 2,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": false,
+        "cancelled": false,
+        "deniedRequests": 1,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Error:TextureDownloadFailed",
+          "Error:TextureLoadFailed"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "unsupported-required.glb",
+        "caseId": "unsupported-required.glb:case-6",
+        "stage": "load",
+        "errorCount": 1,
+        "cleanupException": null,
+        "loaded": false,
+        "instantiated": false,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Error:ExtensionUnsupported"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "truncated.glb",
+        "caseId": "truncated.glb:case-7",
+        "stage": "load",
+        "errorCount": 1,
+        "cleanupException": null,
+        "loaded": false,
+        "instantiated": false,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Error:UnexpectedEndOfContent"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "bad-magic.glb",
+        "caseId": "bad-magic.glb:case-8",
+        "stage": "load",
+        "errorCount": 1,
+        "cleanupException": null,
+        "loaded": false,
+        "instantiated": false,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Error:JsonParsingFailed"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "triangle.glb",
+        "caseId": "triangle.glb:case-9",
+        "stage": "inspect",
+        "errorCount": 0,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": true,
+        "cancelled": false,
+        "deniedRequests": 0,
+        "meshes": 1,
+        "vertices": 3,
+        "diagnostics": [],
+        "shaders": [
+          "glTF/PbrMetallicRoughness"
+        ],
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "triangle.glb",
+        "caseId": "triangle.glb:cancel-before-load",
+        "stage": "load",
+        "errorCount": 0,
+        "cleanupException": null,
+        "loaded": false,
+        "instantiated": false,
+        "cancelled": true,
+        "deniedRequests": 0,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Log:OperationCanceled"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      },
+      {
+        "fixture": "triangle.glb",
+        "caseId": "triangle.glb:cancel-before-instantiation",
+        "stage": "instantiate",
+        "errorCount": 0,
+        "cleanupException": null,
+        "loaded": true,
+        "instantiated": false,
+        "cancelled": true,
+        "deniedRequests": 0,
+        "meshes": 0,
+        "vertices": 0,
+        "diagnostics": [
+          "Log:OperationCanceled"
+        ],
+        "shaders": null,
+        "exception": null,
+        "passed": true
+      }
+    ]
+  }
+}

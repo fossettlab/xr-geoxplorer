@@ -1,0 +1,81 @@
+{
+  "date": "2026-09-12",
+  "bead": "geox-k1v.2.1",
+  "status": "device_execution_pending",
+  "productionAdoptionApproved": false,
+  "questExecutionObserved": false,
+  "harnessSha256": {
+    "Editor/GeoX.GltfTrial.Tests.asmdef": "9a1e1861d00f7156d8f7238db55cfaafd86817efc20b4efc26be612295125db4",
+    "Editor/ImporterBuild.cs": "65e7ae585d540f6a2b02c909889b032782abcd855e725e865e8cf23b049dc29b",
+    "Editor/ImporterTests.cs": "dc71daf2287388812615b840db601ccd0b34d3270a9d310f8787ed4e99e336c6",
+    "Editor/QualificationTests.cs": "4e09dfcc3af0e2f0c3ee5d1117ddfbb08acee65000843eabc3dce1b689aaa124",
+    "Runtime/GeoX.GltfTrial.asmdef": "a05c044bbd225a54a4211fd9fca239dfcf4cef7befe204df8b65c8e57fd73acb",
+    "Runtime/ImporterPlayer.cs": "96be45fdbb42cf0b7e6683de79cc842fb8cbdec323e542b698f2a86961b4e275",
+    "Runtime/ImporterTrial.cs": "9bd2534b3dc7c62b9217dff782eff0115ee5c8f283a22185159c7b5ab009584a"
+  },
+  "unity": {
+    "version": "6000.4.4f1",
+    "buildResult": "Succeeded\nErrors: 0\nWarnings: 1\nWarning: Pipeline: No RuntimePipelineManager components found in build scenes. Pipeline will be disabled in Player builds.",
+    "trial": "/private/tmp/geox-gltf-trial-n78u5x07",
+    "includedShaders": [
+      "Legacy Shaders/Diffuse",
+      "Hidden/CubeBlur",
+      "Hidden/CubeCopy",
+      "Hidden/CubeBlend",
+      "Sprites/Default",
+      "UI/Default",
+      "UI/DefaultETC1",
+      "glTF/PbrMetallicRoughness",
+      "glTF/PbrSpecularGlossiness",
+      "glTF/Unlit"
+    ]
+  },
+  "apk": {
+    "path": "build/gltf-importer-trial/GeoX-GltfTrial-2026-09-12.apk",
+    "sha256": "e06d7a3fae7813c8026e2ba1347b6ae380749159a207c7d782a82307b6bb5590",
+    "bytes": 36676953,
+    "verification": {
+      "apksigner": {
+        "exitCode": 0,
+        "output": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\n"
+      },
+      "zipalign": {
+        "exitCode": 0,
+        "output": "Verification successful"
+      },
+      "aapt": {
+        "exitCode": 0,
+        "output": "package: name='edu.wustl.fossett.geoxgltftrial' versionCode='1' versionName='1.0' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'\nsdkVersion:'29'\ntargetSdkVersion:'34'\nuses-permission: name='android.permission.INTERNET'\nuses-permission: name='edu.wustl.fossett.geoxgltftrial.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'\nlaunchable-activity: name='com.unity3d.player.UnityPlayerGameActivity'  label='' icon=''\nnative-code: 'arm64-v8a'"
+      },
+      "native": {
+        "libraries": [
+          "lib/arm64-v8a/lib_burst_generated.so",
+          "lib/arm64-v8a/libc++_shared.so",
+          "lib/arm64-v8a/libgame.so",
+          "lib/arm64-v8a/libil2cpp.so",
+          "lib/arm64-v8a/libmain.so",
+          "lib/arm64-v8a/libswappywrapper.so",
+          "lib/arm64-v8a/libunity.so"
+        ]
+      },
+      "shaderAssets": []
+    },
+    "fixtures": {
+      "triangle.glb": "909a9253bab0a4c31de0f3c47d06b1aa09e96a33ce168656e1935ab1c4920266",
+      "hierarchy.glb": "0468fd0c93295b4da75e56bd7da3803a95a1c1adea59ad3b420f493799f468db",
+      "textured.glb": "9f84a7ff86b6dbc746b27cada3c4492f114bc2f10f803ee0cd82ae9abdfeed14",
+      "external-image.glb": "55941b253db9d90f23beda4eefa6d4d42aa987cf5891ac2b53d190bbb70cfbae",
+      "missing-image.glb": "6daa761044e11602d0ece4a7fb18bf9ed8dd8fb8bde806cc3433ea907492377a",
+      "unsupported-required.glb": "2dce0ad4c571fca96644362a30caa75afe3fec0b5c175a9f4de212b80215e904",
+      "truncated.glb": "8c4f58bd09d68094ff058e778078541a75d4b72d6227dcd15a857bda5cf6acdd",
+      "bad-magic.glb": "e1e4560d0be886a1a4cda1f1820908140928be3b5f6ad33656a4f10adaa61578",
+      "multifile.gltf": "72ba1cc67a60f28b3cf0bb60f24c82fe587c0b2dd9e15538a1314d1f751b7999",
+      "geometry.bin": "578ecc07351d17997fd90a04819f6b0ba060c38c5142179c1b3a83adb4c664be",
+      "pixel.png": "5c952aabb3e3a327a99de9fd0f0c7e4a0a7695fed51414edfe864ac06ed56b1b"
+    }
+  },
+  "applicationIntegrity": {
+    "preExistingFiles": 7800,
+    "changed": []
+  }
+}
