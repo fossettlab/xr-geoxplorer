@@ -1,0 +1,5 @@
+# Alex Bradley is the sole required code owner for every change.
+* @bradleylab
+
+# Ownership and workflow changes need the same review.
+/.github/ @bradleylab
