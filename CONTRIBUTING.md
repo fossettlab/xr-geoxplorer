@@ -26,6 +26,16 @@ unity open "/path/to/xr-geoxplorer" --args "-automated"
   - `fix: guard missing Photon room config`
   - `docs: update asset bundle bake notes`
 
+### Review And Merge Protection
+
+The [repository rules](https://github.com/fossettlab/xr-geoxplorer/rules) protect `main` and the default branch. Contributors must use pull requests; direct pushes, force pushes, and deletion of the protected branch are blocked.
+
+[CODEOWNERS](.github/CODEOWNERS) names Alex Bradley (`@bradleylab`) as the sole required reviewer for every path, including `CODEOWNERS` itself and workflow files. Student PRs require his approval. New reviewable commits dismiss earlier approvals, and all review conversations must be resolved before merging. Peer and automated reviews are useful but do not replace Alex's review.
+
+As in the EEPS protection policy, updates to the protected branch are restricted to its designated maintainers. Here that means FossettLab organization owners, and only through a PR. Alex is currently the sole organization owner. Owners retain an explicit PR-only bypass, including for their own PRs, which GitHub does not let them self-approve. The exception would also apply to future organization owners. No student, write role, team, or bot has a bypass in this repository's review ruleset; administrators can still change settings.
+
+Existing GitHub Actions workflows and Copilot review settings remain in place. The Dependabot workflow's automated approval does not satisfy code-owner review, and its auto-merge cannot bypass the owner-only merge restriction. Alex must review and merge dependency PRs as well. No required status-check names are added by this protection setup; use the live rules to check the current requirements and inspect CI results before merging.
+
 ## Local Build Check
 
 Before opening a PR that changes scripts, packages, or project settings:
