@@ -1,0 +1,50 @@
+{
+  "repository": "https://github.com/KhronosGroup/glTF-Sample-Assets",
+  "commit": "2bac6f8c57bf471df0d2a1e8a8ec023c7801dddf",
+  "status": "Representative licensed samples for desk inventory; not Quest acceptance or a production catalog",
+  "models": [
+    {
+      "id": "khronos-box",
+      "name": "Box",
+      "author": "Cesium",
+      "year": 2017,
+      "license": "CC-BY-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/legalcode",
+      "readme": "https://github.com/KhronosGroup/glTF-Sample-Assets/blob/2bac6f8c57bf471df0d2a1e8a8ec023c7801dddf/Models/Box/README.md",
+      "path": "Models/Box/glTF-Binary/Box.glb",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/2bac6f8c57bf471df0d2a1e8a8ec023c7801dddf/Models/Box/glTF-Binary/Box.glb",
+      "bytes": 1664,
+      "sha256": "ed52f7192b8311d700ac0ce80644e3852cd01537e4d62241b9acba023da3d54e",
+      "characteristics": {
+        "container": "GLB",
+        "meshes": 1,
+        "materials": 1,
+        "embeddedTexture": false,
+        "selfContained": true
+      },
+      "notes": "Minimal official Khronos sample. Credit Cesium. Not a device workload."
+    },
+    {
+      "id": "khronos-box-textured",
+      "name": "Box Textured",
+      "author": "Cesium",
+      "year": 2017,
+      "license": "LicenseRef-CC-BY-TM",
+      "licenseUrl": "https://github.com/KhronosGroup/glTF-Sample-Assets/blob/2bac6f8c57bf471df0d2a1e8a8ec023c7801dddf/Models/BoxTextured/LICENSE.md",
+      "readme": "https://github.com/KhronosGroup/glTF-Sample-Assets/blob/2bac6f8c57bf471df0d2a1e8a8ec023c7801dddf/Models/BoxTextured/README.md",
+      "path": "Models/BoxTextured/glTF-Binary/BoxTextured.glb",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/2bac6f8c57bf471df0d2a1e8a8ec023c7801dddf/Models/BoxTextured/glTF-Binary/BoxTextured.glb",
+      "bytes": 5956,
+      "sha256": "b510eca2e2ef33f62f9ed57d6e7ce2d10ebb2bdebc4a8e59d347719ba81abdf4",
+      "characteristics": {
+        "container": "GLB",
+        "meshes": 1,
+        "materials": 1,
+        "embeddedTexture": true,
+        "selfContained": true,
+        "trademark": "Cesium logo"
+      },
+      "notes": "Official textured sample with Cesium trademark limits. Do not reuse the mark. Not a device workload."
+    }
+  ]
+}

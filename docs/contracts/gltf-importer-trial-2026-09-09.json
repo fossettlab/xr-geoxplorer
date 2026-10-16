@@ -1,0 +1,246 @@
+{
+  "status": "dependency_review_required",
+  "applicationFilesUnchanged": 7796,
+  "applicationFilesChanged": [],
+  "manifest": {
+    "dependencies": {
+      "com.unity.pipeline": "0.4.0-exp.1",
+      "com.unity.test-framework": "1.6.0",
+      "com.unity.modules.jsonserialize": "1.0.0",
+      "com.unity.modules.unitywebrequest": "1.0.0",
+      "com.unity.modules.unitywebrequesttexture": "1.0.0",
+      "com.unity.modules.imageconversion": "1.0.0",
+      "com.unity.modules.imgui": "1.0.0",
+      "com.unity.modules.animation": "1.0.0",
+      "com.unity.modules.physics": "1.0.0",
+      "com.unity.cloud.gltfast": "6.20.0"
+    }
+  },
+  "lock": {
+    "dependencies": {
+      "com.unity.burst": {
+        "version": "1.8.30",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.mathematics": "1.2.1",
+          "com.unity.modules.jsonserialize": "1.0.0"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.cloud.gltfast": {
+        "version": "6.20.0",
+        "depth": 0,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.burst": "1.8.30",
+          "com.unity.collections": "2.6.8",
+          "com.unity.mathematics": "1.3.3",
+          "com.unity.modules.jsonserialize": "1.0.0",
+          "com.unity.modules.unitywebrequest": "1.0.0"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.collections": {
+        "version": "6.4.0",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.burst": "1.8.23",
+          "com.unity.mathematics": "1.3.2",
+          "com.unity.nuget.mono-cecil": "1.11.5",
+          "com.unity.test-framework": "1.4.6",
+          "com.unity.test-framework.performance": "3.0.3"
+        }
+      },
+      "com.unity.ext.nunit": {
+        "version": "2.0.5",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.mathematics": {
+        "version": "1.3.3",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {},
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.nuget.mono-cecil": {
+        "version": "1.11.6",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {},
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.nuget.newtonsoft-json": {
+        "version": "3.2.2",
+        "depth": 1,
+        "source": "registry",
+        "dependencies": {},
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.pipeline": {
+        "version": "0.4.0-exp.1",
+        "depth": 0,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.test-framework": "1.1.33",
+          "com.unity.nuget.mono-cecil": "1.11.6",
+          "com.unity.modules.uielements": "1.0.0",
+          "com.unity.modules.jsonserialize": "1.0.0",
+          "com.unity.modules.screencapture": "1.0.0",
+          "com.unity.nuget.newtonsoft-json": "3.0.2"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.test-framework": {
+        "version": "1.6.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.ext.nunit": "2.0.3",
+          "com.unity.modules.imgui": "1.0.0",
+          "com.unity.modules.jsonserialize": "1.0.0"
+        }
+      },
+      "com.unity.test-framework.performance": {
+        "version": "3.4.0",
+        "depth": 2,
+        "source": "registry",
+        "dependencies": {
+          "com.unity.test-framework": "1.1.33",
+          "com.unity.modules.jsonserialize": "1.0.0"
+        },
+        "url": "https://packages.unity.com"
+      },
+      "com.unity.modules.animation": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.hierarchycore": {
+        "version": "1.0.0",
+        "depth": 2,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.imageconversion": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.imgui": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.jsonserialize": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.physics": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.screencapture": {
+        "version": "1.0.0",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.modules.imageconversion": "1.0.0"
+        }
+      },
+      "com.unity.modules.ui": {
+        "version": "1.0.0",
+        "depth": 2,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.uielements": {
+        "version": "1.0.0",
+        "depth": 1,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.modules.ui": "1.0.0",
+          "com.unity.modules.imgui": "1.0.0",
+          "com.unity.modules.jsonserialize": "1.0.0",
+          "com.unity.modules.hierarchycore": "1.0.0",
+          "com.unity.modules.physics": "1.0.0"
+        }
+      },
+      "com.unity.modules.unitywebrequest": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {}
+      },
+      "com.unity.modules.unitywebrequesttexture": {
+        "version": "1.0.0",
+        "depth": 0,
+        "source": "builtin",
+        "dependencies": {
+          "com.unity.modules.unitywebrequest": "1.0.0",
+          "com.unity.modules.imageconversion": "1.0.0"
+        }
+      }
+    }
+  },
+  "initialTest": {
+    "success": false,
+    "command": "unity command test_status",
+    "data": null,
+    "errors": [
+      {
+        "code": "COMMAND_FAILED",
+        "message": "Pipeline command 'test_status' timed out after 30000ms"
+      }
+    ],
+    "warnings": []
+  },
+  "correctedHarnessCompiled": false,
+  "androidBuildPerformed": false,
+  "questObserved": false,
+  "sources": {
+    "gltfast": {
+      "name": "com.unity.cloud.gltfast",
+      "version": "6.20.0",
+      "url": "https://download.packages.unity.com/com.unity.cloud.gltfast/-/com.unity.cloud.gltfast-6.20.0.tgz",
+      "sha256": "bc51a487caf6c75c93c69bfc272a7cd13a0e9f5b8738594b7661d45e3fc1e136",
+      "dependencies": {
+        "com.unity.burst": "1.8.30",
+        "com.unity.collections": "2.6.8",
+        "com.unity.mathematics": "1.3.3",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
+    },
+    "validator": {
+      "name": "gltf-validator",
+      "version": "2.0.0-dev.3.10",
+      "url": "https://registry.npmjs.org/gltf-validator/-/gltf-validator-2.0.0-dev.3.10.tgz",
+      "integrity": "sha512-odJ4k0tRkGXiDGn78yDBg+fBbAIvBnXxh3RwAta0emSxGtyagFE8B4xELB1oYe3S5RD8Ci3uZAsZaascH2LAEQ==",
+      "sha256": "4e03dbdc3bc0d1342afd5d2d7ae341a7e3474502ccb872b02dbbaddaee0fdec6"
+    }
+  },
+  "harnessSources": {
+    "tools/gltf-importer-trial/sources.json": "ba13afb27e0b7a1563bde167177b772d4c1a061977521943bbc3e3d55f8c5e45",
+    "tools/gltf-importer-trial/unity/Runtime/GeoX.GltfTrial.asmdef": "a05c044bbd225a54a4211fd9fca239dfcf4cef7befe204df8b65c8e57fd73acb",
+    "tools/gltf-importer-trial/unity/Runtime/ImporterTrial.cs": "b077277d16ce7f971c99ff5b92834d540ee878b1a5e7830077fc9151fb86c142",
+    "tools/gltf-importer-trial/unity/Editor/ImporterTests.cs": "85ad0dac6b602d786ab0029d8ec27445538d7a200f02eacaa3ce4874412e98fc",
+    "tools/gltf-importer-trial/unity/Editor/GeoX.GltfTrial.Tests.asmdef": "c2e674b8e9c5f4ac0cdd751b3f3d5ed54c0f0c20eb2ac3855fec42aab7157bd0"
+  },
+  "scripts": {
+    "scripts/fetch_gltf_trial_sources.py": "7d33b447d7404351d9c9ae58ce052e2ba04e3fd95801f521bddbc871adf05486",
+    "scripts/prepare_gltf_importer_trial.py": "e070e203b213e405a49f30f94c052a93f834dea93c4ce752dec7e618f23750b1",
+    "scripts/validate_model_input_fixtures.cjs": "dfda08dee37bd2f356b728bc9b9286b1f195f7f51ed52c6e82975d3c539b46b3"
+  },
+  "editorExited": true
+}

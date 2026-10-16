@@ -1,0 +1,17 @@
+{
+  "name": "GeoX.GltfTrial.Tests",
+  "references": [
+    "GeoX.GltfTrial",
+    "glTFast"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ]
+}
